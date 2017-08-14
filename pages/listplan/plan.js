@@ -26,8 +26,9 @@ Page({
     curMeasurement: 'Kg',
 
     //临时存放部位，名字
-    tmpPartName:'',
-    tmpMovementName:'',
+    tmpMovement: new datamodel.createMovement(),
+    tmpPartName: '胸上部',
+    tmpMovementName: '上斜杠铃推举',
 
     //指定当前修改的记录ID
     curModifyMovementId: '',
@@ -61,18 +62,16 @@ Page({
 
   //
   createMovement: function () {
-
-    var newMovement = {
-      date: this.data.selectedDate,
-      movementIndex: this.data.curMovementIndex + "",
-      partName: this.data.curPartName,
-      movementName: this.data.curMovementName,
-      groupCount: this.data.curGroupCount,
-      movementCount: this.data.curMovementCount,
-      movementWeight: this.data.curMovementWeight,
-      checked: false, //记录时，一律不记录选中状态
-      measurement: this.data.curMeasurement
-    };
+    var newMovement = new datamodel.createMovement(
+      this.data.selectedDate,
+      this.data.curMovementIndex + "",
+      this.data.curPartName,
+      this.data.curMovementName,
+      this.data.curGroupCount,
+      this.data.curMovementCount,
+      this.data.curMovementWeight,
+      false, //记录时，一律不记录选中状态
+      app.system.userConfig.measurement);
 
     return newMovement;
   },
@@ -100,7 +99,7 @@ Page({
     }
     var moveDayDate = new Date();
     moveDayDate.setTime(moveDayTimeMills);
-    console.log("move to.............", moveDayDate);
+    console.log("move to ", moveDayDate +".............");
     this.setData({
       selectedDate: util.formatDateToString(moveDayDate),
     });
@@ -108,6 +107,9 @@ Page({
     this.loadData();
   },
 
+  /**
+   * 响应点击日期按钮，跳转日历页面
+   */
   onSelectDate: function () {
     //TODO 增加读取数据功能
     //离开页面前，先保存
