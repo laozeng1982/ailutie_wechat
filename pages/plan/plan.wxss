@@ -1,0 +1,490 @@
+/* plan.wxss */
+
+/** wxss **/
+
+.container1 {
+  display: flex inline-flex;
+  border-bottom: 1rpx solid #eee;
+}
+
+.container2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #eee;
+}
+
+.listSingleMovement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movementName {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #eee;
+}
+
+.movementNumbers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container_iner {
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.fontset {
+  color: #353535;
+  font-size: 40rpx;
+  font-weight: 900;
+}
+
+.slider {
+  padding-left: 10 rpx;
+  padding-right: 10rpx;
+  flex-grow: 4;
+}
+
+.pickergroup {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  height: 2rem;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  width: 100%;
+  /* height: 40rpx; */
+  justify-content: center;
+  height: 2rem;
+  align-items: center;
+}
+
+.graySpace {
+  /* width: 90%; */
+  background: #fff;
+  font-size: 12px;
+  min-height: 30rpx;
+}
+
+.space {
+  padding-left: 40rpx;
+  background: #eee;
+  height: 1rpx;
+}
+
+/** 修改button默认的点击态样式类**/
+
+.button-hover {
+  background-color: red;
+}
+
+/** 添加自定义button点击态样式类**/
+
+.other-button-hover {
+  background-color: blue;
+}
+
+/* 边框 */
+
+.table {
+  border: 1px solid darkgray;
+}
+
+.tableCornor {
+  align-content: center;
+  width: 100%;
+  border: 1px solid darkgray;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 2rem;
+  align-items: center;
+}
+
+.bg-w {
+  background: snow;
+}
+
+.bg-g {
+  background: #e6f3f9;
+}
+
+.tableheader {
+  font-size: 12pt;
+  width: 15%;
+  justify-content: center;
+  background: #888;
+  color: #fff;
+  display: flex;
+  height: 2rem;
+  align-items: center;
+}
+
+.tableItem {
+  font-size: 12pt;
+  width: 15%;
+  justify-content: center;
+  text-align: center;
+}
+
+.tableheaderName {
+  font-size: 12pt;
+  width: 60%;
+  justify-content: flex-start;
+  background: #888;
+  color: #fff;
+  display: flex;
+  height: 2rem;
+  align-items: center;
+}
+
+.tableItemName {
+  font-size: 12pt;
+  width: 60%;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.tableheaderNumber {
+  font-size: 12pt;
+  width: 50%;
+  justify-content: flex-start;
+  background: #888;
+  color: #fff;
+  display: flex;
+  height: 2rem;
+  align-items: center;
+}
+
+.tableItemNumber {
+  font-size: 12pt;
+  width: 50%;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.tableItem_kg {
+  font-size: 12pt;
+  width: 20%;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+/* 增加按钮 */
+
+.addButton {
+  /* position: fixed; */
+  right: 40rpx;
+  bottom: 40rpx;
+  background: #393f4f;
+  color: #fff;
+  font-weight: bold;
+  font-size: 60rpx;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  padding: 16rpx;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px #669;
+  z-index: 1000;
+}
+
+.dateButton {
+  background: #393f4f;
+  color: #fff;
+  font-weight: bold;
+  /* font-size: 60rpx; */
+  text-align: center;
+  box-shadow: 0 0 8px 2px #669;
+  z-index: 1000;
+   flex-grow: 4;
+}
+
+.dateMoveButton {
+  background: #393f4f;
+  color: #fff;
+  font-weight: bold;
+  /* font-size: 60rpx; */
+  text-align: center;
+  box-shadow: 0 0 8px 2px #669;
+  z-index: 1000;
+}
+
+/*总菜单容器*/
+
+.menu {
+  display: block;
+  height: 38px;
+}
+
+/*一级菜单*/
+
+.menu dt {
+  font-size: 15px;
+  float: left;
+  width: 33%;
+  height: 38px;
+  border-right: 1px solid #d2d2d2;
+  border-bottom: 1px solid #d2d2d2;
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #5a5a5a;
+  line-height: 38px;
+}
+
+/*二级菜单外部容器样式*/
+
+.menu dd {
+  position: absolute;
+  width: 100%;
+  top: 39px;
+  left: 0;
+  z-index: 999;
+}
+
+/*二级菜单普通样式*/
+
+.menu li {
+  font-size: 14px;
+  line-height: 34px;
+  color: #575757;
+  height: 34px;
+  display: block;
+  padding-left: 8px;
+  background-color: #fff;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+/* 显示与隐藏 */
+
+.show {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.bg1 {
+  background: #5c258d;
+  background: -webkit-linear-gradient(to left, #5c258d, #4389a2);
+  background: linear-gradient(to left, #5c258d, #4389a2);
+}
+
+.bg2 {
+  background: #085078;
+  background: -webkit-linear-gradient(to left, #085078, #85d8ce);
+  background: linear-gradient(to left, #085078, #85d8ce);
+}
+
+.bg3 {
+  background: #16222a;
+  background: -webkit-linear-gradient(to bottom, #16222a, #3a6073);
+  background: linear-gradient(to bottom, #16222a, #3a6073);
+}
+
+.bg4 {
+  background: #eb3349;
+  background: -webkit-linear-gradient(to left, #eb3349, #f45c43);
+  background: linear-gradient(to left, #eb3349, #f45c43);
+}
+
+.bg5 {
+  background: #1d976c;
+  background: -webkit-linear-gradient(to left, #1d976c, #93f9b9);
+  background: linear-gradient(to left, #1d976c, #93f9b9);
+}
+
+/* for modal */
+
+.modal-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: 9000;
+  color: #fff;
+}
+
+.modal-dialog {
+  width: 80%;
+  height: 80%;
+  overflow: hidden;
+  position: absolute;
+   top: 25%; 
+  left: 0;
+  z-index: 9999;
+  background: #f9f9f9;
+  margin: -150rpx 105rpx;
+  border-radius: 36rpx;
+}
+
+.modal-title {
+  padding-top: 50rpx;
+  font-size: 36rpx;
+  color: #030303;
+  text-align: center;
+  border-bottom: 1px solid #dedede;
+}
+
+.modal-content {
+  padding: 50rpx 32rpx;
+}
+
+.modal-input {
+  display: flex;
+  background: #fff;
+  border: 2rpx solid #ddd;
+  border-radius: 4rpx;
+  font-size: 28rpx;
+}
+
+.modal-text {
+  display: flex;
+  background: #fff;
+  border: 2rpx solid #ddd;
+  border-radius: 4rpx;
+  font-size: 28rpx;
+}
+
+.input {
+  width: 100%;
+  height: 82rpx;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  color: #333;
+}
+
+input-holder {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  height: 86rpx;
+  border-top: 1px solid #dedede;
+  font-size: 34rpx;
+  line-height: 86rpx;
+}
+
+.btn-cancel {
+  width: 50%;
+  color: #666;
+  text-align: center;
+  border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+  width: 50%;
+  color: #ec5300;
+  text-align: center;
+}
+
+/* for movement items */
+.movement-list {
+}
+
+.movement-item {
+  width: 100%;
+  height: 150rpx;
+  border-bottom: 1rpx solid rgb(233, 233, 233);
+  position: relative;
+  left:0;
+  top:0;
+  overflow: hidden;
+}
+
+.movement {
+  position: absolute;
+  width: 100%;
+  height: 150rpx;
+  left:0;
+  top:0;
+  z-index: 100;
+  background-color: #FFF;
+}
+
+.header-img {
+  position: absolute;
+  width: 110rpx;
+  height: 110rpx;
+  left: 20rpx;
+  top: 20rpx;
+  border-radius: 10%;
+}
+
+.user-name {
+  position: absolute;
+  left: 150rpx;
+  top: 20rpx;
+}
+
+.movement-text {
+  position: absolute;
+  left: 150rpx;
+  bottom: 20rpx;
+  font-size: 80%;
+  color: rgb(127, 127, 127);
+}
+
+.movement-menu {
+  position: absolute;
+  width: 100%;
+  height: 150rpx;
+  left:0;
+  top:0;
+  z-index: 0;
+}
+
+.menu-delete {
+  position: absolute;
+  width: 150rpx;
+  height: 148rpx;
+  top:1rpx;
+  right: 0;
+  background-color: rgb(255, 58, 50);
+  color:#FFF;
+  text-align: center;
+  line-height:150rpx;
+}
+
+.menu-mark {
+  position: absolute;
+  width: 200rpx;
+  height: 148rpx;
+  top:1rpx;
+  right: 150rpx;
+  background-color: rgb(200, 199, 205);
+  color:#FFF;
+  text-align: center;
+  line-height:150rpx;
+}

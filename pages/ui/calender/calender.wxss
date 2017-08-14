@@ -1,0 +1,94 @@
+/* calender2.wxss */
+/* calender.wxss */
+
+.selected_date {
+  padding: 40rpx;
+  overflow: hidden;
+}
+
+.selected_date>view {
+  width: 33.3%;
+  float: left;
+}
+
+.calender_panel {
+  width: 100%;
+  height: 600rpx;
+}
+
+.calender_box {
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+  border-bottom: 1rpx solid #ececec;
+  display: flex;
+}
+
+.calender_box_header {
+  width: 100%;
+  background: #b2b2b2;
+  overflow: hidden;
+  border-bottom: 1rpx solid #ececec;
+  display: flex;
+}
+
+.weekday_label {
+  width: 14.28%;
+  float: left;
+  text-align: center;
+  font-size: 40rpx;
+  padding: 10rpx 0;
+}
+
+.weekday_label_head {
+  width: 14.28%;
+  float: left;
+  text-align: center;
+  font-size: 26rpx;
+  background: gray;
+  padding: 10rpx 0;
+}
+.weekday_label>header {
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  background: gray;
+  display: inline-block;
+}
+
+.weekday_label>text {
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  display: inline-block;
+}
+
+.selecte_icon {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.active_date {
+  background: #148447;
+  color: #fff;
+  border-radius: 50%;
+}
+
+.show_box {
+  padding: 20rpx;
+  font-size: 26rpx;
+  align-items: center;
+}
+
+.redcolor{
+  font-weight: 900;
+  color: red;
+}
+
+.button-group {
+  display: flex ;
+  width: 100%;
+  justify-content: space-between;
+  height: 3rem;
+  align-items: center;
+}

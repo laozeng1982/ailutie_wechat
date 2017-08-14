@@ -1,0 +1,96 @@
+<!--plan.wxml-->
+<view class="graySpace"></view>
+
+<view class="button-group">
+  <button class="dateMoveButton" bindtap="bindLastDate" size="default"> 前一天</button>
+  <button class="dateButton" bindtap="bindSelectDate" size="default"> {{selectedDate}}</button>
+  <button class="dateMoveButton" bindtap="bindNextDate" size="default"> 后一天</button>
+</view>
+
+<view class="graySpace"></view>
+
+<view class="container2">
+  <scroll-view scroll-y="true" style="height: 850rpx;" bindscroll='onScroll'>
+    <view class="listSingleMovement" wx:for="{{curMovementsList}}" wx:key="{{curMovementIndex}}" animation='{{item.wrapAnimation}}'>
+      <view class="graySpace"></view>
+
+      <view class="tableCornor" bindtap="bindModifyMovement" data-index="{{index}}">
+        <view class="graySpace"></view>
+
+        <view class="movementName">
+          <view class="tableItem2">{{item.partName}}</view>
+          <view class="tableItem3">{{item.movementName}}</view>
+        </view>
+
+        <view class="graySpace"></view>
+
+        <view class="movementNumbers">
+          <view class="tableItem">{{item.groupCount}}组</view>
+          <view class="tableItem">{{item.movementCount}}次</view>
+          <view class="tableItem_kg">{{item.movementWeight}}{{item.measurement}}</view>
+        </view>
+
+        <view class="graySpace"></view>
+
+      </view>
+      
+      <view class="graySpace"></view>
+    </view>
+
+  </scroll-view>
+</view>
+
+
+<view class="graySpace"></view>
+
+<view class="button-group">
+  <view class="addButton" bindtap="bindAddMovement">+</view>
+</view>
+
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showAdd}}"></view>
+<view class="modal-dialog" wx:if="{{showAdd}}">
+  <view class="modal-title">添加动作</view>
+  <view class="modal-content">
+    <picker mode="multiSelector" bindchange="bindMovementChange" bindcolumnchange="bindMovementColumnChange" value="{{multiMovementIndex}}" range="{{movementMultiArray}}">
+      <text>选择动作 : </text>{{curPartName}} {{curMovementName}}
+    </picker>
+    <view class="graySpace"></view>
+    <picker mode="multiSelector" bindchange="bindNumberChange" value="{{multiIndex}}" range="{{movementNoMultiArray}}">
+      <text>选择数量 : </text> {{curGroupCount}}组 {{curMovementCount}}次 {{curMovementWeight}}Kg
+    </picker>
+    <view class="graySpace"></view>
+    <view class="modal-input">
+      <text>组数</text>
+      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="inputGroupChange" class="input" value="{{curGroupCount}}" placeholder="{{curGroupCount}}组"></input>
+    </view>
+    <view class="graySpace"></view>
+    <view class="modal-input">
+      <text>次数</text>
+      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="inputMvCountChange" class="input" value="{{curMovementCount}}" placeholder="{{curMovementCount}}次"></input>
+    </view>
+    <view class="graySpace"></view>
+    <view class="modal-input">
+      <text>重量</text>
+      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="inputWeightChange" class="input" value="{{curMovementWeight}}" placeholder="{{curMovementWeight}}Kg"></input>
+    </view>
+  </view>
+
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+    <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+  </view>
+</view>
+
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModify}}"></view>
+<view class="modal-dialog" wx:if="{{showModify}}">
+  <view class="modal-title">修改动作</view>
+  <view class="modal-content">
+    <view class="modal-input">
+      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="inputChange" class="input" placeholder="请输入数量"></input>
+    </view>
+  </view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+    <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+<!--movement.wxml-->
+<view class="wxapp-modal" style="{{modal_style}}">
+  <view class="content">
+  </view>
+  <view class="mask" bindtap="closeModal"></view>
+</view>
