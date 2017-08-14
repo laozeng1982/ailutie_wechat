@@ -15,10 +15,6 @@ Page({
     allMovementsList: [],
     curMovementsList: [],
 
-
-    //选中的行编号
-    listSelectedItemIdx: [],
-
     //初始化，这些数据一是用来显示初始化设置
     //二是用来保存当前页面的选项，用以增加，修改记录
     curMovementIndex: 1,
@@ -29,6 +25,13 @@ Page({
     curMovementWeight: 30,
     curMeasurement: 'Kg',
 
+    //临时存放部位，名字
+    tmpPartName:'',
+    tmpMovementName:'',
+
+    //指定当前修改的记录ID
+    curModifyMovementId: '',
+
     //2D 数组，用来存放动作
     movementMultiArray: app.globalData.movementMultiArray,
     //动作索引
@@ -37,9 +40,24 @@ Page({
     //3D 数组，用来存放动作组数，次数和重量
     movementNoMultiArray: app.globalData.movementNoMultiArray,
 
-    showAdd: false,
-    showModify: false,
+
+    //组件控制
+    scrollY: true,
+    scrollHeight: 500,
+    actionName: '',
+    showModal: false
   },
+
+  swipeCheckX: 35, //激活检测滑动的阈值
+  swipeCheckState: 0, //0未激活 1激活
+  maxMoveLeft: 185, //消息列表项最大左滑距离
+  correctMoveLeft: 175, //显示菜单时的左滑距离
+  thresholdMoveLeft: 75,//左滑阈值，超过则显示菜单
+  lastShowMovementId: '', //记录上次显示菜单的消息id
+  moveX: 0,  //记录平移距离
+  showState: 0, //0 未显示菜单 1显示菜单
+  touchStartState: 0, // 开始触摸时的状态 0 未显示菜单 1 显示菜单
+  swipeDirection: 0, //是否触发水平滑动 0:未触发 1:触发水平滑动 2:触发垂直滑动
 
   //
   createMovement: function () {
@@ -62,11 +80,11 @@ Page({
   //------------------------------------------------------
   //以下是监听函数
 
-  bindLastDate: function () {
+  onLastDate: function () {
     this.moveDay(false);
   },
 
-  bindNextDate: function () {
+  onNextDate: function () {
     this.moveDay(true);
   },
 
@@ -74,6 +92,7 @@ Page({
     this.savePlan();
     var selectedDayTimeMills = util.formatStringToDate(this.data.selectedDate, '-').getTime();
     var moveDayTimeMills;
+    //时间改变一天，直接加上、或减去一天的毫秒数
     if (isNext) {
       moveDayTimeMills = selectedDayTimeMills + 3600 * 24 * 1000;
     } else {
@@ -89,7 +108,7 @@ Page({
     this.loadData();
   },
 
-  bindSelectDate: function () {
+  onSelectDate: function () {
     //TODO 增加读取数据功能
     //离开页面前，先保存
     console.log("select date");
@@ -119,7 +138,26 @@ Page({
     return isExpired;
   },
 
+  /**
+   * 响应界面调用的函数
+   */
+  onAddMovement: function () {
+    if (this.isExpired()) {
+      console.log("isExpired!!!!!!!!!!");
+      return;
+    } else {
+      this.setData({
+        actionName: "添加动作",
+        showModal: true
+      });
+    }
+  },
+
+  /**
+ * 具体处理添加动作的业务
+ */
   addMovement: function () {
+    var success = false;
     console.log(this.data.curMovementsList);
     //判断重复
     if (this.data.curMovementsList.length > 0)
@@ -131,9 +169,9 @@ Page({
             title: '您已添加该动作。',
             icon: 'warn'
           })
-          return false;
-        } else {
-          console.log("add a new movement!");
+          success = false;
+          return success;
+          break;
         }
       }
 
@@ -149,130 +187,144 @@ Page({
     });
     console.log('this.data.curMovementIndex', this.data.curMovementIndex);
     console.log("after add: ", this.data.curMovementsList);
+    success = true;
 
-    return true;
-  },
-
-  bindAddMovement: function () {
-    if (this.isExpired()) {
-      console.log("isExpired!!!!!!!!!!");
-      return;
-    } else {
-      this.showDialog(true);
-    }
-
+    return success;
   },
 
   /**
-   * 
+   * 响应处理修改动作的业务
    */
-  bindModifyMovement: function (e) {
+  onModifyMovement: function (e) {
     if (this.isExpired()) {
       console.log("isExpired!!!!!!!!!!");
       return;
     }
-    var index = e.target.dataset.index;
+    console.log("in modifyMovement, before : ", this.data.curPartName + ", " + this.data.curMovementName);
+    //防止用户什么都选，就使用了默认值
+    this.data.curPartName = this.data.curMovementsList[e.currentTarget.id - 1].partName;
+    this.data.curMovementName = this.data.curMovementsList[e.currentTarget.id - 1].movementName;
 
-    this.showDialog(false);
-    console.log("index ", index);
+    console.log("in modifyMovement, after  : ", this.data.curPartName + ", " + this.data.curMovementName);
 
-    var modifyIndex = this.data.listSelectedItemIdx[0];
-    console.log(modifyIndex);
+    this.setData({
+      curModifyMovementId: e.currentTarget.id,
+      actionName: "修改动作",
+      showModal: true
+    });
+  },
+
+  /**
+   * 具体处理修改动作的业务
+   */
+  modifyMovement: function () {
+    var success = false;
+    var modifyIndex = this.data.curModifyMovementId + '';
+    console.log("in modifyMovement, modifyIndex: ", modifyIndex);
+
     for (var item of this.data.curMovementsList) {
       //先判断是否修改成了重复的
-      // if (this.data.partName.indexOf(item.partName) !== -1 &&
-      //   this.data.curMovementName.indexOf(item.movementName) !== -1) {
-      //   console.log("repeat, skip modify!");
-      //   wx.showToast({
-      //     title: '您已添加该动作。',
-      //   })
-      //   return;
-      // } else {
-      //   console.log("modify a this movement!");
-      // }
-
-      //如果不重复，直接修改
-      //TODO 应该可以直接createMovement，然后替换，代码更简洁
-      if (item.movementIndex === modifyIndex) {
-        item.partName = this.data.curPartName;
-        item.movementName = this.data.curMovementName;
-        item.groupCount = this.data.curGroupCount;
-        item.movementCount = this.data.curMovementCount;
-        item.movementWeight = this.data.curMovementWeight;
-        item.measurement = this.data.curMeasurement;
+      if (modifyIndex != item.movementIndex &&
+        this.data.tmpPartName.indexOf(item.partName) !== -1 &&
+        this.data.tmpMovementName.indexOf(item.movementName) !== -1) {
+        console.log("repeat, skip modify!");
+        wx.showToast({
+          title: '您已添加该动作。',
+        })
+        success = false;
+        return success;
       }
     }
+
+    console.log("here");
+
+
+    //如果不重复，直接修改
+    //TODO 应该可以直接createMovement，然后替换，代码更简洁
+    for (var idx = 0; idx < this.data.curMovementsList.length; idx++) {
+      if (this.data.curMovementsList[idx].movementIndex === modifyIndex) {
+        console.log("moddddddd");
+        this.data.curMovementsList[idx].partName = this.data.tmpPartName;
+        this.data.curMovementsList[idx].movementName = this.data.tmpMovementName;
+        this.data.curMovementsList[idx].groupCount = this.data.curGroupCount;
+        this.data.curMovementsList[idx].movementCount = this.data.curMovementCount;
+        this.data.curMovementsList[idx].movementWeight = this.data.curMovementWeight;
+        this.data.curMovementsList[idx].measurement = this.data.curMeasurement;
+        break;
+
+      }
+    }
+
 
     this.setData({
       curMovementsList: this.data.curMovementsList
     });
     console.log('modify completed!');
+    success = true;
+
+    return success;
   },
 
   /**
   * 
   */
-  bindRemoveMovement: function (e) {
-    console.log("remove ", e.detail.value);
+  removeMovement: function (id) {
+    console.log("remove ", id);
     var tempList = this.data.curMovementsList;
 
-
-    var removedId = this.data.listSelectedItemIdx[0];
-    for (var cnt = 0; cnt < tempList.length; cnt++) {
-      var tempString = tempList[cnt].movementIndex;
-      console.log(removedId);
-      console.log(tempString);
+    var removedId = id + '';
+    for (var idx = 0; idx < tempList.length; idx++) {
+      var tempString = tempList[idx].movementIndex;
+      console.log("input id: ", removedId);
+      console.log("currment id: ", tempString);
+      console.log(removedId === tempString);
       if (tempString === removedId) {
         console.log("this is true");
-        tempList.splice(cnt, 1, []);
+        tempList.splice(idx, 1);
       }
     }
 
 
     //生成新数组，并重新排序
     var restListMovement = [];
-    var newIdx = 1;
     for (var idx = 0; idx < tempList.length; idx++) {
       console.log(tempList[idx]);
       if (tempList[idx].movementIndex > 0) {
-        tempList[idx].movementIndex = newIdx + "";
+        tempList[idx].movementIndex = idx + 1 + "";
         console.log(tempList[idx].movementIndex);
         restListMovement.push(tempList[idx]);
-        newIdx++;
       }
     }
 
     //清空选中列表，重置index
-    // listSelectedItemIdx=[];
     console.log(restListMovement);
     this.setData({
-      curMovementIndex: this.data.curMovementIndex - this.data.listSelectedItemIdx.length,
-      listSelectedItemIdx: [],
+      curMovementIndex: this.data.curMovementIndex - 1,
       curMovementsList: restListMovement
     });
     console.log("tempList", tempList);
     // console.log('remove', e.detail.value)
   },
 
-  bindGroupCountChange: function (e) {
+  onGroupCountChange: function (e) {
     this.setData({
       curGroupCount: e.detail.value
     })
   },
 
-  bindMovementCountChange: function (e) {
+  onMovementCountChange: function (e) {
     this.setData({
       curMovementCount: e.detail.value
     })
   },
 
-  bindMovementWeightChange: function (e) {
+  onMovementWeightChange: function (e) {
     this.setData({
       curMovementWeight: e.detail.value
     })
   },
 
-  bindCheckboxChange: function (e) {
+  onCheckboxChange: function (e) {
     var checked = e.detail.value;
     console.log("checked: " + checked);
     console.log(checked);
@@ -288,13 +340,12 @@ Page({
       }
     }
     this.setData({
-      listSelectedItemIdx: checked
     });
     this.setData(changed);
   },
 
   //响应的是，picker点确定之后
-  bindMovementChange: function (e) {
+  onMovementChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       multiMovementIndex: e.detail.value
@@ -302,7 +353,7 @@ Page({
   },
 
   //响应的是picker列改变，及其后面的值跟随变化
-  bindMovementColumnChange: function (e) {
+  onMovementColumnChange: function (e) {
     console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
       movementMultiArray: this.data.movementMultiArray,
@@ -359,15 +410,15 @@ Page({
     };
 
 
-    data.curPartName = data.movementMultiArray[0][data.multiMovementIndex[0]];
-    data.curMovementName = data.movementMultiArray[1][data.multiMovementIndex[1]];
+    data.tmpPartName = data.movementMultiArray[0][data.multiMovementIndex[0]];
+    data.tmpMovementName = data.movementMultiArray[1][data.multiMovementIndex[1]];
 
-    console.log(data.curPartName, data.curMovementName);
+    console.log(data.tmpPartName, data.tmpMovementName);
 
     this.setData(data);
   },
 
-  bindNumberChange: function (e) {
+  onNumberChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value);
     var selectedRowArr = e.detail.value;
     var curGroupCount = this.data.movementNoMultiArray[0][selectedRowArr[0]];
@@ -384,7 +435,7 @@ Page({
 
   },
 
-  bindChangeMeasure: function (e) {
+  onChangeMeasure: function (e) {
     var measurement;
     if (e.detail.value) {
       measurement = 'Kg';
@@ -399,14 +450,14 @@ Page({
     console.log(this.data.curMeasurement);
   },
 
-  bindSavePlan: function (e) {
+  onSavePlan: function (e) {
     this.savePlan();
     wx.showToast({
       title: '保存了',
     });
   },
 
-  bindSavePlanAndTrain: function (e) {
+  onSavePlanAndTrain: function (e) {
     this.savePlan();
     wx.switchTab({
       url: '../training/training',
@@ -428,6 +479,7 @@ Page({
 
     console.log('current list: ', curMovementsList);
     this.setData({
+      curMovementIndex: curMovementsList.length + 1,
       allMovementsList: allMovementsList,
       curMovementsList: curMovementsList
     });
@@ -436,6 +488,9 @@ Page({
   savePlan: function () {
     //先看是否为空，为空直接增加，然后查重，日期重的直接替换，日期没有的直接增加
     var allMovementsList = this.data.allMovementsList;
+    for (var item of this.data.curMovementsList) {
+      //删除动画属性，否则每次进入不显示
+    }
     if (allMovementsList.length == 0) {
       allMovementsList = this.data.curMovementsList;
     } else {
@@ -482,42 +537,8 @@ Page({
     wx.setStorageSync('TrainPlan', this.data.allMovementsList);
   },
 
-  //for input change
-  inputGroupChange: function (e) {
-    this.setData({
-      curGroupCount: e.detail.value
-    })
-  },
+  // for modal control
 
-  inputMvCountChange: function (e) {
-    this.setData({
-      curMovementCount: e.detail.value
-    })
-  },
-
-  inputWeightChange: function (e) {
-    this.setData({
-      curMovementWeight: e.detail.value
-    })
-  },
-
-
-  // for modal
-  /**
-    * 弹窗
-    */
-  showDialog: function (isAdd) {
-    if (isAdd) {
-      this.setData({
-        showAdd: true
-      });
-    } else {
-      this.setData({
-        showModify: true
-      });
-    }
-
-  },
   /**
    * 弹出框蒙层截断touchmove事件
    */
@@ -527,16 +548,10 @@ Page({
    * 隐藏模态对话框
    */
   hideModal: function () {
-    if (this.data.showAdd) {
-      this.setData({
-        showAdd: false
-      });
-    }
-    if (this.data.showModify) {
-      this.setData({
-        showModify: false
-      });
-    }
+    this.setData({
+      showModal: false
+    });
+
   },
   /**
    * 对话框取消按钮点击事件
@@ -545,12 +560,211 @@ Page({
     this.hideModal();
   },
   /**
-   * 对话框确认按钮点击事件
+   * 对话框确认按钮点击事件，处理添加或修改业务
    */
-  onConfirm: function () {
+  onConfirm: function (e) {
 
-    if (this.addMovement())
-      this.hideModal();
+    if (this.data.actionName === "修改动作") {
+      if (this.modifyMovement())
+        this.hideModal();
+      else {
+        // console.log("errrrr");
+        // this.hideModal();
+      }
+
+    } else {
+      if (this.addMovement())
+        this.hideModal();
+    }
+
+  },
+
+  //for input change in modal
+  onInputGroupChange: function (e) {
+    this.setData({
+      curGroupCount: e.detail.value
+    })
+  },
+
+  onInputMvCountChange: function (e) {
+    this.setData({
+      curMovementCount: e.detail.value
+    })
+  },
+
+  onInputWeightChange: function (e) {
+    this.setData({
+      curMovementWeight: e.detail.value
+    })
+  },
+
+  //for left swipe delete
+
+  onTouchStart: function (e) {
+    if (this.isExpired()) {
+      return;
+    }
+    if (this.showState === 1) {
+      this.touchStartState = 1;
+      this.showState = 0;
+      this.moveX = 0;
+      this.translateXMovementItem(this.lastShowMovementId, 0, 200);
+      this.lastShowMovementId = "";
+      return;
+    }
+    this.firstTouchX = e.touches[0].clientX;
+    this.firstTouchY = e.touches[0].clientY;
+    if (this.firstTouchX > this.swipeCheckX) {
+      this.swipeCheckState = 1;
+    }
+    this.lastMoveTime = e.timeStamp;
+  },
+
+  onTouchMove: function (e) {
+    if (this.swipeCheckState === 0) {
+      return;
+    }
+    //当开始触摸时有菜单显示时，不处理滑动操作
+    if (this.touchStartState === 1) {
+      return;
+    }
+    var moveX = e.touches[0].clientX - this.firstTouchX;
+    var moveY = e.touches[0].clientY - this.firstTouchY;
+    //已触发垂直滑动，由scroll-view处理滑动操作
+    if (this.swipeDirection === 2) {
+      return;
+    }
+    //未触发滑动方向
+    if (this.swipeDirection === 0) {
+      console.log(Math.abs(moveY));
+      //触发垂直操作
+      if (Math.abs(moveY) > 4) {
+        this.swipeDirection = 2;
+
+        return;
+      }
+      //触发水平操作，同时禁用垂直滚动
+      if (Math.abs(moveX) > 4) {
+        this.swipeDirection = 1;
+        this.setData({ scrollY: false });
+      }
+      else {
+        return;
+      }
+    }
+    this.lastMoveTime = e.timeStamp;
+    //处理边界情况
+    if (moveX > 0) {
+      moveX = 0;
+    }
+    //检测最大左滑距离
+    if (moveX < -this.maxMoveLeft) {
+      moveX = -this.maxMoveLeft;
+    }
+    this.moveX = moveX;
+    this.translateXMovementItem(e.currentTarget.id, moveX, 0);
+  },
+
+  onTouchEnd: function (e) {
+    this.swipeCheckState = 0;
+    var swipeDirection = this.swipeDirection;
+    this.swipeDirection = 0;
+    if (this.touchStartState === 1) {
+      this.touchStartState = 0;
+      this.setData({ scrollY: true });
+      return;
+    }
+    //垂直滚动，忽略
+    if (swipeDirection !== 1) {
+      return;
+    }
+    if (this.moveX === 0) {
+      this.showState = 0;
+      //不显示菜单状态下,激活垂直滚动
+      this.setData({ scrollY: true });
+      return;
+    }
+    if (this.moveX === this.correctMoveLeft) {
+      this.showState = 1;
+      this.lastShowMovementId = e.currentTarget.id;
+      return;
+    }
+    if (this.moveX < -this.thresholdMoveLeft) {
+      this.moveX = -this.correctMoveLeft;
+      this.showState = 1;
+      this.lastShowMovementId = e.currentTarget.id;
+    }
+    else {
+      this.moveX = 0;
+      this.showState = 0;
+      //不显示菜单,激活垂直滚动
+      this.setData({ scrollY: true });
+    }
+    this.translateXMovementItem(e.currentTarget.id, this.moveX, 500);
+
+  },
+
+  onDeleteMovementTap: function (e) {
+    this.deleteMovementItem(e);
+  },
+  onDeleteMovementLongtap: function (e) {
+    console.log(e);
+  },
+  onModifyMovementTap: function (e) {
+    console.log("e.currentTarget.id ", e.currentTarget.id);
+    this.modifyMovement(e.currentTarget.id);
+  },
+  onModifyMovementLongtap: function (e) {
+    console.log(e);
+  },
+
+  getItemIndex: function (id) {
+    console.log("left id: ", id);
+    var curMovementsList = this.data.curMovementsList;
+    for (var i = 0; i < curMovementsList.length; i++) {
+      if (curMovementsList[i].movementIndex === id) {
+        return i;
+      }
+    }
+    return -1;
+  },
+
+  deleteMovementItem: function (e) {
+    var animation = wx.createAnimation({ duration: 200 });
+    animation.height(0).opacity(0).step();
+    this.animationMovementWrapItem(e.currentTarget.id, animation);
+    var s = this;
+    setTimeout(function () {
+      console.log("e.currentTarget.id: ", e.currentTarget.id);
+
+    }, 200);
+    var index = s.getItemIndex(e.currentTarget.id);
+    console.log("delete id: ", index);
+    this.removeMovement(index + 1);
+    this.showState = 0;
+    this.setData({ scrollY: true });
+  },
+
+  translateXMovementItem: function (id, x, duration) {
+    var animation = wx.createAnimation({ duration: duration });
+    animation.translateX(x).step();
+    this.animationMovementItem(id, animation);
+  },
+
+  animationMovementItem: function (id, animation) {
+    var index = this.getItemIndex(id);
+    var param = {};
+    var indexString = 'curMovementsList[' + index + '].animation';
+    param[indexString] = animation.export();
+    this.setData(param);
+  },
+
+  animationMovementWrapItem: function (id, animation) {
+    var index = this.getItemIndex(id);
+    var param = {};
+    var indexString = 'curMovementsList[' + index + '].wrapAnimation';
+    param[indexString] = animation.export();
+    this.setData(param);
   },
 
   /**
