@@ -140,7 +140,7 @@ Page({
     //传回全局变量，以便下次进入日期选择，还是当时选的。
     app.globalData.selectedDate = util.formatStringToDate(selectedDate, '-');
     wx.switchTab({
-      url: '../../plan/plan',
+      url: '../../listplan/plan',
     });
 
     console.log(app.globalData.selectedDate);

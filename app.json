@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/plan/plan",
+    "pages/listplan/plan",
+    "pages/tableplan/plan",
     "pages/training/training",
     "pages/settings/settings",
     "pages/ui/calender/calender",
@@ -25,7 +26,7 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/plan/plan",
+        "pagePath": "pages/listplan/plan",
         "iconPath": "image/note.png",
         "selectedIconPath": "image/note_2.png",
         "text": "计划"
