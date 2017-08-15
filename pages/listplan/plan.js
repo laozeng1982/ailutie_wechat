@@ -76,6 +76,10 @@ Page({
     });
 
     this.loadData();
+
+    if (util.isExpired(this.data.selectedDate)){
+      app.showToast("历史数据不能修改哦~~", this, 2000);
+    }
   },
 
   /**
@@ -127,10 +131,8 @@ Page({
     console.log("this.data.tmpMovement is: ", this.data.tmpMovement);
     console.log("toBeAdd is: ", toBeAdd);
     if (!this.data.curTrainPlan.add(toBeAdd)) {
-      wx.showToast({
-        title: '您已添加该动作。',
-        icon: 'warn'
-      });
+      app.showToast('您已添加该动作。', this, 2000);
+
       success = false;
       return success;
     } else {
@@ -186,9 +188,7 @@ Page({
     success = this.data.curTrainPlan.modify(this.data.curSelectedMovementId, this.data.tmpMovement);
 
     if (!success) {
-      wx.showToast({
-        title: '动作重复了',
-      });
+      app.showToast('动作重复了...', this, 2000);
     } else {
       this.setData({
         curTrainPlan: this.data.curTrainPlan
@@ -206,33 +206,25 @@ Page({
    */
   checkParameter: function () {
     if (typeof (this.data.tmpMovement.partName) == "undefined") {
-      wx.showToast({
-        title: '请选择部位',
-      });
+      app.showToast('请选择部位...', this, 2000);
+
       return false;
     }
     if (typeof (this.data.tmpMovement.movementName) == "undefined") {
-      wx.showToast({
-        title: '请选择部位',
-      });
+      app.showToast('请选择动作...', this, 2000);
+
       return false;
     }
     if (typeof (this.data.tmpMovement.groupCount) == "undefined") {
-      wx.showToast({
-        title: '请选择动作组数',
-      });
+      app.showToast('请选择动作组数...', this, 2000);
       return false;
     }
     if (typeof (this.data.tmpMovement.movementCount) == "undefined") {
-      wx.showToast({
-        title: '请选择动作次数',
-      });
+      app.showToast('请选择动作次数...', this, 2000);
       return false;
     }
     if (typeof (this.data.tmpMovement.movementWeight) == "undefined") {
-      wx.showToast({
-        title: '请选择动作重量',
-      });
+      app.showToast('请选择动作重量...', this, 2000);
       return false;
     }
 
@@ -682,7 +674,22 @@ Page({
   },
 
   onDeleteMovementTap: function (e) {
-    this.deleteMovementItem(e);
+    var vm = this;
+    wx.showModal({
+      title: '确认删除',
+      content: '此操作将删除该动作，确认否？',
+      cancelText: "取消",
+      confirmText:"确定",
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户删除数据')
+          vm.deleteMovementItem(e);
+        } else if (res.cancel) {
+          console.log('用户取消删除')
+        }
+      }
+    });
+    
   },
   onDeleteMovementLongtap: function (e) {
     console.log(e);
@@ -785,9 +792,7 @@ Page({
     this.loadData();
 
     if (util.isExpired(this.data.selectedDate)) {
-      wx.showToast({
-        title: '不能修改历史',
-      });
+      app.showToast('历史数据不能修改哦~~', this, 2000);
     }
   },
 

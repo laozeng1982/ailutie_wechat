@@ -1,93 +1,100 @@
 <!--plan.wxml-->
-<view class="graySpace"></view>
 
-<view class="button-group">
-  <button class="dateMoveButton" bindtap="onLastDate" size="default"> 前一天</button>
-  <button class="dateButton" bindtap="onSelectDate" size="default"> {{selectedDate}}</button>
-  <button class="dateMoveButton" bindtap="onNextDate" size="default"> 后一天</button>
-</view>
+<view class="thiscontainer">
+  <view class="graySpace"></view>
+  <!-- 这是Toast -->
+  <include src="../ui/toast.wxml" />
+  <view class="button-group">
+    <button class="dateMoveButton" bindtap="onLastDate" size="default"> 前一天</button>
+    <button class="dateButton" bindtap="onSelectDate" size="default"> {{selectedDate}}</button>
+    <button class="dateMoveButton" bindtap="onNextDate" size="default"> 后一天</button>
+  </view>
 
-<view class="graySpace"></view>
+  <view class="graySpace"></view>
 
-<!-- 动作列表  wx:key="curMovementIndex" -->
-<view class="container2">
-  <scroll-view style='height:{{scrollHeight}}rpx;' scroll-y="true">
-    <view class="listSingleMovement" wx:for="{{curTrainPlan.movementList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
-      <view class="item_contanier">
-        <view id='{{item.id}}' class='movement' animation='{{item.animation}}' bindtap="onModifyMovement" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' bindtouchend='onTouchEnd'>
-          <view class="graySpace"></view>
-          <view class="tableCornor">
-            <image class='header-img' src="../../image/arm2.png"></image>
-            <view class="content" style="flex:5" data-index="{{index}}">
-              <view class="graySpace"></view>
+  <!-- 动作列表  wx:key="curMovementIndex" -->
+  <view class="container2">
+    <scroll-view style='height:{{scrollHeight}}rpx;' scroll-y="true">
+      <view class="listSingleMovement" wx:for="{{curTrainPlan.movementList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
+        <view class="item_contanier">
+          <view id='{{item.id}}' class='movement' animation='{{item.animation}}' bindtap="onModifyMovement" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' bindtouchend='onTouchEnd'>
+            <view class="graySpace"></view>
+            <view class="tableCornor">
+              <image class='header-img' src="../../image/arm2.png"></image>
+              <view class="content" style="flex:5" data-index="{{index}}">
+                <view class="graySpace"></view>
 
-              <view class="movementName">
-                <view class="tableItem2">{{item.partName}}</view>
-                <view class="tableItem3">{{item.movementName}}</view>
-              </view>
+                <view class="movementName">
+                  <view class="tableItem2">{{item.partName}}</view>
+                  <view class="tableItem3">{{item.movementName}}</view>
+                </view>
 
-              <view class="graySpace"></view>
+                <view class="graySpace"></view>
 
-              <view class="movementNumbers">
-                <view class="tableItem">{{item.groupCount}}组</view>
-                <view class="tableItem">{{item.movementCount}}次</view>
-                <view class="tableItem_kg">{{item.movementWeight}}{{item.measurement}}</view>
+                <view class="movementNumbers">
+                  <view class="tableItem">{{item.groupCount}}组</view>
+                  <view class="tableItem">{{item.movementCount}}次</view>
+                  <view class="tableItem_kg">{{item.movementWeight}}{{item.measurement}}</view>
+                </view>
               </view>
             </view>
+            <view class="graySpace"></view>
           </view>
-          <view class="graySpace"></view>
+          <view class='movement-menu'>
+            <view id='{{item.id}}' class='menu-delete' bindtap='onDeleteMovementTap' bindlongtap='onDeleteMovementTap'>
+              删除
+            </view>
+            <view id='{{item.id}}' class='menu-mark' bindtap='onModifyMovement' bindlongtap='onModifyMovementLongtap'>
+              修改
+            </view>
+          </view>
         </view>
-        <view class='movement-menu'>
-          <view id='{{item.id}}' class='menu-delete' bindtap='onDeleteMovementTap' bindlongtap='onDeleteMovementTap'>
-            删除
-          </view>
-          <view id='{{item.id}}' class='menu-mark' bindtap='onModifyMovement' bindlongtap='onModifyMovementLongtap'>
-            修改
-          </view>
-        </view>
+
       </view>
 
+    </scroll-view>
+  </view>
+
+  <view class="graySpace"></view>
+
+  <view class="button-group">
+    <view class="addButton" bindtap="onAddMovement">+</view>
+  </view>
+
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view id="{{curMovementIndex}}" class="modal-dialog" wx:if="{{showModal}}">
+    <!-- 这是Toast -->
+    <include src="../ui/toast.wxml" />
+    <view class="modal-title">{{actionName}}</view>
+    <view class="modal-content">
+      <picker mode="multiSelector" bindchange="onMovementChange" bindcolumnchange="onMovementColumnChange" value="{{multiMovementIndex}}" range="{{movementMultiArray}}">
+        <text>选择动作 : </text>{{tmpMovement.partName}} {{tmpMovement.movementName}}
+      </picker>
+      <view class="graySpace"></view>
+      <picker mode="multiSelector" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
+        <text>选择数量 : </text> {{tmpMovement.groupCount}} 组 {{tmpMovement.movementCount}} 次 {{tmpMovement.movementWeight}}Kg
+      </picker>
+      <view class="graySpace"></view>
+      <view class="modal-input">
+        <text>组数</text>
+        <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputGroupChange" class="input" value="{{tmpMovement.groupCount}}" placeholder="{{curGroupCount}}组"></input>
+      </view>
+      <view class="graySpace"></view>
+      <view class="modal-input">
+        <text>次数</text>
+        <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputMvCountChange" class="input" value="{{tmpMovement.movementCount}}" placeholder="{{curMovementCount}}次"></input>
+      </view>
+      <view class="graySpace"></view>
+      <view class="modal-input">
+        <text>重量</text>
+        <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputWeightChange" class="input" value="{{tmpMovement.movementWeight}}" placeholder="{{curMovementWeight}}Kg"></input>
+      </view>
     </view>
 
-  </scroll-view>
-</view>
-
-<view class="graySpace"></view>
-
-<view class="button-group">
-  <view class="addButton" bindtap="onAddMovement">+</view>
-</view>
-
-<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
-<view id="{{curMovementIndex}}" class="modal-dialog" wx:if="{{showModal}}">
-  <view class="modal-title">{{actionName}}</view>
-  <view class="modal-content">
-    <picker mode="multiSelector" bindchange="onMovementChange" bindcolumnchange="onMovementColumnChange" value="{{multiMovementIndex}}" range="{{movementMultiArray}}">
-      <text>选择动作 : </text>{{tmpMovement.partName}} {{tmpMovement.movementName}}
-    </picker>
-    <view class="graySpace"></view>
-    <picker mode="multiSelector" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
-      <text>选择数量 : </text> {{tmpMovement.groupCount}} 组 {{tmpMovement.movementCount}} 次 {{tmpMovement.movementWeight}}Kg
-    </picker>
-    <view class="graySpace"></view>
-    <view class="modal-input">
-      <text>组数</text>
-      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputGroupChange" class="input" value="{{tmpMovement.groupCount}}" placeholder="{{curGroupCount}}组"></input>
-    </view>
-    <view class="graySpace"></view>
-    <view class="modal-input">
-      <text>次数</text>
-      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputMvCountChange" class="input" value="{{tmpMovement.movementCount}}" placeholder="{{curMovementCount}}次"></input>
-    </view>
-    <view class="graySpace"></view>
-    <view class="modal-input">
-      <text>重量</text>
-      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputWeightChange" class="input" value="{{tmpMovement.movementWeight}}" placeholder="{{curMovementWeight}}Kg"></input>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
     </view>
   </view>
 
-  <view class="modal-footer">
-    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
-    <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
-  </view>
 </view>

@@ -38,12 +38,6 @@
         "text": "锻炼"
       },
       {
-        "pagePath": "pages/logs/logs",
-        "iconPath": "image/find.png",
-        "selectedIconPath": "image/find_2.png",
-        "text": "ForTest"
-      },
-      {
         "pagePath": "pages/settings/settings",
         "iconPath": "image/mine.png",
         "selectedIconPath": "image/mine_2.png",

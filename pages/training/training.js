@@ -24,41 +24,30 @@ Page({
     showModal: false
   },
 
-  bindTrainPlanRbxChange: function (e) {
-    var curMovementIndex = e.detail.value;
-    var curTrainContent = [];
-    var curMovementName = '';
-    this.setData({
-      curMovementIndex: curMovementIndex
-    });
+  loadData: function () {
+    var todayTrainPlan = [];
+    var allTrainPlan = wx.getStorageSync('TrainPlan');
+    var today = util.formatDateToString(new Date());
+    console.log("allTrainPlan", allTrainPlan);
+    console.log("today: ", today);
 
-    for (var item of this.data.todayTrainPlan) {
-      console.log("curSelect: " + curMovementIndex + ", moveIndx: " + item.movementIndex);
-      if (curMovementIndex == item.movementIndex) {
-        for (var idx = 0; idx < item.groupCount; idx++) {
-          curTrainContent.push({
-            contentIndex: idx + 1,
-            contentMovementName: item.movementName,
-            contentMovementCount: item.movementCount,
-            contentMovementWeight: item.movementWeight,
-            contentMovementFeeling: ''
-          });
-        }
-        curMovementName = item.movementName;
-        break;
+    for (var item of allTrainPlan) {
+      if (item.planDate == today) {
+        todayTrainPlan = item.movementList;
       }
     }
 
-    this.setData({
-      curMovementName: curMovementName,
-      curTrainContent: curTrainContent
-    });
-    console.log('radio发生change事件，携带value值为：', this.data.curMovementIndex);
-    console.log("this.data.curTrainContent", this.data.curTrainContent);
-  },
+    if (todayTrainPlan.length == 0) {
+      wx.showToast({
+        title: '还没有计划',
+      });
+    } else {
+      this.setData({
+        todayTrainPlan: todayTrainPlan
+      });
+    }
 
-  bindTrainContentRbxChange: function (e) {
-
+    console.log("this.data.todayTrainPlan", this.data.todayTrainPlan);
   },
 
   /**
@@ -79,30 +68,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var todayTrainPlan = [];
-    var allTrainPlan = wx.getStorageSync('TrainPlan');
-    var today = util.formatDateToString(new Date());
-    console.log("allTrainPlan", allTrainPlan);
-    console.log("today: ", today);
 
-    for (var idx = 0; idx < allTrainPlan.length; idx++) {
-      if (allTrainPlan[idx].date == today) {
-        todayTrainPlan.push(allTrainPlan[idx]);
-      }
-    }
-
-    if (todayTrainPlan.length == 0) {
-      wx.showToast({
-        title: '还没有计划',
-      });
-    } else {
-      this.setData({
-        todayTrainPlan: todayTrainPlan
-      });
-    }
-
-    console.log("this.data.todayTrainPlan", this.data.todayTrainPlan);
-
+    this.loadData();
   },
 
   /**

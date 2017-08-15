@@ -26,7 +26,7 @@
 
   <view class="calender_box" wx:for="{{dateList}}" wx:for-item="week" style="{{index==0?'justfiy-content: flex-end;':''}}">
     <view class="weekday_label_days" wx:for="{{week}}">
-       <view wx:for-item="{{dateListWithPlan}}" class="{{item.hasPlan?'weekday_label_days_overlay':''}}"></view> 
+      <view wx:for-item="{{dateListWithPlan}}" class="{{item.hasPlan?'weekday_label_days_overlay':''}}"></view>
       <text class="{{item.value==selectedDate?'active_date':''}} " bindtap="bindToSelectedDate" data-date="{{item}}">{{item.date}}</text>
     </view>
   </view>
@@ -36,4 +36,7 @@
   <button type="primary" bindtap="bindToToday">到今天</button>
 </view>
 
-<view class="date-marker"></view>
+<view class="tip">
+  <view class="date-marker"></view>
+  <view class="classname">  表示当天有计划</view>
+</view>

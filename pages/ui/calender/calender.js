@@ -148,11 +148,6 @@ Page({
         }
 
     }
-    // for (var week = 0; week < dateList.length; week++) {
-    //   for (var day = 0; day < dateList[week].length; day++)
-    //     console.log("in getDateList:", dateList[week][day].value + dateList[week][day].hasPlan);
-    // }
-
 
     vm.setData({
       dateList: dateList

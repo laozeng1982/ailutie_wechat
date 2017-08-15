@@ -7,11 +7,6 @@
   overflow: hidden;
 }
 
-.selected_date>view {
-  width: 33.3%;
-  float: left;
-}
-
 .calender_panel {
   width: 100%;
   height: 600rpx;
@@ -51,7 +46,7 @@
 }
 
 .weekday_label_days_overlay {
-  position: absolute;
+   position: absolute; 
   display: flex;
   width: 20rpx;
   height: 20rpx;
@@ -76,12 +71,14 @@
 .active_date {
   background: #e64340;
   color: #fff;
-  border-radius: 60%;
+   border-radius: 60%; 
 }
 
 .show_box {
+  display: flex;
+  justify-content: center;
   padding: 20rpx;
-  font-size: 26rpx;
+  font-size: 35rpx;
   align-items: center;
 }
 
@@ -98,8 +95,23 @@
   align-items: center;
 }
 
+.container1 {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: flex-start;
+  font-size: 30 rpx;
+}
+
 .date-marker {
   height: 30rpx;
   width: 30rpx;
   background: #1d976c;
+}
+
+.tip {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 30 rpx;
 }

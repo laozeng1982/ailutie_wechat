@@ -60,6 +60,20 @@ App({
   //   console.log(this.globalData.allMovementsList);
   // },
 
+  showToast: function (text, o, count) {
+    var _this = o;
+    count = parseInt(count) ? parseInt(count) : 3000;
+    _this.setData({
+      toastText: text,
+      isShowToast: true,
+    });
+    setTimeout(function () {
+      _this.setData({
+        isShowToast: false
+      });
+    }, count);
+  },
+
   system: {
     userConfig: {
       measurement: "Kg",
