@@ -41,11 +41,11 @@
             <view class="graySpace"></view>
           </view>
           <view class='movement-menu'>
-            <view id='{{item.id}}' class='menu-delete' bindtap='onDeleteMovementTap' bindlongtap='onDeleteMovementTap'>
+            <view id='{{item.id}}' class='menu-delete' bindtap='onDeleteMovementTap'>
               删除
             </view>
-            <view id='{{item.id}}' class='menu-mark' bindtap='onModifyMovement' bindlongtap='onModifyMovementLongtap'>
-              修改
+            <view id='{{item.id}}' class='menu-mark' bindtap='onTrainTap'>
+              练它
             </view>
           </view>
         </view>

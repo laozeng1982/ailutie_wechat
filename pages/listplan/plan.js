@@ -77,7 +77,7 @@ Page({
 
     this.loadData();
 
-    if (util.isExpired(this.data.selectedDate)){
+    if (util.isExpired(this.data.selectedDate)) {
       app.showToast("历史数据不能修改哦~~", this, 2000);
     }
   },
@@ -673,13 +673,16 @@ Page({
 
   },
 
+  /**
+   * 响应删除操作，需弹窗确认
+   */
   onDeleteMovementTap: function (e) {
     var vm = this;
     wx.showModal({
       title: '确认删除',
       content: '此操作将删除该动作，确认否？',
       cancelText: "取消",
-      confirmText:"确定",
+      confirmText: "确定",
       success: function (res) {
         if (res.confirm) {
           console.log('用户删除数据')
@@ -689,18 +692,20 @@ Page({
         }
       }
     });
-    
+
   },
-  onDeleteMovementLongtap: function (e) {
-    console.log(e);
-  },
-  onModifyMovementTap: function (e) {
+
+  /**
+   * 响应去锻炼操作，准备数据
+   */
+  onTrainTap: function (e) {
     console.log("e.currentTarget.id ", e.currentTarget.id);
-    this.modifyMovement(e.currentTarget.id);
+    //TODO 准备锻炼数据，考虑使用checked属性，明天再思考，或许干脆不要这个按钮
+    wx.switchTab({
+      url: '../training/training',
+    })
   },
-  onModifyMovementLongtap: function (e) {
-    console.log(e);
-  },
+
 
   getItemIndex: function (id) {
     // console.log("left id: ", id);
