@@ -18,7 +18,10 @@ Page({
     curDay: '',
     daysCountArr: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     weekArr: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-    dateList: []
+    //保存当月的日期
+    dateList: [],
+    //保存有计划的日期
+    dateListWithPlan: []
   },
 
   /**
@@ -47,12 +50,15 @@ Page({
     this.setData({
       curYear: year,
       curMonth: month,
-      selectedDate: year + "-" + month + "-" + day,
+      curDay: day,
+      selectedDate: util.formatStringDate(year, month, day),
       selectedWeek: this.data.weekArr[idx]
     });
 
-    this.getDateList(year, month);
     this.loadData();
+
+    this.getDateList(year, month);
+
   },
 
   loadData: function () {
@@ -66,12 +72,21 @@ Page({
       hasTrainPlanDateList.add(allMovementsList[idx].date);
     };
 
+    var dateListWithPlan = [];
+    for (var item of allMovementsList) {
+      if (item.movementList.length > 0)
+        dateListWithPlan.push(item.planDate);
+    }
+
     this.setData({
+      dateListWithPlan: dateListWithPlan,
       allMovementsList: allMovementsList,
       hasTrainPlanDateList: hasTrainPlanDateList
     });
 
-    console.log('date list: ', this.data.hasTrainPlanDateList);
+    console.log("this.data.dateList: ", this.data.dateList);
+    console.log("this.data.dateListWithPlan", this.data.dateListWithPlan);
+
   },
 
   getDateList: function (year, month) {
@@ -101,16 +116,18 @@ Page({
           dateList[weekIndex].push({
             value: '',
             date: '',
-            week: ''
+            week: '',
+            hasPlan: false
           });
         }
         hasDoneFirstWeek = true;
       }
 
       dateList[weekIndex].push({
-        value: year + '-' + month + '-' + (i + 1),
+        value: util.formatStringDate(year, month, (i + 1)),
         date: i + 1,
-        week: week
+        week: week,
+        hasPlan: false
       });
 
       if (week == 6) {
@@ -118,8 +135,24 @@ Page({
         dateList[weekIndex] = [];
       }
 
+    }
+
+    for (var week = 0; week < dateList.length; week++) {
+      for (var day = 0; day < dateList[week].length; day++)
+        for (var planDay of this.data.dateListWithPlan) {
+          // 
+          if (dateList[week][day].value === planDay) {
+            console.log(dateList[week][day].value, planDay);
+            dateList[week][day].hasPlan = true;
+          }
+        }
 
     }
+    // for (var week = 0; week < dateList.length; week++) {
+    //   for (var day = 0; day < dateList[week].length; day++)
+    //     console.log("in getDateList:", dateList[week][day].value + dateList[week][day].hasPlan);
+    // }
+
 
     vm.setData({
       dateList: dateList

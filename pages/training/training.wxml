@@ -1,109 +1,38 @@
-<view class="container_iner">
-  <text class="fontset">今日计划</text>
-</view>
-
 <!-- 今日计划表 -->
-<view class="container_table">
-  <scroll-view scroll-y="true" style="height: 350rpx;">
-    <view class="table">
-      <view class="tr bg-w">
-        <view class="tableheader">选择</view>
-        <view class="tableheader">序号</view>
-        <view class="tableheader2">部位</view>
-        <view class="tableheader3">动作名称</view>
-        <view class="tableheader">组数</view>
-        <view class="tableheader">次数</view>
-        <view class="tableheader">重量</view>
+<view class="container2">
+  <scroll-view style='height:{{scrollHeight}}rpx;' scroll-y="true">
+    <view class="listSingleMovement" wx:for="{{curTrainPlan.movementList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
+      <view class="graySpace"></view>
+      <view id='{{item.id}}' class='movement' animation='{{item.animation}}' bindtap="onModifyMovement" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' bindtouchend='onTouchEnd'>
+        <image class='header-img' src="../../image/arm2.png"></image>
+        <view class="tableCornor" data-index="{{index}}">
+          <view class="graySpace"></view>
 
-      </view>
-      <radio-group bindchange="bindTrainPlanRbxChange">
-        <block wx:for="{{todayTrainPlan}}" wx:key="{{curMovementIndex}}">
-
-          <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-            <label>
-              <radio value="{{item.movementIndex}}" ></radio>
-            </label>
-
-            <view class="tableItem">{{item.movementIndex}}</view>
+          <view class="movementName">
             <view class="tableItem2">{{item.partName}}</view>
             <view class="tableItem3">{{item.movementName}}</view>
-            <view class="tableItem">{{item.groupCount}}</view>
-            <view class="tableItem">{{item.movementCount}}</view>
+          </view>
+
+          <view class="graySpace"></view>
+
+          <view class="movementNumbers">
+            <view class="tableItem">{{item.groupCount}}组</view>
+            <view class="tableItem">{{item.movementCount}}次</view>
             <view class="tableItem_kg">{{item.movementWeight}}{{item.measurement}}</view>
           </view>
 
-          <view class="tr" wx:else>
-            <label>
-              <radio value="{{item.movementIndex}}"></radio>
-            </label>
-
-            <view class="tableItem">{{item.movementIndex}}</view>
-            <view class="tableItem2">{{item.partName}}</view>
-            <view class="tableItem3">{{item.movementName}}</view>
-            <view class="tableItem">{{item.groupCount}}</view>
-            <view class="tableItem">{{item.movementCount}}</view>
-            <view class="tableItem_kg">{{item.movementWeight}}{{item.measurement}}</view>
-          </view>
-        </block>
-      </radio-group>
-    </view>
-  </scroll-view>
-</view>
-
-<view class="container_iner">
-  <text class="fontset">当前动作 : {{curMovementName}}</text>
-</view>
-<!-- 单项训练内容 -->
-<view class="container_table">
-  <scroll-view scroll-y="true" style="height: 450rpx;">
-    <view class="table">
-      <view class="tr bg-w">
-        <view class="tableheader">选择</view>
-        <view class="tableheader">组次</view>
-        <view class="tableheader">次数</view>
-        <view class="tableheader">重量</view>
-        <view class="tableheader3">感觉</view>
-
+          <view class="graySpace"></view>
+        </view>
       </view>
-      <radio-group bindchange="bindTrainContentRbxChange">
-        <block wx:for="{{curTrainContent}}" wx:key="{{curMovementIndex}}">
-
-          <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-            <label>
-              <radio value="{{item.contentIndex}}" ></radio>
-            </label>
-
-            <view class="tableItem">{{item.contentIndex}}</view>
-            <view class="tableItem">{{item.contentMovementCount}}</view>
-            <view class="tableItem">{{item.contentMovementWeight}}</view>
-            <!-- <view class="tableItem3">{{item.contentMovementFeeling}}</view> -->
-            <slider class="slider" value="0" bindchange="bindFeelingChange" min="0" max="5" step="0.5" show-value>{{item.contentMovementFeeling}}</slider>
-          </view>
-
-          <view class="tr" wx:else>
-            <label>
-              <radio value="{{item.contentIndex}}"  ></radio>
-            </label>
-
-            <view class="tableItem">{{item.contentIndex}}</view>
-            <view class="tableItem">{{item.contentMovementCount}}</view>
-            <view class="tableItem">{{item.contentMovementWeight}}</view>
-            <slider class="slider" value="0" bindchange="bindFeelingChange" min="0" max="5" step="0.5" show-value>{{item.contentMovementFeeling}}</slider>
-          </view>
-        </block>
-      </radio-group>
+      <view class='movement-menu'>
+        <view id='{{item.id}}' class='menu-delete' bindtap='onDeleteMovementTap' bindlongtap='onDeleteMovementTap'>
+          删除
+        </view>
+        <view id='{{item.id}}' class='menu-mark' bindtap='onModifyMovement' bindlongtap='onModifyMovementLongtap'>
+          修改
+        </view>
+      </view>
+      <view class="graySpace"></view>
     </view>
   </scroll-view>
-</view>
-
-<view class="table">
-
-  <view class="container_iner">
-    <view>次数</view>
-    <slider class="slider" value="8" bindchange="bindMovementCountChange" min="0" max="20" show-value/>
-
-    <view>重量</view>
-    <slider class="slider" value="30" bindchange="bindMovementWeightChange" min="1" max="100" show-value/>
-  </view>
-
 </view>

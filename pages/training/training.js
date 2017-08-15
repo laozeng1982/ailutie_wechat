@@ -16,7 +16,12 @@ Page({
     todayTrainPlan: [],
     curMovementIndex: '',
     curTrainContent: [],
-    curMovementName: ''
+    curMovementName: '',
+
+    scrollY: true,
+    scrollHeight: 850,
+    actionName: '',
+    showModal: false
   },
 
   bindTrainPlanRbxChange: function (e) {

@@ -11,40 +11,44 @@
 
 <!-- 动作列表  wx:key="curMovementIndex" -->
 <view class="container2">
-  <scroll-view style='height:{{scrollHeight}}px;' scroll-y="true" style="height: 850rpx;">
+  <scroll-view style='height:{{scrollHeight}}rpx;' scroll-y="true">
     <view class="listSingleMovement" wx:for="{{curTrainPlan.movementList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
-      <view class="graySpace"></view>
-      <view id='{{item.id}}' class='movement' animation='{{item.animation}}' bindtap="onModifyMovement" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' bindtouchend='onTouchEnd'>
-        <!-- <image class='header-img' src="../../image/head.png"></image> -->
-        <view class="tableCornor" data-index="{{index}}">
+      <view class="item_contanier">
+        <view id='{{item.id}}' class='movement' animation='{{item.animation}}' bindtap="onModifyMovement" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' bindtouchend='onTouchEnd'>
           <view class="graySpace"></view>
+          <view class="tableCornor">
+            <image class='header-img' src="../../image/arm2.png"></image>
+            <view class="content" style="flex:5" data-index="{{index}}">
+              <view class="graySpace"></view>
 
-          <view class="movementName">
-            <view class="tableItem2">{{item.partName}}</view>
-            <view class="tableItem3">{{item.movementName}}</view>
+              <view class="movementName">
+                <view class="tableItem2">{{item.partName}}</view>
+                <view class="tableItem3">{{item.movementName}}</view>
+              </view>
+
+              <view class="graySpace"></view>
+
+              <view class="movementNumbers">
+                <view class="tableItem">{{item.groupCount}}组</view>
+                <view class="tableItem">{{item.movementCount}}次</view>
+                <view class="tableItem_kg">{{item.movementWeight}}{{item.measurement}}</view>
+              </view>
+            </view>
           </view>
-
           <view class="graySpace"></view>
-
-          <view class="movementNumbers">
-            <view class="tableItem">{{item.groupCount}}组</view>
-            <view class="tableItem">{{item.movementCount}}次</view>
-            <view class="tableItem_kg">{{item.movementWeight}}{{item.measurement}}</view>
+        </view>
+        <view class='movement-menu'>
+          <view id='{{item.id}}' class='menu-delete' bindtap='onDeleteMovementTap' bindlongtap='onDeleteMovementTap'>
+            删除
           </view>
-
-          <view class="graySpace"></view>
+          <view id='{{item.id}}' class='menu-mark' bindtap='onModifyMovement' bindlongtap='onModifyMovementLongtap'>
+            修改
+          </view>
         </view>
       </view>
-      <view class='movement-menu'>
-        <view id='{{item.id}}' class='menu-delete' bindtap='onDeleteMovementTap' bindlongtap='onDeleteMovementTap'>
-          删除
-        </view>
-        <view id='{{item.id}}' class='menu-mark' bindtap='onModifyMovement' bindlongtap='onModifyMovementLongtap'>
-          修改
-        </view>
-      </view>
-      <view class="graySpace"></view>
+
     </view>
+
   </scroll-view>
 </view>
 
@@ -63,7 +67,7 @@
     </picker>
     <view class="graySpace"></view>
     <picker mode="multiSelector" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
-      <text>选择数量 : </text> {{tmpMovement.groupCount}} 组  {{tmpMovement.movementCount}} 次  {{tmpMovement.movementWeight}}Kg
+      <text>选择数量 : </text> {{tmpMovement.groupCount}} 组 {{tmpMovement.movementCount}} 次 {{tmpMovement.movementWeight}}Kg
     </picker>
     <view class="graySpace"></view>
     <view class="modal-input">

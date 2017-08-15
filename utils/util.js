@@ -40,6 +40,10 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
+function formatStringDate(year, month, day) {
+  return [year, month, day].map(formatNumber).join('-');
+}
+
 /**
  * 检查当前选择日期是否过期
  * 过期返回true，未过期返回false
@@ -101,6 +105,7 @@ module.exports = {
   formatTimeToString: formatTimeToString,
   formatDateToString: formatDateToString,
   formatStringToDate: formatStringToDate,
+  formatStringDate: formatStringDate,
   isExpired: isExpired,
   getMoveDays: getMoveDays
 }

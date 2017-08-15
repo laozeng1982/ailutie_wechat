@@ -1,4 +1,5 @@
 /* calender2.wxss */
+
 /* calender.wxss */
 
 .selected_date {
@@ -32,7 +33,7 @@
   display: flex;
 }
 
-.weekday_label {
+.weekday_label_header {
   width: 14.28%;
   float: left;
   text-align: center;
@@ -40,20 +41,24 @@
   padding: 10rpx 0;
 }
 
-.weekday_label_head {
+.weekday_label_days {
   width: 14.28%;
+  position: relative;
   float: left;
   text-align: center;
-  font-size: 26rpx;
-  background: gray;
+  font-size: 40rpx;
   padding: 10rpx 0;
 }
-.weekday_label>header {
-  width: 50rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  background: gray;
-  display: inline-block;
+
+.weekday_label_days_overlay {
+  position: absolute;
+  display: flex;
+  width: 20rpx;
+  height: 20rpx;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background: #1d976c;
 }
 
 .weekday_label>text {
@@ -69,9 +74,9 @@
 }
 
 .active_date {
-  background: #148447;
+  background: #e64340;
   color: #fff;
-  border-radius: 50%;
+  border-radius: 60%;
 }
 
 .show_box {
@@ -80,15 +85,21 @@
   align-items: center;
 }
 
-.redcolor{
+.redcolor {
   font-weight: 900;
   color: red;
 }
 
 .button-group {
-  display: flex ;
+  display: flex;
   width: 100%;
   justify-content: space-between;
   height: 3rem;
   align-items: center;
+}
+
+.date-marker {
+  height: 30rpx;
+  width: 30rpx;
+  background: #1d976c;
 }

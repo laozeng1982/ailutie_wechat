@@ -40,7 +40,7 @@ Page({
 
     //组件控制
     scrollY: true,
-    scrollHeight: 500,
+    scrollHeight: 850,
     actionName: '',
     showModal: false
   },
