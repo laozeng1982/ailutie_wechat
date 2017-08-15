@@ -29,7 +29,7 @@ function formatStringToDate(year, month, day) {
  */
 function formatStringToDate(date, spliter) {
   var year = date.split(spliter)[0];
-  var month =  date.split(spliter)[1];
+  var month = date.split(spliter)[1];
   var day = date.split(spliter)[2];
 
   return new Date(Date.UTC(year, month - 1, day));
@@ -40,8 +40,67 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
+/**
+ * 检查当前选择日期是否过期
+ * 过期返回true，未过期返回false
+ */
+function isExpired(selectedDate) {
+  var isExpired = false;
+
+  var nowString = formatDateToString(new Date());
+  var now = formatStringToDate(nowString, '-').getTime() / (3600 * 24 * 1000);
+  var selected = formatStringToDate(selectedDate, '-').getTime() / (3600 * 24 * 1000);
+
+  // console.log("now: ", now);
+  // console.log("selected: ", selected);
+  if (selected < now) {
+    isExpired = true;
+  } else {
+    isExpired = false;
+  }
+
+  return isExpired;
+}
+
+function getMoveDays(startDay, isNext, dayCount) {
+  var selectedDayTimeMills = formatStringToDate(startDay, '-').getTime();
+  var moveDayTimeMills;
+  //时间改变一天，直接加上、或减去一天的毫秒数
+  if (isNext) {
+    moveDayTimeMills = selectedDayTimeMills + 3600 * 24 * 1000 * dayCount;
+  } else {
+    moveDayTimeMills = selectedDayTimeMills - 3600 * 24 * 1000 * dayCount;
+  }
+  var moveDayDate = new Date();
+  moveDayDate.setTime(moveDayTimeMills);
+  console.log("move to ", moveDayDate + ".............");
+
+  return formatDateToString(moveDayDate);
+
+}
+
+/**
+ * 这个是重量单位选择器的函数，先放着
+ */
+function onChangeMeasure(e) {
+  var measurement;
+  if (e.detail.value) {
+    measurement = 'Kg';
+  } else {
+    measurement = 'Lb';
+  }
+  this.setData({
+    curMeasurement: measurement
+  });
+
+  console.log(e.detail.value);
+  console.log(this.data.curMeasurement);
+}
+
 module.exports = {
   formatTimeToString: formatTimeToString,
   formatDateToString: formatDateToString,
-  formatStringToDate: formatStringToDate
+  formatStringToDate: formatStringToDate,
+  isExpired: isExpired,
+  getMoveDays: getMoveDays
 }

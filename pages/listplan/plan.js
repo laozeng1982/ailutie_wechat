@@ -10,33 +10,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-    selectedDate: util.formatDateToString(app.globalData.selectedDate),
+    //用来保存当前选中的日期，默认是当天
+    // selectedDate: util.formatDateToString(app.globalData.selectedDate),
+    selectedDate: util.formatDateToString(new Date()),
 
-    allMovementsList: [],
-    curMovementsList: [],
+    //存放所有Storage中的计划记录
+    allTrainPlan: [],
+    curTrainPlan: '',
 
     //初始化，这些数据一是用来显示初始化设置
-    //二是用来保存当前页面的选项，用以增加，修改记录
-    curMovementIndex: 1,
-    curPartName: '胸上部',
-    curMovementName: '上斜杠铃推举',
-    curGroupCount: 6,
-    curMovementCount: 8,
-    curMovementWeight: 30,
-    curMeasurement: 'Kg',
-
-    //临时存放部位，名字
-    tmpMovement: new datamodel.createMovement(),
-    tmpPartName: '胸上部',
-    tmpMovementName: '上斜杠铃推举',
+    //仅用来记录当天记录号
+    curMovementAmount: 1,
 
     //指定当前修改的记录ID
-    curModifyMovementId: '',
+    curSelectedMovementId: '',
+
+    //临时存放新建，或者正在修改的动作
+    tmpMovement: '',
 
     //2D 数组，用来存放动作
     movementMultiArray: app.globalData.movementMultiArray,
     //动作索引
     multiMovementIndex: [0, 0],
+    multiMovementNoIndex: [0, 0, 0],
 
     //3D 数组，用来存放动作组数，次数和重量
     movementNoMultiArray: app.globalData.movementNoMultiArray,
@@ -60,24 +56,8 @@ Page({
   touchStartState: 0, // 开始触摸时的状态 0 未显示菜单 1 显示菜单
   swipeDirection: 0, //是否触发水平滑动 0:未触发 1:触发水平滑动 2:触发垂直滑动
 
-  //
-  createMovement: function () {
-    var newMovement = new datamodel.createMovement(
-      this.data.selectedDate,
-      this.data.curMovementIndex + "",
-      this.data.curPartName,
-      this.data.curMovementName,
-      this.data.curGroupCount,
-      this.data.curMovementCount,
-      this.data.curMovementWeight,
-      false, //记录时，一律不记录选中状态
-      app.system.userConfig.measurement);
-
-    return newMovement;
-  },
-
   //------------------------------------------------------
-  //以下是监听函数
+  //以下是监听函数，及其对应的处理操作
 
   onLastDate: function () {
     this.moveDay(false);
@@ -89,19 +69,10 @@ Page({
 
   moveDay: function (isNext) {
     this.savePlan();
-    var selectedDayTimeMills = util.formatStringToDate(this.data.selectedDate, '-').getTime();
-    var moveDayTimeMills;
-    //时间改变一天，直接加上、或减去一天的毫秒数
-    if (isNext) {
-      moveDayTimeMills = selectedDayTimeMills + 3600 * 24 * 1000;
-    } else {
-      moveDayTimeMills = selectedDayTimeMills - 3600 * 24 * 1000;
-    }
-    var moveDayDate = new Date();
-    moveDayDate.setTime(moveDayTimeMills);
-    console.log("move to ", moveDayDate +".............");
+
+    var dateAfterMove = util.getMoveDays(this.data.selectedDate, isNext, 1);
     this.setData({
-      selectedDate: util.formatDateToString(moveDayDate),
+      selectedDate: dateAfterMove
     });
 
     this.loadData();
@@ -120,31 +91,11 @@ Page({
     });
   },
 
-
-
-  isExpired: function () {
-    var isExpired = false;
-
-    var nowString = util.formatDateToString(new Date());
-    var now = util.formatStringToDate(nowString, '-').getTime() / (3600 * 24 * 1000);
-    var selected = util.formatStringToDate(this.data.selectedDate, '-').getTime() / (3600 * 24 * 1000);
-
-    console.log("now: ", now);
-    console.log("selected: ", selected);
-    if (selected < now) {
-      isExpired = true;
-    } else {
-      isExpired = false;
-    }
-
-    return isExpired;
-  },
-
   /**
    * 响应界面调用的函数
    */
   onAddMovement: function () {
-    if (this.isExpired()) {
+    if (util.isExpired(this.data.selectedDate)) {
       console.log("isExpired!!!!!!!!!!");
       return;
     } else {
@@ -160,35 +111,42 @@ Page({
  */
   addMovement: function () {
     var success = false;
-    console.log(this.data.curMovementsList);
+    console.log("in addMovement: ", this.data.curTrainPlan);
+
+    if (!this.checkParameter())
+      return success;
     //判断重复
-    if (this.data.curMovementsList.length > 0)
-      for (var item of this.data.curMovementsList) {
-        if (this.data.curPartName.indexOf(item.partName) !== -1 &&
-          this.data.curMovementName.indexOf(item.movementName) !== -1) {
-          console.log("repeat, skip adding!");
-          wx.showToast({
-            title: '您已添加该动作。',
-            icon: 'warn'
-          })
-          success = false;
-          return success;
-          break;
-        }
-      }
+    this.data.tmpMovement.date = this.data.selectedDate;
+    console.log("id is: ", this.data.tmpMovement.id);
+    this.data.tmpMovement.id = this.data.curMovementAmount;
+    console.log("id is: ", this.data.tmpMovement.id);
+    var toBeAdd = new datamodel.Movement();
 
-    this.data.curMovementsList.push(this.createMovement());
+    //必须要使用copyfrom，否则添加的都是一样的。不能使用：toBeAdd = this.data.tmpMovement
+    toBeAdd.fullCopyFrom(this.data.tmpMovement);
+    console.log("this.data.tmpMovement is: ", this.data.tmpMovement);
+    console.log("toBeAdd is: ", toBeAdd);
+    if (!this.data.curTrainPlan.add(toBeAdd)) {
+      wx.showToast({
+        title: '您已添加该动作。',
+        icon: 'warn'
+      });
+      success = false;
+      return success;
+    } else {
+      console.log("add a new movement: ", toBeAdd);
+      this.data.curMovementAmount++;
+    }
 
-    var curMovementIndex = this.data.curMovementIndex + 1;
-
-    console.log("new length", curMovementIndex);
+    console.log("new length", this.data.curMovementAmount);
 
     this.setData({
-      curMovementIndex: curMovementIndex,
-      curMovementsList: this.data.curMovementsList
+      curMovementAmount: this.data.curMovementAmount,
+      curTrainPlan: this.data.curTrainPlan
     });
-    console.log('this.data.curMovementIndex', this.data.curMovementIndex);
-    console.log("after add: ", this.data.curMovementsList);
+
+    console.log('this.data.curMovementAmount', this.data.curMovementAmount);
+    console.log("after add: ", this.data.curTrainPlan);
     success = true;
 
     return success;
@@ -198,19 +156,18 @@ Page({
    * 响应处理修改动作的业务
    */
   onModifyMovement: function (e) {
-    if (this.isExpired()) {
+    if (util.isExpired(this.data.selectedDate)) {
       console.log("isExpired!!!!!!!!!!");
       return;
     }
-    console.log("in modifyMovement, before : ", this.data.curPartName + ", " + this.data.curMovementName);
-    //防止用户什么都选，就使用了默认值
-    this.data.curPartName = this.data.curMovementsList[e.currentTarget.id - 1].partName;
-    this.data.curMovementName = this.data.curMovementsList[e.currentTarget.id - 1].movementName;
 
-    console.log("in modifyMovement, after  : ", this.data.curPartName + ", " + this.data.curMovementName);
+    //把这个Modify界面重置到该动作的参数
+    var tmp = this.data.curTrainPlan.movementList[e.currentTarget.id - 1];
+    this.setPickerIndex(tmp.partName, tmp.movementName, tmp.groupCount, tmp.movementCount, tmp.movementWeight);
 
     this.setData({
-      curModifyMovementId: e.currentTarget.id,
+      curSelectedMovementId: e.currentTarget.id,
+      tmpMovement: tmp,
       actionName: "修改动作",
       showModal: true
     });
@@ -221,129 +178,140 @@ Page({
    */
   modifyMovement: function () {
     var success = false;
-    var modifyIndex = this.data.curModifyMovementId + '';
-    console.log("in modifyMovement, modifyIndex: ", modifyIndex);
 
-    for (var item of this.data.curMovementsList) {
-      //先判断是否修改成了重复的
-      if (modifyIndex != item.movementIndex &&
-        this.data.tmpPartName.indexOf(item.partName) !== -1 &&
-        this.data.tmpMovementName.indexOf(item.movementName) !== -1) {
-        console.log("repeat, skip modify!");
-        wx.showToast({
-          title: '您已添加该动作。',
-        })
-        success = false;
-        return success;
-      }
-    }
+    //准备修改的数据
+    this.data.tmpMovement.id = this.data.curSelectedMovementId;
+    console.log("new modify movement is: ", this.data.tmpMovement);
 
-    console.log("here");
+    success = this.data.curTrainPlan.modify(this.data.curSelectedMovementId, this.data.tmpMovement);
 
-
-    //如果不重复，直接修改
-    //TODO 应该可以直接createMovement，然后替换，代码更简洁
-    for (var idx = 0; idx < this.data.curMovementsList.length; idx++) {
-      if (this.data.curMovementsList[idx].movementIndex === modifyIndex) {
-        console.log("moddddddd");
-        this.data.curMovementsList[idx].partName = this.data.tmpPartName;
-        this.data.curMovementsList[idx].movementName = this.data.tmpMovementName;
-        this.data.curMovementsList[idx].groupCount = this.data.curGroupCount;
-        this.data.curMovementsList[idx].movementCount = this.data.curMovementCount;
-        this.data.curMovementsList[idx].movementWeight = this.data.curMovementWeight;
-        this.data.curMovementsList[idx].measurement = this.data.curMeasurement;
-        break;
-
-      }
+    if (!success) {
+      wx.showToast({
+        title: '动作重复了',
+      });
+    } else {
+      this.setData({
+        curTrainPlan: this.data.curTrainPlan
+      });
+      console.log('modify completed!');
     }
 
 
-    this.setData({
-      curMovementsList: this.data.curMovementsList
-    });
-    console.log('modify completed!');
-    success = true;
 
     return success;
+  },
+
+  /**
+   * 检查输入的合法性
+   */
+  checkParameter: function () {
+    if (typeof (this.data.tmpMovement.partName) == "undefined") {
+      wx.showToast({
+        title: '请选择部位',
+      });
+      return false;
+    }
+    if (typeof (this.data.tmpMovement.movementName) == "undefined") {
+      wx.showToast({
+        title: '请选择部位',
+      });
+      return false;
+    }
+    if (typeof (this.data.tmpMovement.groupCount) == "undefined") {
+      wx.showToast({
+        title: '请选择动作组数',
+      });
+      return false;
+    }
+    if (typeof (this.data.tmpMovement.movementCount) == "undefined") {
+      wx.showToast({
+        title: '请选择动作次数',
+      });
+      return false;
+    }
+    if (typeof (this.data.tmpMovement.movementWeight) == "undefined") {
+      wx.showToast({
+        title: '请选择动作重量',
+      });
+      return false;
+    }
+
+    return true;
+  },
+
+  /**
+   * 根据当前选中的数据，设置动作索引，方便用户选中
+   */
+  setPickerIndex: function (partName, movementName, gCount, mCount, mWeight) {
+    var partIdx;  //bodayPart Index
+    var movementIndx; //movementName Index
+    //部位搜索
+    for (var idx = 0; idx < this.data.movementMultiArray[0].length; idx++) {
+      if (this.data.movementMultiArray[0][idx] === partName) {
+        console.log("match", partName);
+        partIdx = idx;
+        break;
+      }
+    }
+
+    //动作搜索
+    for (var idx = 0; idx < this.getMovementNamePickerList(partIdx).length; idx++) {
+      if (this.getMovementNamePickerList(partIdx)[idx] === movementName) {
+        console.log("match", movementName);
+        movementIndx = idx;
+        break;
+      }
+    }
+
+    //置索引
+    var movementMultiArray = this.data.movementMultiArray;
+    movementMultiArray[1] = this.getMovementNamePickerList(partIdx);
+
+    var multiMovementIndex = [partIdx, movementIndx];
+
+    //组数，次数和重量
+    // var gCountIdx;
+    // var mCountIdx;
+    // var mWeightIdx;
+    // for (var idx = 0; idx < this.data.movementNoMultiArray[0].length; idx++) {
+    //   if (gCount < this.data.movementNoMultiArray[0][0]) {
+    //     gCountIdx = 0;
+    //     break;
+    //   }
+    //   if (this.data.movementNoMultiArray[0][idx] === gCount) {
+    //     console.log("match", gCount);
+    //     gCountIdx = idx;
+    //     break;
+    //   }
+    // }
+
+    // for (var idx = 0; idx < this.data.movementNoMultiArray[0].length; idx++) {
+    //   if (this.data.movementNoMultiArray[0][idx] === gCount) {
+    //     console.log("match", gCount);
+    //     gCountIdx = idx;
+    //   }
+    // }
+
+    //暂时手动置在中间
+    var multiMovementNoIndex = [5, 5, 5];
+
+    this.setData({
+      movementMultiArray: movementMultiArray,
+      multiMovementIndex: multiMovementIndex,
+      multiMovementNoIndex: multiMovementNoIndex
+    });
   },
 
   /**
   * 
   */
   removeMovement: function (id) {
-    console.log("remove ", id);
-    var tempList = this.data.curMovementsList;
-
-    var removedId = id + '';
-    for (var idx = 0; idx < tempList.length; idx++) {
-      var tempString = tempList[idx].movementIndex;
-      console.log("input id: ", removedId);
-      console.log("currment id: ", tempString);
-      console.log(removedId === tempString);
-      if (tempString === removedId) {
-        console.log("this is true");
-        tempList.splice(idx, 1);
-      }
-    }
-
-
-    //生成新数组，并重新排序
-    var restListMovement = [];
-    for (var idx = 0; idx < tempList.length; idx++) {
-      console.log(tempList[idx]);
-      if (tempList[idx].movementIndex > 0) {
-        tempList[idx].movementIndex = idx + 1 + "";
-        console.log(tempList[idx].movementIndex);
-        restListMovement.push(tempList[idx]);
-      }
-    }
-
-    //清空选中列表，重置index
-    console.log(restListMovement);
+    console.log("this.data.curTrainPlan", this.data.curTrainPlan);
+    this.data.curTrainPlan.remove(id);
     this.setData({
-      curMovementIndex: this.data.curMovementIndex - 1,
-      curMovementsList: restListMovement
+      curTrainPlan: this.data.curTrainPlan
     });
-    console.log("tempList", tempList);
     // console.log('remove', e.detail.value)
-  },
-
-  onGroupCountChange: function (e) {
-    this.setData({
-      curGroupCount: e.detail.value
-    })
-  },
-
-  onMovementCountChange: function (e) {
-    this.setData({
-      curMovementCount: e.detail.value
-    })
-  },
-
-  onMovementWeightChange: function (e) {
-    this.setData({
-      curMovementWeight: e.detail.value
-    })
-  },
-
-  onCheckboxChange: function (e) {
-    var checked = e.detail.value;
-    console.log("checked: " + checked);
-    console.log(checked);
-    var changed = {};
-    //这里不能绑定纯数字的item，否则无法监听，所以，movementIndex变成了字符串
-    for (var i = 0; i < this.data.curMovementsList.length; i++) {
-      if (checked.indexOf(this.data.curMovementsList[i].movementIndex) !== -1) {
-        console.log("true");
-        changed['curMovementsList[' + i + '].checked'] = true
-      } else {
-        changed['curMovementsList[' + i + '].checked'] = false
-        console.log("false");
-      }
-    }
-    this.setData({
-    });
-    this.setData(changed);
   },
 
   //响应的是，picker点确定之后
@@ -354,14 +322,17 @@ Page({
     })
   },
 
-  //响应的是picker列改变，及其后面的值跟随变化
+  //
+  /**
+   *Picker动作选择的监听，改变部位，其随后的动作会改变
+   */
   onMovementColumnChange: function (e) {
     console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
       movementMultiArray: this.data.movementMultiArray,
       multiMovementIndex: this.data.multiMovementIndex,
-      curPartName: this.data.curPartName,
-      curMovementName: this.data.curMovementName
+      tmpMovement: this.data.tmpMovement
+
     };
 
     data.multiMovementIndex[e.detail.column] = e.detail.value;
@@ -370,173 +341,171 @@ Page({
 
     switch (e.detail.column) {
       case 0:
-        switch (data.multiMovementIndex[0]) {
-          case 0:
-            data.movementMultiArray[1] = app.globalData.movementNameArrayUpperPectorales;
-            break;
-          case 1:
-            data.movementMultiArray[1] = app.globalData.movementNameArrayMiddlePectorales;
-            break;
-          case 2:
-            data.movementMultiArray[1] = app.globalData.movementNameArrayDownPectorales;
-            break;
-          case 3:
-            data.movementMultiArray[1] = app.globalData.movementNameArrayFrontShoulder;
-            break;
-          case 4:
-            data.movementMultiArray[1] = app.globalData.movementNameArrayMiddleShoulder;
-            break;
-          case 5:
-            data.movementMultiArray[1] = app.globalData.movementNameArrayBackShoulder;
-            break;
-          case 6:
-            data.movementMultiArray[1] = app.globalData.movementNameArrayDorsal;
-            break;
-          case 7:
-            data.movementMultiArray[1] = app.globalData.movementNameArrayAbdomen;
-            break;
-          case 8:
-            data.movementMultiArray[1] = app.globalData.movementNameArrayThigh;
-            break;
-          default:
-            break;
-        };
+        data.movementMultiArray[1] = this.getMovementNamePickerList(data.multiMovementIndex[0]);
         data.multiMovementIndex[1] = 0;
         break;
       case 1:
         {
           data.multiMovementIndex[1] = e.detail.value;
-
           break;
         }
-    };
+    }
 
+    data.tmpMovement.partName = data.movementMultiArray[0][data.multiMovementIndex[0]];
+    data.tmpMovement.movementName = data.movementMultiArray[1][data.multiMovementIndex[1]];
 
-    data.tmpPartName = data.movementMultiArray[0][data.multiMovementIndex[0]];
-    data.tmpMovementName = data.movementMultiArray[1][data.multiMovementIndex[1]];
-
-    console.log(data.tmpPartName, data.tmpMovementName);
+    console.log(this.data.tmpMovement.partName, this.data.tmpMovement.movementName);
 
     this.setData(data);
   },
 
+  /**
+   * 根据第一列数据的变化，动态获取第二列的值
+   */
+  getMovementNamePickerList: function (idxOfColumn1) {
+
+    var movementNamePickerList;
+    switch (idxOfColumn1) {
+      case 0:
+        movementNamePickerList = app.globalData.movementNameArrayUpperPectorales;
+        break;
+      case 1:
+        movementNamePickerList = app.globalData.movementNameArrayMiddlePectorales;
+        break;
+      case 2:
+        movementNamePickerList = app.globalData.movementNameArrayDownPectorales;
+        break;
+      case 3:
+        movementNamePickerList = app.globalData.movementNameArrayFrontShoulder;
+        break;
+      case 4:
+        movementNamePickerList = app.globalData.movementNameArrayMiddleShoulder;
+        break;
+      case 5:
+        movementNamePickerList = app.globalData.movementNameArrayBackShoulder;
+        break;
+      case 6:
+        movementNamePickerList = app.globalData.movementNameArrayDorsal;
+        break;
+      case 7:
+        movementNamePickerList = app.globalData.movementNameArrayAbdomen;
+        break;
+      case 8:
+        movementNamePickerList = app.globalData.movementNameArrayThigh;
+        break;
+      default:
+        break;
+    };
+    return movementNamePickerList;
+  },
+
+  /**
+   * 数字选择Picker的坚挺
+   */
   onNumberChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value);
+
+    var tmpMovement = this.data.tmpMovement;
+
     var selectedRowArr = e.detail.value;
-    var curGroupCount = this.data.movementNoMultiArray[0][selectedRowArr[0]];
-    var curMovementCount = this.data.movementNoMultiArray[1][selectedRowArr[1]];
-    var curMovementWeight = this.data.movementNoMultiArray[2][selectedRowArr[2]];
-
-    console.log(curGroupCount + ', ' + curMovementCount + ', ' + curMovementWeight);
+    tmpMovement.groupCount = this.data.movementNoMultiArray[0][selectedRowArr[0]];
+    tmpMovement.movementCount = this.data.movementNoMultiArray[1][selectedRowArr[1]];
+    tmpMovement.movementWeight = this.data.movementNoMultiArray[2][selectedRowArr[2]];
 
     this.setData({
-      curGroupCount: curGroupCount,
-      curMovementCount: curMovementCount,
-      curMovementWeight: curMovementWeight
+      tmpMovement: tmpMovement
     });
+    console.log('组数：' + tmpMovement.groupCount + ', ' + '次数：' + tmpMovement.movementCount + ', ' + "重量：" + tmpMovement.movementWeight);
 
-  },
-
-  onChangeMeasure: function (e) {
-    var measurement;
-    if (e.detail.value) {
-      measurement = 'Kg';
-    } else {
-      measurement = 'Lb';
-    }
-    this.setData({
-      curMeasurement: measurement
-    });
-
-    console.log(e.detail.value);
-    console.log(this.data.curMeasurement);
-  },
-
-  onSavePlan: function (e) {
-    this.savePlan();
-    wx.showToast({
-      title: '保存了',
-    });
-  },
-
-  onSavePlanAndTrain: function (e) {
-    this.savePlan();
-    wx.switchTab({
-      url: '../training/training',
-    })
   },
 
   loadData: function () {
     //同步获取
-    var allMovementsList = wx.getStorageSync('TrainPlan');
+    var allTrainPlan = wx.getStorageSync('TrainPlan');
 
-    console.log('load: ', allMovementsList);
+    if (allTrainPlan.length == 0)
+      allTrainPlan = [];
 
-    var curMovementsList = [];
-    for (var item of allMovementsList) {
-      if (item.date == this.data.selectedDate) {
-        curMovementsList.push(item);
-      }
-    };
+    console.log('load allTrainPlan data: ', allTrainPlan);
 
-    console.log('current list: ', curMovementsList);
+    var curTrainPlan = new datamodel.SingleDatePlan();
+    //如果有记录，从存储数据里读，如果没有记录，就初始化
+    var hasPlan = false;
+    if (allTrainPlan.length > 0) {
+      for (var item of allTrainPlan) {
+        if (item.planDate == this.data.selectedDate) {
+          curTrainPlan.planDate = this.data.selectedDate;
+          curTrainPlan.movementList = item.movementList;
+          hasPlan = true;
+        }
+      };
+
+    }
+    if (allTrainPlan.length === 0 || !hasPlan) {
+      curTrainPlan.planDate = this.data.selectedDate;
+      curTrainPlan.movementList = [];
+    }
+
+    console.log("after loadData, curTrainPlan: ", curTrainPlan);
+
     this.setData({
-      curMovementIndex: curMovementsList.length + 1,
-      allMovementsList: allMovementsList,
-      curMovementsList: curMovementsList
+      curMovementAmount: curTrainPlan.movementList.length + 1,
+      allTrainPlan: allTrainPlan,
+      curTrainPlan: curTrainPlan
     });
   },
 
   savePlan: function () {
     //先看是否为空，为空直接增加，然后查重，日期重的直接替换，日期没有的直接增加
-    var allMovementsList = this.data.allMovementsList;
-    for (var item of this.data.curMovementsList) {
-      //删除动画属性，否则每次进入不显示
-    }
-    if (allMovementsList.length == 0) {
-      allMovementsList = this.data.curMovementsList;
+    var allTrainPlan = this.data.allTrainPlan;
+
+    if (allTrainPlan.length == 0) {
+      allTrainPlan.push(this.data.curTrainPlan);
     } else {
       //查重
       var hasThisDay = false;
 
-      for (var idx = 0; idx < allMovementsList.length; idx++) {
-        if (this.data.selectedDate == allMovementsList[idx].date) {
+      for (var item of allTrainPlan) {
+        if (this.data.selectedDate == item.planDate) {
+          console.log("we have this day");
           hasThisDay = true;
           break;
+        } else {
+          console.log("we dont have this day");
         }
       }
 
       //没有这天的记录，直接增加
       if (!hasThisDay) {
-        allMovementsList = allMovementsList.concat(this.data.curMovementsList);
+        allTrainPlan = allTrainPlan.concat(this.data.curTrainPlan);
       } else {  //有这天的记录，删除再增加
         var start = 0;  //删除开始的索引
         var count = 0;  //删除的个数
 
-        for (var idx = 0; idx < allMovementsList.length; idx++) {
-          if (this.data.selectedDate == allMovementsList[idx].date) {
+        for (var idx = 0; idx < allTrainPlan.length; idx++) {
+          if (this.data.selectedDate == allTrainPlan[idx].planDate) {
             start = idx;
             break;
           }
         }
 
-        for (var idx = 0; idx < allMovementsList.length; idx++) {
-          if (this.data.selectedDate == allMovementsList[idx].date) {
+        for (var idx = 0; idx < allTrainPlan.length; idx++) {
+          if (this.data.selectedDate == allTrainPlan[idx].planDate) {
             count++;
           }
         }
 
-        allMovementsList.splice(start, count);
-        allMovementsList = allMovementsList.concat(this.data.curMovementsList);
+        allTrainPlan.splice(start, count);
+        allTrainPlan = allTrainPlan.concat(this.data.curTrainPlan);
       }
     }
 
-    console.log("all....", allMovementsList);
+    console.log("all....", allTrainPlan);
     this.setData({
-      allMovementsList: allMovementsList
+      allTrainPlan: allTrainPlan
     });
-    console.log("this all....", this.data.allMovementsList);
-    wx.setStorageSync('TrainPlan', this.data.allMovementsList);
+    console.log("this all....", this.data.allTrainPlan);
+    wx.setStorageSync('TrainPlan', this.data.allTrainPlan);
   },
 
   // for modal control
@@ -583,27 +552,33 @@ Page({
 
   //for input change in modal
   onInputGroupChange: function (e) {
+    var tmp = this.data.tmpMovement;
+    tmp.groupCount = e.detail.value;
     this.setData({
-      curGroupCount: e.detail.value
-    })
+      tmpMovement: tmp
+    });
   },
 
   onInputMvCountChange: function (e) {
+    var tmp = this.data.tmpMovement;
+    tmp.movementCount = e.detail.value;
     this.setData({
-      curMovementCount: e.detail.value
-    })
+      tmpMovement: tmp
+    });
   },
 
   onInputWeightChange: function (e) {
+    var tmp = this.data.tmpMovement;
+    tmp.movementWeight = e.detail.value;
     this.setData({
-      curMovementWeight: e.detail.value
-    })
+      tmpMovement: tmp
+    });
   },
 
   //for left swipe delete
 
   onTouchStart: function (e) {
-    if (this.isExpired()) {
+    if (util.isExpired(this.data.selectedDate)) {
       return;
     }
     if (this.showState === 1) {
@@ -721,10 +696,14 @@ Page({
   },
 
   getItemIndex: function (id) {
-    console.log("left id: ", id);
-    var curMovementsList = this.data.curMovementsList;
-    for (var i = 0; i < curMovementsList.length; i++) {
-      if (curMovementsList[i].movementIndex === id) {
+    // console.log("left id: ", id);
+    var curTrainPlan = this.data.curTrainPlan;
+    // console.log("getItemIndex:", curTrainPlan);
+
+    for (var i = 0; i < curTrainPlan.movementList.length; i++) {
+      // console.log("getItemIndex:", curTrainPlan.movementList[i].id, String(curTrainPlan.movementList[i].id) === String(id));
+      if (String(curTrainPlan.movementList[i].id) === String(id)) {
+        console.log("getItemIndex:", i);
         return i;
       }
     }
@@ -756,7 +735,7 @@ Page({
   animationMovementItem: function (id, animation) {
     var index = this.getItemIndex(id);
     var param = {};
-    var indexString = 'curMovementsList[' + index + '].animation';
+    var indexString = 'curTrainPlan.movementList[' + index + '].animation';
     param[indexString] = animation.export();
     this.setData(param);
   },
@@ -764,40 +743,52 @@ Page({
   animationMovementWrapItem: function (id, animation) {
     var index = this.getItemIndex(id);
     var param = {};
-    var indexString = 'curMovementsList[' + index + '].wrapAnimation';
+    var indexString = 'curTrainPlan.movementList[' + index + '].wrapAnimation';
     param[indexString] = animation.export();
     this.setData(param);
   },
+
+
+  //-------------------------------------------------------------------------------
+  //生命周期函数，页面跳转等等
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //初始化
+    this.data.curTrainPlan = new datamodel.SingleDatePlan();
+    this.data.tmpMovement = new datamodel.Movement();
+    this.data.tmpMovement.checked = false;
+    this.data.tmpMovement.measurement = app.system.userConfig.measurement;
 
+    console.log("onLoad, this.data.curTrainPlan: ", this.data.curTrainPlan);
+    console.log("onLoad, this.data.tmpMovement: ", this.data.tmpMovement);
+    console.log("onLoad call");
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    console.log("onReady call");
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log("onShow call");
     this.setData({
       selectedDate: util.formatDateToString(app.globalData.selectedDate)
     });
     this.loadData();
-    this.data.curMovementIndex = this.data.curMovementsList.length + 1;
-    if (this.isExpired()) {
+
+    if (util.isExpired(this.data.selectedDate)) {
       wx.showToast({
-        title: '不能修改过去计划',
+        title: '不能修改历史',
       });
     }
-
   },
 
   /**
@@ -805,28 +796,28 @@ Page({
    */
   onHide: function () {
     this.savePlan();
-    console.log("saved");
+    console.log("onHide call: data saved");
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    console.log("onUnload call");
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    console.log("onPullDownRefresh call");
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    console.log("onReachBottom call");
   },
 
   /**

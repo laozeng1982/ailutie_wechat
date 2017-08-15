@@ -12,9 +12,9 @@
 <!-- 动作列表  wx:key="curMovementIndex" -->
 <view class="container2">
   <scroll-view style='height:{{scrollHeight}}px;' scroll-y="true" style="height: 850rpx;">
-    <view class="listSingleMovement" wx:for="{{curMovementsList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
+    <view class="listSingleMovement" wx:for="{{curTrainPlan.movementList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
       <view class="graySpace"></view>
-      <view id='{{item.movementIndex}}' class='movement' animation='{{item.animation}}' bindtap="onModifyMovement" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' bindtouchend='onTouchEnd'>
+      <view id='{{item.id}}' class='movement' animation='{{item.animation}}' bindtap="onModifyMovement" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' bindtouchend='onTouchEnd'>
         <!-- <image class='header-img' src="../../image/head.png"></image> -->
         <view class="tableCornor" data-index="{{index}}">
           <view class="graySpace"></view>
@@ -36,10 +36,10 @@
         </view>
       </view>
       <view class='movement-menu'>
-        <view id='{{item.movementIndex}}' class='menu-delete' bindtap='onDeleteMovementTap' bindlongtap='onDeleteMovementTap'>
+        <view id='{{item.id}}' class='menu-delete' bindtap='onDeleteMovementTap' bindlongtap='onDeleteMovementTap'>
           删除
         </view>
-        <view id='{{item.movementIndex}}' class='menu-mark' bindtap='onModifyMovementTap' bindlongtap='onModifyMovementLongtap'>
+        <view id='{{item.id}}' class='menu-mark' bindtap='onModifyMovement' bindlongtap='onModifyMovementLongtap'>
           修改
         </view>
       </view>
@@ -59,26 +59,26 @@
   <view class="modal-title">{{actionName}}</view>
   <view class="modal-content">
     <picker mode="multiSelector" bindchange="onMovementChange" bindcolumnchange="onMovementColumnChange" value="{{multiMovementIndex}}" range="{{movementMultiArray}}">
-      <text>选择动作 : </text>{{curPartName}} {{curMovementName}}
+      <text>选择动作 : </text>{{tmpMovement.partName}} {{tmpMovement.movementName}}
     </picker>
     <view class="graySpace"></view>
-    <picker mode="multiSelector" bindchange="onNumberChange" value="{{multiIndex}}" range="{{movementNoMultiArray}}">
-      <text>选择数量 : </text> {{curGroupCount}} 组  {{curMovementCount}} 次  {{curMovementWeight}}Kg
+    <picker mode="multiSelector" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
+      <text>选择数量 : </text> {{tmpMovement.groupCount}} 组  {{tmpMovement.movementCount}} 次  {{tmpMovement.movementWeight}}Kg
     </picker>
     <view class="graySpace"></view>
     <view class="modal-input">
       <text>组数</text>
-      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputGroupChange" class="input" value="{{curGroupCount}}" placeholder="{{curGroupCount}}组"></input>
+      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputGroupChange" class="input" value="{{tmpMovement.groupCount}}" placeholder="{{curGroupCount}}组"></input>
     </view>
     <view class="graySpace"></view>
     <view class="modal-input">
       <text>次数</text>
-      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputMvCountChange" class="input" value="{{curMovementCount}}" placeholder="{{curMovementCount}}次"></input>
+      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputMvCountChange" class="input" value="{{tmpMovement.movementCount}}" placeholder="{{curMovementCount}}次"></input>
     </view>
     <view class="graySpace"></view>
     <view class="modal-input">
       <text>重量</text>
-      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputWeightChange" class="input" value="{{curMovementWeight}}" placeholder="{{curMovementWeight}}Kg"></input>
+      <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputWeightChange" class="input" value="{{tmpMovement.movementWeight}}" placeholder="{{curMovementWeight}}Kg"></input>
     </view>
   </view>
 
