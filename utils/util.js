@@ -1,27 +1,33 @@
+/**
+ * 工具类包，提供以下功能：
+ * 1、日期之间的转换，日期和字符串的转换
+ * 
+ */
+
+
 function formatTimeToString(date) {
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
 
-  var hour = date.getHours()
-  var minute = date.getMinutes()
-  var second = date.getSeconds()
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  var second = date.getSeconds();
 
-
-  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
 }
 
 function formatDateToString(date) {
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
 
-  return [year, month, day].map(formatNumber).join('-')
+  return [year, month, day].map(formatNumber).join('-');
 }
 
 function formatStringToDate(year, month, day) {
 
-  return new Date(Date.UTC(year, month - 1, day))
+  return new Date(Date.UTC(year, month - 1, day));
 }
 
 /**
@@ -101,11 +107,23 @@ function onChangeMeasure(e) {
   console.log(this.data.curMeasurement);
 }
 
+function isLogin() {
+  var app = getApp();
+  if (!app.globalData.isLogin) {
+    console.log("No user login...");
+    return false;
+  }else{
+    console.log(app.globalData.userInfo.aa ,"login");
+    return true;
+  }
+}
+
 module.exports = {
   formatTimeToString: formatTimeToString,
   formatDateToString: formatDateToString,
   formatStringToDate: formatStringToDate,
   formatStringDate: formatStringDate,
   isExpired: isExpired,
+  isLogin: isLogin,
   getMoveDays: getMoveDays
 }

@@ -1,6 +1,7 @@
 // plan.js
 import util from '../../utils/util.js'
-import datamodel from '../../datamodel/datamodel.js'
+import SingleDatePlan from '../../datamodel/SingleDatePlan.js'
+import Movement from '../../datamodel/Movement.js'
 
 var app = getApp()
 
@@ -124,7 +125,7 @@ Page({
     console.log("id is: ", this.data.tmpMovement.id);
     this.data.tmpMovement.id = this.data.curMovementAmount;
     console.log("id is: ", this.data.tmpMovement.id);
-    var toBeAdd = new datamodel.Movement();
+    var toBeAdd = new Movement.Movement();
 
     //必须要使用copyfrom，否则添加的都是一样的。不能使用：toBeAdd = this.data.tmpMovement
     toBeAdd.fullCopyFrom(this.data.tmpMovement);
@@ -413,6 +414,9 @@ Page({
 
   loadData: function () {
     //同步获取
+    if (!util.isLogin()) {
+      return;
+    }
     var allTrainPlan = wx.getStorageSync('TrainPlan');
 
     if (allTrainPlan.length == 0)
@@ -420,7 +424,7 @@ Page({
 
     console.log('load allTrainPlan data: ', allTrainPlan);
 
-    var curTrainPlan = new datamodel.SingleDatePlan();
+    var curTrainPlan = new SingleDatePlan.SingleDatePlan();
     //如果有记录，从存储数据里读，如果没有记录，就初始化
     var hasPlan = false;
     if (allTrainPlan.length > 0) {
@@ -448,6 +452,9 @@ Page({
   },
 
   savePlan: function () {
+    if (!util.isLogin()) {
+      return;
+    }
     //先看是否为空，为空直接增加，然后查重，日期重的直接替换，日期没有的直接增加
     var allTrainPlan = this.data.allTrainPlan;
 
@@ -769,8 +776,8 @@ Page({
    */
   onLoad: function (options) {
     //初始化
-    this.data.curTrainPlan = new datamodel.SingleDatePlan();
-    this.data.tmpMovement = new datamodel.Movement();
+    this.data.curTrainPlan = new SingleDatePlan.SingleDatePlan();
+    this.data.tmpMovement = new Movement.Movement();
     this.data.tmpMovement.checked = false;
     this.data.tmpMovement.measurement = app.system.userConfig.measurement;
 

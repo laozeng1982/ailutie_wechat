@@ -1,0 +1,10 @@
+<!--signUp1st.wxml-->
+<view class="container">
+  <view>亲爱的用户</view>
+  <view>您需要注册一个账号，</view>
+  <view>或者使用微信登陆，</view>
+  <view>方能存储您的数据哦。</view>
+  <button type="primary" bindtap="onGoSignUp">马上去注册</button>
+  <button type="default" bindtap="onWechatLogin">用微信登陆</button>
+
+</view>

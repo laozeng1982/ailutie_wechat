@@ -9,7 +9,7 @@
       </view>
       <view class="flex">
         <text class="title">地址：{{userInfo.country}}{{userInfo.city}}{{userInfo.province}}</text>
-         <text class="title">这一页准备仿微信，朋友圈，设置，其他复杂功能放这里</text>
+        <text class="title">这一页准备仿微信，朋友圈，设置，其他复杂功能放这里</text>
       </view>
     </view>
   </view>

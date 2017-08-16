@@ -2,10 +2,13 @@
   "pages": [
     "pages/index/index",
     "pages/listplan/plan",
-    "pages/tableplan/plan",
     "pages/training/training",
     "pages/settings/settings",
-    "pages/ui/calender/calender"
+    "pages/ui/calender/calender",
+    "pages/signUp/signUp1st/signUp1st",
+    "pages/signUp/signUp2nd/signUp2nd",
+    "pages/signUp/signUp3rd/signUp3rd",
+    "pages/signUp/signTerms/signTerms"
   ],
   "window": {
     "navigationBarBackgroundColor": "#000000",

@@ -41,11 +41,11 @@ Page({
       wx.showToast({
         title: '还没有计划',
       });
-    } else {
-      this.setData({
-        todayTrainPlan: todayTrainPlan
-      });
-    }
+    } 
+
+    this.setData({
+      todayTrainPlan: todayTrainPlan
+    });
 
     console.log("this.data.todayTrainPlan", this.data.todayTrainPlan);
   },

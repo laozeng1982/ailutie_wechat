@@ -1,0 +1,9 @@
+<!--signUp2nd.wxml-->
+<view class="container">
+  <view class="classname">亲爱的用户</view>
+  <view class="classname" bindtap="onReadTerms">阅读注册须知</view>
+  <checkbox-group bindchange="onAgreeTerms" data-checked="{{terms.checked}}">
+    <checkbox value="terms.name" checked="{{terms.checked}}" /> 我已阅读须知
+  </checkbox-group>
+  <button type="default" disabled="{{!terms.checked}}" bindtap="onGoSignUp">去注册</button>
+</view>

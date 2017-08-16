@@ -1,8 +1,28 @@
 //app.js
+/**
+ * 小程序总入口
+ */
 import util from './utils/util.js'
 
 App({
   onLaunch: function () {
+
+    //为了提升体验，首次登陆不强制注册，可以补充注册
+    var userInfo = wx.getStorageSync("UserInfo");
+    console.log("userInfo: ", userInfo);
+    var userUID = userInfo.userUID;
+
+    if (userInfo.defaultWechatLogin) {
+      // 使用微信登录
+      console.log("user wechat ID");
+    
+    } else if (typeof (userUID) == "undefined") {
+      //去注册
+      wx.navigateTo({
+        url: 'pages/signUp/signUp1st/signUp1st',
+      });
+    }
+
 
     // 登录
     wx.login({
@@ -18,7 +38,7 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
+              this.globalData.wechatUserInfo = res.userInfo
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
@@ -34,41 +54,31 @@ App({
     // this.getMovementsList();
   },
 
-  getUserInfo: function (cb) {
+  getWechatUserInfo: function (cb) {
     var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
+    if (this.globalData.wechatUserInfo) {
+      typeof cb == "function" && cb(this.globalData.wechatUserInfo)
     } else {
       //调用登录接口
       wx.getUserInfo({
         withCredentials: false,
         success: function (res) {
-          that.globalData.userInfo = res.userInfo
-          typeof cb == "function" && cb(that.globalData.userInfo)
+          that.globalData.wechatUserInfo = res.userInfo
+          typeof cb == "function" && cb(that.globalData.wechatUserInfo)
         }
       })
     }
   },
 
-  // getMovementsList: function () {
-  //   console.log("here");
-  //   this.globalData.allMovementsList = wx.getStorage({
-  //     key: 'TrainPlan',
-  //     success: function (res) {
-  //     },
-  //   });
-  //   console.log(this.globalData.allMovementsList);
-  // },
-
   showToast: function (text, o, count) {
-    var _this = o;
+    var that = o;
     count = parseInt(count) ? parseInt(count) : 3000;
-    _this.setData({
+    that.setData({
       toastText: text,
       isShowToast: true,
     });
     setTimeout(function () {
-      _this.setData({
+      that.setData({
         isShowToast: false
       });
     }, count);
@@ -82,6 +92,9 @@ App({
 
   globalData: {
     userInfo: null,
+    wechatUserInfo: null,
+    
+    isLogin: false,//登陆状态记录
     allMovementsList: [],
     hasTrainPlanDateList: [],
     selectedDateString: util.formatDateToString(new Date()),

@@ -150,10 +150,16 @@ Page({
     this.moveMonth(false);
   },
 
+  /**
+   * 响应下月按钮
+   */
   onNextMonth: function () {
     this.moveMonth(true);
   },
 
+  /**
+   * 移动月的操作
+   */
   moveMonth: function (isNext) {
     var curYear = this.data.curYear;
     var curMonth = this.data.curMonth;
@@ -209,6 +215,7 @@ Page({
    * 每次进入页面，调用loadDate()，刷新数据
    */
   onShow: function () {
+    console.log(app.globalData.selectedDate)
     var year = app.globalData.selectedDate.getFullYear();
     var month = app.globalData.selectedDate.getMonth() + 1;
     var day = app.globalData.selectedDate.getDate();
