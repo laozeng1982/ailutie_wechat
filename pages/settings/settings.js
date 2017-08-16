@@ -24,7 +24,7 @@ Page({
         list_tool: [
           {
             img: "../../image/card.png",
-            name: "收藏（picker&switch）",
+            name: "收藏",
             url: "../picker/picker"
 
           },
@@ -62,7 +62,7 @@ Page({
           },
           {
             img: "../../image/card.png",
-            name: "卡包（picker&switch）",
+            name: "卡包",
             url: "../picker/picker"
           }
         ]

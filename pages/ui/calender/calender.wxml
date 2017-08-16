@@ -1,9 +1,9 @@
 <!--calender.wxml-->
 
 <view class="button-group">
-  <button type="default" style="plain" bindtap="bindPreMonth"> 上月</button>
-  <button type="default" bindtap="bindToThisMonth">{{curYear+' 年 '+curMonth +' 月 ' + curDay+ '日'}}</button>
-  <button type="default" bindtap="bindNextMonth">下月</button>
+  <button type="default" style="plain" bindtap="onPreMonth"> 上月</button>
+  <button type="default" bindtap="onToThisMonth">{{curYear+' 年 '+curMonth +' 月 ' + curDay+ '日'}}</button>
+  <button type="default" bindtap="onNextMonth">下月</button>
 
 </view>
 
@@ -27,13 +27,13 @@
   <view class="calender_box" wx:for="{{dateList}}" wx:for-item="week" style="{{index==0?'justfiy-content: flex-end;':''}}">
     <view class="weekday_label_days" wx:for="{{week}}">
       <view wx:for-item="{{dateListWithPlan}}" class="{{item.hasPlan?'weekday_label_days_overlay':''}}"></view>
-      <text class="{{item.value==selectedDate?'active_date':''}} " bindtap="bindToSelectedDate" data-date="{{item}}">{{item.date}}</text>
+      <text class="{{item.value==selectedDate?'active_date_overlay':''}} " bindtap="onToSelectedDate" data-date="{{item}}">{{item.date}}</text>
     </view>
   </view>
 </view>
-<view class="container1">
+<view class="tip_container">
   <view class="show_box">选中日期：{{selectedDate}} {{selectedWeek}}</view>
-  <button type="primary" bindtap="bindToToday">到今天</button>
+  <button type="primary" bindtap="onToToday">到今天</button>
 </view>
 
 <view class="tip">

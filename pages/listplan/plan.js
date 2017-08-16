@@ -1,6 +1,6 @@
 // plan.js
 import util from '../../utils/util.js'
-import datamodel from '../datamodel/datamodel.js'
+import datamodel from '../../datamodel/datamodel.js'
 
 var app = getApp()
 

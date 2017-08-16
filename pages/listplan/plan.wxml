@@ -3,7 +3,7 @@
 <view class="thiscontainer">
   <view class="graySpace"></view>
   <!-- 这是Toast -->
-  <include src="../ui/toast.wxml" />
+  <include src="../ui/toast/toast.wxml" />
   <view class="button-group">
     <button class="dateMoveButton" bindtap="onLastDate" size="default"> 前一天</button>
     <button class="dateButton" bindtap="onSelectDate" size="default"> {{selectedDate}}</button>
@@ -20,7 +20,7 @@
           <view id='{{item.id}}' class='movement' animation='{{item.animation}}' bindtap="onModifyMovement" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' bindtouchend='onTouchEnd'>
             <view class="graySpace"></view>
             <view class="tableCornor">
-              <image class='header-img' src="../../image/arm2.png"></image>
+              <image class='header-img' src="{{item.pictureSrc}}"></image>
               <view class="content" style="flex:5" data-index="{{index}}">
                 <view class="graySpace"></view>
 
@@ -64,7 +64,7 @@
   <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
   <view id="{{curMovementIndex}}" class="modal-dialog" wx:if="{{showModal}}">
     <!-- 这是Toast -->
-    <include src="../ui/toast.wxml" />
+    <include src="../ui/toast/toast.wxml" />
     <view class="modal-title">{{actionName}}</view>
     <view class="modal-content">
       <picker mode="multiSelector" bindchange="onMovementChange" bindcolumnchange="onMovementColumnChange" value="{{multiMovementIndex}}" range="{{movementMultiArray}}">

@@ -24,42 +24,6 @@ Page({
     dateListWithPlan: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    var year = app.globalData.selectedDate.getFullYear();
-    var month = app.globalData.selectedDate.getMonth() + 1;
-    var day = app.globalData.selectedDate.getDate();
-    var idx = app.globalData.selectedDate.getDay();
-
-    this.setData({
-      curYear: year,
-      curMonth: month,
-      curDay: day,
-      selectedDate: util.formatStringDate(year, month, day),
-      selectedWeek: this.data.weekArr[idx]
-    });
-
-    this.loadData();
-
-    this.getDateList(year, month);
-
-  },
 
   loadData: function () {
     //同步获取
@@ -89,7 +53,12 @@ Page({
 
   },
 
-  getDateList: function (year, month) {
+  /**
+   * 最核心的函数
+   * 1、获取每个的显示列表
+   * 2、搜索、标记日期状态
+   */
+  setDateList: function (year, month) {
     var vm = this;
     //如果是闰年，则2月有29天
     var daysCountArr = this.data.daysCountArr;
@@ -140,9 +109,9 @@ Page({
     for (var week = 0; week < dateList.length; week++) {
       for (var day = 0; day < dateList[week].length; day++)
         for (var planDay of this.data.dateListWithPlan) {
-          // 
+          //当有记录的标记
           if (dateList[week][day].value === planDay) {
-            console.log(dateList[week][day].value, planDay);
+            // console.log(dateList[week][day].value, planDay);
             dateList[week][day].hasPlan = true;
           }
         }
@@ -154,7 +123,7 @@ Page({
     });
   },
 
-  bindToSelectedDate: function (e) {
+  onToSelectedDate: function (e) {
     this.selectDate(e.currentTarget.dataset.date.value, e.currentTarget.dataset.date.week);
   },
 
@@ -174,11 +143,14 @@ Page({
     console.log(app.globalData.selectedDate);
   },
 
-  bindPreMonth: function () {
+  /**
+   * 响应上月按钮
+   */
+  onPreMonth: function () {
     this.moveMonth(false);
   },
 
-  bindNextMonth: function () {
+  onNextMonth: function () {
     this.moveMonth(true);
   },
 
@@ -198,10 +170,10 @@ Page({
       curMonth: curMonth
     });
 
-    this.getDateList(curYear, curMonth);
+    this.setDateList(curYear, curMonth);
   },
 
-  bindToThisMonth: function () {
+  onToThisMonth: function () {
     var curYear = new Date().getFullYear();
     var curMonth = new Date().getMonth() + 1;
 
@@ -211,12 +183,51 @@ Page({
       curMonth: curMonth
     });
 
-    this.getDateList(curYear, curMonth);
+    this.setDateList(curYear, curMonth);
   },
 
-  bindToToday: function () {
+  onToToday: function () {
     this.selectDate(util.formatDateToString(new Date()));
   },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   * 每次进入页面，调用loadDate()，刷新数据
+   */
+  onShow: function () {
+    var year = app.globalData.selectedDate.getFullYear();
+    var month = app.globalData.selectedDate.getMonth() + 1;
+    var day = app.globalData.selectedDate.getDate();
+    var idx = app.globalData.selectedDate.getDay();
+
+    this.setData({
+      curYear: year,
+      curMonth: month,
+      curDay: day,
+      selectedDate: util.formatStringDate(year, month, day),
+      selectedWeek: this.data.weekArr[idx]
+    });
+
+    this.loadData();
+
+    this.setDateList(year, month);
+
+  },
+
   /**
    * 生命周期函数--监听页面隐藏
    */

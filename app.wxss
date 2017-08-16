@@ -289,9 +289,6 @@ form {
   padding-right: 0;
 }
 
-.page-section-ctn {
-}
-
 /* widget */
 
 .btn-area {
@@ -389,7 +386,6 @@ form {
 }
 
 /**app.wxss**/
-@import 'wa-ui.wxss';
 
 page {
   height: 100%;
@@ -526,7 +522,7 @@ page {
 }
 
 /*toast start*/
-
+/* 只能放这里 */
 .wxapp-toast-mask {
   opacity: 0;
   width: 100%;

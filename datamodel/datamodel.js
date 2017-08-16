@@ -94,6 +94,7 @@ function Movement(stringDate, id, pName, mName, gCount, mCount, mWeight, check, 
   this.date = stringDate;
   this.id = id + '';
   this.partName = pName;
+  this.pictureSrc ='';
   this.movementName = mName;
   this.groupCount = gCount;
   this.movementCount = mCount;
@@ -172,6 +173,7 @@ function Movement(stringDate, id, pName, mName, gCount, mCount, mWeight, check, 
     this.date = movement.date;
     this.id = movement.id;
     this.partName = movement.partName;
+    this.pictureSrc = movement.pictureSrc;
     this.movementName = movement.movementName;
     this.groupCount = movement.groupCount;
     this.movementCount = movement.movementCount;

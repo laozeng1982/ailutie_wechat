@@ -1,14 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs",
     "pages/listplan/plan",
     "pages/tableplan/plan",
     "pages/training/training",
     "pages/settings/settings",
-    "pages/ui/calender/calender",
-    "pages/ui/calender2/calender2",
-    "pages/movement/movement"
+    "pages/ui/calender/calender"
   ],
   "window": {
     "navigationBarBackgroundColor": "#000000",
