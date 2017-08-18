@@ -79,13 +79,18 @@ Page({
     });
   },
 
+  onGroupFinished:function(e) {
+    var checked = e.detail.value;
+    console.log("in onGroupFinished, id: ", checked);
+  },
+
   /**
    * 点击该checkbox时，表示动作已经完成
    */
   onMovementFinished: function (e) {
 
     var checked = e.detail.value;
-    // console.log("checked: ", checked);
+    console.log("checked: ", checked);
 
 
     var tmpPlanAmount = this.data.todayTrainPlan[this.data.curMovementId].planAmount;
@@ -104,7 +109,7 @@ Page({
       curDoingNumber: curDoingNumber
     });
 
-    // console.log("in onPlanSelected, this.data.todayTrainPlan[this.data.curMovementId].planAmount",
+    // console.log("in onMovementFinished, this.data.todayTrainPlan[this.data.curMovementId].planAmount",
     //   this.data.todayTrainPlan[this.data.curMovementId].planAmount);
   },
 

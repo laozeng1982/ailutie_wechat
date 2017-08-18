@@ -8,26 +8,36 @@
 
   <view class="container2">
     <scroll-view class="scrollContainer1" style='height:{{planScrollHeight}}rpx; ' scroll-y="true">
-      <radio-group bindchange="onGroupSelected">
+
+
+      <checkbox-group bindchange="onGroupFinished">
         <view class="listSingleMovement" wx:for="{{todayTrainPlan}}" class='movement-item' animation='{{item.wrapAnimation}}'>
           <!-- <view class="graySpace"></view> -->
-          <view id='{{item.id}}' class='movement' bindtap="">
+
+          <view id='{{item.id}}' class='movement' >
             <view class="graySpace"></view>
             <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
             <view class="{{item.id%2==0?'tableCornor1':'tableCornor2'}}" data-index="{{index}}">
               <!-- <view class="graySpace"></view> -->
 
-              <view class="movementName">
+              <radio-group class="box" bindchange="onGroupSelected">
                 <radio value="{{item.id}}" checked="{{item.id==(curMovementId+1)?true:false}}" />
-                <view class="tableItem">{{item.movementName}}</view>
-                <view class="tableItem">第 {{curDoingNumber}} / {{item.planGpCount}} 组</view>
+              </radio-group>
+
+              <view class="movementName" bindtap="onnn">
+                <view class="tableItemName">{{item.movementName}}</view>
+                <view class="tableItem">第 {{curDoingNumber}}/{{item.planGpCount}} 组</view>
               </view>
+              
+              <checkbox class="box" value="{{item.id}}" checked="{{item.finished}}" />
             </view>
+
             <view class="graySpace"></view>
           </view>
 
         </view>
-      </radio-group>
+      </checkbox-group>
+
     </scroll-view>
   </view>
 
