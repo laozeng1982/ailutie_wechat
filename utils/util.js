@@ -4,7 +4,10 @@
  * 
  */
 
-
+/**
+ * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
+ * 参数：date，日期类（Date）
+ */
 function formatTimeToString(date) {
   var year = date.getFullYear();
   var month = date.getMonth() + 1;
@@ -17,6 +20,10 @@ function formatTimeToString(date) {
   return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
 }
 
+/**
+ * 将日期转为指定格式，例如：2017-08-30
+ * 参数：date，日期类（Date）
+ */
 function formatDateToString(date) {
   var year = date.getFullYear();
   var month = date.getMonth() + 1;
@@ -25,15 +32,23 @@ function formatDateToString(date) {
   return [year, month, day].map(formatNumber).join('-');
 }
 
-function formatStringToDate(year, month, day) {
+/**
+ * 给定年月日，取得当前时间
+ * 参数year：年
+ * 参数month：月，自然月
+ * 参数day：当月第day日
+ */
+function getDateFromString(year, month, day) {
 
   return new Date(Date.UTC(year, month - 1, day));
 }
 
 /**
- * for string date format like '2016-9-01' or '2016/9/01'
+ * 将字符串日期转换为日期类，得到对应的日期对象
+ * 参数date：字符串表示的日期，比如 '2016-9-01'或者'2016/9/01'
+ * 参数spliter：字符串中的分隔符
  */
-function formatStringToDate(date, spliter) {
+function getDateFromString(date, spliter) {
   var year = date.split(spliter)[0];
   var month = date.split(spliter)[1];
   var day = date.split(spliter)[2];
@@ -41,14 +56,25 @@ function formatStringToDate(date, spliter) {
   return new Date(Date.UTC(year, month - 1, day));
 }
 
+/**
+ * 格式化输出日期字符串，输出格式为：2017-08-30
+ * 参数year：年
+ * 参数month：月，自然月
+ * 参数day：当月第day日
+ */
+function formatStringDate(year, month, day) {
+  return [year, month, day].map(formatNumber).join('-');
+}
+
+/**
+ * 
+ */
 function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
 
-function formatStringDate(year, month, day) {
-  return [year, month, day].map(formatNumber).join('-');
-}
+
 
 /**
  * 检查当前选择日期是否过期
@@ -58,8 +84,8 @@ function isExpired(selectedDate) {
   var isExpired = false;
 
   var nowString = formatDateToString(new Date());
-  var now = formatStringToDate(nowString, '-').getTime() / (3600 * 24 * 1000);
-  var selected = formatStringToDate(selectedDate, '-').getTime() / (3600 * 24 * 1000);
+  var now = getDateFromString(nowString, '-').getTime() / (3600 * 24 * 1000);
+  var selected = getDateFromString(selectedDate, '-').getTime() / (3600 * 24 * 1000);
 
   // console.log("now: ", now);
   // console.log("selected: ", selected);
@@ -73,7 +99,7 @@ function isExpired(selectedDate) {
 }
 
 function getMoveDays(startDay, isNext, dayCount) {
-  var selectedDayTimeMills = formatStringToDate(startDay, '-').getTime();
+  var selectedDayTimeMills = getDateFromString(startDay, '-').getTime();
   var moveDayTimeMills;
   //时间改变一天，直接加上、或减去一天的毫秒数
   if (isNext) {
@@ -201,7 +227,7 @@ function getMovementNamePickerList(idxOfColumn1) {
 module.exports = {
   formatTimeToString: formatTimeToString,
   formatDateToString: formatDateToString,
-  formatStringToDate: formatStringToDate,
+  getDateFromString: getDateFromString,
   formatStringDate: formatStringDate,
   isExpired: isExpired,
   isLogin: isLogin,

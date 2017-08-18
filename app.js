@@ -25,6 +25,7 @@ App({
 
     // 准备数据：
     this.globalData.movementMultiArray.push(this.globalData.bodyPartArray);
+    // this.globalData.movementMultiArray.push([]);
     this.globalData.movementMultiArray.push(this.globalData.movementNameArray);
     //默认使用登录
     wx.login({

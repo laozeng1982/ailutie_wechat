@@ -1,5 +1,10 @@
-// plan.js
+/**
+ * plan.js
+ * 计划页面，响应各种操作
+ */
+
 import util from '../../utils/util.js'
+import controller from '../../utils/controller.js'
 import SingleDatePlan from '../../datamodel/SingleDatePlan.js'
 import Movement from '../../datamodel/Movement.js'
 import Record from '../../datamodel/Record.js'
@@ -12,8 +17,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    //用来保存当前选中的日期，默认是当天
-    // selectedDate: util.formatDateToString(app.globalData.selectedDate),
+    //用来保存当前选中的日期，初始进程序，显示当天
     selectedDate: util.formatDateToString(new Date()),
 
     //存放所有Storage中的计划记录
@@ -27,6 +31,8 @@ Page({
 
     //临时存放新建，或者正在修改的动作
     tmpMovement: '',
+    //缓存数据
+    tmpAmount: '',
 
     //2D 数组，用来存放动作
     movementMultiArray: app.globalData.movementMultiArray,
@@ -51,9 +57,6 @@ Page({
     showMvWeight: '',
     tipMvWeight: '', //如果固定重量，tipMvWeight为“每组”，否则为“最大”
 
-    // 缓存数据
-    tmpAmount: '',
-
   },
 
   swipeCheckX: 35, //激活检测滑动的阈值
@@ -70,10 +73,16 @@ Page({
   //------------------------------------------------------
   //以下是监听函数，及其对应的处理操作
 
+  /**
+   * 响应往前一天的操作
+   */
   onLastDate: function () {
     this.moveDay(false);
   },
 
+  /**
+   * 响应往前一天的操作
+   */
   onNextDate: function () {
     this.moveDay(true);
   },
@@ -82,11 +91,15 @@ Page({
     this.savePlan();
 
     var dateAfterMove = util.getMoveDays(this.data.selectedDate, isNext, 1);
+    // 需先设置日期
     this.setData({
-      selectedDate: dateAfterMove
+      selectedDate: dateAfterMove,
+
     });
 
-    this.loadData();
+    this.setData({
+      curTrainPlan: controller.loadPlan(this.data.selectedDate)
+    });
 
     if (util.isExpired(this.data.selectedDate)) {
       util.showToast("历史数据不能修改哦^_^", this, 2000);
@@ -231,110 +244,71 @@ Page({
     // console.log('remove', e.detail.value)
   },
 
-  loadData: function () {
-    //同步获取
-    // if (!util.isLogin()) {
-    //   return;
-    // }
-    var allTrainPlan = wx.getStorageSync('TrainPlan');
+  // savePlan: function () {
+  //   // if (!util.isLogin()) {
+  //   //   return;
+  //   // }
+  //   //先看是否为空，为空直接增加，然后查重，日期重的直接替换，日期没有的直接增加
+  //   var allTrainPlan = this.data.allTrainPlan;
 
-    if (allTrainPlan.length == 0)
-      allTrainPlan = [];
+  //   if (allTrainPlan.length == 0) {
+  //     allTrainPlan.push(this.data.curTrainPlan);
+  //   } else {
+  //     //查重
+  //     var hasThisDay = false;
 
-    console.log('in loadData, read allTrainPlan data: ', allTrainPlan);
+  //     for (var item of allTrainPlan) {
+  //       if (this.data.selectedDate == item.planDate) {
+  //         // console.log("in savePlan, we have this day");
+  //         hasThisDay = true;
+  //         break;
+  //       } else {
+  //         // console.log("in savePlan, we dont have this day");
+  //       }
+  //     }
 
-    var curTrainPlan = new SingleDatePlan.SingleDatePlan();
-    //如果有记录，从存储数据里读，如果没有记录，就初始化
-    var hasPlan = false;
-    if (allTrainPlan.length > 0) {
-      for (var item of allTrainPlan) {
-        if (item.planDate == this.data.selectedDate) {
-          curTrainPlan.planDate = this.data.selectedDate;
-          curTrainPlan.planMvList = item.planMvList;
-          hasPlan = true;
-        }
-      };
+  //     //没有这天的记录，直接增加
+  //     if (!hasThisDay) {
+  //       if (this.data.curTrainPlan.planMvList.length > 0)
+  //         allTrainPlan = allTrainPlan.concat(this.data.curTrainPlan);
+  //     } else {  //有这天的记录，删除再增加
+  //       var start = 0;  //删除开始的索引
+  //       var count = 0;  //删除的个数
 
-    }
-    if (allTrainPlan.length === 0 || !hasPlan) {
-      curTrainPlan.planDate = this.data.selectedDate;
-      curTrainPlan.planMvList = [];
-    }
+  //       for (var idx = 0; idx < allTrainPlan.length; idx++) {
+  //         if (this.data.selectedDate == allTrainPlan[idx].planDate) {
+  //           start = idx;
+  //           break;
+  //         }
+  //       }
 
-    console.log("in loadData, after loadData, curTrainPlan: ", curTrainPlan);
+  //       for (var idx = 0; idx < allTrainPlan.length; idx++) {
+  //         if (this.data.selectedDate == allTrainPlan[idx].planDate) {
+  //           count++;
+  //         }
+  //       }
 
-    this.setData({
-      allTrainPlan: allTrainPlan,
-      curTrainPlan: curTrainPlan
-    });
+  //       allTrainPlan.splice(start, count);
+  //       allTrainPlan = allTrainPlan.concat(this.data.curTrainPlan);
+  //     }
+  //   }
 
-  },
+  //   for (var idx = 0; idx < allTrainPlan.length; idx++) {
+  //     //循环删除动画
+  //     for (var i = 0; i < allTrainPlan[idx].planMvList.length; i++) {
+  //       // console.log("in savePlan, before allTrainPlan[idx].planMvList.animation: ", allTrainPlan[idx].planMvList[i].animation);
+  //       delete allTrainPlan[idx].planMvList[i].animation;
+  //       delete allTrainPlan[idx].planMvList[i].wrapAnimation;
+  //       // console.log("in savePlan, after allTrainPlan[idx].planMvList.animation: ", allTrainPlan[idx].planMvList[i].animation);
+  //     }
+  //   }
 
-  savePlan: function () {
-    // if (!util.isLogin()) {
-    //   return;
-    // }
-    //先看是否为空，为空直接增加，然后查重，日期重的直接替换，日期没有的直接增加
-    var allTrainPlan = this.data.allTrainPlan;
-
-    if (allTrainPlan.length == 0) {
-      allTrainPlan.push(this.data.curTrainPlan);
-    } else {
-      //查重
-      var hasThisDay = false;
-
-      for (var item of allTrainPlan) {
-        if (this.data.selectedDate == item.planDate) {
-          // console.log("in savePlan, we have this day");
-          hasThisDay = true;
-          break;
-        } else {
-          // console.log("in savePlan, we dont have this day");
-        }
-      }
-
-      //没有这天的记录，直接增加
-      if (!hasThisDay) {
-        if (this.data.curTrainPlan.planMvList.length > 0)
-          allTrainPlan = allTrainPlan.concat(this.data.curTrainPlan);
-      } else {  //有这天的记录，删除再增加
-        var start = 0;  //删除开始的索引
-        var count = 0;  //删除的个数
-
-        for (var idx = 0; idx < allTrainPlan.length; idx++) {
-          if (this.data.selectedDate == allTrainPlan[idx].planDate) {
-            start = idx;
-            break;
-          }
-        }
-
-        for (var idx = 0; idx < allTrainPlan.length; idx++) {
-          if (this.data.selectedDate == allTrainPlan[idx].planDate) {
-            count++;
-          }
-        }
-
-        allTrainPlan.splice(start, count);
-        allTrainPlan = allTrainPlan.concat(this.data.curTrainPlan);
-      }
-    }
-
-    for (var idx = 0; idx < allTrainPlan.length; idx++) {
-      //循环删除动画
-      for (var i = 0; i < allTrainPlan[idx].planMvList.length; i++) {
-        // console.log("in savePlan, before allTrainPlan[idx].planMvList.animation: ", allTrainPlan[idx].planMvList[i].animation);
-        delete allTrainPlan[idx].planMvList[i].animation;
-        delete allTrainPlan[idx].planMvList[i].wrapAnimation;
-        // console.log("in savePlan, after allTrainPlan[idx].planMvList.animation: ", allTrainPlan[idx].planMvList[i].animation);
-      }
-    }
-
-    this.setData({
-      allTrainPlan: allTrainPlan
-    });
-    console.log("in savePlan, this.data.allTrainPlan ", this.data.allTrainPlan);
-    wx.setStorageSync('TrainPlan', this.data.allTrainPlan);
-  },
+  //   this.setData({
+  //     allTrainPlan: allTrainPlan
+  //   });
+  //   console.log("in savePlan, this.data.allTrainPlan ", this.data.allTrainPlan);
+  //   wx.setStorageSync('TrainPlan', this.data.allTrainPlan);
+  // },
 
   //---------------------------------------------------------------------
   // for modal control
@@ -925,9 +899,13 @@ Page({
   onShow: function () {
     console.log("onShow call");
     this.setData({
-      selectedDate: util.formatDateToString(app.globalData.selectedDate)
+      selectedDate: util.formatDateToString(app.globalData.selectedDate),
     });
-    this.loadData();
+
+    this.setData({
+      curTrainPlan: controller.loadPlan(this.data.selectedDate)
+    });
+
 
     if (util.isExpired(this.data.selectedDate)) {
       util.showToast('历史数据不能修改哦^_^', this, 2000);

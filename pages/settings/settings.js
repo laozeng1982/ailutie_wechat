@@ -9,11 +9,11 @@ Page({
       {
         list_tool: [
           {
-            img: "../../image/photo.png",
+            img: "../../pages/image/photo.png",
             name: "朋友圈"
           },
           {
-            img: "../../image/money.png",
+            img: "../../pages/image/money.png",
             name: "个人状态记录",
             url: "../audio/audio"
           },
@@ -23,18 +23,18 @@ Page({
       {
         list_tool: [
           {
-            img: "../../image/card.png",
+            img: "../../pages/image/card.png",
             name: "收藏",
             url: "../picker/picker"
 
           },
           {
-            img: "../../image/money.png",
+            img: "../../pages/image/money.png",
             name: "健身知识（重点）",
             url: "../audio/audio"
           },
           {
-            img: "../../image/sc_2.png",
+            img: "../../pages/image/sc_2.png",
             name: "我们吃什么(三个页面：增肌、减脂和营养)",
             url: "../upload/upload"
           }
@@ -43,11 +43,11 @@ Page({
       {
         list_tool: [
           {
-            img: "../../image/bq_2.png",
+            img: "../../pages/image/bq_2.png",
             name: "表情"
           },
           {
-            img: "../../image/setting.png",
+            img: "../../pages/image/setting.png",
             name: "设置（软件和基础信息）",
             url: "../info/info"
           }
@@ -56,12 +56,12 @@ Page({
       {
         list_tool: [
           {
-            img: "../../image/money.png",
+            img: "../../pages/image/money.png",
             name: "打赏~~",
             url: "../audio/audio"
           },
           {
-            img: "../../image/card.png",
+            img: "../../pages/image/card.png",
             name: "卡包",
             url: "../picker/picker"
           }
