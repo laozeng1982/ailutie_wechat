@@ -150,8 +150,9 @@
 
 .tableItem {
   font-size: 12pt;
-  width: 15%;
-  justify-content: center;
+  width: 60%;
+  flex-flow: 2;
+  justify-content: flex-start;
   text-align: center;
 }
 
@@ -168,7 +169,7 @@
 
 .tableItemName {
   font-size: 12pt;
-  width: 60%;
+  width: 100%;
   justify-content: flex-start;
   text-align: center;
 }

@@ -26,11 +26,11 @@
               <image class='header-img' src="{{item.pictureSrc}}">{{item.id}}</image>
 
               <view class="content" style="flex:5" data-index="{{index}}">
-                <view class="graySpace"></view>
+                 <view class="graySpace"></view> 
 
                 <view class="movementName">
                   <view class="tableItem">第{{item.id}}个</view>
-                  <view class="tableItem3">{{item.movementName}}</view>
+                  <view class="tableItemName">{{item.movementName}}</view>
                   <view class="tableItem">{{item.partName}}</view>
                 </view>
 
@@ -38,8 +38,8 @@
 
                 <view class="movementNumbers">
                   <view class="tableItem">{{item.planGpCount}}组</view>
-                  <view class="tableItem">{{tipMvCount}}{{item.planAmount[0].count}}次</view>
-                  <view class="tableItem_kg">{{tipMvWeight}}{{item.planAmount[0].weight}}{{item.measurement}}</view>
+                  <view class="tableItemName">{{tipMvCount}}{{item.planAmount[0].count}}次</view>
+                  <view class="tableItem">{{tipMvWeight}}{{item.planAmount[0].weight}}{{item.measurement}}</view>
                 </view>
               </view>
             </view>
