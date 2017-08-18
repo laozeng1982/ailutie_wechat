@@ -1,8 +1,8 @@
 /* plan.wxss */
 
 /** wxss **/
+
 .thiscontainer {
- 
 }
 
 .container1 {
@@ -19,6 +19,32 @@
   border-bottom: 1rpx solid #eee;
 }
 
+.title {
+  display: flex;
+  height: 80rpx;
+  flex-direction: row;
+  align-items: center;
+  font-size: 40rpx;
+  font-weight: 500;
+  justify-content: space-around;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #eee;
+  background: #888;
+  color: #fff;
+  /* background-color: #fff; */
+}
+
+.scrollContainer1 {
+  align-content: center;
+  /* background: #eee; */
+}
+
+.scrollContainer2 {
+  align-content: center;
+  background: #eee;
+  background-color: #334212;
+}
+
 .listSingleMovement {
   display: flex;
   align-items: center;
@@ -27,9 +53,10 @@
 
 .movementName {
   display: flex;
+  height: 100%;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1rpx solid #eee;
+  /* border-bottom: 1rpx solid #eee; */
 }
 
 .movementNumbers {
@@ -106,30 +133,31 @@
   border: 1px solid darkgray;
 }
 
-.tableCornor {
+/* 基数加底色 */
+
+.tableCornor1 {
   align-content: center;
   width: 100%;
+  height: 90rpx;
   border: 1px solid darkgray;
+  background: #b2b2b2;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.tr {
-  display: flex;
+/* 偶数用白底 */
+
+.tableCornor2 {
+  align-content: center;
   width: 100%;
-  justify-content: center;
-  height: 2rem;
-  align-items: center;
-}
-
-.bg-w {
-  background: snow;
-}
-
-.bg-g {
-  background: #e6f3f9;
+  height: 90rpx;
+  border: 1px solid darkgray;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .tableheader {
@@ -145,7 +173,7 @@
 
 .tableItem {
   font-size: 12pt;
-  width: 15%;
+  width: 100%;
   justify-content: center;
   text-align: center;
 }
@@ -221,7 +249,7 @@
   text-align: center;
   box-shadow: 0 0 8px 2px #669;
   z-index: 1000;
-   flex-grow: 4;
+  flex-grow: 4;
 }
 
 .dateMoveButton {
@@ -289,36 +317,6 @@
   display: none;
 }
 
-.bg1 {
-  background: #5c258d;
-  background: -webkit-linear-gradient(to left, #5c258d, #4389a2);
-  background: linear-gradient(to left, #5c258d, #4389a2);
-}
-
-.bg2 {
-  background: #085078;
-  background: -webkit-linear-gradient(to left, #085078, #85d8ce);
-  background: linear-gradient(to left, #085078, #85d8ce);
-}
-
-.bg3 {
-  background: #16222a;
-  background: -webkit-linear-gradient(to bottom, #16222a, #3a6073);
-  background: linear-gradient(to bottom, #16222a, #3a6073);
-}
-
-.bg4 {
-  background: #eb3349;
-  background: -webkit-linear-gradient(to left, #eb3349, #f45c43);
-  background: linear-gradient(to left, #eb3349, #f45c43);
-}
-
-.bg5 {
-  background: #1d976c;
-  background: -webkit-linear-gradient(to left, #1d976c, #93f9b9);
-  background: linear-gradient(to left, #1d976c, #93f9b9);
-}
-
 /* for modal */
 
 .modal-mask {
@@ -339,7 +337,7 @@
   height: 80%;
   overflow: hidden;
   position: absolute;
-   top: 25%; 
+  top: 25%;
   left: 0;
   z-index: 9999;
   background: #f9f9f9;
@@ -413,27 +411,30 @@ input-holder {
 }
 
 /* for movement items */
+
 .movement-list {
 }
 
 .movement-item {
   width: 100%;
-  height: 150rpx;
-  border-bottom: 1rpx solid rgb(233, 233, 233);
+  height: 100rpx;
+  /* border-bottom: 1rpx solid rgb(233, 233, 233); */
   position: relative;
-  left:0;
-  top:0;
+  left: 0;
+  top: 0;
   overflow: hidden;
 }
 
 .movement {
   position: absolute;
+  display: flex;
+  align-content: center;
   width: 100%;
-  height: 150rpx;
-  left:0;
-  top:0;
+  height: 100rpx;
+  left: 0;
+  top: 0;
   z-index: 100;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .header-img {
@@ -462,33 +463,32 @@ input-holder {
 .movement-menu {
   position: absolute;
   width: 100%;
-  height: 150rpx;
-  left:0;
-  top:0;
+  height: 100rpx;
+  left: 0;
+  top: 0;
   z-index: 0;
 }
 
 .menu-delete {
   position: absolute;
   width: 150rpx;
-  height: 148rpx;
-  top:1rpx;
+  height: 100rpx;
+  top: 1rpx;
   right: 0;
   background-color: rgb(255, 58, 50);
-  color:#FFF;
+  color: #fff;
   text-align: center;
-  line-height:150rpx;
+  line-height: 150rpx;
 }
 
 .menu-mark {
   position: absolute;
-  width: 200rpx;
-  height: 148rpx;
-  top:1rpx;
+  width: 150rpx;
+  height: 110rpx;
+  top: 1rpx;
   right: 150rpx;
   background-color: rgb(200, 199, 205);
-  color:#FFF;
+  color: #fff;
   text-align: center;
-  line-height:150rpx;
+  line-height: 150rpx;
 }
-

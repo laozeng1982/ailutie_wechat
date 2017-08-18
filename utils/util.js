@@ -112,10 +112,90 @@ function isLogin() {
   if (!app.globalData.isLogin) {
     console.log("No user login...");
     return false;
-  }else{
-    console.log(app.globalData.userInfo.aa ,"login");
+  } else {
+    console.log(app.globalData.userInfo.aa, "login");
     return true;
   }
+}
+
+/**
+ * 检查用户是否有注册，如果没有注册，将不能远程同步
+ */
+function checkSignUp() {
+  var userInfo = wx.getStorageSync("UserInfo");
+  // console.log(userInfo.length);
+  return (userInfo.length == 0);
+}
+
+function showToast(text, o, count) {
+  var that = o;
+  count = parseInt(count) ? parseInt(count) : 3000;
+  that.setData({
+    toastText: text,
+    isShowToast: true,
+  });
+  setTimeout(function () {
+    that.setData({
+      isShowToast: false
+    });
+  }, count);
+}
+
+/**
+   * 根据第一列数据的变化，动态获取第二列的值
+   */
+function getMovementNamePickerList(idxOfColumn1) {
+  var app = getApp();
+  var movementNamePickerList;
+  switch (idxOfColumn1) {
+    case 0:
+      //0、胸部
+      movementNamePickerList = app.globalData.movementNameArrayPectorales;
+      break;
+    case 1:
+      //1、肩部
+      movementNamePickerList = app.globalData.movementNameArrayShoulder;
+      break;
+    case 2:
+      //2、背部
+      movementNamePickerList = app.globalData.movementNameArrayDorsal;
+      break;
+    case 3:
+      //3、腰部
+      movementNamePickerList = app.globalData.movementNameArrayWaist;
+      break;
+    case 4:
+      //4、腹部
+      movementNamePickerList = app.globalData.movementNameArrayAbdomen;
+      break;
+    case 5:
+      //5、肱二头
+      movementNamePickerList = app.globalData.movementNameArrayArmBiceps;
+      break;
+    case 6:
+      //6、肱三头
+      movementNamePickerList = app.globalData.movementNameArrayArmTriceps;
+      break;
+    case 7:
+      //7、小臂
+      movementNamePickerList = app.globalData.movementNameArrayForeArm;
+      break;
+    case 8:
+      //8、股二头
+      movementNamePickerList = app.globalData.movementNameArrayFemorisBiceps;
+      break;
+    case 9:
+      //9、股四头
+      movementNamePickerList = app.globalData.movementNameArrayFemorisQuadriceps;
+      break;
+    case 10:
+      //10、小腿
+      movementNamePickerList = app.globalData.movementNameArrayShank;
+      break;
+    default:
+      break;
+  };
+  return movementNamePickerList;
 }
 
 module.exports = {
@@ -125,5 +205,8 @@ module.exports = {
   formatStringDate: formatStringDate,
   isExpired: isExpired,
   isLogin: isLogin,
+  checkSignUp: checkSignUp,
+  showToast: showToast,
+  getMovementNamePickerList: getMovementNamePickerList,
   getMoveDays: getMoveDays
 }

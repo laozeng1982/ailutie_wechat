@@ -4,7 +4,10 @@
     <image class="userinfo-avatar" src="{{wechatUserInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{wechatUserInfo.nickName}}</text>
   </view>
+  
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
+
+  <text class="userinfo-nickname" wx:if="{{notSignUp}}">您还没有注册，将无法使用同步功能哦~~</text>
 </view>

@@ -1,23 +1,23 @@
 /**
- * datamodel，用来创建数据模型
- */
-
-
-/**
  * 定义动作类
+ * 同时记录完成情况
  */
-function Movement(stringDate, id, pName, mName, gCount, mCount, mWeight, check, measurement) {
-  var app = getApp();
-  this.date = stringDate;
-  this.id = id + '';
-  this.partName = pName;
-  this.pictureSrc ='';
-  this.movementName = mName;
-  this.groupCount = gCount;
-  this.movementCount = mCount;
-  this.movementWeight = mWeight;
-  this.checked = check; //记录时，一律不记录选中状态
-  this.measurement = measurement;
+function Movement() {
+  this.date = '';
+  this.id = '';
+  this.partName = '';
+  this.pictureSrc = '';
+  this.movementName = '';
+  this.planGpCount = '';
+  this.actualGpCount = '';
+  this.seperateMake = false;  //是否分组制定
+  this.sameMvCount = false; //是否每组次数相同
+  this.planAmount = [];   //数组，单组计划汇总，计划完成的次数和重量，大小和计划的一样，元素用record来记
+  this.actualAmount = []; //数组，单组记录汇总，计划完成的次数和重量，大小和计划的一样，元素用record来记
+  this.totalFeeling = ''; //加权平均
+  this.selected = false;  //使用时，是否选中
+  this.gpFinished = false; //记录时，一律不记录选中状态
+  this.measurement = '';
 
   /**
    * 判断两个动作是否相同，只考虑部位和名称，其他不考虑
@@ -40,10 +40,15 @@ function Movement(stringDate, id, pName, mName, gCount, mCount, mWeight, check, 
     this.partName = movement.partName;
     this.pictureSrc = movement.pictureSrc;
     this.movementName = movement.movementName;
-    this.groupCount = movement.groupCount;
-    this.movementCount = movement.movementCount;
-    this.movementWeight = movement.movementWeight;
-    this.checked = movement.checked; //记录时，一律不记录选中状态
+    this.planGpCount = movement.planGpCount;
+    this.actualGpCount = movement.actualGpCount;
+    this.seperateMake = movement.seperateMake;
+    this.sameMvCount = movement.sameMvCount;
+    this.planAmount = movement.planAmount;
+    this.actualAmount = movement.actualAmount;
+    this.totalFeeling = movement.totalFeeling;
+    this.selected = movement.selected;
+    this.gpFinished = movement.gpFinished;
     this.measurement = movement.measurement;
   };
 }

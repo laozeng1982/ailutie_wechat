@@ -1,42 +1,71 @@
 <!-- 今日计划表 -->
 <view class="thiscontainer">
   <!-- 这是Toast -->
-  <include src="../ui/toast.wxml" />
+  <include src="../ui/toast/toast.wxml" />
+  <view class="title">今日计划</view>
+
+  <view class="graySpace"></view>
+
   <view class="container2">
-    <scroll-view style='height:{{scrollHeight}}rpx;' scroll-y="true">
-      <view class="listSingleMovement" wx:for="{{todayTrainPlan}}" class='movement-item' animation='{{item.wrapAnimation}}'>
-        <view class="graySpace"></view>
-        <view id='{{item.id}}' class='movement' bindtap="onModifyMovement" >
-          <image class='header-img' src="../../image/arm2.png"></image>
-          <view class="tableCornor" data-index="{{index}}">
+    <scroll-view class="scrollContainer1" style='height:{{planScrollHeight}}rpx; ' scroll-y="true">
+      <radio-group bindchange="onGroupSelected">
+        <view class="listSingleMovement" wx:for="{{todayTrainPlan}}" class='movement-item' animation='{{item.wrapAnimation}}'>
+          <!-- <view class="graySpace"></view> -->
+          <view id='{{item.id}}' class='movement' bindtap="">
             <view class="graySpace"></view>
+            <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
+            <view class="{{item.id%2==0?'tableCornor1':'tableCornor2'}}" data-index="{{index}}">
+              <!-- <view class="graySpace"></view> -->
 
-            <view class="movementName">
-              <view class="tableItem2">{{item.partName}}</view>
-              <view class="tableItem3">{{item.movementName}}</view>
+              <view class="movementName">
+                <radio value="{{item.id}}" checked="{{item.id==(curMovementId+1)?true:false}}" />
+                <view class="tableItem">{{item.movementName}}</view>
+                <view class="tableItem">第 {{curDoingNumber}} / {{item.planGpCount}} 组</view>
+              </view>
             </view>
-
-            <view class="graySpace"></view>
-
-            <view class="movementNumbers">
-              <view class="tableItem">{{item.groupCount}}组</view>
-              <view class="tableItem">{{item.movementCount}}次</view>
-              <view class="tableItem_kg">{{item.movementWeight}}{{item.measurement}}</view>
-            </view>
-
             <view class="graySpace"></view>
           </view>
+
         </view>
-        <view class='movement-menu'>
-          <view id='{{item.id}}' class='menu-delete' bindtap='onDeleteMovementTap' bindlongtap='onDeleteMovementTap'>
-            删除
-          </view>
-          <view id='{{item.id}}' class='menu-mark' bindtap='onModifyMovement' bindlongtap='onModifyMovementLongtap'>
-            修改
-          </view>
-        </view>
-        <view class="graySpace"></view>
-      </view>
+      </radio-group>
     </scroll-view>
   </view>
+
+  <view class="title">实际完成</view>
+  <view class="container2">
+    <scroll-view class="scrollContainer1" style='height:{{trainScrollHeight}}rpx; ' scroll-y="true">
+      <checkbox-group bindchange="onMovementFinished">
+        <view class="listSingleMovement" wx:for="{{todayTrainPlan[curMovementId].planAmount}}" class='movement-item' animation='{{item.wrapAnimation}}'>
+
+          <view id='{{item.id}}' class='movement' bindtap="">
+            <view class="graySpace"></view>
+            <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
+            <view class="{{item.id%2==0?'tableCornor1':'tableCornor2'}}" data-index="{{index}}">
+              <!-- <view class="graySpace"></view> -->
+
+              <view class="movementName">
+                <view class="tableItem">第 {{item.id}} 组</view>
+                <view class="tableItem">{{item.count}} 次</view>
+                <view class="tableItem">{{item.weight}} {{todayTrainPlan[curMovementId].measurement}}</view>
+                <checkbox value="{{item.id}}" checked="{{item.finished}}" />
+              </view>
+            </view>
+            <view class="graySpace"></view>
+
+          </view>
+          <view class='movement-menu'>
+            <view id='{{item.id}}' class='menu-delete' bindtap='' bindlongtap=''>
+              删除
+            </view>
+            <view id='{{item.id}}' class='menu-mark' bindtap='' bindlongtap=''>
+              修改
+            </view>
+          </view>
+        </view>
+      </checkbox-group>
+    </scroll-view>
+  </view>
+
+  <!-- 这是Modal -->
+  <include src="../ui/modal/movementModal.wxml" />
 </view>

@@ -31,21 +31,16 @@ Page({
 
     console.log('load: ', allMovementsList);
 
-    var hasTrainPlanDateList = new Set();
-    for (var idx = 0; idx < allMovementsList.length; idx++) {
-      hasTrainPlanDateList.add(allMovementsList[idx].date);
-    };
-
     var dateListWithPlan = [];
     for (var item of allMovementsList) {
-      if (item.movementList.length > 0)
+      if (item.planMvList.length > 0)
         dateListWithPlan.push(item.planDate);
     }
 
     this.setData({
       dateListWithPlan: dateListWithPlan,
       allMovementsList: allMovementsList,
-      hasTrainPlanDateList: hasTrainPlanDateList
+
     });
 
     console.log("this.data.dateList: ", this.data.dateList);
