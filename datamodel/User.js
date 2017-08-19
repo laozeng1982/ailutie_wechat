@@ -10,9 +10,9 @@ function UserBasicInfo(){
   this.gender=''; //就俩，男或者女
   this.birthday=''; //格式：1990-08-10
 
-  //用户类型，可以多选
+  //以下数据可以修改：
   this.defaultWechatLogin = false;
-  this.type='';  //以下数据可以修改：user，coach，gym
+  this.type = [];  //用户类型，可以多选：user，coach，gym
 
   this.height='';
   this.weight='';

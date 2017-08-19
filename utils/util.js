@@ -4,7 +4,6 @@
  * 
  */
 
-import controller from 'controller.js'
 import DataType from '../datamodel/DataType.js'
 
 const DATATYPE = new DataType.DataType();
@@ -118,29 +117,6 @@ function getMoveDays(startDay, isNext, dayCount) {
 
     return formatDateToString(moveDayDate);
 
-}
-
-function moveDay(isNext, that) {
-    // 先保存
-    controller.saveData(that.data.selectedDate,
-        DATATYPE.SingleDayRecords,
-        that.data.curRecords);
-
-    // 改变日期
-    var dateAfterMove = getMoveDays(that.data.selectedDate, isNext, 1);
-    // 需先设置日期
-    that.setData({
-        selectedDate: dateAfterMove,
-
-    });
-
-    that.setData({
-        curRecords: controller.loadData(that.data.selectedDate, DATATYPE.SingleDayRecords)
-    });
-
-    if (isExpired(that.data.selectedDate)) {
-        showToast("历史数据不能修改哦^_^", that, 2000);
-    }
 }
 
 /**
@@ -263,5 +239,5 @@ module.exports = {
     showToast: showToast,
     getMovementNamePickerList: getMovementNamePickerList,
     getMoveDays: getMoveDays,
-    moveDay: moveDay
+
 }

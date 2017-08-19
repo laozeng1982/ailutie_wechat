@@ -324,6 +324,7 @@
 
 /* for modal */
 
+/* 弹出窗口以后，阴影遮盖的部分 */
 .modal-mask {
   width: 100%;
   height: 100%;
@@ -337,29 +338,48 @@
   color: #fff;
 }
 
+/* 窗口大小 */
 .modal-dialog {
-  width: 80%;
-  height: 80%;
+  width: 95%;
+  height: 850rpx;
   overflow: hidden;
   position: absolute;
   top: 25%;
   left: 0;
   z-index: 9999;
   background: #f9f9f9;
-  margin: -150rpx 105rpx;
+    margin: -150rpx 20rpx;  
   border-radius: 36rpx;
 }
 
+/* 头部 */
 .modal-title {
-  padding-top: 50rpx;
-  font-size: 36rpx;
+  padding-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 70rpx;
+  /* font-size: 36rpx; */
   color: #030303;
   text-align: center;
-  border-bottom: 1px solid #dedede;
+  border-bottom: 2px solid #dedede;
 }
 
+/* 内容 */
 .modal-content {
-  padding: 50rpx 32rpx;
+  padding: 15rpx 32rpx;
+  height: 640rpx;
+}
+
+/* 底部 */
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  height: 90rpx;
+  border-top: 2px solid #dedede;
+  font-size: 34rpx;
+  line-height: 86rpx;
 }
 
 .modal-input {
@@ -378,9 +398,24 @@
   font-size: 28rpx;
 }
 
+.inputContainer{
+  display: flex;
+  flex-direction: row;
+}
+
 .input {
   width: 100%;
   height: 82rpx;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.input_small {
+  width: 100%;
+  height: 70rpx;
   font-size: 28rpx;
   line-height: 28rpx;
   padding: 0 20rpx;
@@ -393,26 +428,29 @@ input-holder {
   font-size: 28rpx;
 }
 
-.modal-footer {
-  display: flex;
-  flex-direction: row;
-  height: 86rpx;
-  border-top: 1px solid #dedede;
-  font-size: 34rpx;
-  line-height: 86rpx;
-}
+
 
 .btn-cancel {
-  width: 50%;
+  width: 20%;
   color: #666;
   text-align: center;
   border-right: 1px solid #dedede;
 }
 
 .btn-confirm {
-  width: 50%;
-  color: #ec5300;
+  width: 60%;
+  height: 100%;
+  color: #353535;
+  background: #09bb07;
   text-align: center;
+  border-right: 1px solid #dedede;
+}
+
+.btn-del {
+  width: 20%;
+  color: #e64340;
+  text-align: center;
+  
 }
 
 /* for movement items */

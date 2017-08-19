@@ -67,6 +67,6 @@
   </view>
 
   <!-- 这是Modal -->
-   <include src="../ui/modal/MovementModal.wxml" /> 
+   <include src="../ui/modal/PlanModal.wxml" /> 
 
 </view>

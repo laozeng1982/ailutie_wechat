@@ -7,26 +7,34 @@
  */
 
 import util from '../../../utils/util.js'
+import controller from '../../../utils/controller.js'
 import Movement from '../../../datamodel/Movement.js'
 import Record from '../../../datamodel/Record.js'
 
 var app = getApp()
 
-function MovementModal() {
+function PlanModal() {
 
     // 初始化一个缓存，用来存放Modal编辑的动作
     this.buffMovement = new Movement.Movement();
-    this.buffMovement.planGpCount = 6;
-    this.buffMovement.movementAmount = [];
-    for (var idx = 0; idx < this.buffMovement.planGpCount; idx++) {
-        //新建单条，加入列表中
-        var record = new Record.Record(idx + 1, 10, 30, 0, 0);
 
-        this.buffMovement.movementAmount.push(record);
+    this.initBuff = function () {
+        this.buffMovement.planGpCount = 6;
+        this.buffMovement.movementAmount = [];
+        for (var idx = 0; idx < this.buffMovement.planGpCount; idx++) {
+            //新建单条，加入列表中
+            var record = new Record.Record(idx + 1, 10, 30, 0, 0);
 
+            this.buffMovement.movementAmount.push(record);
+
+        }
+        this.buffMovement.selected = false;
+        this.buffMovement.measurement = app.system.userConfig.measurement;
     }
-    this.buffMovement.selected = false;
-    this.buffMovement.measurement = app.system.userConfig.measurement;
+
+
+    // 临时变量，在修改时，存取上一次的动作数据汇总（Amount）
+    this.tmpMovement = new Movement.Movement();
 
     // 2D 数组，用来存放动作
     this.movementMultiArray = app.globalData.movementMultiArray;
@@ -38,14 +46,16 @@ function MovementModal() {
     // 数量选择索引
     this.multiMovementNoIndex = [0, 0, 0];
 
-
 	/**
 	 * 通过host来初始化buffMovement，用来存放准备编辑的动作
 	 * 接收movement的同时，根据movement来设置Picker的值
 	 */
     this.setBuffMovement = function (movement, host) {
+        console.log("in setBuffMovement, movement: ", movement);
         this.buffMovement.fullCopyFrom(movement);
-        this.setPickerIndex(this.buffMovement, host);
+        console.log("in setBuffMovement, this.buffMovement: ", this.buffMovement);
+        this.tmpMovement.fullCopyFrom(movement);
+        this.setPickerIndex(movement, host);
     }
 
     /**
@@ -76,10 +86,12 @@ function MovementModal() {
     this.confirm = function (e, host) {
         console.log("in confirm, this.buffMovement: ", this.buffMovement);
         if (host.data.actionName === "修改动作") {
-            if (this.checkParameter(host) && host.modifyMovement(this.buffMovement))
+            if (this.checkParameter(host) && controller.modifyMovement(this.buffMovement, host))
                 this.hideModal(e, host);
         } else {
-            if (this.checkParameter(host) && host.addMovement(this.buffMovement))
+            this.initBuff();
+			this.tmpMovement.fullCopyFrom(this.buffMovement);
+            if (this.checkParameter(host) && controller.addMovement(this.buffMovement, host))
                 this.hideModal(e, host);
         }
     }
@@ -92,7 +104,7 @@ function MovementModal() {
                 content: '',
                 success: function (res) {
                     if (res.confirm) {
-                        host.removeMovement(host.data.curSelectedMovementId);
+                        controller.removeMovement(host.data.curSelectedMovementId, host);
                         host.onHideModal();
                         console.log('用户点击确定')
                     } else if (res.cancel) {
@@ -256,26 +268,35 @@ function MovementModal() {
      */
     this.setAmount = function (gpCount, host) {
 
-        var tmp = this.buffMovement;
-        var tmpAmount = tmp.movementAmount;
+        console.log("in setAmount, this.tmpMovement", this.tmpMovement);
         console.log("in setAmount, this.buffMovement", this.buffMovement);
 
         //当为分组制定的时候，改变planGpCount的值，以当前参数制定分组
         //当不分组制定的时候，只修改组的值
         if (this.buffMovement.seperateMake) {
+            // 清零缓存动作数字数据
             this.buffMovement.planGpCount = gpCount;
             this.buffMovement.movementAmount = [];
+            var length = this.tmpMovement.movementAmount.length;
 
             console.log("in setAmount, gpCount: ", gpCount);
             for (var idx = 0; idx < gpCount; idx++) {
                 //新建单条，加入列表中，重绘输入表格的，必须分开new，否则关联
-                var record = new Record.Record(idx + 1,
-                    tmpAmount[idx].planCount,
-                    tmpAmount[idx].planWeight,
-                    0,
-                    0);
-                this.buffMovement.movementAmount.push(record);
+                if (idx >= length - 1) {
+                    var record = new Record.Record(idx + 1,
+                        this.tmpMovement.movementAmount[length - 1].planCount,
+                        this.tmpMovement.movementAmount[length - 1].planWeight,
+                        0,
+                        0);
+                } else {
+                    var record = new Record.Record(idx + 1,
+                        this.tmpMovement.movementAmount[idx].planCount,
+                        this.tmpMovement.movementAmount[idx].planWeight,
+                        0,
+                        0);
+                }
 
+                this.buffMovement.movementAmount.push(record);
             }
         } else {
             this.buffMovement.planGpCount = gpCount;
@@ -336,7 +357,7 @@ function MovementModal() {
                 break;
             } else if (gCount >= this.movementNoMultiArray[0][this.movementNoMultiArray[0].length - 1]) {
                 // 大于最大索引
-                
+
             }
         }
 
@@ -401,7 +422,7 @@ function MovementModal() {
      */
     this.updateToHost = function (host) {
         host.setData({
-            MOVEMENTMODAL: host.data.MOVEMENTMODAL
+            PLANMODAL: host.data.PLANMODAL
         });
     }
 }
@@ -409,5 +430,5 @@ function MovementModal() {
 
 
 module.exports = {
-    MovementModal: MovementModal
+    PlanModal: PlanModal
 }

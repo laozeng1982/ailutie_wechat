@@ -6,10 +6,10 @@
 import util from '../../utils/util.js'
 import controller from '../../utils/controller.js'
 import DataType from '../../datamodel/DataType.js'
-import DailyRecords from '../../datamodel/DailyRecords.js'
+import SingleDayRecords from '../../datamodel/SingleDayRecords.js'
 import Movement from '../../datamodel/Movement.js'
 import Record from '../../datamodel/Record.js'
-import PlanModal from '../ui/modal/PlanModal.js'
+import MovementModal from '../ui/modal/MovementModal.js'
 
 //全局变量
 var app = getApp();
@@ -38,7 +38,7 @@ Page({
         actionName: '',
 
         // Modal控制器，传数据用
-        PLANMODAL: '',
+        MOVEMENTMODAL: '',
         showModal: false,
 
         tipMvCount: '', //如果固定次数，tipMvCount为“每组”，否则为“共”
@@ -69,14 +69,14 @@ Page({
      * 响应往前一天的操作
      */
     onLastDate: function () {
-        controller.moveDay(false, this);
+        util.moveDay(false, this);
     },
 
     /**
      * 响应往前一天的操作
      */
     onNextDate: function () {
-        controller.moveDay(true, this);
+        util.moveDay(true, this);
     },
 
     /**
@@ -86,7 +86,7 @@ Page({
         //TODO 增加读取数据功能
         //离开页面前，先保存
         console.log("select date");
-        // controller.saveData( this.data.selectedDate, DATATYPE.DailyRecords, this.data.curRecords);
+        // controller.saveData( this.data.selectedDate, DATATYPE.SingleDayRecords, this.data.curRecords);
         wx.navigateTo({
             url: '../ui/calender/calender',
         });
@@ -108,6 +108,48 @@ Page({
     },
 
     /**
+   * 具体处理添加动作的业务
+   * 参数：movement，在Modal中生成的数据
+   */
+    addMovement: function (movement) {
+        var success = false;
+        // console.log("in addMovement, this.data.curRecords: ", this.data.curRecords);
+
+        var toBeAdd = new Movement.Movement();
+
+        // 必须要使用copyfrom，否则添加的都是一样的。不能使用：toBeAdd = movement
+        toBeAdd.fullCopyFrom(movement);
+
+        // console.log("in addMovement, toBeAdd is: ", toBeAdd);
+
+        toBeAdd.date = this.data.selectedDate;
+
+        // 这样逻辑简单，仅在此一处产生ID，其他地方都不修改ID
+        toBeAdd.id = this.data.curRecords.movementList.length + 1;
+        // console.log("in addMovement, this.data.tmpMovement is: ", movement);
+        // console.log("in addMovement, toBeAdd is: ", toBeAdd);
+        if (!this.data.curRecords.add(toBeAdd)) {
+            util.showToast('您已添加该动作。', this, 2000);
+            success = false;
+            return success;
+        } else {
+            console.log("add a new movement: ", toBeAdd);
+        }
+
+        this.setData({
+            curRecords: this.data.curRecords
+        });
+        // console.log("in addMovement, this.data.curRecords.movementList.length",
+        // this.data.curRecords.movementList.length);
+        // console.log("in addMovement, after add: ", this.data.curRecords);
+        success = true;
+        controller.saveData(this.data.selectedDate,
+            DATATYPE.SingleDayRecords,
+            this.data.curRecords);
+        return success;
+    },
+
+    /**
      * 响应处理修改动作的业务
      */
     onModifyMovement: function (e) {
@@ -121,10 +163,10 @@ Page({
 		
 		// 取得正在编辑的动作，传给Modal
         var tmp = this.data.curRecords.movementList[e.currentTarget.id - 1];
-		this.data.PLANMODAL.setBuffMovement(tmp,this);
+		this.data.MOVEMENTMODAL.setBuffMovement(tmp,this);
 
         this.setData({
-			PLANMODAL: this.data.PLANMODAL,
+			MOVEMENTMODAL: this.data.MOVEMENTMODAL,
             curSelectedMovementId: e.currentTarget.id,
             actionName: "修改动作",
             showModal: true
@@ -132,64 +174,116 @@ Page({
 		
     },
 
+    /**
+     * 具体处理修改动作的业务
+     */
+    modifyMovement: function (movement) {
+        var success = false;
+
+        //准备修改的数据
+		var toBeModify = new Movement.Movement();
+		toBeModify.fullCopyFrom(movement);
+        
+        console.log("in modifyMovement, new modify movement is: ", toBeModify);
+
+        success = this.data.curRecords.modify(this.data.curSelectedMovementId, toBeModify);
+
+        if (!success) {
+            util.showToast('动作重复了...', this, 2000);
+        } else {
+            this.setData({
+                curRecords: this.data.curRecords
+            });
+            console.log('modify completed!');
+        }
+
+        return success;
+    },
+
+    /**
+    * 
+    */
+    removeMovement: function (id) {
+
+        var curRecords = this.data.curRecords;
+        console.log("in removeMovement, before delele, this.data.curRecords: ", curRecords);
+        curRecords.remove(id);
+
+        this.setData({
+            curRecords: curRecords,
+        });
+
+        //很奇怪，没找到原因，必须要这么一下，才能刷新
+        controller.saveData(this.data.selectedDate,
+            DATATYPE.SingleDayRecords,
+            this.data.curRecords);
+
+        console.log("in removeMovement, after delele, this.data.curRecords, ", this.data.curRecords);
+        // console.log('remove', e.detail.value)
+    },
+
     // ---------------------------------------------
     // 响应Modal界面控制
-   
+    /**
+     * 
+     */
     onPreventTouchMove: function (e) {
-        this.data.PLANMODAL.preventTouchMove(e);
+        this.data.MOVEMENTMODAL.preventTouchMove(e);
     },
 
     onHideModal: function (e) {
-        this.data.PLANMODAL.hideModal(e, this);
+        this.data.MOVEMENTMODAL.hideModal(e, this);
     },
 
     onCancel: function (e) {
-        this.data.PLANMODAL.cancel(e, this);
+        this.data.MOVEMENTMODAL.cancel(e, this);
     },
 
     onConfirm: function (e) {
-        this.data.PLANMODAL.confirm(e, this);
+        this.data.MOVEMENTMODAL.confirm(e, this);
     },
 
     onRemove: function (e) {
-        this.data.PLANMODAL.removeMovement(e, this);
+        this.data.MOVEMENTMODAL.removeMovement(e, this);
+
+        // host.removeMovement(host.data.curSelectedMovementId);
     },
 
-	// ---------------------------------------------
+    // ---------------------------------------------
     // 响应Modal界面组件控制
     // 因为Modal必须内嵌在plan页面里，数据就必须挂在页面中，
-    // 所以需要把页面实例(this)传过去，方便更新界面数据和交互
+    // 所以需要把实例传过去，方便更新界面数据和交互
 
     onMovementChange: function (e) {
-        this.data.PLANMODAL.movementChange(e, this);
+        this.data.MOVEMENTMODAL.movementChange(e, this);
     },
 
     onMovementColumnChange: function (e) {
-        this.data.PLANMODAL.movementColumnChange(e, this);
+        this.data.MOVEMENTMODAL.movementColumnChange(e, this);
     },
 
     onNumberChange: function (e) {
-        this.data.PLANMODAL.numberChange(e, this);
+        this.data.MOVEMENTMODAL.numberChange(e, this);
     },
 
     onSeperatingSelect: function (e) {
-        this.data.PLANMODAL.setSeperatingSelect(e, this);
+        this.data.MOVEMENTMODAL.setSeperatingSelect(e, this);
     },
 
     onSameMvCount: function (e) {
-        this.data.PLANMODAL.setSameMvCount(e, this);
+        this.data.MOVEMENTMODAL.setSameMvCount(e, this);
     },
 
     onInputGroupChange: function (e) {
-        this.data.PLANMODAL.inputGroupChange(e, this);
+        this.data.MOVEMENTMODAL.inputGroupChange(e, this);
     },
 
     onInputMvCountChange: function (e) {
-        this.data.PLANMODAL.inputMvCountChange(e, this);
+        this.data.MOVEMENTMODAL.inputMvCountChange(e, this);
     },
 
     onInputWeightChange: function (e) {
-        this.data.PLANMODAL.inputWeightChange(e, this);
+        this.data.MOVEMENTMODAL.inputWeightChange(e, this);
     },
 
     //--------------------------------------------------------
@@ -398,18 +492,18 @@ Page({
     onLoad: function (options) {
         //初始化
 
-        var modal = new PlanModal.PlanModal(this);
+        var modal = new MovementModal.MovementModal(this);
 
-        this.data.curRecords = new DailyRecords.DailyRecords();
+        this.data.curRecords = new SingleDayRecords.SingleDayRecords();
 
         this.setData({
-            PLANMODAL: modal,
+            MOVEMENTMODAL: modal,
 
         });
         console.log("plan page onLoad, this.data.curRecords: ", this.data.curRecords);
   
         console.log("plan page onLoad call");
-        console.log("this.data.PLANMODAL", this.data.PLANMODAL);
+        console.log("this.data.MOVEMENTMODAL", this.data.MOVEMENTMODAL);
     },
 
     /**
@@ -429,7 +523,7 @@ Page({
         });
 
         this.setData({
-            curRecords: controller.loadData(this.data.selectedDate, DATATYPE.DailyRecords)
+            curRecords: controller.loadData(this.data.selectedDate, DATATYPE.SingleDayRecords)
         });
 
 
@@ -443,7 +537,7 @@ Page({
      */
     onHide: function () {
         controller.saveData(this.data.selectedDate,
-            DATATYPE.DailyRecords,
+            DATATYPE.SingleDayRecords,
             this.data.curRecords);
         console.log("plan page onHide call: data saved");
     },

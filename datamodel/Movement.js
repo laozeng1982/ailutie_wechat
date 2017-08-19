@@ -6,19 +6,10 @@ function Movement() {
     this.date = '';
     this.id = '';
     this.partName = '';
-    this.pictureSrc = '';
     this.movementName = '';
-    this.planGpCount = '';
-    this.actualGpCount = '';
-    this.seperateMake = false;  //是否分组制定
-    this.sameMvCount = false; //是否每组次数相同
-    this.movementAmount = [];   //数组，单组计划汇总，计划完成的次数和重量，大小和计划的一样，元素用record来记
-    // this.actualAmount = []; //数组，单组记录汇总，计划完成的次数和重量，大小和计划的一样，元素用record来记
-    this.curFinishedMvCount = ''; // 当前完成的组数
-    this.totalFeeling = ''; //加权平均
-    this.selected = false;  //使用时，是否选中
-    this.gpFinished = false; //记录时，一律不记录选中状态
-    this.measurement = '';
+    this.pictureSrc = '';
+    this.contents = new Contents();
+    this.controller = new Controller();
 
     /**
      * 判断两个动作是否相同，只考虑部位和名称，其他不考虑
@@ -27,8 +18,6 @@ function Movement() {
     this.equals = function (movement) {
         console.log(this.partName, movement.partName);
         console.log(this.movementName, movement.movementName);
-        console.log("fuck   ", this.partName === movement.partName);
-        console.log("fuck2   ", this.movementName === movement.movementName);
         return (this.partName === movement.partName) && (this.movementName === movement.movementName);
     };
 
@@ -39,22 +28,55 @@ function Movement() {
         this.date = movement.date;
         this.id = movement.id;
         this.partName = movement.partName;
-        this.pictureSrc = movement.pictureSrc;
         this.movementName = movement.movementName;
-        this.planGpCount = movement.planGpCount;
-        this.actualGpCount = movement.actualGpCount;
-        this.seperateMake = movement.seperateMake;
-        this.sameMvCount = movement.sameMvCount;
-        this.movementAmount = movement.movementAmount;
-        // this.actualAmount = movement.actualAmount;
-        this.curFinishedMvCount = movement.curFinishedMvCount;
-        this.totalFeeling = movement.totalFeeling;
-        this.selected = movement.selected;
-        this.gpFinished = movement.gpFinished;
-        this.measurement = movement.measurement;
+        this.pictureSrc = movement.pictureSrc;
+        this.contents = movement.contents;
+        this.controller = movement.controller;
     };
+}
+
+function Contents() {
+    this.planGpCount = '';
+    this.actualGpCount = '';
+    this.curFinishedGpCount = '';
+    this.groupFeeling = '';
+    this.details = '';
+
+    this.fullCopyFrom = function (content) {
+        this.planGpCount = content.planGpCount;
+        this.actualGpCount = content.actualGpCount;
+        this.curFinishedGpCount = content.curFinishedGpCount;
+        this.groupFeeling = content.groupFeeling;
+        this.details = content.details;
+    }
+}
+
+function Controller() {
+    this.selected = false;  //使用时，是否选中
+    this.seperateMake = false;  //是否分组制定
+    this.sameCount = true; //是否每组次数相同
+    this.camelCount = false; // 次数是否使用驼峰法
+    this.camelCountMin = '';    // 驼峰次数最小
+    this.camelCountMax = '';    // 驼峰次数最大
+    this.camelWeight = false;   // 重量是否使用驼峰法
+    this.camelWeightMin = '';   // 驼峰重量最小
+    this.camelWeightMax = '';   // 驼峰重量最大
+
+    this.fullCopyFrom = function (controller) {
+        this.selected = controller.selected;  //使用时，是否选中
+        this.seperateMake = controller.seperateMake;  //是否分组制定
+        this.sameCount = controller.sameCount; //是否每组次数相同
+        this.camelCount = controller.camelCount; // 次数是否使用驼峰法
+        this.camelCountMin = controller.camelCountMin;    // 驼峰次数最小
+        this.camelCountMax = controller.camelCountMax;    // 驼峰次数最大
+        this.camelWeight = controller.camelWeight;   // 重量是否使用驼峰法
+        this.camelWeightMin = controller.camelWeightMin;   // 驼峰重量最小
+        this.camelWeightMax = controller.camelWeightMax;   // 驼峰重量最大
+    }
 }
 
 module.exports = {
     Movement: Movement,
+    Contents: Contents,
+    Controller: Controller
 }
