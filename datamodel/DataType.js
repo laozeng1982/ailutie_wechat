@@ -4,8 +4,8 @@
 function DataType() {
   this.UserInfo = new Record(0, "UserInfo");
   this.UserProfile = new Record(1, "UserProfile");
-  this.TrainPlan = new Record(2, "TrainPlan");
-  this.TrainRecord = new Record(3, "TrainRecord");
+  this.SingleDayRecords = new Record(2, "SingleDayRecords");
+
 }
 
 function Record(id, value) {

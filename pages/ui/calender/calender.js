@@ -1,6 +1,12 @@
 // calender.js
 import util from '../../../utils/util.js'
-var app = getApp()
+
+import controller from '../../../utils/controller.js'
+import DataType from '../../../datamodel/DataType.js'
+
+//全局变量
+var app = getApp();
+const DATATYPE = new DataType.DataType();
 
 Page({
 
@@ -24,17 +30,14 @@ Page({
     dateListWithPlan: []
   },
 
-
-  loadData: function () {
+  prepareData: function () {
     //同步获取
-    var allMovementsList = wx.getStorageSync('TrainPlan');
-
-    console.log('load: ', allMovementsList);
+    var allMovementsList = wx.getStorageSync(DATATYPE.SingleDayRecords.value);
 
     var dateListWithPlan = [];
     for (var item of allMovementsList) {
-      if (item.planMvList.length > 0)
-        dateListWithPlan.push(item.planDate);
+      if (item.movementList.length > 0)
+        dateListWithPlan.push(item.date);
     }
 
     this.setData({
@@ -43,8 +46,8 @@ Page({
 
     });
 
-    console.log("this.data.dateList: ", this.data.dateList);
-    console.log("this.data.dateListWithPlan", this.data.dateListWithPlan);
+    console.log("in calender.prepareData, this.data.allMovementsList: ", this.data.allMovementsList);
+    console.log("in calender.prepareData, this.data.dateListWithPlan", this.data.dateListWithPlan);
 
   },
 
@@ -224,7 +227,7 @@ Page({
       selectedWeek: this.data.weekArr[idx]
     });
 
-    this.loadData();
+    this.prepareData();
 
     this.setDateList(year, month);
 

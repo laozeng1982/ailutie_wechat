@@ -1,80 +1,95 @@
-<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<!-- 此页的数据只和plan.js中MOVEMENTMODAL.buffMovement挂钩 -->
+
+<!-- mask -->
+<view class="modal-mask" bindtap="onHideModal" catchtouchmove="onPreventTouchMove" wx:if="{{showModal}}"></view>
+
+<!-- dialog -->
 <view id="{{curMovementIndex}}" class="modal-dialog" wx:if="{{showModal}}">
-  <!-- 这是Toast -->
-  <include src="../toast/toast.wxml" />
-  <view class="modal-title">{{actionName}}</view>
-  <view class="modal-content">
-    <picker mode="multiSelector" bindchange="onMovementChange" bindcolumnchange="onMovementColumnChange" value="{{multiMovementIndex}}" range="{{movementMultiArray}}">
-      <text>选择动作 : </text>{{tmpMovement.partName}} {{tmpMovement.movementName}}
-    </picker>
-    <view class="graySpace"></view>
+    <!-- 这是Toast -->
+    <include src="../toast/toast.wxml" />
 
-    <picker mode="multiSelector" disabled="{{tmpMovement.seperateMake}}" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
-      <text>选择数量 : </text> {{tmpMovement.planGpCount}} 组
-      <text wx:if="{{!tmpMovement.seperateMake}}">{{tmpMovement.planAmount[0].count}} 次 {{tmpMovement.planAmount[0].weight}}Kg</text>
-    </picker>
-    <view class="graySpace"></view>
+    <view class="modal-title">{{actionName}}</view>
 
-    <checkbox-group bindchange="onSeperatingSelect">
-      <checkbox value="value" checked="{{tmpMovement.seperateMake}}" /> 分组制定 （组数6-8适宜）
+    <view class="modal-content">
+        <picker mode="multiSelector" bindchange="onMovementChange" bindcolumnchange="onMovementColumnChange" value="{{MOVEMENTMODAL.multiMovementIndex}}" range="{{MOVEMENTMODAL.movementMultiArray}}">
+            <text>选择动作 : </text>{{MOVEMENTMODAL.buffMovement.partName}} {{MOVEMENTMODAL.buffMovement.movementName}}
+        </picker>
 
-    </checkbox-group>
-    <checkbox-group bindchange="onSameMvCount">
-      <checkbox value="value" disabled="{{!tmpMovement.seperateMake}}" checked="{{tmpMovement.sameMvCount}}" /> 每组固定次数
-    </checkbox-group>
+        <view class="graySpace"></view>
 
-    <view class="graySpace"></view>
-    <view wx:if="{{!tmpMovement.seperateMake}}">
-      <view class="modal-input">
-        <text>组数</text>
-        <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputGroupChange" class="input" value="{{tmpMovement.planGpCount}}" placeholder=" 组"></input>
-      </view>
-      <view class="graySpace"></view>
-      <view class="modal-input">
-        <text>次数</text>
-        <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputMvCountChange" class="input" value="{{tmpMovement.planAmount[0].count}}" placeholder=" 次"></input>
-      </view>
-      <view class="graySpace"></view>
-      <view class="modal-input">
-        <text>重量</text>
-        <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputWeightChange" class="input" value="{{tmpMovement.planAmount[0].weight}}" placeholder=" Kg"></input>
-      </view>
+        <picker mode="multiSelector" disabled="{{MOVEMENTMODAL.buffMovement.seperateMake}}" bindchange="onNumberChange" value="{{MOVEMENTMODAL.multiMovementNoIndex}}" range="{{MOVEMENTMODAL.movementNoMultiArray}}">
+            <text>选择数量 : </text> {{MOVEMENTMODAL.buffMovement.planGpCount}} 组
+            <text wx:if="{{!MOVEMENTMODAL.buffMovement.seperateMake}}">{{MOVEMENTMODAL.buffMovement.movementAmount[0].planCount}} 次 {{MOVEMENTMODAL.buffMovement.movementAmount[0].planWeight}}Kg</text>
+        </picker>
+
+        <view class="graySpace"></view>
+
+        <checkbox-group bindchange="onSeperatingSelect">
+            <checkbox value="value" checked="{{MOVEMENTMODAL.buffMovement.seperateMake}}" /> 分组制定 （组数6-8适宜）
+        </checkbox-group>
+
+        <checkbox-group bindchange="onSameMvCount">
+            <checkbox value="value" disabled="{{!MOVEMENTMODAL.buffMovement.seperateMake}}" checked="{{MOVEMENTMODAL.buffMovement.sameMvCount}}" /> 每组固定次数
+        </checkbox-group>
+
+        <view class="graySpace"></view>
+
+        <view wx:if="{{!MOVEMENTMODAL.buffMovement.seperateMake}}">
+            <view class="modal-input">
+                <text>组数</text>
+                <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputGroupChange" class="input" value="{{MOVEMENTMODAL.buffMovement.planGpCount}}" placeholder=" 组"></input>
+            </view>
+
+            <view class="graySpace"></view>
+
+            <view class="modal-input">
+                <text>次数</text>
+                <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputMvCountChange" class="input" value="{{MOVEMENTMODAL.buffMovement.movementAmount[0].planCount}}" placeholder=" 次"></input>
+            </view>
+
+            <view class="graySpace"></view>
+
+            <view class="modal-input">
+                <text>重量</text>
+                <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="onInputWeightChange" class="input" value="{{MOVEMENTMODAL.buffMovement.movementAmount[0].planWeight}}" placeholder=" Kg"></input>
+            </view>
+        </view>
+
+        <view wx:else>
+            <view class="modal-input">
+                <text>组数</text>
+                <input placeholder-class="input-holder" type="number" maxlength="2" confirm-type="done" bindinput="onInputGroupChange" class="input" value="{{MOVEMENTMODAL.buffMovement.planGpCount}}" placeholder="组数小于10"></input>
+            </view>
+
+            <view class="graySpace"></view>
+
+            <view class="inputContainer">
+                <!-- wx:key="{{MOVEMENTMODAL.buffMovement.planMvCount.id}}" -->
+                <block wx:for="{{MOVEMENTMODAL.buffMovement.movementAmount}}" wx:key="*this">
+                    <view class="modal-input">
+                        <text wx:if="{{item.id =='1'}}">次数</text>
+                        <input id="{{item.id}}" type="number" confirm-type="done" maxlength="2" class="input_small" bindinput="onInputMvCountChange" value="{{item.planCount}}"></input>
+                    </view>
+                </block>
+            </view>
+
+            <view class="graySpace"></view>
+
+            <view class="inputContainer">
+                <!-- wx:key="{{MOVEMENTMODAL.buffMovement.planMvCount.id}}" -->
+                <block wx:for="{{MOVEMENTMODAL.buffMovement.movementAmount}}" wx:key="*this">
+                    <view class="modal-input">
+                        <text wx:if="{{item.id =='1'}}">重量</text>
+                        <input id="{{item.id}}" type="number" confirm-type="next" maxlength="3" class="input_small" bindinput="onInputWeightChange" value="{{item.planWeight}}"></input>
+                    </view>
+                </block>
+            </view>
+        </view>
     </view>
 
-
-    <view wx:else>
-      <view class="modal-input">
-        <text>组数</text>
-        <input placeholder-class="input-holder" type="number" maxlength="2" confirm-type="done" bindinput="onInputGroupChange" class="input" value="{{tmpMovement.planGpCount}}" placeholder="组数小于10"></input>
-      </view>
-      <view class="graySpace"></view>
-      <view class="inputContainer">
-        <!-- wx:key="{{tmpMovement.planMvCount.id}}" -->
-        <block wx:for="{{tmpMovement.planAmount}}" wx:key="*this">
-          <view class="modal-input">
-              <text wx:if="{{item.id =='1'}}">次数</text> 
-            <input id="{{item.id}}" type="number" confirm-type="done" maxlength="2" class="input_small" bindinput="onInputMvCountChange" value="{{item.count}}"></input>
-          </view>
-        </block>
-      </view>
-      <view class="graySpace"></view>
-
-      <view class="inputContainer">
-        <!-- wx:key="{{tmpMovement.planMvCount.id}}" -->
-        <block wx:for="{{tmpMovement.planAmount}}" wx:key="*this">
-          <view class="modal-input">
-             <text wx:if="{{item.id =='1'}}">重量</text> 
-            <input id="{{item.id}}" type="number" confirm-type="next" maxlength="3" class="input_small" bindinput="onInputWeightChange" value="{{item.weight}}"></input>
-          </view>
-        </block>
-      </view>
+    <view class="modal-footer">
+        <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+        <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+        <view class="btn-del" bindtap="onRemove" data-status="cancel">删除</view>
     </view>
-
-  </view>
-  <view class="modal-footer">
-    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
-    <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
-    <view class="btn-del" bindtap="onRemove" data-status="cancel">删除</view>
-
-  </view>
 </view>

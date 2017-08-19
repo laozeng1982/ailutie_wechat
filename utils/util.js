@@ -4,20 +4,25 @@
  * 
  */
 
+import controller from 'controller.js'
+import DataType from '../datamodel/DataType.js'
+
+const DATATYPE = new DataType.DataType();
+
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
  * 参数：date，日期类（Date）
  */
 function formatTimeToString(date) {
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
 
-  var hour = date.getHours();
-  var minute = date.getMinutes();
-  var second = date.getSeconds();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
 
-  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
 }
 
 /**
@@ -25,11 +30,11 @@ function formatTimeToString(date) {
  * 参数：date，日期类（Date）
  */
 function formatDateToString(date) {
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
 
-  return [year, month, day].map(formatNumber).join('-');
+    return [year, month, day].map(formatNumber).join('-');
 }
 
 /**
@@ -40,7 +45,7 @@ function formatDateToString(date) {
  */
 function getDateFromString(year, month, day) {
 
-  return new Date(Date.UTC(year, month - 1, day));
+    return new Date(Date.UTC(year, month - 1, day));
 }
 
 /**
@@ -49,11 +54,11 @@ function getDateFromString(year, month, day) {
  * 参数spliter：字符串中的分隔符
  */
 function getDateFromString(date, spliter) {
-  var year = date.split(spliter)[0];
-  var month = date.split(spliter)[1];
-  var day = date.split(spliter)[2];
+    var year = date.split(spliter)[0];
+    var month = date.split(spliter)[1];
+    var day = date.split(spliter)[2];
 
-  return new Date(Date.UTC(year, month - 1, day));
+    return new Date(Date.UTC(year, month - 1, day));
 }
 
 /**
@@ -63,15 +68,15 @@ function getDateFromString(date, spliter) {
  * 参数day：当月第day日
  */
 function formatStringDate(year, month, day) {
-  return [year, month, day].map(formatNumber).join('-');
+    return [year, month, day].map(formatNumber).join('-');
 }
 
 /**
  * 
  */
 function formatNumber(n) {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+    n = n.toString()
+    return n[1] ? n : '0' + n
 }
 
 
@@ -81,158 +86,182 @@ function formatNumber(n) {
  * 过期返回true，未过期返回false
  */
 function isExpired(selectedDate) {
-  var isExpired = false;
+    var isExpired = false;
 
-  var nowString = formatDateToString(new Date());
-  var now = getDateFromString(nowString, '-').getTime() / (3600 * 24 * 1000);
-  var selected = getDateFromString(selectedDate, '-').getTime() / (3600 * 24 * 1000);
+    var nowString = formatDateToString(new Date());
+    var now = getDateFromString(nowString, '-').getTime() / (3600 * 24 * 1000);
+    var selected = getDateFromString(selectedDate, '-').getTime() / (3600 * 24 * 1000);
 
-  // console.log("now: ", now);
-  // console.log("selected: ", selected);
-  if (selected < now) {
-    isExpired = true;
-  } else {
-    isExpired = false;
-  }
+    // console.log("now: ", now);
+    // console.log("selected: ", selected);
+    if (selected < now) {
+        isExpired = true;
+    } else {
+        isExpired = false;
+    }
 
-  return isExpired;
+    return isExpired;
 }
 
 function getMoveDays(startDay, isNext, dayCount) {
-  var selectedDayTimeMills = getDateFromString(startDay, '-').getTime();
-  var moveDayTimeMills;
-  //时间改变一天，直接加上、或减去一天的毫秒数
-  if (isNext) {
-    moveDayTimeMills = selectedDayTimeMills + 3600 * 24 * 1000 * dayCount;
-  } else {
-    moveDayTimeMills = selectedDayTimeMills - 3600 * 24 * 1000 * dayCount;
-  }
-  var moveDayDate = new Date();
-  moveDayDate.setTime(moveDayTimeMills);
-  console.log("move to ", moveDayDate + ".............");
+    var selectedDayTimeMills = getDateFromString(startDay, '-').getTime();
+    var moveDayTimeMills;
+    //时间改变一天，直接加上、或减去一天的毫秒数
+    if (isNext) {
+        moveDayTimeMills = selectedDayTimeMills + 3600 * 24 * 1000 * dayCount;
+    } else {
+        moveDayTimeMills = selectedDayTimeMills - 3600 * 24 * 1000 * dayCount;
+    }
+    var moveDayDate = new Date();
+    moveDayDate.setTime(moveDayTimeMills);
+    console.log("move to ", moveDayDate + ".............");
 
-  return formatDateToString(moveDayDate);
+    return formatDateToString(moveDayDate);
 
+}
+
+function moveDay(isNext, that) {
+    // 先保存
+    controller.saveData(that.data.selectedDate,
+        DATATYPE.SingleDayRecords,
+        that.data.curRecords);
+
+    // 改变日期
+    var dateAfterMove = getMoveDays(that.data.selectedDate, isNext, 1);
+    // 需先设置日期
+    that.setData({
+        selectedDate: dateAfterMove,
+
+    });
+
+    that.setData({
+        curRecords: controller.loadData(that.data.selectedDate, DATATYPE.SingleDayRecords)
+    });
+
+    if (isExpired(that.data.selectedDate)) {
+        showToast("历史数据不能修改哦^_^", that, 2000);
+    }
 }
 
 /**
  * 这个是重量单位选择器的函数，先放着
  */
 function onChangeMeasure(e) {
-  var measurement;
-  if (e.detail.value) {
-    measurement = 'Kg';
-  } else {
-    measurement = 'Lb';
-  }
-  this.setData({
-    curMeasurement: measurement
-  });
+    var measurement;
+    if (e.detail.value) {
+        measurement = 'Kg';
+    } else {
+        measurement = 'Lb';
+    }
+    that.setData({
+        curMeasurement: measurement
+    });
 
-  console.log(e.detail.value);
-  console.log(this.data.curMeasurement);
+    console.log(e.detail.value);
+    console.log(that.data.curMeasurement);
 }
 
 function isLogin() {
-  var app = getApp();
-  if (!app.globalData.isLogin) {
-    console.log("No user login...");
-    return false;
-  } else {
-    console.log(app.globalData.userInfo.aa, "login");
-    return true;
-  }
+    var app = getApp();
+    if (!app.globalData.isLogin) {
+        console.log("No user login...");
+        return false;
+    } else {
+        console.log(app.globalData.userInfo.aa, "login");
+        return true;
+    }
 }
 
 /**
  * 检查用户是否有注册，如果没有注册，将不能远程同步
  */
 function checkSignUp() {
-  var userInfo = wx.getStorageSync("UserInfo");
-  // console.log(userInfo.length);
-  return (userInfo.length == 0);
+    var userInfo = wx.getStorageSync("UserInfo");
+    // console.log(userInfo.length);
+    return (userInfo.length == 0);
 }
 
 function showToast(text, o, count) {
-  var that = o;
-  count = parseInt(count) ? parseInt(count) : 3000;
-  that.setData({
-    toastText: text,
-    isShowToast: true,
-  });
-  setTimeout(function () {
+    var that = o;
+    count = parseInt(count) ? parseInt(count) : 3000;
     that.setData({
-      isShowToast: false
+        toastText: text,
+        isShowToast: true,
     });
-  }, count);
+    setTimeout(function () {
+        that.setData({
+            isShowToast: false
+        });
+    }, count);
 }
 
 /**
    * 根据第一列数据的变化，动态获取第二列的值
    */
 function getMovementNamePickerList(idxOfColumn1) {
-  var app = getApp();
-  var movementNamePickerList;
-  switch (idxOfColumn1) {
-    case 0:
-      //0、胸部
-      movementNamePickerList = app.globalData.movementNameArrayPectorales;
-      break;
-    case 1:
-      //1、肩部
-      movementNamePickerList = app.globalData.movementNameArrayShoulder;
-      break;
-    case 2:
-      //2、背部
-      movementNamePickerList = app.globalData.movementNameArrayDorsal;
-      break;
-    case 3:
-      //3、腰部
-      movementNamePickerList = app.globalData.movementNameArrayWaist;
-      break;
-    case 4:
-      //4、腹部
-      movementNamePickerList = app.globalData.movementNameArrayAbdomen;
-      break;
-    case 5:
-      //5、肱二头
-      movementNamePickerList = app.globalData.movementNameArrayArmBiceps;
-      break;
-    case 6:
-      //6、肱三头
-      movementNamePickerList = app.globalData.movementNameArrayArmTriceps;
-      break;
-    case 7:
-      //7、小臂
-      movementNamePickerList = app.globalData.movementNameArrayForeArm;
-      break;
-    case 8:
-      //8、股二头
-      movementNamePickerList = app.globalData.movementNameArrayFemorisBiceps;
-      break;
-    case 9:
-      //9、股四头
-      movementNamePickerList = app.globalData.movementNameArrayFemorisQuadriceps;
-      break;
-    case 10:
-      //10、小腿
-      movementNamePickerList = app.globalData.movementNameArrayShank;
-      break;
-    default:
-      break;
-  };
-  return movementNamePickerList;
+    var app = getApp();
+    var movementNamePickerList;
+    switch (idxOfColumn1) {
+        case 0:
+            //0、胸部
+            movementNamePickerList = app.globalData.movementNameArrayPectorales;
+            break;
+        case 1:
+            //1、肩部
+            movementNamePickerList = app.globalData.movementNameArrayShoulder;
+            break;
+        case 2:
+            //2、背部
+            movementNamePickerList = app.globalData.movementNameArrayDorsal;
+            break;
+        case 3:
+            //3、腰部
+            movementNamePickerList = app.globalData.movementNameArrayWaist;
+            break;
+        case 4:
+            //4、腹部
+            movementNamePickerList = app.globalData.movementNameArrayAbdomen;
+            break;
+        case 5:
+            //5、肱二头
+            movementNamePickerList = app.globalData.movementNameArrayArmBiceps;
+            break;
+        case 6:
+            //6、肱三头
+            movementNamePickerList = app.globalData.movementNameArrayArmTriceps;
+            break;
+        case 7:
+            //7、小臂
+            movementNamePickerList = app.globalData.movementNameArrayForeArm;
+            break;
+        case 8:
+            //8、股二头
+            movementNamePickerList = app.globalData.movementNameArrayFemorisBiceps;
+            break;
+        case 9:
+            //9、股四头
+            movementNamePickerList = app.globalData.movementNameArrayFemorisQuadriceps;
+            break;
+        case 10:
+            //10、小腿
+            movementNamePickerList = app.globalData.movementNameArrayShank;
+            break;
+        default:
+            break;
+    };
+    return movementNamePickerList;
 }
 
 module.exports = {
-  formatTimeToString: formatTimeToString,
-  formatDateToString: formatDateToString,
-  getDateFromString: getDateFromString,
-  formatStringDate: formatStringDate,
-  isExpired: isExpired,
-  isLogin: isLogin,
-  checkSignUp: checkSignUp,
-  showToast: showToast,
-  getMovementNamePickerList: getMovementNamePickerList,
-  getMoveDays: getMoveDays
+    formatTimeToString: formatTimeToString,
+    formatDateToString: formatDateToString,
+    getDateFromString: getDateFromString,
+    formatStringDate: formatStringDate,
+    isExpired: isExpired,
+    isLogin: isLogin,
+    checkSignUp: checkSignUp,
+    showToast: showToast,
+    getMovementNamePickerList: getMovementNamePickerList,
+    getMoveDays: getMoveDays,
+    moveDay: moveDay
 }

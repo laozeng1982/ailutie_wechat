@@ -1,16 +1,16 @@
 /**
- * 
+ * 每天的记录
  */
-function SingleDatePlan() {
-  this.planDate = '';
-  this.planSource = ''; //计划来源
-  this.planMvList = [];
+function SingleDayRecords() {
+  this.date = '';
+  this.source = ''; //计划来源
+  this.movementList = [];
 
   this.hasPlan = function (obj) {
-    for (var item of this.planMvList) {
+    for (var item of this.movementList) {
       // console.log("obj  in hasPlan ", obj);
       // console.log("item in hasPlan ", item);
-      // console.log("in hasPlan ", this.planMvList);
+      // console.log("in hasPlan ", this.movementList);
       if (obj.id != item.id &&
         obj.partName === item.partName &&
         obj.movementName === item.movementName) {
@@ -23,7 +23,7 @@ function SingleDatePlan() {
   this.add = function (obj) {
     var sucess = false;
     if (!this.hasPlan(obj)) {
-      this.planMvList.push(obj);
+      this.movementList.push(obj);
       sucess = true;
     }
 
@@ -31,16 +31,16 @@ function SingleDatePlan() {
   }
 
   this.remove = function (index) {
-    // console.log("in SingleDatePlan.remove, remove ", index);
-    var tempList = this.planMvList;
+    // console.log("in SingleDayRecords.remove, remove ", index);
+    var tempList = this.movementList;
 
     var removedId = index + '';
     for (var idx = 0; idx < tempList.length; idx++) {
       var tempString = tempList[idx].id;
-      // console.log("in SingleDatePlan.remove, input id: ", removedId, ", current id: ", tempString, ", ", removedId === tempString);
+      // console.log("in SingleDayRecords.remove, input id: ", removedId, ", current id: ", tempString, ", ", removedId === tempString);
       if (String(tempString) === String(removedId)) {
         tempList.splice(idx, 1);
-        // console.log("in SingleDatePlan.remove, deleted!");
+        // console.log("in SingleDayRecords.remove, deleted!");
         break;
       }
     }
@@ -59,7 +59,7 @@ function SingleDatePlan() {
     //清空选中列表，重置index
     console.log("after deleted: ", resetList);
 
-    this.planMvList = resetList;
+    this.movementList = resetList;
     console.log("tempList", tempList);
   }
 
@@ -67,8 +67,8 @@ function SingleDatePlan() {
   this.modify = function (index, obj) {
     var sucess = false;
     if (!this.hasPlan(obj)) {
-      console.log("this.planMvList", this.planMvList);
-      this.planMvList.splice(index - 1, 1, obj);
+      console.log("this.movementList", this.movementList);
+      this.movementList.splice(index - 1, 1, obj);
       sucess = true;
     }
 
@@ -77,6 +77,6 @@ function SingleDatePlan() {
 }
 
 module.exports = {
-  SingleDatePlan: SingleDatePlan,
+  SingleDayRecords: SingleDayRecords,
 
 }
