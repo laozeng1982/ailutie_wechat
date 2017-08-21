@@ -65,8 +65,8 @@ Page({
 
         this.setData({
             curMovementName: curMovementName,
-            curMovementIndex: curMovementIndex
-            // curRecords: this.data.curRecords
+            curMovementIndex: curMovementIndex,
+            curSelectedMovementId: e.detail.value
         });
         console.log("in onGroupSelected, this.data.curMovementIndex: ", this.data.curMovementIndex);
     },
@@ -95,8 +95,26 @@ Page({
     },
 
     onGroupFinished: function (e) {
-        var checked = e.detail.value;
-        console.log("in onGroupFinished, id: ", e, checked);
+
+        console.log("in onGroupFinished, id: ", e.currentTarget.id);
+
+        // var tmp = this.data.curRecords.movementList[e.currentTarget.id - 1];
+        // if (tmp.contents.curFinishedGpCount < tmp.contents.planGpCount ||
+        //     tmp.contents.mvFeeling == 0) {
+        //     var curSelectedMovementId = e.currentTarget.id;
+        //     console.log("in onGroupModify, tmp ", tmp);
+        //     this.data.MVSCOREMODAL.setBuffMovement(tmp, this);
+        //
+        //
+        //     this.setData({
+        //         MVSCOREMODAL: this.data.MVSCOREMODAL,
+        //         curSelectedMovementId: curSelectedMovementId,
+        //         curMovementIndex: e.currentTarget.id - 1,
+        //         showMvScoreModal: true
+        //     });
+        // }
+
+
     },
 
     /**

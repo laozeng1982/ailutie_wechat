@@ -9,10 +9,10 @@
     <view class="container2">
         <scroll-view class="scrollContainer1" style='height:{{planScrollHeight}}rpx; ' scroll-y="true">
 
-            <checkbox-group bindchange="onGroupFinished">
-                <view class="listSingleMovement" wx:for="{{curRecords.movementList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
-                    <!-- <view class="graySpace"></view> -->
 
+            <view class="listSingleMovement" wx:for="{{curRecords.movementList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
+                <!-- <view class="graySpace"></view> -->
+                <checkbox-group id="{{item.mvId}}" bindchange="onGroupFinished">
                     <view id='{{item.mvId}}' class='movement'>
                         <view class="graySpace"></view>
                         <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
@@ -29,14 +29,14 @@
                                 <view class="tableItem"> {{item.contents.mvFeeling}} 分 </view>
                             </view>
 
-                            <checkbox class="box" value="{{item.id}}" disabled="{{true}}" checked="{{item.contents.curFinishedGpCount>=item.contents.planGpCount}}" />
+                            <checkbox class="box" id="{{item.mvId}}" checked="{{item.contents.curFinishedGpCount>=item.contents.planGpCount && item.contents.mvFeeling!=0}}" />
                         </view>
 
                         <view class="graySpace"></view>
                     </view>
+                </checkbox-group>
+            </view>
 
-                </view>
-            </checkbox-group>
 
         </scroll-view>
     </view>
