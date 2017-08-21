@@ -1,0 +1,46 @@
+<!-- 此页的数据只和plan.MVSCOREMODAL.buffDetails挂钩 -->
+
+<!-- mask -->
+<view class="modal-mask" bindtap="onHideModal" catchtouchmove="onPreventTouchMove" wx:if="{{showMvScoreModal}}"></view>
+
+<!-- dialog -->
+<view class="modal-dialog" wx:if="{{showMvScoreModal}}">
+
+    <view class="modal-title">请根据实际情况填写</view>
+
+    <view class="modal-mvName">
+        <text>{{MVSCOREMODAL.buffMovement.mvInfo.mvName}}</text>
+    </view>
+
+    <view class="modal-contentScore">
+        <scroll-view style='height:570rpx;' scroll-y="true">
+            <view class="classname" wx:for="{{MVSCOREMODAL.buffMovement.contents.details}}">
+                <view class="graySpace"></view>
+
+                <view class="classname">
+                    <picker id="{{item.id}}" mode="multiSelector" bindchange="onNumberChange" value="{{MVSCOREMODAL.multiScoreNoIndex}}" range="{{MVSCOREMODAL.movementScoreMultiArray}}">
+                        <view class="movementName">
+                            <view class="tableItem">第{{item.id}} 组: </view>
+                            <view class="tableItem"> {{item.actualCount}}/{{item.planCount}} 次 </view>
+                            <view class="tableItem"> {{item.actualWeight}}/{{item.planCount}} Kg </view>
+                            <view class="tableItem"> {{item.groupFeeling}}分 </view>
+
+                        </view>
+                    </picker>
+                    </view>
+
+                </view>
+
+        </scroll-view>
+
+        <picker bindchange="onScoreChange" value="{{MVSCOREMODAL.totalScoreIndex}}" range="{{MVSCOREMODAL.totalScoreArray}}">
+            <text>总体感觉：   </text> {{MVSCOREMODAL.buffMovement.contents.mvFeeling}}分
+        </picker>
+        </view>
+
+        <view class="modal-footer">
+            <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+            <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+        </view>
+
+    </view>

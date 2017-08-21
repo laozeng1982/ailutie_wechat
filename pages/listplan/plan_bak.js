@@ -4,7 +4,7 @@
  */
 
 import util from '../../utils/util.js'
-import controller from '../../utils/controller.js'
+import controller from '../../utils/Controller.js'
 import DataType from '../../datamodel/DataType.js'
 import SingleDayRecords from '../../datamodel/SingleDayRecords.js'
 import Movement from '../../datamodel/Movement.js'
@@ -177,7 +177,7 @@ Page({
     /**
      * 具体处理修改动作的业务
      */
-    modifyMovement: function (movement) {
+    modifyMovement: function (movement,refresh) {
         var success = false;
 
         //准备修改的数据
@@ -186,7 +186,7 @@ Page({
         
         console.log("in modifyMovement, new modify movement is: ", toBeModify);
 
-        success = this.data.curRecords.modify(this.data.curSelectedMovementId, toBeModify);
+        success = this.data.curRecords.modify(this.data.curSelectedMovementId, refresh,toBeModify);
 
         if (!success) {
             util.showToast('动作重复了...', this, 2000);

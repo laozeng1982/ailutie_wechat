@@ -4,11 +4,11 @@
  */
 
 import util from '../../utils/util.js'
-import controller from '../../utils/controller.js'
+import Controller from '../../utils/Controller.js'
 import DataType from '../../datamodel/DataType.js'
 import DailyRecords from '../../datamodel/DailyRecords.js'
 import Movement from '../../datamodel/Movement.js'
-import Record from '../../datamodel/Record.js'
+// import RecordFactory from '../../datamodel/RecordFactory.js'
 import PlanModal from '../ui/modal/PlanModal.js'
 
 //全局变量
@@ -32,6 +32,8 @@ Page({
         // 指定当前修改的记录ID
         curSelectedMovementId: '',
 
+        Controller: '',
+
         // 组件控制
         scrollY: true,
         scrollHeight: 850,
@@ -50,7 +52,6 @@ Page({
 
     },
 
-    MODAL: '',   //控制用
     swipeCheckX: 35, //激活检测滑动的阈值
     swipeCheckState: 0, //0未激活 1激活
     maxMoveLeft: 185, //消息列表项最大左滑距离
@@ -69,14 +70,14 @@ Page({
      * 响应往前一天的操作
      */
     onLastDate: function () {
-        controller.moveDay(false, this);
+        this.data.Controller.moveDay(false, this);
     },
 
     /**
      * 响应往前一天的操作
      */
     onNextDate: function () {
-        controller.moveDay(true, this);
+        this.data.Controller.moveDay(true, this);
     },
 
     /**
@@ -84,9 +85,9 @@ Page({
      */
     onSelectDate: function () {
         //TODO 增加读取数据功能
-        //离开页面前，先保存
+        //离开页面前，先保存，在onHide里去统一实现
         console.log("select date");
-        // controller.saveData( this.data.selectedDate, DATATYPE.DailyRecords, this.data.curRecords);
+        app.globalData.selectedDate = util.getDateFromString(this.data.selectedDate, '-');
         wx.navigateTo({
             url: '../ui/calender/calender',
         });
@@ -100,6 +101,8 @@ Page({
             console.log("isExpired!!!!!!!!!!");
             return;
         } else {
+            // 取得正在编辑的动作，传给Modal
+            this.data.PLANMODAL.initBuffAndTmp(this);
             this.setData({
                 actionName: "添加动作",
                 showModal: true
@@ -118,23 +121,22 @@ Page({
 
         // 把这个Modify界面重置到该动作的参数
         console.log("in onModifyMovement, e.currentTarget.id: ", e.currentTarget.id);
-		
-		// 取得正在编辑的动作，传给Modal
+
+        // 取得正在编辑的动作，传给Modal
         var tmp = this.data.curRecords.movementList[e.currentTarget.id - 1];
-		this.data.PLANMODAL.setBuffMovement(tmp,this);
+        this.data.PLANMODAL.setBuffMovement(tmp, this);
 
         this.setData({
-			PLANMODAL: this.data.PLANMODAL,
+            PLANMODAL: this.data.PLANMODAL,
             curSelectedMovementId: e.currentTarget.id,
             actionName: "修改动作",
             showModal: true
         });
-		
     },
 
     // ---------------------------------------------
     // 响应Modal界面控制
-   
+
     onPreventTouchMove: function (e) {
         this.data.PLANMODAL.preventTouchMove(e);
     },
@@ -155,7 +157,7 @@ Page({
         this.data.PLANMODAL.removeMovement(e, this);
     },
 
-	// ---------------------------------------------
+    // ---------------------------------------------
     // 响应Modal界面组件控制
     // 因为Modal必须内嵌在plan页面里，数据就必须挂在页面中，
     // 所以需要把页面实例(this)传过去，方便更新界面数据和交互
@@ -241,7 +243,7 @@ Page({
             //触发水平操作，同时禁用垂直滚动
             if (Math.abs(moveX) > 4) {
                 this.swipeDirection = 1;
-                this.setData({ scrollY: false });
+                this.setData({scrollY: false});
             }
             else {
                 return;
@@ -266,7 +268,7 @@ Page({
         this.swipeDirection = 0;
         if (this.touchStartState === 1) {
             this.touchStartState = 0;
-            this.setData({ scrollY: true });
+            this.setData({scrollY: true});
             return;
         }
         //垂直滚动，忽略
@@ -276,7 +278,7 @@ Page({
         if (this.moveX === 0) {
             this.showState = 0;
             //不显示菜单状态下,激活垂直滚动
-            this.setData({ scrollY: true });
+            this.setData({scrollY: true});
             return;
         }
         if (this.moveX === this.correctMoveLeft) {
@@ -293,7 +295,7 @@ Page({
             this.moveX = 0;
             this.showState = 0;
             //不显示菜单,激活垂直滚动
-            this.setData({ scrollY: true });
+            this.setData({scrollY: true});
         }
         this.translateXMovementItem(e.currentTarget.id, this.moveX, 500);
 
@@ -349,7 +351,7 @@ Page({
     },
 
     deleteMovementItem: function (e) {
-        var animation = wx.createAnimation({ duration: 200 });
+        var animation = wx.createAnimation({duration: 200});
         animation.height(0).opacity(0).step();
         this.animationMovementWrapItem(e.currentTarget.id, animation);
         var s = this;
@@ -361,11 +363,11 @@ Page({
         console.log("deleteMovementItem, delete id: ", index);
         this.removeMovement(index + 1);
         this.showState = 0;
-        this.setData({ scrollY: true });
+        this.setData({scrollY: true});
     },
 
     translateXMovementItem: function (id, x, duration) {
-        var animation = wx.createAnimation({ duration: duration });
+        var animation = wx.createAnimation({duration: duration});
         animation.translateX(x).step();
         this.animationMovementItem(id, animation);
     },
@@ -398,16 +400,16 @@ Page({
     onLoad: function (options) {
         //初始化
 
-        var modal = new PlanModal.PlanModal(this);
+        var modal = new PlanModal.PlanModal();
+        this.data.Controller = new Controller.Controller();
 
-        this.data.curRecords = new DailyRecords.DailyRecords();
-
+        console.log("this.data.modal", modal);
         this.setData({
             PLANMODAL: modal,
+            Controller: this.data.Controller
 
         });
-        console.log("plan page onLoad, this.data.curRecords: ", this.data.curRecords);
-  
+
         console.log("plan page onLoad call");
         console.log("this.data.PLANMODAL", this.data.PLANMODAL);
     },
@@ -428,10 +430,20 @@ Page({
             selectedDate: util.formatDateToString(app.globalData.selectedDate),
         });
 
+        // 先读取，如果不存在，则新建一个
+        this.data.curRecords = new DailyRecords.DailyRecords(this.data.selectedDate);
+        // console.log("in onShow, this.data.curRecords: ", this.data.curRecords);
+        var curRecords = wx.getStorageSync(this.data.selectedDate);
+
+        if (typeof (curRecords.date) != "undefined" && curRecords.date != "") {
+            this.data.curRecords.fullCopyFrom(curRecords);
+        }
+
         this.setData({
-            curRecords: controller.loadData(this.data.selectedDate, DATATYPE.DailyRecords)
+            curRecords: this.data.curRecords
         });
 
+        console.log("in onShow, this.data.curRecords: ", this.data.curRecords);
 
         if (util.isExpired(this.data.selectedDate)) {
             util.showToast('历史数据不能修改哦^_^', this, 2000);
@@ -442,9 +454,7 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        controller.saveData(this.data.selectedDate,
-            DATATYPE.DailyRecords,
-            this.data.curRecords);
+        this.data.Controller.saveData(this.data.selectedDate, DATATYPE.DailyRecords, this.data.curRecords);
         console.log("plan page onHide call: data saved");
     },
 

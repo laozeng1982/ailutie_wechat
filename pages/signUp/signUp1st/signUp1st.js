@@ -1,5 +1,5 @@
 // signUp1st.js
-import User from '../../../datamodel/User.js'
+import User from '../../../datamodel/UserInfo.js'
 Page({
 
   /**

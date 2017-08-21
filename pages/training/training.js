@@ -2,12 +2,14 @@
  * 锻炼计划记录页面
  */
 import util from '../../utils/util.js'
-import controller from '../../utils/controller.js'
+import controller from '../../utils/Controller.js'
 import DataType from '../../datamodel/DataType.js'
-import SingleDayRecords from '../../datamodel/SingleDayRecords.js'
+import DailyRecords from '../../datamodel/DailyRecords.js'
 import Movement from '../../datamodel/Movement.js'
-import Record from '../../datamodel/Record.js'
+import RecordFactory from '../../datamodel/RecordFactory.js'
+import Controller from '../../utils/Controller.js'
 import PlanModal from '../ui/modal/PlanModal.js'
+import MvScoreModal from '../ui/modal/MvScoreModal.js'
 
 // import planPage from '../listplan/plan.js'
 
@@ -21,25 +23,30 @@ Page({
      * 页面的初始数据
      */
     data: {
+        selectedDate: '',
         curRecords: [],
         curMovementName: '',
         curMovementIndex: 0, //当前选中的动作，初始选中第一个
+        curSelectedMovementId: '',
 
+        Controller: '',
         scrollY: true,
         planScrollHeight: 300,  //计划的scroll高度
         trainScrollHeight: 600,  //动作列表的scroll高度
         actionName: '',
-        showModal: false
+        // 弹出Modal
+        PLANMODAL: '',
+        MVSCOREMODAL: '',
+        showModal: false,
+        showMvScoreModal: false
     },
 
-    // 弹出Modal
-    PLANMODAL: '',
 
     /**
      * 当今日计划中，一个动作被选上的时候，列出这组所有的动作细节
      */
     onGroupSelected: function (e) {
-        console.log("in onPlanSelected, id: ", e.detail.value);
+        console.log("in onGroupSelected, id: ", e.detail.value);
 
         // this.data.curRecords[e.detail.value -1].selected = true;
 
@@ -47,18 +54,21 @@ Page({
         var curMovementIndex;
 
         for (var item of this.data.curRecords.movementList) {
-            if (item.id == e.detail.value) {
-                curMovementName = item.movementName;
-                curMovementIndex = item.id - 1;
+            if (String(item.mvId) == String(e.detail.value)) {
+
+                curMovementName = item.mvInfo.mvName;
+                curMovementIndex = item.mvId - 1;
+                console.log("in onGroupSelected, id: ", curMovementIndex, curMovementName);
                 break;
             }
         }
 
         this.setData({
             curMovementName: curMovementName,
-            curMovementIndex: curMovementIndex,
+            curMovementIndex: curMovementIndex
             // curRecords: this.data.curRecords
         });
+        console.log("in onGroupSelected, this.data.curMovementIndex: ", this.data.curMovementIndex);
     },
 
     /**
@@ -70,11 +80,14 @@ Page({
         console.log("in onGroupModify, e ", e);
 
         var tmp = this.data.curRecords.movementList[e.currentTarget.id - 1];
+        var curSelectedMovementId = e.currentTarget.id;
+        console.log("in onGroupModify, tmp ", tmp);
         this.data.PLANMODAL.setBuffMovement(tmp, this);
 
         this.setData({
             PLANMODAL: this.data.PLANMODAL,
-            curSelectedMovementId: e.currentTarget.id,
+            curSelectedMovementId: curSelectedMovementId,
+            curMovementIndex: e.currentTarget.id - 1,
             actionName: "修改动作",
             showModal: true
         });
@@ -105,17 +118,16 @@ Page({
         var checked = e.detail.value;
         // console.log("checked: ", checked);
 
-        var tmpMovementAmount = this.data.curRecords.movementList[this.data.curMovementIndex].movementAmount;
-        // console.log(tmpMovementAmount);
+        var details = this.data.curRecords.movementList[this.data.curMovementIndex].contents.details;
+        // console.log(details);
         //这里不能绑定纯数字的item，否则无法监听，所以，id要用String转成字符串
-        for (var idx = 0; idx < tmpMovementAmount.length; idx++) {
-            if (checked.indexOf(String(tmpMovementAmount[idx].id)) !== -1) {
-                this.data.curRecords.movementList[this.data.curMovementIndex].movementAmount[idx].finished = true;
+        for (var idx = 0; idx < details.length; idx++) {
+            if (checked.indexOf(String(details[idx].id)) !== -1) {
+                this.data.curRecords.movementList[this.data.curMovementIndex].contents.details[idx].finished = true;
             } else {
-                this.data.curRecords.movementList[this.data.curMovementIndex].movementAmount[idx].finished = false;
+                this.data.curRecords.movementList[this.data.curMovementIndex].contents.details[idx].finished = false;
             }
         }
-        this.data.curRecords.movementList[this.data.curMovementIndex].curFinishedMvCount = checked.length;
 
         this.setData({
             curRecords: this.data.curRecords,
@@ -123,34 +135,47 @@ Page({
 
         var that = this;
         console.log("in onGroupModify, e ", e);
-        wx.showModal({
-            title: 'haha',
-            content: 'Just a Test',
-            // showCancel: false
+
+        var tmp = this.data.curRecords.movementList[this.data.curMovementIndex];
+        this.data.MVSCOREMODAL.setBuffMovement(tmp, this);
+
+        this.setData({
+            MVSCOREMODAL: this.data.MVSCOREMODAL,
+
+            showMvScoreModal: true
         });
-        // console.log("in onMovementFinished, this.data.curRecords[this.data.curMovementIndex].movementAmount",
-        //   this.data.curRecords[this.data.curMovementIndex].movementAmount);
+        // console.log("in onMovementFinished, this.data.curRecords[this.data.curMovementIndex].contents.details",
+        //   this.data.curRecords[this.data.curMovementIndex].contents.details);
     },
-	
-	 // ---------------------------------------------
+
+    // ---------------------------------------------
     // 响应Modal界面控制
     /**
-     * 
+     *
      */
     onPreventTouchMove: function (e) {
         this.data.PLANMODAL.preventTouchMove(e);
     },
 
     onHideModal: function (e) {
-        this.data.PLANMODAL.hideModal(e, this);
+        if (this.data.showModal)
+            this.data.PLANMODAL.hideModal(e, this);
+        else
+            this.data.MVSCOREMODAL.hideModal(e, this);
     },
 
     onCancel: function (e) {
-        this.data.PLANMODAL.cancel(e, this);
+        if (this.data.showModal)
+            this.data.PLANMODAL.cancel(e, this);
+        else
+            this.data.MVSCOREMODAL.cancel(e, this);
     },
 
     onConfirm: function (e) {
-        this.data.PLANMODAL.confirm(e, this);
+        if (this.data.showModal)
+            this.data.PLANMODAL.confirm(e, this);
+        else
+            this.data.MVSCOREMODAL.confirm(e, this);
     },
 
     onRemove: function (e) {
@@ -171,7 +196,14 @@ Page({
     },
 
     onNumberChange: function (e) {
-        this.data.PLANMODAL.numberChange(e, this);
+        if (this.data.showModal)
+            this.data.PLANMODAL.numberChange(e, this);
+        else
+            this.data.MVSCOREMODAL.numberChange(e, this);
+    },
+
+    onScoreChange: function (e) {
+        this.data.MVSCOREMODAL.scoreChange(e, this);
     },
 
     onSeperatingSelect: function (e) {
@@ -199,12 +231,18 @@ Page({
      */
     onLoad: function (options) {
         //初始化
-        var modal = new PlanModal.PlanModal(this);
+        var planModal = new PlanModal.PlanModal(this);
+        var mvScoreModal = new MvScoreModal.MvScoreModal();
+        this.data.Controller = new Controller.Controller();
+
         this.setData({
-            PLANMODAL: modal,
+            selectedDate: util.formatDateToString(new Date()),
+            Controller: this.data.Controller,
+            PLANMODAL: planModal,
+            MVSCOREMODAL: mvScoreModal
 
         });
-        console.log("plan page onLoad, this.data.curRecords: ", this.data.curRecords);
+
 
         console.log("plan page onLoad call");
         console.log("this.data.PLANMODAL", this.data.PLANMODAL);
@@ -222,20 +260,43 @@ Page({
      */
     onShow: function () {
         // this.loadData();
-        var curRecords = controller.loadData(util.formatDateToString(new Date()),
-            DATATYPE.SingleDayRecords);
+        // 先读取，如果不存在，则新建一个
+        this.data.curRecords = new DailyRecords.DailyRecords(this.data.selectedDate);
+        // console.log("in onShow, this.data.curRecords: ", this.data.curRecords);
+        var curRecords = wx.getStorageSync(util.formatDateToString(new Date()));
+
+        if (typeof (curRecords.date) != "undefined" && curRecords.date != "") {
+            this.data.curRecords.fullCopyFrom(curRecords);
+        }
+
+        var index = 0;
+        for (var movement of this.data.curRecords.movementList) {
+            var finished = 0;
+            for (var item of movement.contents.details) {
+                // console.log("item, ", item);
+                if (item.groupFeeling > 0) {
+                    finished++;
+                }
+            }
+            this.data.curRecords.movementList[index].contents.curFinishedGpCount = finished;
+            index++;
+        }
+
 
         this.setData({
-            curRecords: curRecords
+            curRecords: this.data.curRecords
         });
+
+
+        console.log("plan page onLoad, this.data.curRecords: ", this.data.curRecords);
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        controller.saveData(this.data.selectedDate,
-            DATATYPE.SingleDayRecords,
+        this.data.Controller.saveData(util.formatDateToString(new Date()),
+            DATATYPE.DailyRecords,
             this.data.curRecords);
         console.log("plan page onHide call: data saved");
     },

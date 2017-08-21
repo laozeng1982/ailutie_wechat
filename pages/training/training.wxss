@@ -366,10 +366,28 @@
   border-bottom: 2px solid #dedede;
 }
 
+.modal-mvName {
+  padding-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 40rpx;
+  /* font-size: 36rpx; */
+  color: #030303;
+  text-align: center;
+  border-bottom: 2px solid #dedede;
+}
+
 /* 内容 */
 .modal-content {
   padding: 15rpx 32rpx;
   height: 640rpx;
+}
+
+.modal-contentScore {
+  padding: 15rpx 32rpx;
+  height: 600rpx;
 }
 
 /* 底部 */
@@ -431,14 +449,14 @@ input-holder {
 
 
 .btn-cancel {
-  width: 20%;
+  width: 50%;
   color: #666;
   text-align: center;
   border-right: 1px solid #dedede;
 }
 
 .btn-confirm {
-  width: 60%;
+  width: 50%;
   height: 100%;
   color: #353535;
   background: #09bb07;

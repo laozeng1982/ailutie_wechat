@@ -13,22 +13,23 @@
                 <view class="listSingleMovement" wx:for="{{curRecords.movementList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
                     <!-- <view class="graySpace"></view> -->
 
-                    <view id='{{item.id}}' class='movement'>
+                    <view id='{{item.mvId}}' class='movement'>
                         <view class="graySpace"></view>
                         <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
-                        <view class="{{item.id%2==0?'tableCornor1':'tableCornor2'}}" data-index="{{index}}">
+                        <view class="{{item.mvId%2==0?'tableCornor1':'tableCornor2'}}" data-index="{{index}}">
                             <!-- <view class="graySpace"></view> -->
 
                             <radio-group class="box" bindchange="onGroupSelected">
-                                <radio value="{{item.id}}" checked="{{item.id==(curMovementIndex+1)?true:false}}" />
+                                <radio value="{{item.mvId}}" checked="{{item.mvId==(curMovementIndex+1)?true:false}}" />
                             </radio-group>
 
-                            <view id='{{item.id}}' class="movementName" bindtap="onGroupModify">
-                                <view class="tableItemName">{{item.movementName}}</view>
-                                <view class="tableItem">第 {{item.curFinishedMvCount}}/{{item.planGpCount}} 组</view>
+                            <view id='{{item.mvId}}' class="movementName" bindtap="onGroupModify">
+                                <view class="tableItemName">{{item.mvInfo.mvName}}</view>
+                                <view class="tableItem">第 {{item.contents.curFinishedGpCount}}/{{item.contents.planGpCount}} 组</view>
+                                <view class="tableItem"> {{item.contents.mvFeeling}} 分 </view>
                             </view>
 
-                            <checkbox class="box" value="{{item.id}}" checked="{{item.finished}}" />
+                            <checkbox class="box" value="{{item.id}}" disabled="{{true}}" checked="{{item.contents.curFinishedGpCount>=item.contents.planGpCount}}" />
                         </view>
 
                         <view class="graySpace"></view>
@@ -43,8 +44,8 @@
     <view class="title">实际完成</view>
     <view class="container2">
         <scroll-view class="scrollContainer1" style='height:{{trainScrollHeight}}rpx; ' scroll-y="true">
-            <checkbox-group bindchange="onMovementFinished">
-                <view class="listSingleMovement" wx:for="{{curRecords.movementList[curMovementIndex].movementAmount}}" class='movement-item' animation='{{item.wrapAnimation}}'>
+            <checkbox-group id="{{item.id}}" bindchange="onMovementFinished">
+                <view class="listSingleMovement" wx:for="{{curRecords.movementList[curMovementIndex].contents.details}}" class='movement-item' animation='{{item.wrapAnimation}}'>
 
                     <view id='{{item.id}}' class='movement' bindtap="">
                         <view class="graySpace"></view>
@@ -55,9 +56,10 @@
                             <view id='{{item.id}}' class="movementName" bindtap="onMovementModify">
                                 <view class="tableItem">第 {{item.id}} 组</view>
                                 <view class="tableItem">{{item.actualCount}}/{{item.planCount}} 次</view>
-                                <view class="tableItem">{{item.actualWeight}}/{{item.planWeight}} {{curRecords.movementList[curMovementIndex].measurement}}</view>
+                                <view class="tableItem">{{item.actualWeight}}/{{item.planWeight}}Kg</view>
+                                <view class="tableItem">{{item.groupFeeling}} 分</view>
                             </view>
-                            <checkbox class="box" value="{{item.id}}" checked="{{item.finished}}" />
+                            <checkbox id="{{item.id}}" class="box" value="{{item.id}}" checked="{{item.groupFeeling!=0}}" />
                         </view>
                         <view class="graySpace"></view>
 
@@ -75,6 +77,8 @@
         </scroll-view>
     </view>
 
-    <!-- 这是Modal -->
+    <!-- 这是PlanModal -->
     <include src="../ui/modal/PlanModal.wxml" />
+    <!-- 这是MvScoreModal -->
+    <include src="../ui/modal/MvScoreModal.wxml" />
 </view>

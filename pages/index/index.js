@@ -2,7 +2,7 @@
 //获取应用实例
 var app = getApp()
 
-import User from '../../datamodel/User.js'
+import User from '../../datamodel/UserInfo.js'
 import util from '../../utils/util.js'
 
 Page({

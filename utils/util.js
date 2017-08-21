@@ -119,6 +119,18 @@ function getMoveDays(startDay, isNext, dayCount) {
 
 }
 
+function objClone(obj) {
+    if (obj instanceof Object) {
+        var copy = {};
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr))
+                copy[attr] = objClone(obj[attr]);
+        }
+        return copy;
+    }
+    throw new Error("Unable to copy obj! Its type isn't supported.");
+}
+
 /**
  * 这个是重量单位选择器的函数，先放着
  */
