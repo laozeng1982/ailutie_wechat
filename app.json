@@ -8,7 +8,8 @@
         "pages/signUp/signUp1st/signUp1st",
         "pages/signUp/signUp2nd/signUp2nd",
         "pages/signUp/signUp3rd/signUp3rd",
-        "pages/signUp/signTerms/signTerms"
+        "pages/signUp/signTerms/signTerms",
+        "pages/records/records"
     ],
     "window": {
         "navigationBarBackgroundColor": "#333",
@@ -23,21 +24,27 @@
         "list": [
             {
                 "pagePath": "pages/index/index",
-                "iconPath": "pages/image/wechat.png",
-                "selectedIconPath": "pages/image/wechat_2.png",
+                "iconPath": "pages/image/welcome1.png",
+                "selectedIconPath": "pages/image/welcome1.png",
                 "text": "首页"
             },
             {
-                "pagePath": "pages/listplan/plan",
-                "iconPath": "pages/image/note.png",
-                "selectedIconPath": "pages/image/note_2.png",
-                "text": "计划"
+                "pagePath": "pages/records/records",
+                "iconPath": "pages/image/records_unselected.png",
+                "selectedIconPath": "pages/image/records_selected.png",
+                "text": "记录"
             },
             {
                 "pagePath": "pages/training/training",
                 "iconPath": "pages/image/find.png",
                 "selectedIconPath": "pages/image/find_2.png",
                 "text": "锻炼"
+            },
+            {
+                "pagePath": "pages/listplan/plan",
+                "iconPath": "pages/image/calender_unselect.png",
+                "selectedIconPath": "pages/image/calender_select.png",
+                "text": "计划"
             },
             {
                 "pagePath": "pages/settings/settings",

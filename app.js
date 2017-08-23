@@ -3,6 +3,9 @@
  * 小程序总入口
  */
 import util from './utils/util.js'
+import Controller from './utils/Controller.js'
+import StorageType from './datamodel/StorageType.js'
+import BodyPartList from './datamodel/BodyPart.js'
 
 App({
     onLaunch: function () {
@@ -24,9 +27,21 @@ App({
         // }
 
         // 准备数据：
-        this.globalData.movementMultiArray.push(this.globalData.bodyPartArray);
-        // this.globalData.movementMultiArray.push([]);
-        this.globalData.movementMultiArray.push(this.globalData.movementNameArray);
+        this.globalData.Controller = new Controller.Controller();
+        this.globalData.StorageType = new StorageType.StorageType();
+        this.globalData.bodyPartList = this.globalData.Controller.loadData(
+            this.globalData.StorageType.SystemSetting.value,
+            this.globalData.StorageType.SystemSetting);
+        console.log("SystemSetting: ", this.globalData.bodyPartList);
+        if (typeof (this.globalData.bodyPartList.partList) =="undefined") {
+            console.log("what the fuck", this.globalData.bodyPartList);
+            this.globalData.bodyPartList = new BodyPartList.BodyPartList();
+            console.log("what the fuck", this.globalData.bodyPartList);
+        }
+        this.globalData.Controller.saveData(this.globalData.StorageType.SystemSetting.value,
+            this.globalData.StorageType.SystemSetting,
+            this.globalData.bodyPartList);
+
         //默认使用登录
         wx.login({
             success: res => {
@@ -80,6 +95,9 @@ App({
     },
 
     globalData: {
+        Controller: '',
+        StorageType: '',
+
         userInfo: null,
         wechatUserInfo: null,
 
@@ -89,142 +107,13 @@ App({
         selectedDateString: util.formatDateToString(new Date()),
         selectedDate: new Date(),
         //初始化
-        movementMultiArray: [],
-        bodyPartArray: ['胸部', '肩部', '背部', '腰部', '腹部', '肱二头', '肱三头', '小臂', '股二头', '股四头', '小腿'],
-        movementNameArray: ['上斜杠铃推举', '平卧杠铃推举', '平卧哑铃推举', '下斜杠铃推举', '下斜哑铃推举', '上斜哑铃推举', '飞鸟夹胸', '器械夹胸', '窄距俯卧撑'],
-
-        //0、胸部
-        movementNameArrayPectorales: [
-            '上斜杠铃推举',
-            '上斜哑铃推举',
-            '平卧杠铃推举',
-            '平卧哑铃推举',
-            '下斜杠铃推举',
-            '下斜哑铃推举',
-            '双杠臂屈伸',
-            '拉力器十字夹胸',
-            '哑铃飞鸟夹胸',
-            '蝴蝶机器械夹胸',
-            '窄距俯卧撑',
-            '标准俯卧撑',
-            '宽距俯卧撑',],
-
-        //1、肩部
-        movementNameArrayShoulder: [
-            '坐姿杠铃劲前推举',
-            '站姿哑铃前平举',
-            '站姿绳索前平举',
-            '站姿哑铃侧平举',
-            '站姿杠铃划船',
-            '阿诺德推肩',
-            '坐姿杠铃劲后推举',
-            '坐姿器械反式飞鸟',
-            '俯身哑铃飞鸟',
-            '俯身绳索侧平举',
-            '俯身杠铃提拉',],
-
-        //2、背部
-        movementNameArrayDorsal: [
-            '宽握引体向上',
-            '窄握引体向上',
-            '横杠缆绳下拉',
-            '杠铃划船',
-            '杠铃硬拉',
-            '哑铃硬拉',
-            '坐姿划船',
-            '单臂哑铃划船',
-            '弹力绳背拉',
-            '杠铃反斜拉',],
-
-        //3、腰部
-        movementNameArrayWaist: [
-            '杠铃硬拉',
-            '山羊挺身',
-            '坐姿杠铃挺身',
-            '平板支撑',
-            '侧平板支撑',
-            '俯卧异侧起',
-        ],
-
-        //4、腹部
-        movementNameArrayAbdomen: [
-            '仰卧起坐',
-            '仰卧卷腹',
-            '仰卧屈膝两头起',
-            '仰卧举腿',
-            '悬垂举腿',
-            '平板支撑',
-            '侧身卷腹',
-            '负重体侧屈',
-            '空中蹬车',
-            '侧平板支撑',
-        ],
-
-        //5、肱二头
-        movementNameArrayArmBiceps: [
-            '站姿杠铃弯举',
-            '坐姿哑铃弯举',
-            '托板弯举',
-            '拉力器弯举',
-        ],
-
-        //6、肱三头
-        movementNameArrayArmTriceps: [
-            '杠铃颈后臂屈伸',
-            '哑铃颈后臂屈伸',
-            '双杆臂屈伸',
-            '仰卧杠铃臂屈伸',
-            '哑铃俯身臂屈伸',
-            '拉力器屈臂下压',
-            '凳上反屈伸',
-            '窄握杠铃推举',
-            '窄距俯卧撑',
-        ],
-
-        //7、小臂
-        movementNameArrayForeArm: [
-            '卷重物',
-            '哑铃腕弯举',
-            '杠铃背后腕腕举',
-            '杠铃腕弯举',
-            '绳索腕弯举',
-            '引体悬挂',
-        ],
-
-        //8、股二头
-        movementNameArrayFemorisBiceps: [
-            '俯卧腿弯举',
-            '单腿山羊挺身',
-            '杠铃直腿硬拉',
-            '反向腿弯举',
-            '跪姿髋部伸展',
-        ],
-
-        //9、股四头
-        movementNameArrayFemorisQuadriceps: [
-            '杠铃深蹲',
-            '史密斯深蹲',
-            '哈克深蹲',
-            'T杠深蹲',
-            '哑铃深蹲',
-            '负重箭步蹲',
-            '单腿前蹲',
-            '箭步蹲',
-            '斜卧负重腿举',
-            '坐姿水平蹬腿',
-            '坐姿腿屈伸',
-        ],
-
-        //10、小腿
-        movementNameArrayShank: ['站姿杠铃提踵',
-            '站姿单腿哑铃提踵 ',
-            '坐姿杠铃负重提踵',
-        ],
+        bodyPartList: '',
 
         movementNoMultiArray: [
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], //group count
-            [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 25, 30, 35, 40, 45, 50], //movement count
-            [2, 4, 6, 8, 10, 12, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120]//movement weight
+            [1+"组", 2+"组", 3+"组", 4+"组", 5+"组", 6+"组", 7+"组", 8+"组", 9+"组", 10+"组", 11+"组", 12+"组", 13+"组", 14+"组", 15+"组", 16+"组", 17+"组", 18+"组", 19+"组", 20], //group count
+            [4+"次", 5+"次", 6+"次", 7+"次", 8+"次", 9+"次", 10+"次", 11+"次", 12+"次", 13+"次", 14+"次", 15+"次", 20+"次", 25+"次", 30+"次", 35+"次", 40+"次", 45+"次", 50], //movement count
+            [2, 4, 6, 8, 10, 12, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120],//movement weight
+            ["Kg","Lbs"]
         ],
 
         movementScoreMultiArray: [

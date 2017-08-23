@@ -3,7 +3,7 @@
  */
 import util from '../../utils/util.js'
 import controller from '../../utils/Controller.js'
-import DataType from '../../datamodel/DataType.js'
+import DataType from '../../datamodel/StorageType.js'
 import DailyRecords from '../../datamodel/DailyRecords.js'
 import Movement from '../../datamodel/Movement.js'
 import RecordFactory from '../../datamodel/RecordFactory.js'
@@ -15,7 +15,7 @@ import MvScoreModal from '../ui/modal/MvScoreModal.js'
 
 //获取应用实例
 var app = getApp();
-const DATATYPE = new DataType.DataType();
+const DATATYPE = new DataType.StorageType();
 
 Page({
 

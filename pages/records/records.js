@@ -1,8 +1,8 @@
-// calender.js
-import util from '../../../utils/util.js'
+// records.js
+import util from '../../utils/util.js'
 
-import Controller from '../../../utils/Controller.js'
-import DataType from '../../../datamodel/StorageType.js'
+import Controller from '../../utils/Controller.js'
+import DataType from '../../datamodel/StorageType.js'
 
 //全局变量
 var app = getApp();
@@ -126,7 +126,7 @@ Page({
         var now = selectedDate.split('-');
         var curYear = parseInt(now[0]);
         var curMonth = parseInt(now[1]);
-        var curDate = parseInt(now[2]) ;
+        var curDate = parseInt(now[2]);
 
 
         var curRecords = this.data.Controller.loadData(selectedDate, DATATYPE.DailyRecords);
@@ -184,7 +184,7 @@ Page({
         var now = new Date();
         var curYear = now.getFullYear();
         var curMonth = now.getMonth() + 1;
-        var curDate = now.getDate() ;
+        var curDate = now.getDate();
 
         this.setData({
             selectedDate: util.formatDateToString(new Date()),
@@ -198,12 +198,21 @@ Page({
         this.selectDate(util.formatDateToString(new Date()));
     },
 
-    onToCheckPlan: function () {
+    onToModifyPlan: function () {
         // this.selectDate(util.formatDateToString(new Date()));
         //传回全局变量，以便下次进入日期选择，还是当时选的。
 
         wx.switchTab({
-            url: '../../listplan/plan',
+            url: '../listplan/plan',
+        });
+    },
+
+    onToTrain: function () {
+        // this.selectDate(util.formatDateToString(new Date()));
+        //传回全局变量，以便下次进入日期选择，还是当时选的。
+
+        wx.switchTab({
+            url: '../training/training',
         });
     },
 

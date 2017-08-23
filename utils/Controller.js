@@ -9,18 +9,21 @@ import UserInfo from '../datamodel/UserInfo.js'
 import UserProfile from '../datamodel/UserProfile.js'
 import DailyRecords from '../datamodel/DailyRecords.js'
 import Movement from '../datamodel/Movement.js'
-import DataType from '../datamodel/DataType.js'
+import SystemSetting from '../datamodel/SystemSetting.js'
+import StorageType from '../datamodel/StorageType.js'
+
+var DATATYPE = new StorageType.StorageType();
 
 class Controller {
-    //获取一个DataType作为全局变量用
+    //获取一个StrorageType作为全局变量用
     constructor() {
-        this.DATATYPE = new DataType.DataType();
+        this.STORAGETYPE = new StorageType.StorageType();
     }
 
     /**
      * 功能：从选中的日期读取指定内容
      * 参数1：key，要读取的数据
-     * 参数2：dataType，数据类型（DataType）
+     * 参数2：dataType，数据类型（StrorageType）
      * 返回：请求类型的数据
      * 调用关系：外部函数，开放接口
      */
@@ -36,6 +39,7 @@ class Controller {
         // 如果没有这个记录，取的会是空值，则新建一个对应的项
         if (readInData != "") {
             requestData = readInData;
+            console.log("here111111112121231211111111111111");
         } else {
             switch (dataType.id) {
                 case 0:
@@ -48,8 +52,17 @@ class Controller {
                     break;
                 case 2:
                     // 2. DailyRecords
-                    requestData = new DailyRecords.DailyRecords();
+                    console.log("here1111111111111111111111111111111");
+                    if (typeof (requestData.date) != "undefined" && requestData.date != "") {
+                        console.log("here222222222222222222222222222222");
+                    } else {
+                        requestData = new DailyRecords.DailyRecords();
+                        console.log("here3333333333333333333333333333333");
+                    }
+
                     break;
+                case 3:
+                    requestData = new SystemSetting.SystemSetting();
                 default:
                     break;
             }
@@ -64,7 +77,7 @@ class Controller {
     /**
      * 功能：存储数据
      * 参数1：key，保存的数据key
-     * 参数2：dataType，数据类型（DataType）
+     * 参数2：dataType，数据类型（StrorageType）
      * 参数3：dataToSave，要存储的数据
      * 当存储的数据，为DailyRecords的时候，需要更新记录表
      * 调用关系：外部函数，开放接口
@@ -83,7 +96,7 @@ class Controller {
                 // 2. DailyRecords
                 // 在这种情况，dataToSave一定是个DailyRecords的类型
                 // 读取该类型数据已存储的内容
-                var userInfo = wx.getStorageSync(this.DATATYPE.UserInfo.value);
+                var userInfo = wx.getStorageSync(this.STORAGETYPE.UserInfo.value);
                 // 如果没有，则新建一个
                 if (userInfo == "")
                     userInfo = new UserInfo.UserInfo();
@@ -117,7 +130,7 @@ class Controller {
                         userInfo.hasTrainedDateList.splice(index, 1);
 
                 }
-                wx.setStorageSync(this.DATATYPE.UserInfo.value, userInfo);
+                wx.setStorageSync(this.STORAGETYPE.UserInfo.value, userInfo);
                 break;
             default:
                 break;
@@ -138,7 +151,9 @@ class Controller {
      */
     moveDay(isNext, host) {
         // 先保存
-        wx.setStorageSync(host.data.selectedDate, host.data.curRecords);
+        host.collectDataToSave();
+        console.log("in moveDay, host.data.curRecords", host.data.curRecords);
+        host.data.Controller.saveData(host.data.selectedDate, DATATYPE.DailyRecords, host.data.curRecords);
 
         // 改变日期
         var dateAfterMove = util.getMoveDays(host.data.selectedDate, isNext, 1);
@@ -148,14 +163,16 @@ class Controller {
 
         });
 
-        host.data.curRecords = new DailyRecords.DailyRecords(host.data.selectedDate);
-        var curRecords = wx.getStorageSync(host.data.selectedDate);
-        if (typeof(curRecords.date) != "undefined")
-            host.data.curRecords.fullCopyFrom(curRecords);
+        var curRecords = host.data.Controller.loadData(host.data.selectedDate, DATATYPE.DailyRecords);
+        console.log("in moveDay: host.data.selectedDate", host.data.selectedDate);
+        console.log("in moveDay: DATATYPE.DailyRecords", DATATYPE.DailyRecords);
+        console.log("in moveDay: curRecords", curRecords);
 
         host.setData({
-            curRecords: host.data.curRecords
+            curRecords: curRecords
         });
+
+        host.initRecords();
 
         if (util.isExpired(host.data.selectedDate)) {
             util.showToast("历史数据不能修改哦^_^", host, 2000);
@@ -198,7 +215,7 @@ class Controller {
         // this.data.curRecords.movementList.length);
         // console.log("in addMovement, after add: ", this.data.curRecords);
         success = true;
-        this.saveData(host.data.selectedDate, this.DATATYPE.DailyRecords, host.data.curRecords);
+        this.saveData(host.data.selectedDate, this.STORAGETYPE.DailyRecords, host.data.curRecords);
         return success;
     }
 
@@ -225,7 +242,7 @@ class Controller {
             console.log('modify completed!');
         }
 
-        this.saveData(host.data.selectedDate, this.DATATYPE.DailyRecords, host.data.curRecords);
+        this.saveData(host.data.selectedDate, this.STORAGETYPE.DailyRecords, host.data.curRecords);
         return success;
     }
 
@@ -242,7 +259,7 @@ class Controller {
             curRecords: curRecords,
         });
 
-        this.saveData(host.data.selectedDate, this.DATATYPE.DailyRecords, host.data.curRecords);
+        this.saveData(host.data.selectedDate, this.STORAGETYPE.DailyRecords, host.data.curRecords);
 
         console.log("in removeMovement, after delele, host.data.curRecords, ", host.data.curRecords);
         // console.log('remove', e.detail.value)

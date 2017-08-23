@@ -5,7 +5,7 @@
 
 import util from '../../utils/util.js'
 import controller from '../../utils/Controller.js'
-import DataType from '../../datamodel/DataType.js'
+import DataType from '../../datamodel/StorageType.js'
 import SingleDayRecords from '../../datamodel/SingleDayRecords.js'
 import Movement from '../../datamodel/Movement.js'
 import Record from '../../datamodel/Record.js'

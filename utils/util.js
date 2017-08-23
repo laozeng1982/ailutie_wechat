@@ -4,9 +4,9 @@
  * 
  */
 
-import DataType from '../datamodel/DataType.js'
+import StorageType from '../datamodel/StorageType.js'
 
-const DATATYPE = new DataType.DataType();
+const STORAGETYPE = new StorageType.StorageType();
 
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25

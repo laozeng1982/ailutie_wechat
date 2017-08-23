@@ -3,567 +3,473 @@
 /** wxss **/
 
 .container1 {
-  display: flex inline-flex;
-  border-bottom: 1rpx solid #eee;
+    display: flex inline-flex;
+    border-bottom: 1rpx solid #eee;
 }
 
 .thiscontainer {
- height: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.container2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  border-bottom: 1rpx solid #eee;
+.topLabel {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.topLabelLeft {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 25%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.title {
+    display: flex;
+    height: 80rpx;
+    flex-direction: row;
+    align-items: center;
+    font-size: 40rpx;
+    font-weight: 500;
+    justify-content: space-around;
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #eee;
+    background: #888;
+    color: #fff;
+    /* background-color: #fff; */
+}
+
+.topLabelRight {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 75%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.tow-panel-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left-panel {
+    border-bottom: 1rpx solid #eee;
+    border-top: 1rpx solid #eee;
+    border-right: 1rpx solid #eee;
+    border-left: 1rpx solid #eee;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+.right-panel {
+    border-bottom: 1rpx solid #eee;
+    border-top: 1rpx solid #eee;
+    border-right: 1rpx solid #eee;
+    border-left: 1rpx solid #eee;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollview {
+    height: 1000rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
 }
 
 .listSingleMovement {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 以下是左边BodyPart的样式 */
+
+.bodypart {
+    position: absolute;
+    display: flex;
+    align-content: center;
+    width: 100%;
+    height: 100rpx;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+}
+
+.bodypart-item {
+    width: 100%;
+    height: 105rpx;
+    /* border-bottom: 1rpx solid rgb(233, 233, 233); */
+    position: relative;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+/* 基数加底色 */
+
+.bodypartCornor1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 90rpx;
+    border: 1px solid darkgray;
+    background: #b2b2b2;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* 偶数用白底 */
+
+.bodypartCornor2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 90rpx;
+    border: 1px solid darkgray;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.bodypartSelected {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 90rpx;
+    border: 3px solid #09bb07;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.bodypartName {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.bodypartInnerName {
+    font-size: 12pt;
+    width: 100%;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+/* ----- */
+
+/* 以下是右边Movement的样式 */
+
+.movement-item {
+    width: 100%;
+    height: 165rpx;
+    /* border-bottom: 1rpx solid rgb(233, 233, 233); */
+    position: relative;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+.movement {
+    position: absolute;
+    display: flex;
+    align-content: center;
+    width: 100%;
+    height: 150rpx;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+}
+
+/* 基数加底色 */
+
+.movementCornor1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150rpx;
+    border: 1px solid darkgray;
+    background: #b2b2b2;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* 偶数用白底 */
+
+.movementCornor2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150rpx;
+    border: 1px solid darkgray;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.movementSelected {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150rpx;
+    border: 3px solid #09bb07;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .movementName {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1rpx solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* border-bottom: 1rpx solid #eee; */
 }
 
-.movementNumbers {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.movementInnerGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
-.container_iner {
-  width: 100%;
-  flex-direction: row;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
+.movementInnerItem {
+    font-size: 12pt;
+    width: 40%;
+    /* border-right: 1rpx solid #eee; */
+    justify-content: flex-start;
+    text-align: center;
 }
 
-.fontset {
-  color: #353535;
-  font-size: 40rpx;
-  font-weight: 900;
+.movementInnerName {
+    font-size: 12pt;
+    width: 100%;
+    height: 60rpx;
+    border-bottom: 2rpx solid #eee;
+    justify-content: flex-start;
+    text-align: center;
 }
 
 .slider {
-  padding-left: 10 rpx;
-  padding-right: 10rpx;
-  flex-grow: 4;
+    padding-left: 10 rpx;
+    padding-right: 10rpx;
+    flex-grow: 4;
 }
 
 .pickergroup {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  height: 2rem;
-  align-items: center;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 2rem;
+    align-items: center;
 }
 
 .button-group {
-  display: flex;
-  width: 100%;
-  /* height: 40rpx; */
-  justify-content: center;
-  height: 2rem;
-  align-items: center;
+    display: flex;
+    width: 100%;
+    /* height: 40rpx; */
+    justify-content: center;
+    height: 2rem;
+    align-items: center;
 }
 
 .graySpace {
-  /* width: 90%; */
-  background: #fff;
-  font-size: 12px;
-  min-height: 30rpx;
-  border-top-left-radius: 20rpx;
-  border-top-right-radius: 20rpx;
+    /* width: 90%; */
+    background: #fff;
+    font-size: 12px;
+    min-height: 30rpx;
+    border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx;
 }
 
 .slimSpace {
-  /* width: 90%; */
-  background: #fff;
-  font-size: 10rpx;
-  min-height: 10rpx;
-  border-top-left-radius: 20rpx;
-  border-top-right-radius: 20rpx;
+    /* width: 90%; */
+    background: #fff;
+    font-size: 10rpx;
+    min-height: 10rpx;
+    border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx;
 }
 
 .space {
-  padding-left: 40rpx;
-  background: #eee;
-  height: 1rpx;
-}
-
-/** 修改button默认的点击态样式类**/
-
-.button-hover {
-  background-color: red;
-}
-
-/** 添加自定义button点击态样式类**/
-
-.other-button-hover {
-  background-color: blue;
-}
-
-/* 边框 */
-
-.table {
-  border: 1px solid darkgray;
-}
-
-.tableCornor {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  width: 100%;
-  border: 1px solid darkgray;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.tr {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  height: 2rem;
-  align-items: center;
-}
-
-.bg-w {
-  background: snow;
-}
-
-.bg-g {
-  background: #e6f3f9;
-}
-
-.tableheader {
-  font-size: 12pt;
-  width: 15%;
-  justify-content: center;
-  background: #888;
-  color: #fff;
-  display: flex;
-  height: 2rem;
-  align-items: center;
-}
-
-.tableItem {
-  font-size: 12pt;
-  width: 60%;
-  flex-flow: 2;
-  justify-content: flex-start;
-  text-align: center;
-}
-
-.tableheaderName {
-  font-size: 12pt;
-  width: 60%;
-  justify-content: flex-start;
-  background: #888;
-  color: #fff;
-  display: flex;
-  height: 2rem;
-  align-items: center;
-}
-
-.tableItemName {
-  font-size: 12pt;
-  width: 100%;
-  justify-content: flex-start;
-  text-align: center;
-}
-
-.tableheaderNumber {
-  font-size: 12pt;
-  width: 50%;
-  justify-content: flex-start;
-  background: #888;
-  color: #fff;
-  display: flex;
-  height: 2rem;
-  align-items: center;
-}
-
-.tableItemNumber {
-  font-size: 12pt;
-  width: 50%;
-  justify-content: flex-start;
-  text-align: center;
-}
-
-.tableItem_kg {
-  font-size: 12pt;
-  width: 20%;
-  justify-content: flex-start;
-  text-align: left;
+    padding-left: 40rpx;
+    background: #eee;
+    height: 1rpx;
 }
 
 /* 增加按钮 */
 
 .addButton {
-  /* position: fixed; */
-  right: 40rpx;
-  bottom: 40rpx;
-  background: #333;
-  color: #fff;
-  font-weight: bold;
-  font-size: 60rpx;
-  width: 50rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  padding: 16rpx;
-  text-align: center;
-  border-radius: 50%;
-   box-shadow: 0 0 8px 2px #669; 
-  z-index: 1000;
+    /* position: fixed; */
+    right: 40rpx;
+    bottom: 40rpx;
+    background: #333;
+    color: #fff;
+    font-weight: bold;
+    font-size: 60rpx;
+    width: 50rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    padding: 16rpx;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 2px #669;
+    z-index: 1000;
 }
 
 .dateButton {
-  background: #888;
-  color: #fff;
-  font-weight: bold;
-  /* font-size: 60rpx; */
-  text-align: center;
-  /* box-shadow: 0 0 8px 2px #669; */
-  z-index: 1000;
-  flex-grow: 4;
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    flex-grow: 4;
 }
 
 .dateMoveButton {
-  background: #888;
-  color: #fff;
-  font-weight: bold;
-  /* font-size: 60rpx; */
-  text-align: center;
-  /* box-shadow: 0 0 8px 2px #669; */
-  z-index: 1000;
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
 }
-
-/*总菜单容器*/
-
-.menu {
-  display: block;
-  height: 38px;
-}
-
-/*一级菜单*/
-
-.menu dt {
-  font-size: 15px;
-  float: left;
-  width: 33%;
-  height: 38px;
-  border-right: 1px solid #d2d2d2;
-  border-bottom: 1px solid #d2d2d2;
-  text-align: center;
-  background-color: #f4f4f4;
-  color: #5a5a5a;
-  line-height: 38px;
-}
-
-/*二级菜单外部容器样式*/
-
-.menu dd {
-  position: absolute;
-  width: 100%;
-  top: 39px;
-  left: 0;
-  z-index: 999;
-}
-
-/*二级菜单普通样式*/
-
-.menu li {
-  font-size: 14px;
-  line-height: 34px;
-  color: #575757;
-  height: 34px;
-  display: block;
-  padding-left: 8px;
-  background-color: #fff;
-  border-bottom: 1px solid #dbdbdb;
-}
-
-/* 显示与隐藏 */
-
-.show {
-  display: block;
-}
-
-.hidden {
-  display: none;
-}
-
-.bg1 {
-  background: #5c258d;
-  background: -webkit-linear-gradient(to left, #5c258d, #4389a2);
-  background: linear-gradient(to left, #5c258d, #4389a2);
-}
-
-.bg2 {
-  background: #085078;
-  background: -webkit-linear-gradient(to left, #085078, #85d8ce);
-  background: linear-gradient(to left, #085078, #85d8ce);
-}
-
-.bg3 {
-  background: #16222a;
-  background: -webkit-linear-gradient(to bottom, #16222a, #3a6073);
-  background: linear-gradient(to bottom, #16222a, #3a6073);
-}
-
-.bg4 {
-  background: #eb3349;
-  background: -webkit-linear-gradient(to left, #eb3349, #f45c43);
-  background: linear-gradient(to left, #eb3349, #f45c43);
-}
-
-.bg5 {
-  background: #1d976c;
-  background: -webkit-linear-gradient(to left, #1d976c, #93f9b9);
-  background: linear-gradient(to left, #1d976c, #93f9b9);
-}
-
-/* for modal */
-
-/* 弹出窗口以后，阴影遮盖的部分 */
-.modal-mask {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: #000;
-  opacity: 0.5;
-  overflow: hidden;
-  z-index: 9000;
-  color: #fff;
-}
-
-/* 窗口大小 */
-.modal-dialog {
-  width: 95%;
-  height: 850rpx;
-  overflow: hidden;
-  position: absolute;
-  top: 25%;
-  left: 0;
-  z-index: 9999;
-  background: #f9f9f9;
-    margin: -150rpx 20rpx;  
-  border-radius: 36rpx;
-}
-
-/* 头部 */
-.modal-title {
-  padding-top: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  height: 70rpx;
-  /* font-size: 36rpx; */
-  color: #030303;
-  text-align: center;
-  border-bottom: 2px solid #dedede;
-}
-
-/* 内容 */
-.modal-content {
-  padding: 15rpx 32rpx;
-  height: 640rpx;
-}
-
-/* 底部 */
-.modal-footer {
-  display: flex;
-  flex-direction: row;
-  height: 90rpx;
-  border-top: 2px solid #dedede;
-  font-size: 34rpx;
-  line-height: 86rpx;
-}
-
-.modal-input {
-  display: flex;
-  background: #fff;
-  border: 2rpx solid #ddd;
-  border-radius: 4rpx;
-  font-size: 28rpx;
-}
-
-.modal-text {
-  display: flex;
-  background: #fff;
-  border: 2rpx solid #ddd;
-  border-radius: 4rpx;
-  font-size: 28rpx;
-}
-
-.inputContainer{
-  display: flex;
-  flex-direction: row;
-}
-
-.input {
-  width: 100%;
-  height: 82rpx;
-  font-size: 28rpx;
-  line-height: 28rpx;
-  padding: 0 20rpx;
-  box-sizing: border-box;
-  color: #333;
-}
-
-.input_small {
-  width: 100%;
-  height: 70rpx;
-  font-size: 28rpx;
-  line-height: 28rpx;
-  padding: 0 20rpx;
-  box-sizing: border-box;
-  color: #333;
-}
-
-input-holder {
-  color: #666;
-  font-size: 28rpx;
-}
-
-
 
 .btn-cancel {
-  width: 20%;
-  color: #666;
-  text-align: center;
-  border-right: 1px solid #dedede;
+    width: 20%;
+    color: #666;
+    text-align: center;
+    border-right: 1px solid #dedede;
 }
 
 .btn-confirm {
-  width: 60%;
-  height: 100%;
-  color: #353535;
-  background: #09bb07;
-  text-align: center;
-  border-right: 1px solid #dedede;
+    width: 60%;
+    height: 100%;
+    color: #353535;
+    background: #09bb07;
+    text-align: center;
+    border-right: 1px solid #dedede;
 }
 
 .btn-del {
-  width: 20%;
-  color: #e64340;
-  text-align: center;
-  
+    width: 20%;
+    color: #e64340;
+    text-align: center;
 }
 
 /* for movement items */
 
-.movement-item {
-  width: 100%;
-  height: 165rpx;
-  /* border-bottom: 1rpx solid rgb(233, 233, 233); */
-  position: relative;
-  left: 0;
-  top: 0;
-  overflow: hidden;
-}
-
-.movement {
-  position: absolute;
-  display: flex;
-  align-content: center;
-  width: 100%;
-  height: 150rpx;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  background-color: #fff;
-}
-
 .item_container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  border-bottom-right-radius: 20rpx;
-  border-top-right-radius: 20rpx;
+    display: flex;
+    flex-direction: column;
+    border-bottom-right-radius: 20rpx;
+    border-top-right-radius: 20rpx;
 }
 
 .header-img {
-  /* position: absolute; */
-  width: 110rpx;
-  height: 110rpx;
-  left: 20rpx;
-  top: 20rpx;
-  border-radius: 10%;
-  border-bottom-left-radius: 10rpx;
-  border-top-left-radius: 20rpx;
+    /* position: absolute; */
+    width: 110rpx;
+    height: 110rpx;
+    left: 20rpx;
+    top: 20rpx;
+    border-radius: 10%;
+    border-bottom-left-radius: 10rpx;
+    border-top-left-radius: 20rpx;
 }
 
 .header-imgbak {
-  position: absolute;
-  width: 110rpx;
-  height: 110rpx;
-  left: 20rpx;
-  top: 20rpx;
-  border-radius: 10%;
+    position: absolute;
+    width: 110rpx;
+    height: 110rpx;
+    left: 20rpx;
+    top: 20rpx;
+    border-radius: 10%;
 }
 
 .user-name {
-  position: absolute;
-  left: 150rpx;
-  top: 20rpx;
+    position: absolute;
+    left: 150rpx;
+    top: 20rpx;
 }
 
 .movement-text {
-  position: absolute;
-  left: 150rpx;
-  bottom: 20rpx;
-  font-size: 80%;
-  color: rgb(127, 127, 127);
+    position: absolute;
+    left: 150rpx;
+    bottom: 20rpx;
+    font-size: 80%;
+    color: rgb(127, 127, 127);
 }
 
 .movement-menu {
-  position: absolute;
-  width: 100%;
-  height: 150rpx;
-  left: 0;
-  top: 0;
-  z-index: 0;
+    position: absolute;
+    width: 100%;
+    height: 150rpx;
+    left: 0;
+    top: 0;
+    z-index: 0;
 }
 
 .menu-delete {
-  position: absolute;
-  width: 150rpx;
-  height: 148rpx;
-  top: 1rpx;
-  right: 0;
-  background-color: rgb(255, 58, 50);
-  color: #fff;
-  text-align: center;
-  line-height: 150rpx;
+    position: absolute;
+    width: 150rpx;
+    height: 148rpx;
+    top: 1rpx;
+    right: 0;
+    background-color: rgb(255, 58, 50);
+    color: #fff;
+    text-align: center;
+    line-height: 150rpx;
 }
 
 .menu-mark {
-  position: absolute;
-  width: 200rpx;
-  height: 148rpx;
-  top: 1rpx;
-  right: 150rpx;
-  background-color: rgb(200, 199, 205);
-  color: #fff;
-  text-align: center;
-  line-height: 150rpx;
+    position: absolute;
+    width: 200rpx;
+    height: 148rpx;
+    top: 1rpx;
+    right: 150rpx;
+    background-color: rgb(200, 199, 205);
+    color: #fff;
+    text-align: center;
+    line-height: 150rpx;
 }

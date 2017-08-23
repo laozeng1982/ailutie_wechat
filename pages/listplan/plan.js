@@ -5,15 +5,16 @@
 
 import util from '../../utils/util.js'
 import Controller from '../../utils/Controller.js'
-import DataType from '../../datamodel/DataType.js'
+import DataType from '../../datamodel/StorageType.js'
 import DailyRecords from '../../datamodel/DailyRecords.js'
 import Movement from '../../datamodel/Movement.js'
-// import RecordFactory from '../../datamodel/RecordFactory.js'
+import RecordFactory from '../../datamodel/RecordFactory.js'
 import PlanModal from '../ui/modal/PlanModal.js'
+import BodyPartList from '../../datamodel/BodyPart.js'
 
 //全局变量
 var app = getApp();
-const DATATYPE = new DataType.DataType();
+const DATATYPE = new DataType.StorageType();
 
 Page({
 
@@ -24,44 +25,38 @@ Page({
         // 用来保存当前选中的日期，初始进程序，显示当天
         selectedDate: util.formatDateToString(new Date()),
 
+        bodyPartList: '',
+
+        //所有的计划，是个Movement的列表
+        allMovementsHolder: '',
+        tmpRecords: [],
+
         // 存放选中日期的计划和记录
         curRecords: '',
 
         // 初始化，这些数据一是用来显示初始化设置
+        pick: false,
 
         // 指定当前修改的记录ID
-        curSelectedMovementId: '',
+        selectedPartId: '',
+        selectedMovementId: '',
 
         Controller: '',
 
+
+        // 3D 数组，用来存放动作组数，次数和重量
+        movementNoMultiArray: app.globalData.movementNoMultiArray,
+        // 数量选择索引
+        multiMovementNoIndex: [0, 0, 0],
+
         // 组件控制
         scrollY: true,
-        scrollHeight: 850,
-        actionName: '',
-
-        // Modal控制器，传数据用
-        PLANMODAL: '',
-        showModal: false,
-
-        tipMvCount: '', //如果固定次数，tipMvCount为“每组”，否则为“共”
-        //列表中显示的值
-        showGpCount: '',
-        showMvCount: '',
-        showMvWeight: '',
-        tipMvWeight: '', //如果固定重量，tipMvWeight为“每组”，否则为“最大”
+        scrollHeight:
+            850,
+        actionName:
+            '',
 
     },
-
-    swipeCheckX: 35, //激活检测滑动的阈值
-    swipeCheckState: 0, //0未激活 1激活
-    maxMoveLeft: 185, //消息列表项最大左滑距离
-    correctMoveLeft: 175, //显示菜单时的左滑距离
-    thresholdMoveLeft: 75,//左滑阈值，超过则显示菜单
-    lastShowMovementId: '', //记录上次显示菜单的消息id
-    moveX: 0,  //记录平移距离
-    showState: 0, //0 未显示菜单 1显示菜单
-    touchStartState: 0, // 开始触摸时的状态 0 未显示菜单 1 显示菜单
-    swipeDirection: 0, //是否触发水平滑动 0:未触发 1:触发水平滑动 2:触发垂直滑动
 
     //------------------------------------------------------
     //以下是监听函数，及其对应的处理操作
@@ -88,8 +83,8 @@ Page({
         //离开页面前，先保存，在onHide里去统一实现
         console.log("select date");
         app.globalData.selectedDate = util.getDateFromString(this.data.selectedDate, '-');
-        wx.navigateTo({
-            url: '../ui/calender/calender',
+        wx.switchTab({
+            url: '../records/records',
         });
     },
 
@@ -102,7 +97,6 @@ Page({
             return;
         } else {
             // 取得正在编辑的动作，传给Modal
-            this.data.PLANMODAL.initBuffAndTmp(this);
             this.setData({
                 actionName: "添加动作",
                 showModal: true
@@ -124,294 +118,286 @@ Page({
 
         // 取得正在编辑的动作，传给Modal
         var tmp = this.data.curRecords.movementList[e.currentTarget.id - 1];
-        this.data.PLANMODAL.setBuffMovement(tmp, this);
+
+        this.setData({});
+    },
+
+
+    onBodyPartSelected: function (e) {
 
         this.setData({
-            PLANMODAL: this.data.PLANMODAL,
-            curSelectedMovementId: e.currentTarget.id,
-            actionName: "修改动作",
-            showModal: true
+            selectedPartId: e.detail.value,
         });
+        // console.log("in onBodyPartSelected, selectedPartId: ", this.data.selectedPartId);
+        // console.log("in onBodyPartSelected, this.data.actionList: ", this.data.bodyPartList.partList[e.detail.value - 1]);
     },
 
-    // ---------------------------------------------
-    // 响应Modal界面控制
+    onBodyPartTap: function (e) {
 
-    onPreventTouchMove: function (e) {
-        this.data.PLANMODAL.preventTouchMove(e);
+        this.setData({
+            // bodyPartList: this.data.bodyPartList,
+            selectedPartId: e.currentTarget.id,
+        });
+        // console.log("in onBodyPartTap, selectedPartId: ", this.data.selectedPartId);
+        // console.log("in onBodyPartTap, this.data.actionList: ", this.data.bodyPartList.partList[e.detail.value - 1]);
+
     },
 
-    onHideModal: function (e) {
-        this.data.PLANMODAL.hideModal(e, this);
+    onMovementSelected: function (e) {
+        // 简单反选
+        // 先搜索全列表，查找动作有无选中，有的话标记，部位列表自然设为选中状态
+        this.onMovementItemClick(e);
+        console.log("in onMovementSelected, selected movement ID: ", e.currentTarget.id);
+        console.log("in onMovementSelected, before: ", this.data.bodyPartList.partList[this.data.selectedPartId - 1]);
     },
 
-    onCancel: function (e) {
-        this.data.PLANMODAL.cancel(e, this);
-    },
-
-    onConfirm: function (e) {
-        this.data.PLANMODAL.confirm(e, this);
-    },
-
-    onRemove: function (e) {
-        this.data.PLANMODAL.removeMovement(e, this);
-    },
-
-    // ---------------------------------------------
-    // 响应Modal界面组件控制
-    // 因为Modal必须内嵌在plan页面里，数据就必须挂在页面中，
-    // 所以需要把页面实例(this)传过去，方便更新界面数据和交互
-
-    onMovementChange: function (e) {
-        this.data.PLANMODAL.movementChange(e, this);
-    },
-
-    onMovementColumnChange: function (e) {
-        this.data.PLANMODAL.movementColumnChange(e, this);
+    /**
+     * 具体动作这边选了以后，激活选中状态
+     * @param e
+     */
+    onMovementTap: function (e) {
+        this.onMovementItemClick(e);
+        console.log("in onMovementTap, movement", e.currentTarget.id);
+        // console.log(this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList);
     },
 
     onNumberChange: function (e) {
-        this.data.PLANMODAL.numberChange(e, this);
-    },
 
-    onSeperatingSelect: function (e) {
-        this.data.PLANMODAL.setSeperatingSelect(e, this);
-    },
+        console.log("in onNumberChange, picker id: ", e.currentTarget.id);
 
-    onSameMvCount: function (e) {
-        this.data.PLANMODAL.setSameMvCount(e, this);
-    },
+        console.log('in onNumberChange, picker发送选择改变，携带值为', e.detail.value);
 
-    onInputGroupChange: function (e) {
-        this.data.PLANMODAL.inputGroupChange(e, this);
-    },
+        var selectedRowArr = e.detail.value;
+        console.log("picker",);
 
-    onInputMvCountChange: function (e) {
-        this.data.PLANMODAL.inputMvCountChange(e, this);
-    },
 
-    onInputWeightChange: function (e) {
-        this.data.PLANMODAL.inputWeightChange(e, this);
-    },
+        var planGpCount = parseInt(this.data.movementNoMultiArray[0][selectedRowArr[0]]);
+        var planCount = parseInt(this.data.movementNoMultiArray[1][selectedRowArr[1]]);
+        var planWeight = parseInt(this.data.movementNoMultiArray[2][selectedRowArr[2]]);
+        var measurement = this.data.movementNoMultiArray[3][selectedRowArr[3]];
 
-    //--------------------------------------------------------
-    //for left swipe delete
+        var allHolder = this.data.allMovementsHolder;
 
-    onTouchStart: function (e) {
-        if (util.isExpired(this.data.selectedDate)) {
-            return;
+        var movement = allHolder[this.data.selectedPartId - 1][this.data.selectedMovementId - 1];
+        movement.contents.planGpCount = planGpCount;
+        movement.contents.details = [];
+        console.log("in onNumberChange, picker: ", planGpCount + "组, ", planCount + "次, ", +planWeight, measurement);
+
+        for (var idx = 0; idx < planGpCount; idx++) {
+            var record = new RecordFactory.DetailRecord(idx + 1,
+                planCount,
+                planWeight,
+                0,
+                0);
+            record.measurement = measurement;
+            movement.contents.details.push(record);
+
         }
-        if (this.showState === 1) {
-            this.touchStartState = 1;
-            this.showState = 0;
-            this.moveX = 0;
-            this.translateXMovementItem(this.lastShowMovementId, 0, 200);
-            this.lastShowMovementId = "";
-            return;
-        }
-        this.firstTouchX = e.touches[0].clientX;
-        this.firstTouchY = e.touches[0].clientY;
-        if (this.firstTouchX > this.swipeCheckX) {
-            this.swipeCheckState = 1;
-        }
-        this.lastMoveTime = e.timeStamp;
+        allHolder[this.data.selectedPartId - 1][this.data.selectedMovementId - 1] = movement;
+
+        // 重新置为选中
+        this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList[e.currentTarget.id - 1].actionSelected = true;
+
+        this.setData({
+            bodyPartList: this.data.bodyPartList,
+            allMovementsHolder: allHolder
+        });
+
+
+        console.log("in onNumberChange, picker: ", this.data.allMovementsHolder[this.data.selectedPartId - 1][this.data.selectedMovementId - 1]);
+        console.log("in onNumberChange, picker: ", this.data.allMovementsHolder);
+
     },
 
-    onTouchMove: function (e) {
-        if (this.swipeCheckState === 0) {
-            return;
+    onMovementItemClick: function (e) {
+        // 当有锻炼数据时，一定置为选中，不能取消
+        if (this.isTrained(e.currentTarget.id)) {
+            this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList[e.currentTarget.id - 1].actionSelected = true;
+        } else {
+            this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList[e.currentTarget.id - 1].actionSelected =
+                !this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList[e.currentTarget.id - 1].actionSelected;
         }
-        //当开始触摸时有菜单显示时，不处理滑动操作
-        if (this.touchStartState === 1) {
-            return;
-        }
-        var moveX = e.touches[0].clientX - this.firstTouchX;
-        var moveY = e.touches[0].clientY - this.firstTouchY;
-        //已触发垂直滑动，由scroll-view处理滑动操作
-        if (this.swipeDirection === 2) {
-            return;
-        }
-        //未触发滑动方向
-        if (this.swipeDirection === 0) {
-            // console.log(Math.abs(moveY));
-            //触发垂直操作
-            if (Math.abs(moveY) > 4) {
-                this.swipeDirection = 2;
 
-                return;
-            }
-            //触发水平操作，同时禁用垂直滚动
-            if (Math.abs(moveX) > 4) {
-                this.swipeDirection = 1;
-                this.setData({scrollY: false});
-            }
-            else {
-                return;
+
+        // 先搜索全列表，查找动作有无选中，有的话标记，部位列表自然设为选中状态
+        var hasSelected = false;
+        for (var item of this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList) {
+            if (item.actionSelected === true) {
+                hasSelected = true;
+                break;
             }
         }
-        this.lastMoveTime = e.timeStamp;
-        //处理边界情况
-        if (moveX > 0) {
-            moveX = 0;
-        }
-        //检测最大左滑距离
-        if (moveX < -this.maxMoveLeft) {
-            moveX = -this.maxMoveLeft;
-        }
-        this.moveX = moveX;
-        this.translateXMovementItem(e.currentTarget.id, moveX, 0);
+
+        this.data.bodyPartList.partList[this.data.selectedPartId - 1].selected = hasSelected;
+
+        this.setData({
+            selectedMovementId: e.currentTarget.id,
+            bodyPartList: this.data.bodyPartList
+        });
     },
 
-    onTouchEnd: function (e) {
-        this.swipeCheckState = 0;
-        var swipeDirection = this.swipeDirection;
-        this.swipeDirection = 0;
-        if (this.touchStartState === 1) {
-            this.touchStartState = 0;
-            this.setData({scrollY: true});
-            return;
-        }
-        //垂直滚动，忽略
-        if (swipeDirection !== 1) {
-            return;
-        }
-        if (this.moveX === 0) {
-            this.showState = 0;
-            //不显示菜单状态下,激活垂直滚动
-            this.setData({scrollY: true});
-            return;
-        }
-        if (this.moveX === this.correctMoveLeft) {
-            this.showState = 1;
-            this.lastShowMovementId = e.currentTarget.id;
-            return;
-        }
-        if (this.moveX < -this.thresholdMoveLeft) {
-            this.moveX = -this.correctMoveLeft;
-            this.showState = 1;
-            this.lastShowMovementId = e.currentTarget.id;
-        }
-        else {
-            this.moveX = 0;
-            this.showState = 0;
-            //不显示菜单,激活垂直滚动
-            this.setData({scrollY: true});
-        }
-        this.translateXMovementItem(e.currentTarget.id, this.moveX, 500);
+    isTrained(index) {
+        var isTrain = false;
+        var allHolder = this.data.allMovementsHolder;
 
+        var movement = allHolder[this.data.selectedPartId - 1][index - 1];
+
+        if (parseInt(movement.contents.curFinishedGpCount) > 0 || parseInt(movement.contents.mvFeeling) > 0) {
+            isTrain = true;
+        } else {
+            for (var detail of movement.contents.details) {
+
+                if (parseInt(detail.actualCount) > 0 || parseInt(detail.actualWeight) > 0 ||
+                    detail.finished || parseInt(detail.groupFeeling) > 0) {
+                    console.log(parseInt(detail.actualCount), parseInt(detail.actualWeight),
+                        detail.finished, parseInt(detail.groupFeeling));
+                    isTrain = true;
+                    break;
+                }
+            }
+        }
+        console.log("in isTrained, ", isTrain);
+        return isTrain;
     },
 
     /**
-     * 响应删除操作，需弹窗确认
+     * 选择或者修改完成，整理allMovementsList中的选中项
+     * @param e
      */
-    onDeleteMovementTap: function (e) {
-        var vm = this;
-        wx.showModal({
-            title: '确认删除',
-            content: '此操作将删除该动作，确认否？',
-            cancelText: "取消",
-            confirmText: "确定",
-            success: function (res) {
-                if (res.confirm) {
-                    console.log('用户删除数据')
-                    vm.deleteMovementItem(e);
-                } else if (res.cancel) {
-                    console.log('用户取消删除')
+    collectDataToSave() {
+        if (util.isExpired(this.data.selectedDate)) {
+            util.showToast('历史数据不能修改哦^_^', this, 2000);
+            return;
+        }
+        this.data.curRecords.movementList = [];
+        this.data.curRecords.date = util.formatDateToString(app.globalData.selectedDate);
+        console.log("in collectDataToSave, ", this.data.curRecords.date);
+        console.log("in collectDataToSave, ", this.data.bodyPartList.partList.length);
+        var mvIndex = 1;
+        for (var partIdx = 0; partIdx < this.data.bodyPartList.partList.length; partIdx++)
+            for (var mvIdx = 0; mvIdx < this.data.bodyPartList.partList[partIdx].actionList.length; mvIdx++) {
+                if (this.data.bodyPartList.partList[partIdx].selected && this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionSelected) {
+                    console.log("part", partIdx + 1, this.data.bodyPartList.partList[partIdx].selected,
+                        "movement", mvIdx + 1, this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionPart, ", ",
+                        this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionName, ", ",
+                        this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionSelected);
+                    // console.log(this.data.allMovementsHolder[partIdx][mvIdx]);
+
+                    var movement = this.data.allMovementsHolder[partIdx][mvIdx];
+                    movement.mvId = mvIndex;
+                    mvIndex++;
+                    this.data.curRecords.movementList.push(this.data.allMovementsHolder[partIdx][mvIdx]);
                 }
             }
+    },
+
+    /**
+     * 若选择的天里完全没有记录，则直接刷新所有选择状态，如果有记录，把记录同步到allMovementsList中，以及重置部位和选中的状态
+     */
+    initRecords: function () {
+        var result = this.refreshAllData();
+
+        console.log("in initRecords, this.data.curRecords, ", this.data.curRecords);
+
+        var bodyPartList = result[0];
+        var allHolder = result[1];
+        // console.log("in initRecords, this.data.bodyPartList, ", this.data.bodyPartList);
+        // console.log("in initRecords, this.data.allMovementsHolder, ", this.data.allMovementsHolder);
+
+        var alreadySetSelectID = false;
+        var selectedPartId;
+        if (this.data.curRecords.movementList.length === 0) {
+            // 如果没有数据，直接选第一个得了。
+            selectedPartId = 1;
+        } else {
+            for (var item of this.data.curRecords.movementList) {
+                for (var partIdx = 0; partIdx < allHolder.length; partIdx++) {
+                    if (item.mvInfo.partName === bodyPartList.partList[partIdx].partName) {
+                        // 用以保证每次进入计划界面的时候能选中一个部位
+                        if (!alreadySetSelectID) {
+                            selectedPartId = partIdx + 1;
+                            alreadySetSelectID = true;
+                        }
+                        bodyPartList.partList[partIdx].selected = true;
+                    }
+                    for (var mvId = 0; mvId < allHolder[partIdx].length; mvId++) {
+                        if (item.mvInfo.mvName === allHolder[partIdx][mvId].mvInfo.mvName) {
+                            console.log("in initRecords, ", allHolder[partIdx][mvId].mvInfo.mvName);
+                            bodyPartList.partList[partIdx].actionList[mvId].actionSelected = true;
+                            allHolder[partIdx][mvId] = item;
+                        }
+                    }
+                }
+            }
+        }
+
+        this.setData({
+            selectedPartId: selectedPartId,
+            bodyPartList: bodyPartList,
+            allMovementsHolder: allHolder
         });
 
     },
 
+
     /**
-     * 响应去锻炼操作，准备数据
+     * refreshAll Data
+     * 为了避免两次刷新数据，refresh改回返回数据，到其他函数里去刷新，免得画面抖动
      */
-    onTrainTap: function (e) {
-        console.log("e.currentTarget.id ", e.currentTarget.id);
-        //TODO 准备锻炼数据，考虑使用checked属性，明天再思考，或许干脆不要这个按钮
-        wx.switchTab({
-            url: '../training/training',
-        })
-    },
+    refreshAllData: function () {
+        //初始化
+        var bodyPartList = new BodyPartList.BodyPartList();
+        bodyPartList.fullCopyFrom(app.globalData.bodyPartList);
+        bodyPartList.clearSelection();
 
-
-    getItemIndex: function (id) {
-        // console.log("left id: ", id);
-        var curRecords = this.data.curRecords;
-        // console.log("getItemIndex:", curRecords);
-
-        for (var i = 0; i < curRecords.movementList.length; i++) {
-            // console.log("getItemIndex:", curRecords.movementList[i].id, String(curRecords.movementList[i].id) === String(id));
-            if (String(curRecords.movementList[i].id) === String(id)) {
-                // console.log("getItemIndex:", i);
-                return i;
+        var allHolder = [];
+        for (var list of bodyPartList.partList) {
+            var tmpHolder = [];
+            for (var item of list.actionList) {
+                var movement = new Movement.Movement();
+                movement.mvInfo.partName = item.actionPart;
+                movement.mvInfo.mvName = item.actionName;
+                movement.mvInfo.mvPictureSrc = item.actionPictureSrc;
+                movement.contents.planGpCount = 6;
+                for (var idx = 0; idx < movement.contents.planGpCount; idx++) {
+                    var record = new RecordFactory.DetailRecord(idx + 1,
+                        10,
+                        30,
+                        0,
+                        0);
+                    record.measurement = "Kg";
+                    movement.contents.details.push(record);
+                }
+                tmpHolder.push(movement);
             }
+            allHolder.push(tmpHolder);
         }
-        return -1;
+        console.log("in refreshAllData, bodyPartList", bodyPartList);
+        console.log("in refreshAllData, allHolder", allHolder);
+
+        return [bodyPartList, allHolder];
     },
 
-    deleteMovementItem: function (e) {
-        var animation = wx.createAnimation({duration: 200});
-        animation.height(0).opacity(0).step();
-        this.animationMovementWrapItem(e.currentTarget.id, animation);
-        var s = this;
-        setTimeout(function () {
-            console.log("in deleteMovementItem, e.currentTarget.id: ", e.currentTarget.id);
-
-        }, 200);
-        var index = s.getItemIndex(e.currentTarget.id);
-        console.log("deleteMovementItem, delete id: ", index);
-        this.removeMovement(index + 1);
-        this.showState = 0;
-        this.setData({scrollY: true});
-    },
-
-    translateXMovementItem: function (id, x, duration) {
-        var animation = wx.createAnimation({duration: duration});
-        animation.translateX(x).step();
-        this.animationMovementItem(id, animation);
-    },
-
-    animationMovementItem: function (id, animation) {
-        var index = this.getItemIndex(id);
-        var param = {};
-        var indexString = 'curRecords.movementList[' + index + '].animation';
-        param[indexString] = animation.export();
-        this.setData(param);
-        // console.log("in animationMovementItem, param: ", param);
-    },
-
-    animationMovementWrapItem: function (id, animation) {
-        var index = this.getItemIndex(id);
-        var param = {};
-        var indexString = 'curRecords.movementList[' + index + '].wrapAnimation';
-        param[indexString] = animation.export();
-        this.setData(param);
-        // console.log("in animationMovementWrapItem, param: ", param);
-    },
-
-
-    //-------------------------------------------------------------------------------
-    //生命周期函数，页面跳转等等
+//-------------------------------------------------------------------------------
+//生命周期函数，页面跳转等等
 
     /**
      * 生命周期函数--监听页面加载
+     * 只有页面第一次进入时调用，这里初始化一些基本信息，其他动态的重新赋值操作，放到onShow中去
      */
     onLoad: function (options) {
-        //初始化
 
-        var modal = new PlanModal.PlanModal();
-        this.data.Controller = new Controller.Controller();
+        var result = this.refreshAllData();
 
-        console.log("this.data.modal", modal);
         this.setData({
-            PLANMODAL: modal,
-            Controller: this.data.Controller
+            bodyPartList: result[0],
+            allMovementsHolder: result[1],
+            Controller: new Controller.Controller(),
 
         });
 
         console.log("plan page onLoad call");
-        console.log("this.data.PLANMODAL", this.data.PLANMODAL);
+        console.log("plan page onLoad , this.data.allMovementsHolder", this.data.allMovementsHolder);
     },
 
     /**
@@ -430,18 +416,14 @@ Page({
             selectedDate: util.formatDateToString(app.globalData.selectedDate),
         });
 
-        // 先读取，如果不存在，则新建一个
-        this.data.curRecords = new DailyRecords.DailyRecords(this.data.selectedDate);
-        // console.log("in onShow, this.data.curRecords: ", this.data.curRecords);
-        var curRecords = wx.getStorageSync(this.data.selectedDate);
-
-        if (typeof (curRecords.date) != "undefined" && curRecords.date != "") {
-            this.data.curRecords.fullCopyFrom(curRecords);
-        }
+        var curRecords = this.data.Controller.loadData(this.data.selectedDate, DATATYPE.DailyRecords);
+        console.log("plan page onShow call", curRecords);
 
         this.setData({
-            curRecords: this.data.curRecords
+            curRecords: curRecords
         });
+
+        this.initRecords();
 
         console.log("in onShow, this.data.curRecords: ", this.data.curRecords);
 
@@ -454,9 +436,13 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
+        this.collectDataToSave();
         this.data.Controller.saveData(this.data.selectedDate, DATATYPE.DailyRecords, this.data.curRecords);
+
+        // this.data.Controller.saveData(util.formatDateToString(app.globalData.selectedDate), DATATYPE.DailyRecords, this.data.curRecords);
         console.log("plan page onHide call: data saved");
-    },
+    }
+    ,
 
     /**
      * 生命周期函数--监听页面卸载

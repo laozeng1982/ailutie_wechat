@@ -1,0 +1,279 @@
+/* calender.wxss */
+
+.container1 {
+    display: flex inline-flex;
+    border-bottom: 1rpx solid #eee;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.thiscontainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.calender_panel {
+    width: 100%;
+    height: 470rpx;
+    border-bottom: 1rpx solid #ececec;
+}
+
+.calender_box {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1rpx solid #ececec;
+    display: flex;
+}
+
+.calender_box_header {
+    width: 100%;
+    background: #b2b2b2;
+    overflow: hidden;
+    border-bottom: 1rpx solid #ececec;
+    display: flex;
+}
+
+.weekday_label_header {
+    width: 14.28%;
+    float: left;
+    text-align: center;
+    font-size: 40rpx;
+    padding: 10rpx 0;
+}
+
+.weekday_label_days {
+    width: 14.28%;
+    position: relative;
+    float: left;
+    text-align: center;
+    font-size: 40rpx;
+    padding: 10rpx 0;
+    height: 40rpx;
+}
+
+.weekday_label_days_overlay {
+    position: absolute;
+    display: flex;
+    width: 20rpx;
+    height: 20rpx;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background: #1d976c;
+}
+
+.active_date {
+    background: #e64340;
+    color: #fff;
+    border-radius: 50%;
+}
+
+.today {
+    background: #576b95;
+    color: #fff;
+    border-radius: 50%;
+}
+
+.active_date_overlay {
+    position: absolute;
+    align-items: center;
+    width: 50rpx;
+    height: 50rpx;
+    left: 30rpx;
+    top: 60prx;
+    z-index: 100;
+    background: #e64340;
+    color: #fff;
+    border-radius: 50%;
+}
+
+.show_box {
+    display: flex;
+    justify-content: center;
+    padding: 20rpx;
+    font-size: 35rpx;
+    align-items: center;
+}
+
+.slimSpace {
+    /* width: 90%; */
+    background: #fff;
+    font-size: 10rpx;
+    min-height: 10rpx;
+    border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx;
+}
+
+.scrollview {
+    height: 550rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+
+.redcolor {
+    font-weight: 900;
+    color: red;
+}
+
+.button-group {
+    display: flex;
+    width: 100%;
+    /* height: 40rpx; */
+    justify-content: center;
+    height: 2rem;
+    align-items: center;
+}
+
+.dateButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30rpx;
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    flex-grow: 4;
+    height: 2rem;
+}
+
+.dateMoveButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30rpx;
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    height: 2rem;
+}
+
+.tip_container {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    font-size: 30 rpx;
+    height: 80rpx;
+}
+
+.planButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30rpx;
+    text-align: center;
+    background: #09bb07;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    height: 2rem;
+}
+
+.tip {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 30 rpx;
+}
+
+.date-marker {
+    height: 30rpx;
+    width: 30rpx;
+    background: #1d976c;
+}
+
+.movementName {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #eee;
+}
+
+.tableItem {
+    font-size: 10pt;
+    width: 60%;
+    flex-flow: 2;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.tableItemName {
+    font-size: 10pt;
+    width: 100%;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.listSingleMovement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scrollContainer1 {
+    align-content: center;
+    /* background: #eee; */
+}
+
+/* 基数加底色 */
+
+.tableCornor1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 72rpx;
+    /* border: 1px solid darkgray; */
+    background: #b2b2b2;
+    /* border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+}
+
+/* 偶数用白底 */
+
+.tableCornor2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 72rpx;
+    border: 1px solid darkgray;
+    /* border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+}
+
+.movement{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80rpx;
+}
+
+.graySpace {
+    /* width: 90%; */
+    background: #fff;
+    font-size: 12px;
+    min-height: 30rpx;
+    border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx;
+}
