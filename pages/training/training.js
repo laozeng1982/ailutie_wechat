@@ -29,7 +29,7 @@ Page({
         // 当前选中的动作，初始选中第一个
         curSelectedMovementId: 1,
         // 当前锻炼的组数，初始为第一个
-        curSelectedRecord: 0,
+        curSelectedRecordId: 0,
 
         // 输入框里的次数和重量
         actualCount: '',
@@ -54,6 +54,8 @@ Page({
         planScrollHeight: 300,  //计划的scroll高度
         trainScrollHeight: 600,  //动作列表的scroll高度
         showDetails: false,
+
+        scorllinTo:'',
 
         disableRemoveBtn: true,
         disableModifyBtn: true,
@@ -93,7 +95,7 @@ Page({
         this.setData({
             curSelectedMovementId: curSelectedMovementId,
             // 换动作就重置状态
-            curSelectedRecord: 0,
+            curSelectedRecordId: 0,
             disableModifyBtn: true,
             disableRemoveBtn: true
         });
@@ -140,16 +142,18 @@ Page({
                     curRecords.movementList[curMovmentIdx].contents.details[index].groupFeeling = this.data.actualGpFeeling;
                     curRecords.movementList[curMovmentIdx].contents.details[index].finished = true;
 
+                    curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount++;
                     curRecords.movementList[curMovmentIdx].contents.actualGpCount = curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount;
                     curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.data.actualMvFeeling;
-                    curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount++;
+
                     break;
                 }
             }
         } else {
             util.showToast("帅哥，本动作计划已经完成了哦！", this, 1000);
+            curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount++;
             var record = new RecordFactory.DetailRecord(
-                curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount + 1,
+                curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount,
                 0,
                 0,
                 this.data.actualCount,
@@ -161,7 +165,6 @@ Page({
 
             curRecords.movementList[curMovmentIdx].contents.actualGpCount = curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount;
             curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.data.actualMvFeeling;
-            curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount++;
 
         }
 
@@ -181,16 +184,11 @@ Page({
             return;
         }
 
-        // if (this.data.curSelectedRecord === 0) {
-        //     util.showToast("请选择左边的一个记录", this, 1500);
-        //     return;
-        // }
-
         var curRecords = this.data.curRecords;
 
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details[this.data.curSelectedRecord - 1].actualCount = this.data.actualCount;
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details[this.data.curSelectedRecord - 1].actualWeight = this.data.actualWeight;
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details[this.data.curSelectedRecord - 1].groupFeeling = this.data.actualGpFeeling;
+        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details[this.data.curSelectedRecordId - 1].actualCount = this.data.actualCount;
+        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details[this.data.curSelectedRecordId - 1].actualWeight = this.data.actualWeight;
+        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details[this.data.curSelectedRecordId - 1].groupFeeling = this.data.actualGpFeeling;
 
         this.setData({
             disableRemoveBtn: true,
@@ -201,13 +199,64 @@ Page({
     },
 
     /**
-     *
+     * 响应删除操作
+     * 判断是否删除的是计划内的内容，如果是，先弹窗询问，然后根据情况是否调用删除函数
      * @param e
      */
-    onRemoveBtnTapfunction(e) {
+    onRemoveBtnTap: function (e) {
 
+        var details = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details;
+
+        // 如果是计划内的
+        var planCount = parseInt(details[this.data.curSelectedRecordId - 1].planCount);
+        var planWeight = parseInt(details[this.data.curSelectedRecordId - 1].planWeight);
+
+        console.log(planWeight, planCount);
+        var host = this;
+        if (planCount > 0 || planWeight > 0) {
+            wx.showModal({
+                title: '提示',
+                content: '这是计划内的，建议修改哦，确定删除？',
+                success: function (res) {
+                    if (res.confirm) {
+                        console.log('用户点击确定');
+                        host.removeItem(true);
+                    } else if (res.cancel) {
+                        console.log('用户点击取消')
+                    }
+                }
+            });
+        } else {
+            this.removeItem(false);
+        }
+    },
+
+    /**
+     * 实现具体删除功能，重置一系列数据
+     * @param removePlanItem，是否删除计划内的内容
+     */
+    removeItem: function (removePlanItem) {
         var curRecords = this.data.curRecords;
 
+        // 先删除，修改对应的数据
+        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.curFinishedGpCount--;
+        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.actualGpCount--;
+
+        // 如果删除的是计划内的，planGpCount也的减去
+        if (removePlanItem) {
+            curRecords.movementList[this.data.curSelectedMovementId - 1].contents.planGpCount--;
+        }
+
+        var details = curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details;
+
+        details.splice(this.data.curSelectedRecordId - 1, 1);
+
+        // 重置序号，然后拷贝回来
+        for (var idx = 0; idx < details.length; idx++) {
+            details[idx].id = idx + 1;
+        }
+
+        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details = details;
 
         this.setData({
             disableRemoveBtn: true,
@@ -294,9 +343,10 @@ Page({
         this.setData({
             disableRemoveBtn: false,
             disableModifyBtn: false,
-            curSelectedRecord: e.currentTarget.id + ""
+            curSelectedRecordId: e.currentTarget.id + "",
+            scorllinTo: e.currentTarget.id + ""
         });
-        console.log("in onMovementScore, e", this.data.curSelectedRecord, ",  type: ", typeof(this.data.curSelectedRecord));
+        console.log("in onMovementScore, e", this.data.curSelectedRecordId, ",  type: ", typeof(this.data.curSelectedRecordId));
     },
 
 

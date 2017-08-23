@@ -310,3 +310,12 @@ recordBtn {
     /* box-shadow: 0 0 8px 2px #669; */
     z-index: 1000;
 }
+
+.whiteSpace {
+     width: 10%; 
+    background: #fff;
+    font-size: 12px;
+    min-height: 30rpx;
+    /* border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx; */
+}

@@ -31,7 +31,7 @@
                     <view class="{{item.id%2==0?'bodypartCornor1':'bodypartCornor2'}} {{item.selected?'bodypartSelected':''}}" data-index="{{index}}">
                         <!-- <view class="graySpace"></view> -->
 
-                        <view id='{{item.id}}' class="detailsItem" bindtap="onBodyPartTap">
+                        <view id='{{item.id}}' class="{{item.id==curSelectedRecordId?'detailsItemSelected':'detailsItem'}}">
                             <view class="scrollItemContainer">
                                 <icon type="success" size="20" color="{{item.finished?'green':'gray'}}" />
                                 <view class="scrollItem">{{item.id }}. </view>
@@ -57,10 +57,10 @@
         <view class="middlePanelLeft">
             <view class="middlePanelLeft_InnerLeft">
                 <view class="title">已经完成</view>
-                <scroll-view class="middleRecorderScrollview" scroll-y="true">
+                <scroll-view class="middleRecorderScrollview" scroll-into-view="{{scorllinTo}}" scroll-y="true">
                     <view class="listSingleMovement" wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" class='bodypart-item'>
 
-                        <view id='{{item.id}}' class="{{item.id==curSelectedRecord?'detailsItemSelected':'detailsItem'}}" bindtap="onSelectFinishedDetails" wx:if="{{item.actualCount!=0 && item.acutalWeight!=0}}">
+                        <view id='{{item.id}}' class="{{item.id==curSelectedRecordId?'detailsItemSelected':'detailsItem'}}" bindtap="onSelectFinishedDetails" wx:if="{{item.actualCount!=0 && item.acutalWeight!=0}}">
                             <view class="scrollItemContainer">
                                 <view class="scrollItem">{{item.actualCount}}</view>
                                 <view class="scrollItemNarrow">次</view>
@@ -84,16 +84,18 @@
 
             <view class="middlePanelRight_row1">
                 <button class="recordBtn" style="width: 80%;background: #e64340" disabled="{{disableRemoveBtn}}" bindtap="onRemoveBtnTap">删除</button>
-                <button class="recordBtn" style="width: 80%;background: gray"disabled="{{disableModifyBtn}}" bindtap="onModifyBtnTap">修改</button>
+                <button class="recordBtn" style="width: 80%;background: gray" disabled="{{disableModifyBtn}}" bindtap="onModifyBtnTap">修改</button>
             </view>
 
             <view class="middlePanelRight_row2">
+                <view class="whiteSpace"></view>
                 <view style="font-size: 20rpx">次数</view>
                 <input bindinput="onCountInput" type="number" maxlength="3" value="{{actualCount}}" confirm-type='next' placeholder="次数" />
                 <view style="font-size: 20rpx">重量</view>
                 <input bindinput="onWeightInput" type="number" maxlength="3" value="{{actualWeight}}" confirm-type='done' placeholder="重量" />
                 <view style="font-size: 20rpx">分数</view>
                 <input bindinput="onScoreInput" type="number" maxlength="2" value="{{actualGpFeeling}}" confirm-type='done' placeholder="分数" />
+                <view class="whiteSpace"></view>
             </view>
 
             <view class="middlePanelRight_row3">
@@ -108,7 +110,7 @@
                 <view class="totalScore">
                     <picker style="width: 100%" bindchange="onMovementScore" value="{{actualMvFeeling}}" range="{{movementScoreArray}}">
                         <view class="scrollItemContainer">
-                            <view class="pickerItem"> 组分： </view>
+                            <view class="pickerItem"> 总体感觉: </view>
                             <view class="pickerItem"> {{actualMvFeeling}} 分 </view>
                         </view>
                     </picker>
