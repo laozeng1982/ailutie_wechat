@@ -105,7 +105,7 @@ class PlanModal {
             // 缓存回去
             this.tmpMovement.fullCopyFrom(this.buffMovement);
             console.log("in confirm, this.buffMovement: ", this.tmpMovement);
-            this.buffMovement.clearActualDetails();
+            // this.buffMovement.clearActualDetails();
             // this.buffMovement.contents.mvFeeling = 0;
             // for (var idx = 0; idx < this.buffMovement.contents.details.length; idx++) {
             //     this.buffMovement.contents.details[idx].actualCount = 0;
@@ -254,7 +254,7 @@ class PlanModal {
             if (this.buffMovement.controller.sameMvCount) {
 
                 for (var idx = 0; idx < this.buffMovement.contents.details.length; idx++) {
-                    this.buffMovement.contents.details[idx].planCount = e.detail.value;
+                    this.buffMovement.contents.details[idx].planCount = c;
                 }
                 console.log("onInputMvCountChange", this.buffMovement);
             } else {

@@ -90,7 +90,7 @@ class DailyRecords {
             if (!this.hasMovement(obj, false)) {
                 console.log("ffffffffffffffff");
                 obj.mvId = this.movementList.length + 1;
-                obj.clearActualDetails();
+                // obj.clearActualDetails();
                 this.movementList.push(obj);
                 sucess = true;
             } else {

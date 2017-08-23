@@ -32,7 +32,7 @@ class Movement {
     }
 
     clearActualDetails() {
-        this.contents.curFinishedGpCount = 0;
+        // this.contents.curFinishedGpCount = 0;
         this.contents.mvFeeling = 0;
         for (var idx = 0; idx < this.contents.details.length; idx++) {
             this.contents.details[idx].actualCount = 0;

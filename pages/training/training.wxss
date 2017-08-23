@@ -10,40 +10,303 @@
 }
 
 .title {
-  display: flex;
-  height: 80rpx;
-  flex-direction: row;
-  align-items: center;
-  font-size: 40rpx;
-  font-weight: 500;
-  justify-content: space-around;
-  box-sizing: border-box;
-  border-bottom: 1rpx solid #eee;
-  background: #888;
-  color: #fff;
-  /* background-color: #fff; */
+    display: flex;
+    height: 80rpx;
+    flex-direction: row;
+    align-items: center;
+    font-size: 40rpx;
+    font-weight: 500;
+    width: 100%;
+    justify-content: space-around;
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #eee;
+    background: #888;
+    color: #fff;
+    /* background-color: #fff; */
 }
-.topLabel {
+
+/* 上段 */
+
+.topPanel {
     display: flex;
     align-items: center;
     width: 100%;
+    height: 30%;
     flex-direction: row;
     justify-content: space-between;
-    /* border-bottom: 1rpx solid #eee; */
+    border-bottom: 1rpx solid #eee;
 }
 
-.topLabelLeft {
+.topPanelLeft {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50%;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1rpx solid #eee;
+}
+
+.topPanelLeft_InnerLeft {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 25%;
+    width: 80%;
+    flex-direction: column;
+    height: 220rpx;
     /* border-bottom: 1rpx solid #eee; */
 }
 
-.topLabelRight {
+.topPanelRight_InnerRight {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 75%;
+    width: 20%;
     /* border-bottom: 1rpx solid #eee; */
+}
+
+.topPanelRight {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 50%;
+    height: 100%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.topScrollview {
+    height: 200rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.detailsItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.detailsItemSelected {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    background: #09bb07;
+    
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+/* 中段 */
+
+.middlePanel {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60%;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #eee;
+}
+
+.middlePanelLeft {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50%;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1rpx solid #eee;
+}
+
+.middlePanelLeft_InnerLeft {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.middleRecorderScrollview {
+    height: 580rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.middleSelectorScrollview {
+    height: 400rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.middlePanelInnerRight {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 20%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.middlePanelRight {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 50%;
+    height: 100%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.middlePanelRight_row1 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 120rpx;
+    border-bottom: 1rpx solid #eee;
+}
+
+recordBtn {
+    /* background: #09bb07; */
+    color: #09bb07;
+    font-weight: bold;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    flex-grow: 4;
+}
+
+.middlePanelRight_row2 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 100rpx;
+    border-bottom: 1rpx solid #eee;
+}
+
+.middlePanelRight_row3 {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    height: 220rpx;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.middlePanelRight_row3_left {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.middlePanelRight_row3_right {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.scrollItemContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1rpx solid #eee;
+}
+
+.scrollItem {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.scrollItemNarrow {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.pickerItem {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tmp {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.selectedItem {
+    background: #09bb07;
+    color: #fff;
+}
+
+.totalScore {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+/* 底部 */
+
+.bottomPanel {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #eee;
+}
+
+.button-group {
+    display: flex;
+    width: 100%;
+    /* height: 40rpx; */
+    justify-content: center;
+    height: 2rem;
+    align-items: center;
+}
+
+.dateButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    flex-grow: 4;
+}
+
+.dateMoveButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
 }

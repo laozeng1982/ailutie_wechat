@@ -39,7 +39,6 @@ class Controller {
         // 如果没有这个记录，取的会是空值，则新建一个对应的项
         if (readInData != "") {
             requestData = readInData;
-            console.log("here111111112121231211111111111111");
         } else {
             switch (dataType.id) {
                 case 0:
@@ -52,12 +51,11 @@ class Controller {
                     break;
                 case 2:
                     // 2. DailyRecords
-                    console.log("here1111111111111111111111111111111");
+
                     if (typeof (requestData.date) != "undefined" && requestData.date != "") {
                         console.log("here222222222222222222222222222222");
                     } else {
                         requestData = new DailyRecords.DailyRecords();
-                        console.log("here3333333333333333333333333333333");
                     }
 
                     break;
@@ -68,7 +66,7 @@ class Controller {
             }
         }
 
-        console.log("in controller.loadData, after loadData, requestData: ", requestData);
+        console.log("in Controller.loadData, after loadData, requestData: ", requestData);
 
         return requestData;
 

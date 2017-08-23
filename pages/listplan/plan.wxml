@@ -80,7 +80,7 @@
 
                                 </view>
 
-                                <checkbox class="box" id="{{item.actionId}}" checked="{{item.actionSelected}}" />
+                                <!-- <checkbox class="box" id="{{item.actionId}}" checked="{{item.actionSelected}}" /> -->
                             </view>
 
                             <view class="graySpace"></view>

@@ -9,13 +9,13 @@
  */
 class DetailRecord {
 
-    constructor(id, planCount, planWeight, actualCount, actualWeight) {
+    constructor(id, planCount, planWeight, actualCount, actualWeight, measurement) {
         this.id = id;
         this.planCount = planCount;
         this.planWeight = planWeight;
         this.actualCount = actualCount;
         this.actualWeight = actualWeight;
-        this.measurement = '';
+        this.measurement = measurement;
         this.finished = false;
         this.groupFeeling = ''; //这一组的感觉
     }

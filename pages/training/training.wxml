@@ -2,36 +2,137 @@
 <view class="thiscontainer">
     <!-- 这是Toast -->
     <include src="../ui/toast/toast.wxml" />
-    <view class="title">今日计划</view>
+    <!-- <view class="title">今日计划</view> -->
 
-    <view class="graySpace"></view>
+    <!-- 屏幕分三部分 -->
+    <!-- 上半部分计划总览 -->
+    <!-- <view class="graySpace"></view> -->
+    <view class="topPanel">
+        <view class="topPanelLeft">
+            <view class="title">当前动作</view>
+            <view class="topPanelLeft_InnerLeft">
+                <text style="font-size: 60rpx">{{curRecords.movementList[curSelectedMovementId-1].mvInfo.partName}}</text>
+                <text style="font-size: 40rpx">{{curRecords.movementList[curSelectedMovementId-1].mvInfo.mvName}}</text>
+            </view>
 
-    <view class="topLabelLeft">
-        <image class='header-img' src="../image/arm2.png"></image>
-    </view>
+            <!-- <view class="topPanelRight_InnerRight">
+                >>>
+            </view> -->
+            <!-- <image class='header-img' src="../image/arm2.png"></image> -->
+        </view>
 
-    <view class="topLabelRight">
-        <scroll-view class="scrollview" scroll-y="true">
-            <radio-group id='{{item.partId}}' bindchange="onBodyPartSelected">
-                <view class="listSingleMovement" wx:for="{{bodyPartList.partList}}" class='bodypart-item'>
+        <view class="topPanelRight">
+            <view class="title">计划内容</view>
+            <scroll-view class="topScrollview" scroll-y="true">
+                <view class="listSingleMovement" wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" class='bodypart-item'>
                     <!-- <view class="graySpace"></view> -->
 
-                    <view id='{{item.partId}}' class='bodypart'>
-                        <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
-                        <view class="{{item.partId%2==0?'bodypartCornor1':'bodypartCornor2'}} {{item.selected?'bodypartSelected':''}}" data-index="{{index}}">
-                            <!-- <view class="graySpace"></view> -->
+                    <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
+                    <view class="{{item.id%2==0?'bodypartCornor1':'bodypartCornor2'}} {{item.selected?'bodypartSelected':''}}" data-index="{{index}}">
+                        <!-- <view class="graySpace"></view> -->
 
-                            <view id='{{item.partId}}' class="bodypartName" bindtap="onBodyPartTap">
-                                <radio id='{{item.partId}}' value="{{item.partId}}" checked="{{item.partId==selectedPartId}}" />
-                                <view class="bodypartInnerName">{{item.partName}}</view>
+                        <view id='{{item.id}}' class="detailsItem" bindtap="onBodyPartTap">
+                            <view class="scrollItemContainer">
+                                <icon type="success" size="20" color="{{item.finished?'green':'gray'}}" />
+                                <view class="scrollItem">{{item.id }}. </view>
+                                <view class="scrollItem">{{item.planCount}}</view>
+                                <view class="scrollItemNarrow">次</view>
+                                <view class="scrollItem">{{item.planWeight}}</view>
+                                <view class="scrollItemNarrow">{{item.measurement}}</view>
                             </view>
-                            <!-- {{item.partId==(curMovementIndex+1)?true:false}} -->
+
+                        </view>
+                        <!-- {{item.id==(curMovementIndex+1)?true:false}} -->
+                    </view>
+
+                </view>
+
+            </scroll-view>
+        </view>
+    </view>
+
+    <!-- 中间部分具体锻炼记录 -->
+    <view class="middlePanel" wx:if="{{!showDetails}}">
+
+        <view class="middlePanelLeft">
+            <view class="middlePanelLeft_InnerLeft">
+                <view class="title">已经完成</view>
+                <scroll-view class="middleRecorderScrollview" scroll-y="true">
+                    <view class="listSingleMovement" wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" class='bodypart-item'>
+
+                        <view id='{{item.id}}' class="{{item.id==curSelectedRecord?'detailsItemSelected':'detailsItem'}}" bindtap="onSelectFinishedDetails" wx:if="{{item.actualCount!=0 && item.acutalWeight!=0}}">
+                            <view class="scrollItemContainer">
+                                <view class="scrollItem">{{item.actualCount}}</view>
+                                <view class="scrollItemNarrow">次</view>
+                                <view class="scrollItem">{{item.actualWeight}}</view>
+                                <view class="scrollItemNarrow">{{item.measurement}}</view>
+                                <view class="scrollItem">{{item.groupFeeling}}</view>
+                                <view class="scrollItemNarrow">分</view>
+                            </view>
+
                         </view>
 
                     </view>
-                </view>
-            </radio-group>
 
-        </scroll-view>
+                </scroll-view>
+            </view>
+
+        </view>
+
+        <view class="middlePanelRight">
+            <view class="title">当前记录</view>
+
+            <view class="middlePanelRight_row1">
+                <button class="recordBtn" style="width: 80%;background: #e64340" disabled="{{disableRemoveBtn}}" bindtap="onRemoveBtnTap">删除</button>
+                <button class="recordBtn" style="width: 80%;background: gray"disabled="{{disableModifyBtn}}" bindtap="onModifyBtnTap">修改</button>
+            </view>
+
+            <view class="middlePanelRight_row2">
+                <view style="font-size: 20rpx">次数</view>
+                <input bindinput="onCountInput" type="number" maxlength="3" value="{{actualCount}}" confirm-type='next' placeholder="次数" />
+                <view style="font-size: 20rpx">重量</view>
+                <input bindinput="onWeightInput" type="number" maxlength="3" value="{{actualWeight}}" confirm-type='done' placeholder="重量" />
+                <view style="font-size: 20rpx">分数</view>
+                <input bindinput="onScoreInput" type="number" maxlength="2" value="{{actualGpFeeling}}" confirm-type='done' placeholder="分数" />
+            </view>
+
+            <view class="middlePanelRight_row3">
+                <picker style="width: 100%" mode="multiSelector" bindchange="onGroupScore" value="{{groupScoreIndex}}" range="{{groupScoreMultiArray}}">
+                    <view class="scrollItemContainer">
+                        <view class="pickerItem"> {{actualCount}} 次 </view>
+                        <view class="pickerItem"> {{actualWeight}} Kg </view>
+                        <view class="pickerItem"> {{actualGpFeeling}}分 </view>
+                    </view>
+                </picker>
+
+                <view class="totalScore">
+                    <picker style="width: 100%" bindchange="onMovementScore" value="{{actualMvFeeling}}" range="{{movementScoreArray}}">
+                        <view class="scrollItemContainer">
+                            <view class="pickerItem"> 组分： </view>
+                            <view class="pickerItem"> {{actualMvFeeling}} 分 </view>
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <button class="recordBtn" style="width: 80%;background: green" bindtap="onRecordBtnTap">记录</button>
+        </view>
+    </view>
+
+    <!-- 点击动作详情的时候响应 -->
+    <view class="middlePanel" wx:if="{{showDetails}}">
+        <view class="tmp">
+            <image class='header-img' src="../image/laidawo.gif"></image>
+            <text style="font-size: 60rpx">你想知道啥。。。。</text>
+            <text style="font-size: 60rpx">续费了么？</text>
+        </view>
+    </view>
+
+    <!-- 底部具体翻动作，动作详情查看 -->
+    <view class="bottomPanel">
+        <view class="button-group">
+            <button class="dateMoveButton" bindtap="onLastMovement" size="default"> Last</button>
+            <button class="dateButton" bindtap="onShowDetails" size="default">动作详情</button>
+            <button class="dateMoveButton" bindtap="onNextMovement" size="default"> Next</button>
+        </view>
     </view>
 </view>

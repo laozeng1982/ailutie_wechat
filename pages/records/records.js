@@ -226,6 +226,7 @@ Page({
             today: today,
             Controller: this.data.Controller
         });
+        console.log("Records page onLoad call, this.data.today: ", this.data.today);
     },
 
     /**
@@ -261,14 +262,14 @@ Page({
         this.prepareData();
 
         this.setDateList(year, month);
-
+        console.log("Records page onShow call, this.data.curRecords: ", this.data.curRecords);
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        console.log("hide");
+        console.log("Records page onHide call, Nothing to be saved");
     },
 
     /**
