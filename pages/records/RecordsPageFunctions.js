@@ -154,21 +154,30 @@ class RecordsPageFunctions {
 
         this.selectDate = function (host, e) {
             if (host.data.selectedModel !== -1) {
-                for (var idx = 0; idx < host.data.dateList.length; idx++) {
-                    for (var i = 0; i < host.data.dateList[idx].length; i++) {
-                        // console.log(this.data.dateList[idx][i]);
-                        if (host.data.dateList[idx][i].value === e.currentTarget.dataset.date.value) {
-                            host.data.dateList[idx][i].selected = !host.data.dateList[idx][i].selected;
+                var dateList = host.data.dateList;
+                for (var week = 0; week < dateList.length; week++) {
+                    for (var day = 0; day < dateList[week].length; day++) {
+                        // console.log(this.data.dateList[week][day]);
+                        if (dateList[week][day].value === e.currentTarget.dataset.date.value &&
+                            dateList[week][day].value !== host.data.selectedDate) {
+                            dateList[week][day].selected = !dateList[week][day].selected;
                         }
                     }
-
                 }
 
                 host.setData({
-                    dateList: host.data.dateList
+                    dateList: dateList
                 });
 
-                // this.selectDate(e.currentTarget.dataset.date.value, e.currentTarget.dataset.date.week);
+                var selectList = "";
+                for (var week = 0; week < dateList.length; week++) {
+                    for (var day = 0; day < dateList[week].length; day++) {
+                        if (dateList[week][day].selected) {
+                            selectList = selectList + " ," + (dateList[week][day].value);
+                        }
+                    }
+                }
+                console.log("selectedList: ", selectList);
 
             } else {
                 var now = e.currentTarget.dataset.date.value.split('-');
@@ -191,6 +200,23 @@ class RecordsPageFunctions {
                 console.log(app.globalData.selectedDate);
             }
         };
+
+        this.clearSelected = function (host) {
+            var dateList = host.data.dateList;
+            for (var week = 0; week < dateList.length; week++) {
+                for (var day = 0; day < dateList[week].length; day++) {
+                    dateList[week][day].selected = false;
+
+                }
+            }
+
+            // 重置主控界面的状态
+            host.setData({
+                selectedModel: -1,
+                showDateLongPress: false,
+                dateList: dateList
+            });
+        }
     }
 }
 

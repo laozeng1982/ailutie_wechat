@@ -109,10 +109,10 @@ Page({
      * @param e
      */
     onConfirm: function (e) {
-        this.setData({
-            selectedModel: -1,
-            showDateLongPress: false,
-        });
+
+        // 最后执行！
+        this.data.Functions.clearSelected(this);
+
     },
 
     /**
@@ -120,10 +120,8 @@ Page({
      * @param e
      */
     onCancel: function (e) {
-        this.setData({
-            selectedModel: -1,
-            showDateLongPress: false,
-        });
+        this.data.Functions.clearSelected(this);
+
     },
 
     /**
