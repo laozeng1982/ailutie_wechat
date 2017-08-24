@@ -167,7 +167,8 @@ class Controller {
         console.log("in moveDay: curRecords", curRecords);
 
         host.setData({
-            curRecords: curRecords
+            curRecords: curRecords,
+            selectedMovementId: -1
         });
 
         host.initRecords();

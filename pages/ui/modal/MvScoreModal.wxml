@@ -27,20 +27,20 @@
 
                         </view>
                     </picker>
-                    </view>
-
                 </view>
+
+            </view>
 
         </scroll-view>
 
         <picker bindchange="onScoreChange" value="{{MVSCOREMODAL.totalScoreIndex}}" range="{{MVSCOREMODAL.totalScoreArray}}">
             <text>总体感觉：   </text> {{MVSCOREMODAL.buffMovement.contents.mvFeeling}}分
         </picker>
-        </view>
-
-        <view class="modal-footer">
-            <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
-            <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
-        </view>
-
     </view>
+
+    <view class="modal-footer">
+        <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+        <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+    </view>
+
+</view>

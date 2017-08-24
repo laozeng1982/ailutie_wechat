@@ -1,7 +1,7 @@
 /**
  * 工具类包，提供以下功能：
  * 1、日期之间的转换，日期和字符串的转换
- * 
+ *
  */
 
 import StorageType from '../datamodel/StorageType.js'
@@ -71,7 +71,7 @@ function formatStringDate(year, month, day) {
 }
 
 /**
- * 
+ *
  */
 function formatNumber(n) {
     n = n.toString()
@@ -79,13 +79,14 @@ function formatNumber(n) {
 }
 
 
-
 /**
- * 检查当前选择日期是否过期
- * 过期返回true，未过期返回false
+ * 检查当前选择日期与今天的关系
+ * 过期返回：-1
+ * 今天返回：0
+ * 将来返回：1
  */
-function isExpired(selectedDate) {
-    var isExpired = false;
+function dateDirection(selectedDate) {
+    var direction = -1;
 
     var nowString = formatDateToString(new Date());
     var now = getDateFromString(nowString, '-').getTime() / (3600 * 24 * 1000);
@@ -94,12 +95,14 @@ function isExpired(selectedDate) {
     // console.log("now: ", now);
     // console.log("selected: ", selected);
     if (selected < now) {
-        isExpired = true;
+        direction = -1;
+    } else if (selected === now) {
+        direction = 0;
     } else {
-        isExpired = false;
+        direction = 1;
     }
 
-    return isExpired;
+    return direction;
 }
 
 function getMoveDays(startDay, isNext, dayCount) {
@@ -184,8 +187,8 @@ function showToast(text, o, count) {
 }
 
 /**
-   * 根据第一列数据的变化，动态获取第二列的值
-   */
+ * 根据第一列数据的变化，动态获取第二列的值
+ */
 function getMovementNamePickerList(idxOfColumn1) {
     var app = getApp();
     var movementNamePickerList;
@@ -236,7 +239,8 @@ function getMovementNamePickerList(idxOfColumn1) {
             break;
         default:
             break;
-    };
+    }
+    ;
     return movementNamePickerList;
 }
 
@@ -245,7 +249,7 @@ module.exports = {
     formatDateToString: formatDateToString,
     getDateFromString: getDateFromString,
     formatStringDate: formatStringDate,
-    isExpired: isExpired,
+    dateDirection: dateDirection,
     isLogin: isLogin,
     checkSignUp: checkSignUp,
     showToast: showToast,

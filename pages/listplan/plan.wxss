@@ -167,6 +167,19 @@
     border-top-right-radius: 10px;
 }
 
+.bodypartHighlight {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 90rpx;
+    border: 3px solid blue;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
 .bodypartName {
     display: flex;
     align-items: center;
@@ -246,6 +259,19 @@
     width: 100%;
     height: 150rpx;
     border: 3px solid #09bb07;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.movementHighlight {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150rpx;
+    border: 3px solid blue;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     border-top-left-radius: 10px;

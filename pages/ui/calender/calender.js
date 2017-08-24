@@ -7,7 +7,7 @@ import DataType from '../../../datamodel/StorageType.js'
 //全局变量
 var app = getApp();
 const DATATYPE = new DataType.StorageType();
-
+const CONTROLLER = new Controller.Controller();
 Page({
 
     /**
@@ -28,13 +28,16 @@ Page({
         dateList: [],
         //保存有计划的日期
         dateListWithPlan: [],
-        Controller: ''
+
+        // 控制器，只能为1,2,3
+        selectedModel: 1
+
     },
 
     prepareData: function () {
         // var
         //同步获取
-        var userInfo = this.data.Controller.loadData(DATATYPE.UserInfo.value, DATATYPE.UserInfo);
+        var userInfo = CONTROLLER.loadData(DATATYPE.UserInfo.value, DATATYPE.UserInfo);
 
         var dateListWithPlan = userInfo.hasPlanDateList;
 
@@ -81,6 +84,7 @@ Page({
                         value: '',
                         date: '',
                         week: '',
+                        selected: false,
                         hasPlan: false
                     });
                 }
@@ -91,6 +95,7 @@ Page({
                 value: util.formatStringDate(year, month, (i + 1)),
                 date: i + 1,
                 week: week,
+                selected: false,
                 hasPlan: false
             });
 
@@ -119,6 +124,20 @@ Page({
     },
 
     onToSelectedDate: function (e) {
+        for (var idx = 0; idx < this.data.dateList.length; idx++) {
+            for (var i = 0; i < this.data.dateList[idx].length; i++) {
+                // console.log(this.data.dateList[idx][i]);
+                if (this.data.dateList[idx][i].value === e.currentTarget.dataset.date.value) {
+                    this.data.dateList[idx][i].selected = !this.data.dateList[idx][i].selected;
+                }
+            }
+
+        }
+
+        this.setData({
+            dateList: this.data.dateList
+        });
+
         this.selectDate(e.currentTarget.dataset.date.value, e.currentTarget.dataset.date.week);
     },
 
@@ -126,10 +145,10 @@ Page({
         var now = selectedDate.split('-');
         var curYear = parseInt(now[0]);
         var curMonth = parseInt(now[1]);
-        var curDate = parseInt(now[2]) ;
+        var curDate = parseInt(now[2]);
 
 
-        var curRecords = this.data.Controller.loadData(selectedDate, DATATYPE.DailyRecords);
+        var curRecords = CONTROLLER.loadData(selectedDate, DATATYPE.DailyRecords);
 
         this.setData({
             curRecords: curRecords,
@@ -137,7 +156,8 @@ Page({
             selectedWeek: selectedWeek,
             curYear: curYear,
             curMonth: curMonth,
-            curDate: curDate
+            curDate: curDate,
+
         });
 
         app.globalData.selectedDate = util.getDateFromString(selectedDate, '-');
@@ -184,7 +204,7 @@ Page({
         var now = new Date();
         var curYear = now.getFullYear();
         var curMonth = now.getMonth() + 1;
-        var curDate = now.getDate() ;
+        var curDate = now.getDate();
 
         this.setData({
             selectedDate: util.formatDateToString(new Date()),
@@ -208,14 +228,44 @@ Page({
     },
 
     /**
+     * 设置模式
+     * @param e
+     */
+    onModelChange: function (e) {
+        console.log(e);
+        this.setData({
+            selectedModel: parseInt(e.detail.value),
+        });
+
+        console.log("in onModelChange, set model to: ", this.data.selectedModel);
+    },
+
+    /**
+     * 这里是主要的处理逻辑
+     * @param e
+     */
+    onConfirm: function (e) {
+
+    },
+
+    /**
+     * 退出，相当于返回
+     * @param e
+     */
+    onCancel: function (e) {
+        wx.switchTab({
+            url: '../../records/records',
+        })
+    },
+
+    /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
         var today = util.formatDateToString(new Date());
-        this.data.Controller = new Controller.Controller();
+
         this.setData({
             today: today,
-            Controller: this.data.Controller
         });
     },
 
@@ -237,7 +287,7 @@ Page({
         var day = app.globalData.selectedDate.getDate();
         var idx = app.globalData.selectedDate.getDay();
 
-        var curRecords = this.data.Controller.loadData(util.formatStringDate(year, month, day), DATATYPE.DailyRecords);
+        var curRecords = CONTROLLER.loadData(util.formatStringDate(year, month, day), DATATYPE.DailyRecords);
 
         this.setData({
             curYear: year,

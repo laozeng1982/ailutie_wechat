@@ -10,7 +10,7 @@
         <button class="dateButton" bindtap="onSelectDate" size="default"> {{selectedDate}}</button>
         <button class="dateMoveButton" bindtap="onNextDate" size="default"> 后一天</button>
     </view>
-    
+
     <view class="graySpace"></view>
 
     <view class="topLabel">
@@ -33,7 +33,7 @@
 
                         <view id='{{item.partId}}' class='bodypart'>
                             <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
-                            <view class="{{item.partId%2==0?'bodypartCornor1':'bodypartCornor2'}} {{item.selected?'bodypartSelected':''}}" data-index="{{index}}">
+                            <view class="{{item.partId%2==0?'bodypartCornor1':'bodypartCornor2'}} {{item.selected?'bodypartSelected':''}} {{item.partId==selectedPartId?'bodypartHighlight':''}}" data-index="{{index}}">
                                 <!-- <view class="graySpace"></view> -->
 
                                 <view id='{{item.partId}}' class="bodypartName" bindtap="onBodyPartTap">
@@ -56,41 +56,36 @@
 
                 <view class="listSingleMovement" wx:for="{{bodyPartList.partList[selectedPartId-1].actionList}}" class='movement-item'>
                     <!-- <view class="graySpace"></view> -->
-                    <checkbox-group value="{{item.actionId}}" id="{{item.actionId}}" bindchange="onMovementSelected">
-                        <view id='{{item.actionId}}' class='movement'>
-                            <view class="graySpace"></view>
-                            <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
-                            <view class="{{item.actionId%2==0?'movementCornor1':'movementCornor2'}} {{item.actionSelected?'movementSelected':''}}" data-index="{{index}}">
-                                <!-- <view class="graySpace"></view> -->
 
-                                <view id='{{item.actionId}}' class="movementName" bindtap="onMovementTap">
-                                    <view class="movementInnerItem">{{item.actionId}}</view>
-                                    <view class="movementInnerGroup">
-                                        <view class="movementInnerName"> {{item.actionName}} </view>
-                                        <!-- <view class="graySpace"></view> -->
-                                        <picker id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
-                                            <view class="movementName">
-                                                <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.planGpCount}}组 </view>
-                                                <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[0].planCount}}次 </view>
-                                                <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[0].planWeight}}</view>
-                                                <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[0].measurement}}</view>
-                                            </view>
-                                        </picker>
-                                    </view>
+                    <view id='{{item.actionId}}' class='movement'>
+                        <view class="graySpace"></view>
+                        <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
+                        <view class="{{item.actionId%2==0?'movementCornor1':'movementCornor2'}} {{item.actionSelected?'movementSelected':''}} {{item.actionId===selectedMovementId?'movementHighlight':''}}" data-index="{{index}}">
+                            <!-- <view class="graySpace"></view> -->
 
+                            <view id='{{item.actionId}}' class="movementName" bindtap="onMovementTap">
+                                <view class="movementInnerItem">{{item.actionId}}</view>
+                                <view class="movementInnerGroup">
+                                    <view class="movementInnerName"> {{item.actionName}} </view>
+
+                                    <picker id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
+                                        <view class="movementName">
+                                            <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.planGpCount}}组 </view>
+                                            <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[0].planCount}}次 </view>
+                                            <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[0].planWeight}}</view>
+                                            <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[0].measurement}}</view>
+                                        </view>
+                                    </picker>
                                 </view>
-
-                                <!-- <checkbox class="box" id="{{item.actionId}}" checked="{{item.actionSelected}}" /> -->
                             </view>
-
-                            <view class="graySpace"></view>
                         </view>
-                    </checkbox-group>
+
+                        <view class="graySpace"></view>
+                    </view>
                 </view>
             </scroll-view>
         </view>
     </view>
-    <!-- <view class="graySpace"></view> -->
-    <!-- <button type="primary" bindtap="onOK">OK</button> -->
+
 
 </view>

@@ -2,15 +2,17 @@
 
 .container1 {
     display: flex inline-flex;
-    border-bottom: 1rpx solid #eee;
+    /* border-bottom: 1rpx solid #eee; */
+    height: 100%;
 }
 
-.container2 {
+.planAndActionContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
+    height: 100%;
     /* border-bottom: 1rpx solid #eee; */
 }
 
@@ -262,7 +264,7 @@
     border-top-right-radius: 10px; */
 }
 
-.movement{
+.movement {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -276,4 +278,162 @@
     min-height: 30rpx;
     border-top-left-radius: 20rpx;
     border-top-right-radius: 20rpx;
+}
+
+/* for modal */
+
+/* 弹出窗口以后，阴影遮盖的部分 */
+
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+}
+
+/* 窗口大小 */
+
+.modal-dialog {
+    width: 95%;
+    height: 850rpx;
+    overflow: hidden;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    z-index: 9999;
+    background: #f9f9f9;
+    margin: -150rpx 20rpx;
+    border-radius: 36rpx;
+}
+
+/* 头部 */
+
+.modal-title {
+    padding-top: 20rpx;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 70rpx;
+    /* font-size: 36rpx; */
+    color: #030303;
+    text-align: center;
+    border-bottom: 2px solid #dedede;
+}
+
+/* 内容 */
+
+.modal-content {
+    padding: 15rpx 32rpx;
+    height: 640rpx;
+}
+
+/* 底部 */
+
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    height: 90rpx;
+    border-top: 2px solid #dedede;
+    font-size: 34rpx;
+    line-height: 86rpx;
+}
+
+.modal-input {
+    display: flex;
+    background: #fff;
+    border: 2rpx solid #ddd;
+    border-radius: 4rpx;
+    font-size: 28rpx;
+}
+
+.modal-text {
+    display: flex;
+    background: #fff;
+    border: 2rpx solid #ddd;
+    border-radius: 4rpx;
+    font-size: 28rpx;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.input {
+    width: 100%;
+    height: 82rpx;
+    font-size: 28rpx;
+    line-height: 28rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    color: #333;
+}
+
+.input_small {
+    width: 100%;
+    height: 70rpx;
+    font-size: 28rpx;
+    line-height: 28rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    color: #333;
+}
+
+input-holder {
+    color: #666;
+    font-size: 28rpx;
+}
+
+.btn-cancel {
+    width: 50%;
+    color: #666;
+    text-align: center;
+    border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+    width: 50%;
+    height: 100%;
+    color: #353535;
+    background: #09bb07;
+    text-align: center;
+    /* border-right: 1px solid #dedede; */
+}
+
+.btn-del {
+    width: 20%;
+    color: #e64340;
+    text-align: center;
+}
+
+.choiceItemContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.choiceItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.selected_date_overlay {
+    position: absolute;
+    align-items: center;
+    width: 50rpx;
+    height: 50rpx;
+    left: 30rpx;
+    top: 60prx;
+    z-index: 100;
+    background: #09bb03;
+    color: black;
+    border-radius: 50%;
 }

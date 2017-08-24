@@ -62,11 +62,11 @@
 
                         <view id='{{item.id}}' class="{{item.id==curSelectedRecordId?'detailsItemSelected':'detailsItem'}}" bindtap="onSelectFinishedDetails" wx:if="{{item.actualCount!=0 && item.acutalWeight!=0}}">
                             <view class="scrollItemContainer">
-                                <view class="scrollItem">{{item.actualCount}}</view>
+                                <view class="scrollItem">{{item.actualCount}}/{{item.planCount}}</view>
                                 <view class="scrollItemNarrow">次</view>
-                                <view class="scrollItem">{{item.actualWeight}}</view>
+                                <view class="scrollItem">{{item.actualWeight}}/{{item.planWeight}}</view>
                                 <view class="scrollItemNarrow">{{item.measurement}}</view>
-                                <view class="scrollItem">{{item.groupFeeling}}</view>
+                                <view class="scrollItemNarrow">{{item.groupFeeling}}</view>
                                 <view class="scrollItemNarrow">分</view>
                             </view>
 

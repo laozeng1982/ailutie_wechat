@@ -1,15 +1,18 @@
 <!--records.wxml-->
 <view class="thiscontainer">
-    <view class="button-group">
-        <button class="dateMoveButton" type="default" style="plain" bindtap="onPreMonth"> 上月</button>
-        <button class="dateButton" type="default" bindtap="onToThisMonth">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</button>
-        <button class="dateMoveButton" type="default" bindtap="onNextMonth">下月</button>
 
+    <!-- 这是Toast -->
+    <include src="../ui/toast/toast.wxml" />
+
+    <view class="button-group">
+        <button class="dateMoveButton" type="default" bindtap="onLastMonth"> 上月</button>
+        <button class="dateButton" type="default" bindtap="onToToday">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</button>
+        <button class="dateMoveButton" type="default" bindtap="onNextMonth">下月</button>
     </view>
 
-    <!-- <view class="slimSpace"></view> -->
-
+    <!-- 日历面板 -->
     <view class="calender_panel">
+        <!-- 日历头 -->
         <view class="calender_box">
             <view class="calender_box_header">
                 <view class="weekday_label_header">
@@ -26,33 +29,23 @@
             </view>
         </view>
 
+        <!-- 日历中每天的显示 -->
         <view class="calender_box" wx:for="{{dateList}}" wx:for-item="week" style="{{index==0?'justfiy-content: flex-end;':''}}">
             <view class="weekday_label_days" wx:for="{{week}}">
                 <view wx:for-item="{{dateListWithPlan}}" class="{{item.hasPlan?'weekday_label_days_overlay':''}}"></view>
-                <!-- <view class="{{item.value==today?'today':''}}"></view> -->
-                <text class="{{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} " bindtap="onToSelectedDate" data-date="{{item}}">{{item.date}}</text>
+                <text class="{{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected" bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</text>
             </view>
         </view>
     </view>
 
-    <!-- <view class="tip_container">
-        <button class="planButton" bindtap="onToModifyPlan">去改计划</button>
-         <button class="planButton" bindtap="onToTrain">去锻炼</button>
-    </view> -->
-    <!-- <view class="graySpace"></view>  -->
-    <view class="container2">
+    <!-- 记录列表 -->
+    <view class="planAndActionContainer" wx:if="{{!showDateLongPress}}">
         <scroll-view class="scrollview" scroll-y="true">
 
             <view class="listSingleMovement" wx:for="{{curRecords.movementList}}" class='movement-item' animation='{{item.wrapAnimation}}'>
-                <!-- <view class="graySpace"></view> -->
-
                 <view id='{{item.mvId}}' class='movement'>
-                    <!-- <view class="graySpace"></view> -->
-                    <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
                     <view class="{{item.mvId%2==0?'tableCornor1':'tableCornor2'}}" data-index="{{index}}">
-                        <!-- <view class="graySpace"></view> -->
-
-                        <view id='{{item.mvId}}' class="movementName" bindtap="onGroupModify">
+                        <view id='{{item.mvId}}' class="movementName" bindtap="onMovementTap">
                             <!-- <view class="tableItem"> {{item.mvId}}</view> -->
                             <view class="tableItem"> {{item.mvId}} {{item.mvInfo.partName}}</view>
                             <view class="tableItemName"> {{item.mvInfo.mvName}}</view>
@@ -60,13 +53,39 @@
                             <view class="tableItem"> {{item.contents.details[0].actualCount}}/{{item.contents.details[0].planCount}}次</view>
                             <view class="tableItem"> {{item.contents.details[0].actualWeight}}/{{item.contents.details[0].planWeight}}Kg</view>
                         </view>
-
                     </view>
-                    <!-- <view class="graySpace"></view> -->
                 </view>
-
             </view>
 
         </scroll-view>
     </view>
+
+    <view class="planAndActionContainer" wx:if="{{showDateLongPress}}">
+        <radio-group bindchange="onModelChange">
+            <view class="choiceItemContainer">
+                <view id="1" class="choiceItem">
+                    <radio value="1" checked="{{true}}" />
+                    <view class="classname">拷贝到某一天</view>
+                </view>
+                <view id="2" class="choiceItem">
+                    <radio value="2" checked="{{false}}" />
+                    <view class="classname">设为每周的今天</view>
+                </view>
+                <view id="3" class="choiceItem">
+                    <radio value="3" checked="{{false}}" />
+                    <view class="classname">删除这天的计划</view>
+                </view>
+            </view>
+        </radio-group>
+
+        <view class="button-group">
+            <button class="dateMoveButton" type="default" style="plain" bindtap="onCancel"> 取消</button>
+            <button class="dateMoveButton" type="default" bindtap="onConfirm">确定</button>
+        </view>
+    </view>
+
+
+
+    <!-- 这是Modal -->
+    <include src="../ui/modal/RecordsModal.wxml" />
 </view>

@@ -1,17 +1,16 @@
 // records.js
 import util from '../../utils/util.js'
-
-import Controller from '../../utils/Controller.js'
-import DataType from '../../datamodel/StorageType.js'
+import RecordsPageFunctions from 'RecordsPageFunctions.js'
+import RecordsModal from '../ui/modal/RecordsModal.js'
 
 //全局变量
-var app = getApp();
-const DATATYPE = new DataType.StorageType();
+const app = getApp();
 
 Page({
 
     /**
      * 页面的初始数据
+     * 只放页面的显示数据及控制显示的开关值
      */
     data: {
 
@@ -22,198 +21,145 @@ Page({
         curYear: 2017,
         curMonth: 0,
         curDate: '',
-        daysCountArr: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
         weekArr: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
         //保存当月的日期
         dateList: [],
         //保存有计划的日期
         dateListWithPlan: [],
-        Controller: ''
-    },
+        Functions: '',
+        // 日期上长按，出现Modal的控制器
+        RECORDSMODAL: '',
+        showDateLongPress: false,
 
-    prepareData: function () {
-        // var
-        //同步获取
-        var userInfo = this.data.Controller.loadData(DATATYPE.UserInfo.value, DATATYPE.UserInfo);
-
-        var dateListWithPlan = userInfo.hasPlanDateList;
-
-        this.setData({
-            dateListWithPlan: dateListWithPlan,
-
-        });
-
-        console.log("in calender.prepareData, userInfo: ", userInfo);
-        console.log("in calender.prepareData, this.data.dateListWithPlan", this.data.dateListWithPlan);
-
+        // 控制器，只能为1,2,3
+        selectedModel: -1
     },
 
     /**
-     * 最核心的函数
-     * 1、获取每个的显示列表
-     * 2、搜索、标记日期状态
+     * 响应日历上选中日期
+     * @param e
      */
-    setDateList: function (year, month) {
-        var vm = this;
-        //如果是闰年，则2月有29天
-        var daysCountArr = this.data.daysCountArr;
-        if (year % 4 == 0 && year % 100 != 0) {
-            this.data.daysCountArr[1] = 29;
-            this.setData({
-                daysCountArr: daysCountArr
-            });
-        }
-
-        //第几个月；下标从0开始，实际月份需要加1
-        var dateList = [];
-        dateList[0] = [];
-
-        //第几个星期
-        var weekIndex = 0;
-        var firstDayOfWeek = new Date(Date.UTC(year, month - 1, 1)).getDay();
-        var hasDoneFirstWeek = false;
-        // console.log(firstDayOfWeek);
-        for (var i = 0; i < vm.data.daysCountArr[month - 1]; i++) {
-            var week = new Date(Date.UTC(year, month - 1, i + 1)).getDay();
-            if (!hasDoneFirstWeek) {
-                for (var blank = 0; blank < firstDayOfWeek; blank++) {
-                    dateList[weekIndex].push({
-                        value: '',
-                        date: '',
-                        week: '',
-                        hasPlan: false
-                    });
-                }
-                hasDoneFirstWeek = true;
-            }
-
-            dateList[weekIndex].push({
-                value: util.formatStringDate(year, month, (i + 1)),
-                date: i + 1,
-                week: week,
-                hasPlan: false
-            });
-
-            if (week == 6) {
-                weekIndex++;
-                dateList[weekIndex] = [];
-            }
-
-        }
-
-        for (var week = 0; week < dateList.length; week++) {
-            for (var day = 0; day < dateList[week].length; day++)
-                for (var planDay of this.data.dateListWithPlan) {
-                    //当有记录的标记
-                    if (dateList[week][day].value === planDay) {
-                        // console.log(dateList[week][day].value, planDay);
-                        dateList[week][day].hasPlan = true;
-                    }
-                }
-
-        }
-
-        vm.setData({
-            dateList: dateList
-        });
-    },
-
-    onToSelectedDate: function (e) {
-        this.selectDate(e.currentTarget.dataset.date.value, e.currentTarget.dataset.date.week);
-    },
-
-    selectDate: function (selectedDate, selectedWeek) {
-        var now = selectedDate.split('-');
-        var curYear = parseInt(now[0]);
-        var curMonth = parseInt(now[1]);
-        var curDate = parseInt(now[2]);
-
-
-        var curRecords = this.data.Controller.loadData(selectedDate, DATATYPE.DailyRecords);
-
-        this.setData({
-            curRecords: curRecords,
-            selectedDate: selectedDate,
-            selectedWeek: selectedWeek,
-            curYear: curYear,
-            curMonth: curMonth,
-            curDate: curDate
-        });
-
-        app.globalData.selectedDate = util.getDateFromString(selectedDate, '-');
-        console.log(app.globalData.selectedDate);
+    onDateSelected: function (e) {
+        this.data.Functions.selectDate(this, e );
     },
 
     /**
      * 响应上月按钮
      */
-    onPreMonth: function () {
-        this.moveMonth(false);
+    onLastMonth: function () {
+        this.data.Functions.moveMonth(this, "last");
     },
 
     /**
      * 响应下月按钮
      */
     onNextMonth: function () {
-        this.moveMonth(true);
+        this.data.Functions.moveMonth(this, "next");
     },
 
     /**
-     * 移动月的操作
+     * 响应到今天按钮
      */
-    moveMonth: function (isNext) {
-        var curYear = this.data.curYear;
-        var curMonth = this.data.curMonth;
-        if (isNext) {
-            curYear = curMonth + 1 == 13 ? curYear + 1 : curYear;
-            curMonth = curMonth + 1 == 13 ? 1 : curMonth + 1;
+    onToToday: function () {
+        this.data.Functions.moveMonth(this, "now");
+    },
+
+    /**
+     * 日期上常按出现拷贝功能
+     * 1、先判断选中的日期，有无计划，无计划弹出Toast提示；有计划，弹出Modal供用户选择
+     * 1.1、将选中的计划设为每周同天的计划，有个时间段的概念，多长时间内的每周？如果指定的天有计划，是合并还是替换
+     * 1.2、将选中的计划拷贝到指定的天，如果指定的天有计划，是合并还是替换
+     * 1.3、删除当前计划，需要判断是否过期，过期不能删撒，今天的有记录就要提示
+     * @param e
+     */
+    onDateLongPress: function (e) {
+        console.log("in onDateLongPress, long press", e);
+        console.log("in onDateLongPress, long press", e.currentTarget.dataset.date.value);
+        var tmpRecords = this.data.Functions.loadData(e.currentTarget.dataset.date.value);
+        if (tmpRecords.movementList.length === 0) {
+            util.showToast("兄弟，别闹，这天没数据啊！！！", this, 2000);
+            return;
         } else {
-            curYear = curMonth - 1 ? curYear : curYear - 1;
-            curMonth = curMonth - 1 ? curMonth - 1 : 12;
+            this.setData({
+                selectedModel: 1,
+                showDateLongPress: true,
+            });
         }
 
+
+        // util.showToast("兄弟，你想干啥！！！", this, 2000);
+
+    },
+
+    /**
+     * 设置模式
+     * @param e
+     */
+    onModelChange: function (e) {
+        console.log(e);
         this.setData({
-            curYear: curYear,
-            curMonth: curMonth
+            selectedModel: parseInt(e.detail.value),
         });
 
-        this.setDateList(curYear, curMonth);
+        console.log("in onModelChange, set model to: ", this.data.selectedModel);
     },
 
-    onToThisMonth: function () {
-        var now = new Date();
-        var curYear = now.getFullYear();
-        var curMonth = now.getMonth() + 1;
-        var curDate = now.getDate();
-
+    /**
+     * 这里是主要的处理逻辑
+     * @param e
+     */
+    onConfirm: function (e) {
         this.setData({
-            selectedDate: util.formatDateToString(new Date()),
-            curYear: curYear,
-            curMonth: curMonth,
-            curDate: curDate
-        });
-
-        this.setDateList(curYear, curMonth);
-
-        this.selectDate(util.formatDateToString(new Date()));
-    },
-
-    onToModifyPlan: function () {
-        // this.selectDate(util.formatDateToString(new Date()));
-        //传回全局变量，以便下次进入日期选择，还是当时选的。
-
-        wx.switchTab({
-            url: '../listplan/plan',
+            selectedModel: -1,
+            showDateLongPress: false,
         });
     },
 
-    onToTrain: function () {
-        // this.selectDate(util.formatDateToString(new Date()));
-        //传回全局变量，以便下次进入日期选择，还是当时选的。
-
-        wx.switchTab({
-            url: '../training/training',
+    /**
+     * 退出，相当于返回
+     * @param e
+     */
+    onCancel: function (e) {
+        this.setData({
+            selectedModel: -1,
+            showDateLongPress: false,
         });
+    },
+
+    /**
+     * 响应动作列表中的动作被点中的事件，根据当时选择的日期进行判断
+     * 1、如果是今天之前的，列出这个动作完成或者计划的详细信息
+     * 2、如果是今天的，直接去锻炼
+     * 3、如果是将来的计划，直接进入计划界面，并且选择该计划，进入待修改状态
+     * @param e
+     */
+    onMovementTap: function (e) {
+        console.log("in onMovementTap, selected: ", e.currentTarget.id);
+        //传回全局变量，以便下次进入日期选择，还是当时选的。
+        var direction = util.dateDirection(this.data.selectedDate);
+        switch (direction) {
+            case -1:
+                break;
+            case 0:
+                app.globalData.selectedMvIdOnRecordPage = e.currentTarget.id;
+
+                wx.switchTab({
+                    url: '../training/training',
+                });
+                break;
+            case 1:
+                app.globalData.selectedPartNameOnRecordPage =
+                    this.data.curRecords.movementList[e.currentTarget.id - 1].mvInfo.partName;
+                app.globalData.selectedMoveNameOnRecordPage =
+                    this.data.curRecords.movementList[e.currentTarget.id - 1].mvInfo.mvName;
+                wx.switchTab({
+                    url: '../listplan/plan',
+                });
+                break;
+            default:
+                break;
+        }
+
     },
 
     /**
@@ -221,10 +167,11 @@ Page({
      */
     onLoad: function (options) {
         var today = util.formatDateToString(new Date());
-        this.data.Controller = new Controller.Controller();
+        var Functions = new RecordsPageFunctions.RecordsPageFunctions();
         this.setData({
             today: today,
-            Controller: this.data.Controller
+            RECORDSMODAL: new RecordsModal.RecordsModal(),
+            Functions: Functions
         });
         console.log("Records page onLoad call, this.data.today: ", this.data.today);
     },
@@ -247,7 +194,9 @@ Page({
         var day = app.globalData.selectedDate.getDate();
         var idx = app.globalData.selectedDate.getDay();
 
-        var curRecords = this.data.Controller.loadData(util.formatStringDate(year, month, day), DATATYPE.DailyRecords);
+        console.log("Records page onShow call, this.data.Functions:", this.data.Functions);
+
+        var curRecords = this.data.Functions.loadData(util.formatStringDate(year, month, day));
 
         this.setData({
             curYear: year,
@@ -259,9 +208,9 @@ Page({
         });
 
 
-        this.prepareData();
+        this.data.Functions.prepareData(this);
 
-        this.setDateList(year, month);
+        this.data.Functions.setDateList(this, year, month);
         console.log("Records page onShow call, this.data.curRecords: ", this.data.curRecords);
     },
 

@@ -2,16 +2,9 @@
  * 锻炼计划记录页面
  */
 import util from '../../utils/util.js'
-import controller from '../../utils/Controller.js'
 import DataType from '../../datamodel/StorageType.js'
-import DailyRecords from '../../datamodel/DailyRecords.js'
-import Movement from '../../datamodel/Movement.js'
 import RecordFactory from '../../datamodel/RecordFactory.js'
 import Controller from '../../utils/Controller.js'
-import PlanModal from '../ui/modal/PlanModal.js'
-import MvScoreModal from '../ui/modal/MvScoreModal.js'
-
-// import planPage from '../listplan/plan.js'
 
 //获取应用实例
 var app = getApp();
@@ -55,7 +48,7 @@ Page({
         trainScrollHeight: 600,  //动作列表的scroll高度
         showDetails: false,
 
-        scorllinTo:'',
+        scorllinTo: '',
 
         disableRemoveBtn: true,
         disableModifyBtn: true,
@@ -82,15 +75,24 @@ Page({
      */
     onMoveMovement: function (e, isLast) {
 
-        var curSelectedMovementId = this.data.curSelectedMovementId;
+        var curSelectedMovementId = parseInt(this.data.curSelectedMovementId);
         var maxId = this.data.curRecords.movementList.length;
         if (isLast) {
-            curSelectedMovementId = curSelectedMovementId === 1 ? 1 : this.data.curSelectedMovementId - 1;
+            if (curSelectedMovementId === 1) {
+                util.showToast("兄弟，已经到最前面啦~~", this, 1000);
+            } else {
+                curSelectedMovementId = parseInt(this.data.curSelectedMovementId) - 1;
+            }
         } else {
-            curSelectedMovementId = curSelectedMovementId === maxId ? maxId : this.data.curSelectedMovementId + 1;
+            if (curSelectedMovementId === maxId) {
+                util.showToast("兄弟，已经到最后面啦~~", this, 1000);
+            } else {
+                curSelectedMovementId = parseInt(this.data.curSelectedMovementId) + 1;
+            }
+
         }
 
-        console.log("in onGroupModify, curSelectedMovementId ", curSelectedMovementId);
+        console.log("in onMoveMovement, curSelectedMovementId ", curSelectedMovementId, " ,maxId: ", maxId);
 
         this.setData({
             curSelectedMovementId: curSelectedMovementId,
@@ -99,6 +101,10 @@ Page({
             disableModifyBtn: true,
             disableRemoveBtn: true
         });
+
+        // 给全局变量设值，方便切换到计划的时候，直接高亮当前计划，方便修改
+        app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.partName;
+        app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.mvName;
     },
 
     onCountTap: function (e) {
@@ -193,6 +199,7 @@ Page({
         this.setData({
             disableRemoveBtn: true,
             disableModifyBtn: true,
+            curSelectedRecordId: -1,
             curRecords: curRecords
         });
 
@@ -261,6 +268,7 @@ Page({
         this.setData({
             disableRemoveBtn: true,
             disableModifyBtn: true,
+            curSelectedRecordId: -1,
             curRecords: curRecords
         });
     },
@@ -422,10 +430,13 @@ Page({
 
 
         this.setData({
-            curRecords: this.data.curRecords
+            curRecords: this.data.curRecords,
+            curSelectedMovementId: app.globalData.selectedMvIdOnRecordPage !== -1
+                ? app.globalData.selectedMvIdOnRecordPage : this.data.curSelectedMovementId
         });
 
-
+        // 重置全局变量，保证翻回Training页面时，能记住上次的位置
+        app.globalData.selectedMvIdOnRecordPage = -1;
         console.log("Training page onShow call, this.data.curRecords: ", this.data.curRecords);
     },
 

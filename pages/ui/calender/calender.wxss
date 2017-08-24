@@ -95,6 +95,19 @@
     border-radius: 50%;
 }
 
+ .selected_date_overlay {
+    position: absolute;
+    align-items: center;
+    width: 50rpx;
+    height: 50rpx;
+    left: 30rpx;
+    top: 60prx;
+    z-index: 100;
+    background: #09bb03;
+    color: black;
+    border-radius: 50%;
+} 
+
 .show_box {
     display: flex;
     justify-content: center;
@@ -233,4 +246,16 @@
     border-bottom-right-radius: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.choiceItemContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.choiceItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }

@@ -43,18 +43,15 @@ Page({
 
         Controller: '',
 
-
         // 3D 数组，用来存放动作组数，次数和重量
         movementNoMultiArray: app.globalData.movementNoMultiArray,
         // 数量选择索引
-        multiMovementNoIndex: [0, 0, 0],
+        multiMovementNoIndex: [5, 6, 9],
 
         // 组件控制
         scrollY: true,
-        scrollHeight:
-            850,
-        actionName:
-            '',
+        scrollHeight: 850,
+        actionName: '',
 
     },
 
@@ -88,58 +85,21 @@ Page({
         });
     },
 
-    /**
-     * 响应界面调用的函数
-     */
-    onAddMovement: function () {
-        if (util.isExpired(this.data.selectedDate)) {
-            console.log("isExpired!!!!!!!!!!");
-            return;
-        } else {
-            // 取得正在编辑的动作，传给Modal
-            this.setData({
-                actionName: "添加动作",
-                showModal: true
-            });
-        }
-    },
-
-    /**
-     * 响应处理修改动作的业务
-     */
-    onModifyMovement: function (e) {
-        if (util.isExpired(this.data.selectedDate)) {
-            console.log("isExpired!!!!!!!!!!");
-            return;
-        }
-
-        // 把这个Modify界面重置到该动作的参数
-        console.log("in onModifyMovement, e.currentTarget.id: ", e.currentTarget.id);
-
-        // 取得正在编辑的动作，传给Modal
-        var tmp = this.data.curRecords.movementList[e.currentTarget.id - 1];
-
-        this.setData({});
-    },
-
-
     onBodyPartSelected: function (e) {
-
+        // 选中部位时，高亮部位，同时把选中的动作高亮清空
         this.setData({
             selectedPartId: e.detail.value,
+            selectedMovementId: -1
         });
-        // console.log("in onBodyPartSelected, selectedPartId: ", this.data.selectedPartId);
-        // console.log("in onBodyPartSelected, this.data.actionList: ", this.data.bodyPartList.partList[e.detail.value - 1]);
+
     },
 
     onBodyPartTap: function (e) {
-
+        // 选中部位时，高亮部位，同时把选中的动作高亮清空
         this.setData({
-            // bodyPartList: this.data.bodyPartList,
             selectedPartId: e.currentTarget.id,
+            selectedMovementId: -1
         });
-        // console.log("in onBodyPartTap, selectedPartId: ", this.data.selectedPartId);
-        // console.log("in onBodyPartTap, this.data.actionList: ", this.data.bodyPartList.partList[e.detail.value - 1]);
 
     },
 
@@ -157,19 +117,14 @@ Page({
      */
     onMovementTap: function (e) {
         this.onMovementItemClick(e);
-        console.log("in onMovementTap, movement", e.currentTarget.id);
-        // console.log(this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList);
     },
 
     onNumberChange: function (e) {
 
-        console.log("in onNumberChange, picker id: ", e.currentTarget.id);
-
-        console.log('in onNumberChange, picker发送选择改变，携带值为', e.detail.value);
+        // console.log("in onNumberChange, picker id: ", e.currentTarget.id);
+        // console.log('in onNumberChange, picker发送选择改变，携带值为', e.detail.value);
 
         var selectedRowArr = e.detail.value;
-        console.log("picker",);
-
 
         var planGpCount = parseInt(this.data.movementNoMultiArray[0][selectedRowArr[0]]);
         var planCount = parseInt(this.data.movementNoMultiArray[1][selectedRowArr[1]]);
@@ -203,15 +158,14 @@ Page({
             allMovementsHolder: allHolder
         });
 
-
-        console.log("in onNumberChange, picker: ", this.data.allMovementsHolder[this.data.selectedPartId - 1][this.data.selectedMovementId - 1]);
-        console.log("in onNumberChange, picker: ", this.data.allMovementsHolder);
+        // console.log("in onNumberChange, picker: ", this.data.allMovementsHolder[this.data.selectedPartId - 1][this.data.selectedMovementId - 1]);
+        // console.log("in onNumberChange, picker: ", this.data.allMovementsHolder);
 
     },
 
     onMovementItemClick: function (e) {
         // 当有锻炼数据时，一定置为选中，不能取消
-        if (this.isTrained(e.currentTarget.id)) {
+        if (this.hasTrainingData(e.currentTarget.id)) {
             this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList[e.currentTarget.id - 1].actionSelected = true;
         } else {
             this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList[e.currentTarget.id - 1].actionSelected =
@@ -231,19 +185,19 @@ Page({
         this.data.bodyPartList.partList[this.data.selectedPartId - 1].selected = hasSelected;
 
         this.setData({
-            selectedMovementId: e.currentTarget.id,
+            selectedMovementId: parseInt(e.currentTarget.id),
             bodyPartList: this.data.bodyPartList
         });
     },
 
-    isTrained(index) {
-        var isTrain = false;
+    hasTrainingData(index) {
+        var hasTrainingData = false;
         var allHolder = this.data.allMovementsHolder;
 
         var movement = allHolder[this.data.selectedPartId - 1][index - 1];
 
         if (parseInt(movement.contents.curFinishedGpCount) > 0 || parseInt(movement.contents.mvFeeling) > 0) {
-            isTrain = true;
+            hasTrainingData = true;
         } else {
             for (var detail of movement.contents.details) {
 
@@ -251,21 +205,21 @@ Page({
                     detail.finished || parseInt(detail.groupFeeling) > 0) {
                     console.log(parseInt(detail.actualCount), parseInt(detail.actualWeight),
                         detail.finished, parseInt(detail.groupFeeling));
-                    isTrain = true;
+                    hasTrainingData = true;
                     break;
                 }
             }
         }
-        console.log("in isTrained, ", isTrain);
-        return isTrain;
+        console.log("in hasTrainingData, ", hasTrainingData);
+        return hasTrainingData;
     },
 
     /**
      * 选择或者修改完成，整理allMovementsList中的选中项
-     * @param e
+     *
      */
     collectDataToSave() {
-        if (util.isExpired(this.data.selectedDate)) {
+        if (util.dateDirection(this.data.selectedDate) === -1) {
             util.showToast('历史数据不能修改哦^_^', this, 2000);
             return;
         }
@@ -396,38 +350,74 @@ Page({
 
         });
 
-        console.log("plan page onLoad call");
-        console.log("plan page onLoad , this.data.allMovementsHolder", this.data.allMovementsHolder);
+        console.log("Plan page onLoad call");
+        console.log("Plan page onLoad , this.data.allMovementsHolder", this.data.allMovementsHolder);
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        console.log("plan page onReady call");
+        console.log("Plan page onReady call");
     },
 
     /**
      * 生命周期函数--监听页面显示
+     * 每次切换到该页面，如果需要更新数据，在这里实现
      */
     onShow: function () {
-        console.log("plan page onShow call");
+        console.log("Plan page onShow call");
         this.setData({
             selectedDate: util.formatDateToString(app.globalData.selectedDate),
         });
 
         var curRecords = this.data.Controller.loadData(this.data.selectedDate, DATATYPE.DailyRecords);
-        console.log("plan page onShow call", curRecords);
+        console.log("Plan page onShow call", curRecords);
 
         this.setData({
-            curRecords: curRecords
+            curRecords: curRecords,
+
         });
 
         this.initRecords();
 
+        // 当其他页面设置了全局变量时，方才自动高亮对应项
+        if (app.globalData.selectedPartNameOnRecordPage !== -1 &&
+            app.globalData.selectedMoveNameOnRecordPage !== 1) {
+            var selectedPartId = -1;
+            var selectedMovementId = -1;
+
+            for (var idx = 0; idx < this.data.bodyPartList.partList.length; idx++) {
+                if (this.data.bodyPartList.partList[idx].partName === app.globalData.selectedPartNameOnRecordPage) {
+                    selectedPartId = this.data.bodyPartList.partList[idx].partId;
+                    break;
+                }
+            }
+
+            for (var idx = 0; idx < this.data.bodyPartList.partList[selectedPartId - 1].actionList.length; idx++) {
+                if (this.data.bodyPartList.partList[selectedPartId - 1].actionList[idx].actionName === app.globalData.selectedMoveNameOnRecordPage) {
+                    selectedMovementId = this.data.bodyPartList.partList[selectedPartId - 1].actionList[idx].actionId;
+                    break;
+                }
+            }
+
+            this.setData({
+                selectedPartId: selectedPartId !== -1
+                    ? selectedPartId
+                    : this.data.selectedPartId,
+
+                selectedMovementId: selectedMovementId !== -1
+                    ? selectedMovementId
+                    : this.data.selectedMovementId,
+            });
+
+            app.globalData.selectedMoveIdOnRecordPage = -1;
+            app.globalData.selectedPartIdOnRecordPage = -1;
+        }
+
         console.log("in onShow, this.data.curRecords: ", this.data.curRecords);
 
-        if (util.isExpired(this.data.selectedDate)) {
+        if (util.dateDirection(this.data.selectedDate) === -1) {
             util.showToast('历史数据不能修改哦^_^', this, 2000);
         }
     },
@@ -440,7 +430,7 @@ Page({
         this.data.Controller.saveData(this.data.selectedDate, DATATYPE.DailyRecords, this.data.curRecords);
 
         // this.data.Controller.saveData(util.formatDateToString(app.globalData.selectedDate), DATATYPE.DailyRecords, this.data.curRecords);
-        console.log("plan page onHide call: data saved");
+        console.log("Plan page onHide call: data saved");
     }
     ,
 
@@ -448,21 +438,21 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        console.log("plan page onUnload call");
+        console.log("Plan page onUnload call");
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-        console.log("plan page onPullDownRefresh call");
+        console.log("Plan page onPullDownRefresh call");
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-        console.log("plan page onReachBottom call");
+        console.log("Plan page onReachBottom call");
     },
 
     /**
@@ -472,3 +462,7 @@ Page({
 
     }
 })
+
+module.exports = {
+    planPage: Page
+}
