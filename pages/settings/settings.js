@@ -84,7 +84,7 @@ Page({
         this.setData({
             userInfo: getApp().globalData.wechatUserInfo,
         });
-        console.log(userInfo);
+        console.log("Setting page onLoad call", this.data.userInfo);
     },
 
     /**

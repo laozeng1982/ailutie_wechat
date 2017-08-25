@@ -1,2 +1,4 @@
 <!--food.wxml-->
-<text>food.wxml</text>
+<view class="generalContainer">
+    <text>还在努力中</text>
+</view>

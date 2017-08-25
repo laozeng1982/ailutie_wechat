@@ -36,6 +36,7 @@ Page({
         dateList: [],
         //保存有计划的日期
         dateListWithPlan: [],
+        dateListWithTraining: [],
         Functions: '',
         // 日期上长按，出现Modal的控制器
 
@@ -166,11 +167,18 @@ Page({
      * @param e
      */
     onMovementTap: function (e) {
-        console.log("in onMovementTap, selected: ", e.currentTarget.id);
+        // console.log("in onMovementTap, selected: ", e.currentTarget.id);
         //传回全局变量，以便下次进入日期选择，还是当时选的。
         var direction = util.dateDirection(this.data.selectedDate);
         switch (direction) {
             case -1:
+                // 今天之前记录
+                var curRecords = this.data.curRecords;
+                curRecords.movementList[e.currentTarget.id - 1].clicked = !curRecords.movementList[e.currentTarget.id - 1].clicked;
+                this.setData({
+                    curRecords: curRecords,
+                    selectedMovementId: e.currentTarget.id
+                });
                 break;
             case 0:
                 app.globalData.selectedMvIdOnRecordPage = e.currentTarget.id;
@@ -254,6 +262,7 @@ Page({
 
     /**
      * 生命周期函数--监听页面隐藏
+     * 做一些清理工作
      */
     onHide: function () {
         // 如果直接由此界面通过Tab跳到了计划界面
@@ -266,6 +275,15 @@ Page({
             app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[0].mvInfo.partName;
             app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[0].mvInfo.mvName;
         }
+
+        var curRecords = this.data.curRecords;
+
+        for (var idx = 0; idx < curRecords.movementList.length; idx++)
+            curRecords.movementList[idx].clicked = false;
+
+        this.setData({
+            curRecords: curRecords
+        })
 
         console.log("Records page onHide call, Nothing to be saved");
     },

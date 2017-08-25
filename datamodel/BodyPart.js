@@ -90,6 +90,14 @@ class Action {
 class OrgType {
     constructor() {
 
+        // 有氧
+        this.movementNameArrayAerobic =[
+            '有氧',
+            '慢步',
+            '椭圆机',
+            '动感单车',
+
+        ];
         //0、胸部
         this.movementNameArrayPectorales = [
             '胸部',
@@ -231,6 +239,7 @@ class OrgType {
         ];
 
         this.DefaultActionName = [
+            this.movementNameArrayAerobic,
             this.movementNameArrayPectorales,
             this.movementNameArrayShoulder,
             this.movementNameArrayDorsal,

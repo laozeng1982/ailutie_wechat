@@ -32,10 +32,11 @@ class RecordsPageFunctions {
         var userInfo = CONTROLLER.loadData(DATATYPE.UserInfo.value, DATATYPE.UserInfo);
 
         var dateListWithPlan = userInfo.hasPlanDateList;
+        var dateListWithTraining = userInfo.hasTrainedDateList;
 
         host.setData({
             dateListWithPlan: dateListWithPlan,
-
+            dateListWithTraining: dateListWithTraining
         });
 
         console.log("in records.prepareData, userInfo: ", userInfo);
@@ -76,7 +77,8 @@ class RecordsPageFunctions {
                         date: '',
                         week: '',
                         selected: false,
-                        hasPlan: false
+                        hasPlan: false,
+                        hasTrained: false
                     });
                 }
                 hasDoneFirstWeek = true;
@@ -87,7 +89,8 @@ class RecordsPageFunctions {
                 date: i + 1,
                 week: week,
                 selected: false,
-                hasPlan: false
+                hasPlan: false,
+                hasTrained: false
             });
 
             if (week == 6) {
@@ -98,7 +101,8 @@ class RecordsPageFunctions {
         }
 
         for (var week = 0; week < dateList.length; week++) {
-            for (var day = 0; day < dateList[week].length; day++)
+            for (var day = 0; day < dateList[week].length; day++) {
+                // 准备有计划的数据
                 for (var planDay of host.data.dateListWithPlan) {
                     //当有记录的标记
                     if (dateList[week][day].value === planDay) {
@@ -106,7 +110,15 @@ class RecordsPageFunctions {
                         dateList[week][day].hasPlan = true;
                     }
                 }
-
+                // 准备有锻炼的数据
+                for (var trainedDay of host.data.dateListWithTraining) {
+                    //当有记录的标记
+                    if (dateList[week][day].value === trainedDay) {
+                        // console.log(dateList[week][day].value, planDay);
+                        dateList[week][day].hasTrained = true;
+                    }
+                }
+            }
         }
 
         host.setData({

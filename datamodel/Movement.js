@@ -10,6 +10,7 @@ class Movement {
         this.mvInfo = new MvInfo();
         this.contents = new Contents();
         this.controller = new Controls();
+        this.clicked = false;
     }
 
 
@@ -32,7 +33,6 @@ class Movement {
     }
 
     clearActualDetails() {
-        // this.contents.curFinishedGpCount = 0;
         this.contents.mvFeeling = 0;
         for (var idx = 0; idx < this.contents.details.length; idx++) {
             this.contents.details[idx].actualCount = 0;
@@ -57,6 +57,8 @@ class Movement {
 
         this.controller = new Controls();
         this.controller.fullCopyFrom(movement.controller);
+
+        this.clicked = movement.clicked;
     }
 }
 
@@ -93,6 +95,7 @@ class Contents {
         this.finished = false;
         this.mvFeeling = '';    // 这个动作的感觉
         this.details = [];
+
     }
 
 
@@ -103,6 +106,7 @@ class Contents {
         this.finished = content.finished;
         this.mvFeeling = content.mvFeeling;
         this.details = content.details;
+
     }
 }
 

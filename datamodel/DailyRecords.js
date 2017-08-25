@@ -114,6 +114,11 @@ class DailyRecords {
 
         return sucess;
     }
+
+    clearClicked() {
+        for (var idx = 0; idx < this.movementList.length; idx++)
+            this.movementList[idx].clicked = false;
+    }
 }
 
 module.exports = {

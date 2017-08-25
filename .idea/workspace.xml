@@ -2,14 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c04c828-cb55-44f6-af98-1852d5dda9bc" name="Default" comment="改界面前最后一版，这个交互实在太难用了。">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.wxss" afterPath="$PROJECT_DIR$/app.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/BodyPart.js" afterPath="$PROJECT_DIR$/datamodel/BodyPart.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/DailyRecords.js" afterPath="$PROJECT_DIR$/datamodel/DailyRecords.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/Movement.js" afterPath="$PROJECT_DIR$/datamodel/Movement.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/plan.js" afterPath="$PROJECT_DIR$/pages/plan/plan.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/plan.wxml" afterPath="$PROJECT_DIR$/pages/plan/plan.wxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/plan.wxss" afterPath="$PROJECT_DIR$/pages/plan/plan.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/RecordsPageFunctions.js" afterPath="$PROJECT_DIR$/pages/records/RecordsPageFunctions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/records.js" afterPath="$PROJECT_DIR$/pages/records/records.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/records.wxml" afterPath="$PROJECT_DIR$/pages/records/records.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/records.wxss" afterPath="$PROJECT_DIR$/pages/records/records.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/about/about.wxml" afterPath="$PROJECT_DIR$/pages/settings/about/about.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/favorite/favorite.wxml" afterPath="$PROJECT_DIR$/pages/settings/favorite/favorite.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/food/food.wxml" afterPath="$PROJECT_DIR$/pages/settings/food/food.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/friends/friends.wxml" afterPath="$PROJECT_DIR$/pages/settings/friends/friends.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/knowledge/knowledge.wxml" afterPath="$PROJECT_DIR$/pages/settings/knowledge/knowledge.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/settings.js" afterPath="$PROJECT_DIR$/pages/settings/settings.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/settings.wxml" afterPath="$PROJECT_DIR$/pages/settings/settings.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/system/system.wxml" afterPath="$PROJECT_DIR$/pages/settings/system/system.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/userinfo/userinfo.wxml" afterPath="$PROJECT_DIR$/pages/settings/userinfo/userinfo.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/userprofile/userprofile.wxml" afterPath="$PROJECT_DIR$/pages/settings/userprofile/userprofile.wxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.js" afterPath="$PROJECT_DIR$/pages/training/training.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxml" afterPath="$PROJECT_DIR$/pages/training/training.wxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxss" afterPath="$PROJECT_DIR$/pages/training/training.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Controller.js" afterPath="$PROJECT_DIR$/utils/Controller.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,18 +53,8 @@
       <file leaf-file-name="Controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="171" column="11" lean-forward="false" selection-start-line="171" selection-start-column="11" selection-end-line="171" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="calender.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/ui/calender/calender.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3657">
-              <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+            <state relative-caret-position="924">
+              <caret line="118" column="0" lean-forward="true" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -57,8 +63,8 @@
       <file leaf-file-name="plan.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/plan/plan.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+            <state relative-caret-position="290">
+              <caret line="288" column="26" lean-forward="true" selection-start-line="288" selection-start-column="26" selection-end-line="288" selection-end-column="26" />
               <folding>
                 <element signature="e#35#73#0" expanded="true" />
               </folding>
@@ -66,14 +72,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="training.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pages/training/training.js">
+      <file leaf-file-name="settings.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/settings/settings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="167" column="10" lean-forward="false" selection-start-line="167" selection-start-column="10" selection-end-line="167" selection-end-column="10" />
-              <folding>
-                <element signature="e#20#58#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="420">
+              <caret line="86" column="45" lean-forward="false" selection-start-line="86" selection-start-column="45" selection-end-line="86" selection-end-column="45" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,28 +85,28 @@
       <file leaf-file-name="records.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/records/records.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+            <state relative-caret-position="460">
+              <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecordsPageFunctions.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RecordsPageFunctions.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pages/records/RecordsPageFunctions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-143">
-              <caret line="150" column="54" lean-forward="false" selection-start-line="150" selection-start-column="54" selection-end-line="150" selection-end-column="54" />
+            <state relative-caret-position="680">
+              <caret line="117" column="54" lean-forward="false" selection-start-line="117" selection-start-column="44" selection-end-line="117" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Movement.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/datamodel/Movement.js">
+      <file leaf-file-name="DailyRecords.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datamodel/DailyRecords.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="102" column="40" lean-forward="false" selection-start-line="102" selection-start-column="40" selection-end-line="102" selection-end-column="40" />
+            <state relative-caret-position="579">
+              <caret line="119" column="51" lean-forward="true" selection-start-line="118" selection-start-column="7" selection-end-line="119" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -111,8 +115,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="131" column="0" lean-forward="true" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+            <state relative-caret-position="684">
+              <caret line="132" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
               <folding>
                 <element signature="e#27#61#0" expanded="true" />
               </folding>
@@ -120,18 +124,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.json">
+      <file leaf-file-name="SystemSetting.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datamodel/SystemSetting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
-              <folding>
-                <marker date="1503639997859" expanded="true" signature="15:778" ph="[...]" />
-                <marker date="1503639997859" expanded="true" signature="794:926" ph="{&quot;navigationBarBackgroundColor&quot;: &quot;##333&quot;...}" />
-                <marker date="1503639997859" expanded="true" signature="1097:1322" ph="{&quot;pagePath&quot;: &quot;pages/index/index&quot;...}" />
-                <marker date="1503639997859" expanded="true" signature="1336:1569" ph="{&quot;pagePath&quot;: &quot;pages/records/records&quot;...}" />
-                <marker date="1503639997859" expanded="true" signature="1583:1832" ph="{&quot;pagePath&quot;: &quot;pages/training/training&quot;...}" />
-              </folding>
+            <state relative-caret-position="84">
+              <caret line="4" column="45" lean-forward="false" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RecordFactory.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datamodel/RecordFactory.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="11" column="81" lean-forward="false" selection-start-line="11" selection-start-column="81" selection-end-line="11" selection-end-column="81" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BodyPart.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datamodel/BodyPart.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="441">
+              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -148,11 +166,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>onShowDetails</find>
-      <find>curSelectedMovementId</find>
-      <find>curTrainActNumber</find>
-      <find>mvFeelingIndex</find>
-      <find>RecordsPageFunctions</find>
       <find>host.data.daysCountArr</find>
       <find>weekArr</find>
       <find>isEx</find>
@@ -178,6 +191,11 @@
       <find>onMovementItemClick</find>
       <find>movmentClickedTwice</find>
       <find>wechatUserInfo</find>
+      <find>console.log(&quot;in setPickerIndex, &quot;, planCount, planWeight);</find>
+      <find>console.log(&quot;in setPickerIndex, &quot;, planCount, planWeight);</find>
+      <find>console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount))</find>
+      <find>console.log(&quot;in initRecords, &quot;, allHolder[partIdx][mvId].mvInfo.mvName);</find>
+      <find>console.log(&quot;in onMovementTap, selected: &quot;, e.currentTarget.id);</find>
     </findStrings>
     <replaceStrings>
       <replace>readInData</replace>
@@ -242,23 +260,24 @@
         <option value="$PROJECT_DIR$/pages/listplan/plan.wxml" />
         <option value="$PROJECT_DIR$/datamodel/BodyPartList.js" />
         <option value="$PROJECT_DIR$/datamodel/SystemSetting.js" />
-        <option value="$PROJECT_DIR$/datamodel/BodyPart.js" />
         <option value="$PROJECT_DIR$/datamodel/RecordFactory.js" />
-        <option value="$PROJECT_DIR$/datamodel/DailyRecords.js" />
         <option value="$PROJECT_DIR$/pages/ui/modal/PlanModal.js" />
         <option value="$PROJECT_DIR$/pages/records/records_funtions.js" />
         <option value="$PROJECT_DIR$/utils/util.js" />
         <option value="$PROJECT_DIR$/pages/listplan/plan.js" />
         <option value="$PROJECT_DIR$/pages/ui/modal/RecordsModal.js" />
-        <option value="$PROJECT_DIR$/utils/Controller.js" />
         <option value="$PROJECT_DIR$/pages/ui/calender/calender.js" />
         <option value="$PROJECT_DIR$/app.json" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/pages/training/training.js" />
+        <option value="$PROJECT_DIR$/pages/settings/settings.js" />
+        <option value="$PROJECT_DIR$/datamodel/DailyRecords.js" />
+        <option value="$PROJECT_DIR$/datamodel/Movement.js" />
+        <option value="$PROJECT_DIR$/datamodel/BodyPart.js" />
+        <option value="$PROJECT_DIR$/pages/plan/plan.js" />
+        <option value="$PROJECT_DIR$/utils/Controller.js" />
         <option value="$PROJECT_DIR$/pages/records/records.js" />
         <option value="$PROJECT_DIR$/pages/records/RecordsPageFunctions.js" />
-        <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/pages/plan/plan.js" />
-        <option value="$PROJECT_DIR$/datamodel/Movement.js" />
-        <option value="$PROJECT_DIR$/pages/training/training.js" />
       </list>
     </option>
   </component>
@@ -276,8 +295,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="1711" />
+    <option name="y" value="151" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -312,7 +331,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -336,13 +355,30 @@
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="plan" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="records" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="settings" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -491,11 +527,12 @@
       <workItem from="1503582123747" duration="4538000" />
       <workItem from="1503595771896" duration="3053000" />
       <workItem from="1503624469263" duration="13337000" />
+      <workItem from="1503669603152" duration="6834000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185408000" />
+    <option name="totallyTimeSpent" value="192242000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -507,7 +544,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1672" y="-8" width="1696" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -522,10 +559,9 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32814237" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2185501" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22120099" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19308035" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22068231" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22058824" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -537,6 +573,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19308035" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -586,13 +623,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/datamodel/BodyPart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1239">
-          <caret line="59" column="5" lean-forward="true" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/datamodel/RecordFactory.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="882">
@@ -802,20 +832,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/datamodel/BodyPartList.js" />
-    <entry file="file://$PROJECT_DIR$/datamodel/RecordFactory.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="11" column="81" lean-forward="false" selection-start-line="11" selection-start-column="81" selection-end-line="11" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datamodel/DailyRecords.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="100" column="0" lean-forward="true" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/ui/modal/MvScoreModal.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="311">
@@ -844,21 +860,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/datamodel/SystemSetting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="45" lean-forward="false" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/records/records_bak.js" />
-    <entry file="file://$PROJECT_DIR$/datamodel/BodyPart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3731">
-          <caret line="59" column="5" lean-forward="false" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/util.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4301">
@@ -870,86 +872,120 @@
     <entry file="file://$PROJECT_DIR$/pages/ui/modal/RecordsModal.js" />
     <entry file="file://$PROJECT_DIR$/pages/ui/calender/calender.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3657">
+        <state relative-caret-position="3339">
           <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/records/records_bak.wxml" />
-    <entry file="file://$PROJECT_DIR$/app.json">
+    <entry file="file://$PROJECT_DIR$/pages/training/training.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+        <state relative-caret-position="290">
+          <caret line="144" column="94" lean-forward="true" selection-start-line="143" selection-start-column="6" selection-end-line="144" selection-end-column="94" />
           <folding>
-            <marker date="1503639997859" expanded="true" signature="15:778" ph="[...]" />
-            <marker date="1503639997859" expanded="true" signature="794:926" ph="{&quot;navigationBarBackgroundColor&quot;: &quot;##333&quot;...}" />
-            <marker date="1503639997859" expanded="true" signature="1097:1322" ph="{&quot;pagePath&quot;: &quot;pages/index/index&quot;...}" />
-            <marker date="1503639997859" expanded="true" signature="1336:1569" ph="{&quot;pagePath&quot;: &quot;pages/records/records&quot;...}" />
-            <marker date="1503639997859" expanded="true" signature="1583:1832" ph="{&quot;pagePath&quot;: &quot;pages/training/training&quot;...}" />
+            <element signature="e#20#58#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/Controller.js">
+    <entry file="file://$PROJECT_DIR$/pages/settings/settings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="171" column="11" lean-forward="false" selection-start-line="171" selection-start-column="11" selection-end-line="171" selection-end-column="11" />
+        <state relative-caret-position="420">
+          <caret line="86" column="45" lean-forward="false" selection-start-line="86" selection-start-column="45" selection-end-line="86" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/records/RecordsPageFunctions.js">
+    <entry file="file://$PROJECT_DIR$/datamodel/DailyRecords.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-143">
-          <caret line="150" column="54" lean-forward="false" selection-start-line="150" selection-start-column="54" selection-end-line="150" selection-end-column="54" />
+        <state relative-caret-position="579">
+          <caret line="119" column="51" lean-forward="true" selection-start-line="118" selection-start-column="7" selection-end-line="119" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/records/records.js">
+    <entry file="file://$PROJECT_DIR$/datamodel/Movement.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+        <state relative-caret-position="210">
+          <caret line="34" column="26" lean-forward="false" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="30" column="6" lean-forward="false" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="131" column="0" lean-forward="true" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+        <state relative-caret-position="684">
+          <caret line="132" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
             <element signature="e#27#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/SystemSetting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="45" lean-forward="false" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/RecordFactory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="11" column="81" lean-forward="false" selection-start-line="11" selection-start-column="81" selection-end-line="11" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/BodyPart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pages/plan/plan.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+        <state relative-caret-position="290">
+          <caret line="288" column="26" lean-forward="true" selection-start-line="288" selection-start-column="26" selection-end-line="288" selection-end-column="26" />
           <folding>
             <element signature="e#35#73#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/datamodel/Movement.js">
+    <entry file="file://$PROJECT_DIR$/utils/Controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="102" column="40" lean-forward="false" selection-start-line="102" selection-start-column="40" selection-end-line="102" selection-end-column="40" />
+        <state relative-caret-position="924">
+          <caret line="118" column="0" lean-forward="true" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/training/training.js">
+    <entry file="file://$PROJECT_DIR$/pages/records/records.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="167" column="10" lean-forward="false" selection-start-line="167" selection-start-column="10" selection-end-line="167" selection-end-column="10" />
-          <folding>
-            <element signature="e#20#58#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="460">
+          <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/records/RecordsPageFunctions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="117" column="54" lean-forward="false" selection-start-line="117" selection-start-column="44" selection-end-line="117" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -46,7 +46,7 @@ Page({
         // 3D 数组，用来存放动作组数，次数和重量
         movementNoMultiArray: [],
         // 数量选择索引
-        multiMovementNoIndex: [5, 9, 19,0],
+        multiMovementNoIndex: [5, 9, 19, 0],
 
         // 组件控制
         scrollY: true,
@@ -126,6 +126,7 @@ Page({
 
         var selectedRowArr = e.detail.value;
 
+        // 获取当前页面用户的输入
         var planGpCount = parseInt(this.data.movementNoMultiArray[0][selectedRowArr[0]]);
         var planCount = parseInt(this.data.movementNoMultiArray[1][selectedRowArr[1]]);
         var planWeight = parseInt(this.data.movementNoMultiArray[2][selectedRowArr[2]]);
@@ -133,21 +134,29 @@ Page({
 
         var allHolder = this.data.allMovementsHolder;
 
+        // 取得用户正在修改的动作
         var movement = allHolder[this.data.selectedPartId - 1][this.data.selectedMovementId - 1];
-        movement.contents.planGpCount = planGpCount;
-        movement.contents.details = [];
+
+        // 判断用户输入的组数是否小于已经完成的，如果小于showToast，并且返回
+        if (parseInt(movement.contents.curFinishedGpCount) > planGpCount) {
+            util.showToast("新组数不应该小于已经完成的组数~~", this, 2000);
+            return;
+        }
+
         console.log("in onNumberChange, picker: ", planGpCount + "组, ", planCount + "次, ", +planWeight, measurement);
 
-        for (var idx = 0; idx < planGpCount; idx++) {
-            var record = new RecordFactory.DetailRecord(idx + 1,
-                planCount,
-                planWeight,
-                0,
-                0);
+        // 只替换没有完成的部分，先把后面没完成的部分甩掉
+        // 如果是增加了组数，那么要看idx和现有的组数关系，否则有越界的可能
+        movement.contents.details.splice(movement.contents.curFinishedGpCount);
+        for (var idx = movement.contents.curFinishedGpCount; idx < planGpCount; idx++) {
+            var record = new RecordFactory.DetailRecord(idx + 1, planCount, planWeight, 0, 0);
             record.measurement = measurement;
             movement.contents.details.push(record);
 
         }
+
+        movement.contents.planGpCount = planGpCount;
+
         allHolder[this.data.selectedPartId - 1][this.data.selectedMovementId - 1] = movement;
 
         // 重新置为选中
@@ -276,7 +285,7 @@ Page({
                     }
                     for (var mvId = 0; mvId < allHolder[partIdx].length; mvId++) {
                         if (item.mvInfo.mvName === allHolder[partIdx][mvId].mvInfo.mvName) {
-                            console.log("in initRecords, ", allHolder[partIdx][mvId].mvInfo.mvName);
+                            // console.log("in initRecords, ", allHolder[partIdx][mvId].mvInfo.mvName);
                             bodyPartList.partList[partIdx].actionList[mvId].actionSelected = true;
                             allHolder[partIdx][mvId] = item;
                         }
@@ -348,7 +357,7 @@ Page({
         var array0 = [];
         var array1 = [];
         var array2 = [];
-        var array3 = ["Kg","Lbs"];
+        var array3 = ["Kg", "Lbs"];
 
         for (var idx = 0; idx < 200; idx++) {
             array0.push((idx + 1) + "组");

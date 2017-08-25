@@ -24,7 +24,7 @@
         <view class="topPanelRight">
             <view class="title">计划内容</view>
             <scroll-view class="topScrollview" scroll-y="true">
-                <view class="listSingleMovement" wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" class='bodypart-item'>
+                <view class="listSingleMovement" wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" wx:key="{{item.id}}" class='bodypart-item'>
                     <!-- <view class="graySpace"></view> -->
 
                     <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
@@ -58,7 +58,7 @@
             <view class="middlePanelLeft_InnerLeft">
                 <view class="title">已经完成</view>
                 <scroll-view class="middleRecorderScrollview" scroll-into-view="{{scorllinTo}}" scroll-y="true">
-                    <view class="listSingleMovement" wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" class='bodypart-item'>
+                    <view class="listSingleMovement" wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" wx:key="{{item.id}}" class='bodypart-item'>
 
                         <view id='{{item.id}}' class="{{item.id==curSelectedRecordId?'detailsItemSelected':'detailsItem'}}" bindtap="onSelectFinishedDetails" wx:if="{{item.actualCount!=0 && item.acutalWeight!=0}}">
                             <view class="scrollItemContainer">
@@ -112,7 +112,7 @@
                     <view class=".middlePanelRight_row3_right_row3" wx:if="{{curRecords.movementList[curSelectedMovementId-1].contents.finished}}">
                         <text>整套动作感觉</text>
                         <view class="imageContainer">
-                            <view style="height:120rpx" wx:for="{{totalScoreStarArray}}">
+                            <view style="height:120rpx" wx:for="{{totalScoreStarArray}}" wx:key="*this">
                                 <image value="{{item.id}}" id="{{item.id}}" class="image_star" bindtap="onMovementScore" src="{{item.src}}"></image>
 
                             </view>

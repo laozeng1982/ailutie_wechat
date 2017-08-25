@@ -141,8 +141,8 @@ Page({
         var curRecords = this.data.curRecords;
         var curMovmentIdx = this.data.curSelectedMovementId - 1;
         var measurement = curRecords.movementList[curMovmentIdx].contents.details[0].measurement;
-        console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount));
-        console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount));
+        // console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount));
+        // console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount));
         if (parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount)
             < parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount)) {
 
@@ -408,7 +408,7 @@ Page({
             this.getArrayIndex(planWeight, this.data.groupScoreMultiArray[1]),
             2
         ];
-        console.log("in setPickerIndex, ", planCount, planWeight);
+        // console.log("in setPickerIndex, ", planCount, planWeight);
         // 重置索引
         this.setData({
             actualCount: planCount,

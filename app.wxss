@@ -11,6 +11,13 @@
   font-family: "微软雅黑";
 }
 
+.generalContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "微软雅黑";
+}
+
 page {
   /* background-color: #eee; */
   display: flex;

@@ -106,16 +106,17 @@ class Controller {
                         userInfo.hasPlanDateList.push(dataToSave.date);
                     // 根据时间和组的感觉来判断是否执行计划
                     // 过了今天的数据，一概不能编辑
-                    var isToday = util.formatDateToString(new Date()) == dataToSave.date;
+                    var isToday = util.formatDateToString(new Date()) === dataToSave.date;
 
                     if (isToday)
                         for (var item of dataToSave.movementList) {
-                            if (typeof (item.contents.mvFeeling) != "undefined" &&
-                                item.contents.mvFeeling != "" &&
+                            if (typeof (item.contents.mvFeeling) !== "undefined" &&
+                                item.contents.mvFeeling !== "" &&
                                 !userInfo.hasTrainedDateList.includes(dataToSave.date)) {
                                 userInfo.hasTrainedDateList.push(dataToSave.date);
                             }
                         }
+
                 } else {
                     // 如果用户把这天数据删除了，找到记录里对应项删掉
                     var index = userInfo.hasPlanDateList.indexOf(dataToSave.date);
