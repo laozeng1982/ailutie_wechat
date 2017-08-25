@@ -2,39 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c04c828-cb55-44f6-af98-1852d5dda9bc" name="Default" comment="改界面前最后一版，这个交互实在太难用了。">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/arm2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/bq_2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/card.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/friend_r.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/friends.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/friends_2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/gouwu.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/label.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/laidawo.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/money.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/newFriend.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/note.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/note_2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/photo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/sc_2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/setting.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/yaoyiyao.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/youxi.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pages/listplan/plan.js" afterPath="$PROJECT_DIR$/pages/plan/plan.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pages/listplan/plan.json" afterPath="$PROJECT_DIR$/pages/plan/plan.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pages/listplan/plan.wxml" afterPath="$PROJECT_DIR$/pages/plan/plan.wxml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pages/listplan/plan.wxss" afterPath="$PROJECT_DIR$/pages/plan/plan.wxss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/image/mine_selected.png" afterPath="$PROJECT_DIR$/pages/image/mine_selected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.json" afterPath="$PROJECT_DIR$/app.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.wxss" afterPath="$PROJECT_DIR$/app.wxss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/RecordsPageFunctions.js" afterPath="$PROJECT_DIR$/pages/records/RecordsPageFunctions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/records.js" afterPath="$PROJECT_DIR$/pages/records/records.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/records.wxml" afterPath="$PROJECT_DIR$/pages/records/records.wxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/records.wxss" afterPath="$PROJECT_DIR$/pages/records/records.wxss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/settings.js" afterPath="$PROJECT_DIR$/pages/settings/settings.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/settings.wxml" afterPath="$PROJECT_DIR$/pages/settings/settings.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/Movement.js" afterPath="$PROJECT_DIR$/datamodel/Movement.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/plan.js" afterPath="$PROJECT_DIR$/pages/plan/plan.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/plan.wxml" afterPath="$PROJECT_DIR$/pages/plan/plan.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/plan.wxss" afterPath="$PROJECT_DIR$/pages/plan/plan.wxss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.js" afterPath="$PROJECT_DIR$/pages/training/training.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxml" afterPath="$PROJECT_DIR$/pages/training/training.wxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxss" afterPath="$PROJECT_DIR$/pages/training/training.wxss" />
@@ -85,8 +57,8 @@
       <file leaf-file-name="plan.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/plan/plan.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="176" column="32" lean-forward="false" selection-start-line="176" selection-start-column="32" selection-end-line="176" selection-end-column="32" />
+            <state relative-caret-position="143">
+              <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
               <folding>
                 <element signature="e#35#73#0" expanded="true" />
               </folding>
@@ -94,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="training.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="training.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pages/training/training.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="545">
-              <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+            <state relative-caret-position="361">
+              <caret line="167" column="10" lean-forward="false" selection-start-line="167" selection-start-column="10" selection-end-line="167" selection-end-column="10" />
               <folding>
                 <element signature="e#20#58#0" expanded="true" />
               </folding>
@@ -129,18 +101,18 @@
       <file leaf-file-name="Movement.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datamodel/Movement.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1518">
-              <caret line="66" column="40" lean-forward="false" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
+            <state relative-caret-position="552">
+              <caret line="102" column="40" lean-forward="false" selection-start-line="102" selection-start-column="40" selection-end-line="102" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="72" column="29" lean-forward="true" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
+            <state relative-caret-position="648">
+              <caret line="131" column="0" lean-forward="true" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
               <folding>
                 <element signature="e#27#61#0" expanded="true" />
               </folding>
@@ -272,7 +244,6 @@
         <option value="$PROJECT_DIR$/datamodel/SystemSetting.js" />
         <option value="$PROJECT_DIR$/datamodel/BodyPart.js" />
         <option value="$PROJECT_DIR$/datamodel/RecordFactory.js" />
-        <option value="$PROJECT_DIR$/datamodel/Movement.js" />
         <option value="$PROJECT_DIR$/datamodel/DailyRecords.js" />
         <option value="$PROJECT_DIR$/pages/ui/modal/PlanModal.js" />
         <option value="$PROJECT_DIR$/pages/records/records_funtions.js" />
@@ -281,12 +252,13 @@
         <option value="$PROJECT_DIR$/pages/ui/modal/RecordsModal.js" />
         <option value="$PROJECT_DIR$/utils/Controller.js" />
         <option value="$PROJECT_DIR$/pages/ui/calender/calender.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/pages/records/records.js" />
         <option value="$PROJECT_DIR$/pages/records/RecordsPageFunctions.js" />
-        <option value="$PROJECT_DIR$/pages/training/training.js" />
+        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/pages/plan/plan.js" />
+        <option value="$PROJECT_DIR$/datamodel/Movement.js" />
+        <option value="$PROJECT_DIR$/pages/training/training.js" />
       </list>
     </option>
   </component>
@@ -518,12 +490,12 @@
       <workItem from="1503569307742" duration="754000" />
       <workItem from="1503582123747" duration="4538000" />
       <workItem from="1503595771896" duration="3053000" />
-      <workItem from="1503624469263" duration="10632000" />
+      <workItem from="1503624469263" duration="13337000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182703000" />
+    <option name="totallyTimeSpent" value="185408000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -895,14 +867,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/ui/modal/RecordsModal.wxml" />
-    <entry file="file://$PROJECT_DIR$/datamodel/Movement.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1518">
-          <caret line="66" column="40" lean-forward="false" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/ui/modal/RecordsModal.js" />
     <entry file="file://$PROJECT_DIR$/pages/ui/calender/calender.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -951,32 +915,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/training/training.js">
+    <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+        <state relative-caret-position="648">
+          <caret line="131" column="0" lean-forward="true" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
           <folding>
-            <element signature="e#20#58#0" expanded="true" />
+            <element signature="e#27#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/plan/plan.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="176" column="32" lean-forward="false" selection-start-line="176" selection-start-column="32" selection-end-line="176" selection-end-column="32" />
+        <state relative-caret-position="143">
+          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding>
             <element signature="e#35#73#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/datamodel/Movement.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="72" column="29" lean-forward="true" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
+        <state relative-caret-position="552">
+          <caret line="102" column="40" lean-forward="false" selection-start-line="102" selection-start-column="40" selection-end-line="102" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/training/training.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="167" column="10" lean-forward="false" selection-start-line="167" selection-start-column="10" selection-end-line="167" selection-end-column="10" />
           <folding>
-            <element signature="e#27#61#0" expanded="true" />
+            <element signature="e#20#58#0" expanded="true" />
           </folding>
         </state>
       </provider>

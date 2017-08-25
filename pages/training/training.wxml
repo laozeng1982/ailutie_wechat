@@ -99,7 +99,7 @@
             </view>
 
             <view class="middlePanelRight_row3">
-                <picker style="width: 100%;height: 120rpx" mode="multiSelector" bindchange="onGroupScore" value="{{groupScoreIndex}}" range="{{groupScoreMultiArray}}">
+                <picker style="width: 100%;height: 100rpx" mode="multiSelector" bindchange="onGroupScore" value="{{groupScoreIndex}}" range="{{groupScoreMultiArray}}">
                     <view class="scrollItemContainer">
                         <view class="pickerItem"> {{actualCount}} 次 </view>
                         <view class="pickerItem"> {{actualWeight}} Kg </view>
@@ -107,22 +107,26 @@
                     </view>
                 </picker>
 
-                <view class="whiteSpace"></view>
+                <!-- <view class="whiteSpace"></view> -->
+                <view style="height:200rpx">
+                    <view class=".middlePanelRight_row3_right_row3" wx:if="{{curRecords.movementList[curSelectedMovementId-1].contents.finished}}">
+                        <text>整套动作感觉</text>
+                        <view class="imageContainer">
+                            <view style="height:120rpx" wx:for="{{totalScoreStarArray}}">
+                                <image value="{{item.id}}" id="{{item.id}}" class="image_star" bindtap="onMovementScore" src="{{item.src}}"></image>
 
-                <view class="middlePanelLeft_InnerLeft">
-                    <text>整套动作感觉</text>
-                    <view class="imageContainer">
-                        <view class="classname" wx:for="{{totalScoreStarArray}}">
-                            <image value="{{item.id}}" id="{{item.id}}" class="image_star" bindtap="onMovementScore" src="{{item.src}}"></image>
+                            </view>
 
                         </view>
-
                     </view>
                 </view>
-
+                <view style="height: 100rpx; width:100%">
+                    <button class="recordBtn" style="width:80%; height:90rpx; background:green" bindtap="onRecordBtnTap">记录</button>
+                </view>
 
             </view>
-            <button class="recordBtn" style="width: 80%;background: green" bindtap="onRecordBtnTap">记录</button>
+
+
         </view>
     </view>
 

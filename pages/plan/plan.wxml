@@ -33,9 +33,9 @@
 
                         <view id='{{item.partId}}' class='bodypart'>
                             <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
-                            <view class="{{item.partId%2==0?'bodypartCornor1':'bodypartCornor2'}} {{item.selected?'bodypartSelected':''}} {{item.partId==selectedPartId?'bodypartHighlight':''}}" data-index="{{index}}">
+                            <view class="bodypartRectangle {{item.selected?'bodypartSelected':''}} {{item.partId==selectedPartId?'bodypartHighlight':''}}" data-index="{{index}}">
                                 <!-- <view class="graySpace"></view> -->
-
+                                <!-- {{item.partId%2==0?'bodypartCornor1':'bodypartCornor2'}} -->
                                 <view id='{{item.partId}}' class="bodypartName" bindtap="onBodyPartTap">
                                     <radio id='{{item.partId}}' value="{{item.partId}}" checked="{{item.partId==selectedPartId}}" />
                                     <view class="bodypartInnerName">{{item.partName}}</view>
@@ -60,8 +60,9 @@
                     <view id='{{item.actionId}}' class='movement'>
                         <view class="graySpace"></view>
                         <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
-                        <view class="{{item.actionId%2==0?'movementCornor1':'movementCornor2'}} {{item.actionSelected?'movementSelected':''}} {{item.actionId===selectedMovementId&&item.actionSelected?'movementHighlight':''}}" data-index="{{index}}">
+                        <view class="movementRectangle {{item.actionSelected?'movementSelected':''}} {{item.actionId===selectedMovementId&&item.actionSelected?'movementHighlight':''}}" data-index="{{index}}">
                             <!-- <view class="graySpace"></view> -->
+                            <!-- {{item.actionId%2==0?'movementCornor1':'movementCornor2'}} -->
 
                             <view id='{{item.actionId}}' class="movementName" bindtap="onMovementTap">
                                 <view class="movementInnerItem">{{item.actionId}}</view>

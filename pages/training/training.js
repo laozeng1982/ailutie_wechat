@@ -176,6 +176,7 @@ Page({
             curRecords.movementList[curMovmentIdx].contents.details.push(record);
 
             curRecords.movementList[curMovmentIdx].contents.actualGpCount = curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount;
+            curRecords.movementList[curMovmentIdx].contents.finished = true;
             curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.getMvFeeling();
 
         }

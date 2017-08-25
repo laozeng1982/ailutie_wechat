@@ -155,6 +155,20 @@
     border-top-right-radius: 10px;
 }
 
+.bodypartRectangle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 90rpx;
+    border: 1px solid darkgray;
+    /* background: #b2b2b2;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+}
+
 .bodypartSelected {
     display: flex;
     flex-direction: row;
@@ -251,6 +265,19 @@
     border-bottom-right-radius: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.movementRectangle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150rpx;
+    border: 1px solid darkgray;
+    /* border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
 }
 
 .movementSelected {

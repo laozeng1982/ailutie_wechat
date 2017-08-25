@@ -90,6 +90,7 @@ class Contents {
         this.planGpCount = '';
         this.actualGpCount = '';
         this.curFinishedGpCount = '';
+        this.finished = false;
         this.mvFeeling = '';    // 这个动作的感觉
         this.details = [];
     }
@@ -99,6 +100,7 @@ class Contents {
         this.planGpCount = content.planGpCount;
         this.actualGpCount = content.actualGpCount;
         this.curFinishedGpCount = content.curFinishedGpCount;
+        this.finished = content.finished;
         this.mvFeeling = content.mvFeeling;
         this.details = content.details;
     }

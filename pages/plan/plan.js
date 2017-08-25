@@ -44,9 +44,9 @@ Page({
         Controller: '',
 
         // 3D 数组，用来存放动作组数，次数和重量
-        movementNoMultiArray: app.globalData.movementNoMultiArray,
+        movementNoMultiArray: [],
         // 数量选择索引
-        multiMovementNoIndex: [5, 6, 9],
+        multiMovementNoIndex: [5, 9, 19,0],
 
         // 组件控制
         scrollY: true,
@@ -343,7 +343,25 @@ Page({
 
         var result = this.refreshAllData();
 
+        var movementNoMultiArray = [];
+
+        var array0 = [];
+        var array1 = [];
+        var array2 = [];
+        var array3 = ["Kg","Lbs"];
+
+        for (var idx = 0; idx < 200; idx++) {
+            array0.push((idx + 1) + "组");
+            array1.push((idx + 1) + "次");
+            array2.push((idx + 1));
+        }
+        movementNoMultiArray.push(array0);
+        movementNoMultiArray.push(array1);
+        movementNoMultiArray.push(array2);
+        movementNoMultiArray.push(array3);
+
         this.setData({
+            movementNoMultiArray: movementNoMultiArray,
             bodyPartList: result[0],
             allMovementsHolder: result[1],
             Controller: new Controller.Controller(),
