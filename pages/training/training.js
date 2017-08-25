@@ -28,11 +28,19 @@ Page({
         actualCount: '',
         actualWeight: '',
         actualGpFeeling: '',
-        actualMvFeeling: 5, // 默认给5分，免得用户忘了选
+        actualMvFeeling: 3, // 默认给5分，免得用户忘了选
 
         // 1D数组用来存放一个动作的评分
         movementScoreArray: '',
         // mvFeelingIndex: 6,
+
+        totalScoreStarArray: [
+            {id: 1, src: "../image/start_checked.png", checked: true},
+            {id: 2, src: "../image/start_unchecked.png", checked: false},
+            {id: 3, src: "../image/start_unchecked.png", checked: false},
+            {id: 4, src: "../image/start_unchecked.png", checked: false},
+            {id: 5, src: "../image/start_unchecked.png", checked: false},
+        ],
 
         countSelector: [],
         weightSelector: [],
@@ -40,7 +48,7 @@ Page({
         // 3D 数组，用来存放动作次数、重量和评分
         groupScoreMultiArray: '',
         // 数量选择索引
-        groupScoreIndex: [7, 4, 6],
+        groupScoreIndex: [7, 4, 3],
 
         Controller: '',
         scrollY: true,
@@ -150,7 +158,7 @@ Page({
 
                     curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount++;
                     curRecords.movementList[curMovmentIdx].contents.actualGpCount = curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount;
-                    curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.data.actualMvFeeling;
+                    curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.getMvFeeling();
 
                     break;
                 }
@@ -170,7 +178,7 @@ Page({
             curRecords.movementList[curMovmentIdx].contents.details.push(record);
 
             curRecords.movementList[curMovmentIdx].contents.actualGpCount = curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount;
-            curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.data.actualMvFeeling;
+            curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.getMvFeeling();
 
         }
 
@@ -357,6 +365,40 @@ Page({
         console.log("in onMovementScore, e", this.data.curSelectedRecordId, ",  type: ", typeof(this.data.curSelectedRecordId));
     },
 
+    onMovementScore: function (e) {
+        console.log(e.currentTarget.id);
+        var index = parseInt(e.currentTarget.id);
+        var totalStars = this.data.totalScoreStarArray;
+        // 清零
+        for (var idx = 0; idx < 5; idx++) {
+            totalStars[idx].src = "../image/start_unchecked.png";
+            totalStars[idx].checked = false;
+        }
+
+        this.setData({
+            totalScoreStarArray: totalStars
+        });
+
+        // 点选
+        for (var idx = 0; idx < index; idx++) {
+            totalStars[idx].src = "../image/start_checked.png";
+            totalStars[idx].checked = true;
+        }
+
+        this.setData({
+            actualMvFeeling: index,
+            totalScoreStarArray: totalStars
+        });
+    },
+
+    getMvFeeling: function () {
+      var feeling = 0;
+      for (var item of this.data.totalScoreStarArray) {
+          if (item.checked)
+              feeling++;
+      }
+      return feeling;
+    },
 
     /**
      * 生命周期函数--监听页面加载
@@ -376,7 +418,7 @@ Page({
             weightSelector.push(idx);
         }
 
-        for (var idx = 1; idx <= 10; idx++) {
+        for (var idx = 1; idx <= 5; idx++) {
             groupScoreSelector.push(idx);
             mvScoreSelector.push(idx);
         }

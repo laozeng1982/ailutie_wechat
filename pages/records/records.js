@@ -16,12 +16,22 @@ Page({
 
         curRecords: '',
         today: '',
+        endDate: '',
         selectedDate: '',
         selectedWeek: '',
         curYear: 2017,
         curMonth: 0,
         curDate: '',
         weekArr: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+        weekList: [
+            {id: 0, value: '日', checked: false},
+            {id: 1, value: '一', checked: false},
+            {id: 2, value: '二', checked: false},
+            {id: 3, value: '三', checked: false},
+            {id: 4, value: '四', checked: false},
+            {id: 5, value: '五', checked: false},
+            {id: 6, value: '六', checked: false}
+        ],
         //保存当月的日期
         dateList: [],
         //保存有计划的日期
@@ -40,7 +50,7 @@ Page({
      * @param e
      */
     onDateSelected: function (e) {
-        this.data.Functions.selectDate(this, e );
+        this.data.Functions.selectDate(this, e);
     },
 
     /**
@@ -97,11 +107,16 @@ Page({
      */
     onModelChange: function (e) {
         console.log(e);
+        this.data.Functions.clearSelected(this, false);
         this.setData({
             selectedModel: parseInt(e.detail.value),
         });
 
         console.log("in onModelChange, set model to: ", this.data.selectedModel);
+    },
+
+    onDateChecked:function (e) {
+      console.log("in onDateChecked",e);
     },
 
     /**
@@ -111,7 +126,7 @@ Page({
     onConfirm: function (e) {
 
         // 最后执行！
-        this.data.Functions.clearSelected(this);
+        this.data.Functions.clearSelected(this, true);
 
     },
 
@@ -120,7 +135,7 @@ Page({
      * @param e
      */
     onCancel: function (e) {
-        this.data.Functions.clearSelected(this);
+        this.data.Functions.clearSelected(this, true);
 
     },
 
@@ -160,6 +175,8 @@ Page({
 
     },
 
+
+
     /**
      * 生命周期函数--监听页面加载
      */
@@ -168,6 +185,7 @@ Page({
         var Functions = new RecordsPageFunctions.RecordsPageFunctions();
         this.setData({
             today: today,
+            endDate: today,
             RECORDSMODAL: new RecordsModal.RecordsModal(),
             Functions: Functions
         });

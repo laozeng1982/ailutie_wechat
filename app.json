@@ -24,32 +24,32 @@
         "list": [
             {
                 "pagePath": "pages/index/index",
-                "iconPath": "pages/image/welcome1.png",
-                "selectedIconPath": "pages/image/welcome1.png",
+                "iconPath": "pages/image/Home_unselected.png",
+                "selectedIconPath": "pages/image/Home_selected.png",
                 "text": "首页"
             },
             {
                 "pagePath": "pages/records/records",
-                "iconPath": "pages/image/records_unselected.png",
-                "selectedIconPath": "pages/image/records_selected.png",
+                "iconPath": "pages/image/weekly_unselected.png",
+                "selectedIconPath": "pages/image/weekly_selected.png",
                 "text": "记录"
             },
             {
                 "pagePath": "pages/training/training",
-                "iconPath": "pages/image/find.png",
-                "selectedIconPath": "pages/image/find_2.png",
+                "iconPath": "pages/image/weightlifting_unselected.png",
+                "selectedIconPath": "pages/image/weightlifting_selected.png",
                 "text": "锻炼"
             },
             {
                 "pagePath": "pages/listplan/plan",
-                "iconPath": "pages/image/calender_unselect.png",
-                "selectedIconPath": "pages/image/calender_select.png",
+                "iconPath": "pages/image/Note_unselected.png",
+                "selectedIconPath": "pages/image/Note_selected.png",
                 "text": "计划"
             },
             {
                 "pagePath": "pages/settings/settings",
-                "iconPath": "pages/image/mine.png",
-                "selectedIconPath": "pages/image/mine_2.png",
+                "iconPath": "pages/image/mine_unselected.png",
+                "selectedIconPath": "pages/image/mine_selected.png",
                 "text": "我的"
             }
         ]

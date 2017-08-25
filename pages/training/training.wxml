@@ -107,14 +107,24 @@
                     </view>
                 </picker>
 
-                <view class="totalScore">
+                <view class="whiteSpace"></view>
+                <!-- <view class="totalScore">
                     <picker style="width: 100%" bindchange="onMovementScore" value="{{actualMvFeeling}}" range="{{movementScoreArray}}">
                         <view class="scrollItemContainer">
                             <view class="pickerItem"> 总体感觉: </view>
                             <view class="pickerItem"> {{actualMvFeeling}} 分 </view>
                         </view>
                     </picker>
+                </view> -->
+
+                <view class="imageContainer">
+                    <view class="classname" wx:for="{{totalScoreStarArray}}">
+                        <image value="{{item.id}}" id="{{item.id}}" class="image_star" bindtap="onMovementScore" src="{{item.src}}"></image>
+
+                    </view>
+
                 </view>
+
             </view>
             <button class="recordBtn" style="width: 80%;background: green" bindtap="onRecordBtnTap">记录</button>
         </view>

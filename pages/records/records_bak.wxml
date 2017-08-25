@@ -37,7 +37,7 @@
                 </view>
 
                 <text class="{{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected" bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</text>
-                <!--                 
+<!--                 
                 <view wx:for-item="{{dateListWithPlan}}" class="{{item.hasPlan?'image_overlay_middle':''}}">
                     <image class='image_overlay_middle' src="{{item.hasPlan?'../image/weightlifting_selected.png':''}}"></image>
                 </view> -->
@@ -69,20 +69,20 @@
     <view class="planAndActionContainer" wx:if="{{showDateLongPress}}">
         <view class="whiteSpaceNoBoder "></view>
 
-        <radio-group bindchange="onModelChange">
-            <view class="choiceItemContainer">
-                <view class="choiceItemInnerContainer">
+        <radio-group bindchange="onModelChange ">
+            <view class="choiceItemContainer ">
+                <view class="choiceItemInnerContainer ">
                     <view id="1 " class="choiceItem ">
                         <radio value="1 " checked="{{true}} " />
                         <view class="classname ">拷贝到这些天（多选，直接戳日期）</view>
                     </view>
                 </view>
 
-                <view class="choiceItemInnerContainerHigher">
+                <view class="choiceItemInnerContainerHigher ">
                     <view id="2 " class="choiceItem ">
                         <radio value="2 " checked="{{false}}" />
 
-                        <picker mode="date" value="{{endDate}}" start="{{today}} " end="2099-12-31 " bindchange="onDateChange ">
+                        <picker mode="date " value="{{endDate}} " start="{{today}} " end="2099-12-31 " bindchange="onDateChange ">
                             <view class="classname ">设为每周N的计划，截止: {{endDate}}</view>
                         </picker>
                     </view>
@@ -113,4 +113,8 @@
         </view>
     </view>
 
+
+
+    <!-- 这是Modal -->
+    <include src="../ui/modal/RecordsModal.wxml" />
 </view>

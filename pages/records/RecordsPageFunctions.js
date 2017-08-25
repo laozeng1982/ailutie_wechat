@@ -15,7 +15,7 @@ const CONTROLLER = new Controller.Controller();
 class RecordsPageFunctions {
     constructor() {
         this.daysCountArr = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
+        this.weekArr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
         /**
          *
          * @param key
@@ -152,56 +152,71 @@ class RecordsPageFunctions {
 
         };
 
+        /**
+         *
+         * @param host
+         * @param e
+         */
         this.selectDate = function (host, e) {
-            if (host.data.selectedModel !== -1) {
-                var dateList = host.data.dateList;
-                for (var week = 0; week < dateList.length; week++) {
-                    for (var day = 0; day < dateList[week].length; day++) {
-                        // console.log(this.data.dateList[week][day]);
-                        if (dateList[week][day].value === e.currentTarget.dataset.date.value &&
-                            dateList[week][day].value !== host.data.selectedDate) {
-                            dateList[week][day].selected = !dateList[week][day].selected;
+            // 如果是拷贝模式，则启动日期多选方案
+            switch (host.data.selectedModel) {
+                case 1:
+                    // 拷贝到多天
+                    var dateList = host.data.dateList;
+                    for (var week = 0; week < dateList.length; week++) {
+                        for (var day = 0; day < dateList[week].length; day++) {
+                            // console.log(this.data.dateList[week][day]);
+                            if (dateList[week][day].value === e.currentTarget.dataset.date.value &&
+                                dateList[week][day].value !== host.data.selectedDate) {
+                                dateList[week][day].selected = !dateList[week][day].selected;
+                            }
                         }
                     }
-                }
 
-                host.setData({
-                    dateList: dateList
-                });
+                    host.setData({
+                        dateList: dateList
+                    });
 
-                var selectList = "";
-                for (var week = 0; week < dateList.length; week++) {
-                    for (var day = 0; day < dateList[week].length; day++) {
-                        if (dateList[week][day].selected) {
-                            selectList = selectList + " ," + (dateList[week][day].value);
+                    var selectList = "";
+                    for (var week = 0; week < dateList.length; week++) {
+                        for (var day = 0; day < dateList[week].length; day++) {
+                            if (dateList[week][day].selected) {
+                                selectList = selectList + " ," + (dateList[week][day].value);
+                            }
                         }
                     }
-                }
-                console.log("selectedList: ", selectList);
+                    console.log("selectedList: ", selectList);
+                    break;
+                case 2:
+                    // 拷贝到每周固定日期
+                    break;
+                case 3:
+                    // 删除，只能删除将来的计划
+                    break;
+                default:
+                    // 普通的选择日期
+                    var now = e.currentTarget.dataset.date.value.split('-');
+                    var curYear = parseInt(now[0]);
+                    var curMonth = parseInt(now[1]);
+                    var curDate = parseInt(now[2]);
 
-            } else {
-                var now = e.currentTarget.dataset.date.value.split('-');
-                var curYear = parseInt(now[0]);
-                var curMonth = parseInt(now[1]);
-                var curDate = parseInt(now[2]);
+                    var curRecords = CONTROLLER.loadData(e.currentTarget.dataset.date.value, DATATYPE.DailyRecords);
 
-                var curRecords = CONTROLLER.loadData(e.currentTarget.dataset.date.value, DATATYPE.DailyRecords);
+                    host.setData({
+                        curRecords: curRecords,
+                        selectedDate: e.currentTarget.dataset.date.value,
+                        selectedWeek: e.currentTarget.dataset.date.week,
+                        curYear: curYear,
+                        curMonth: curMonth,
+                        curDate: curDate
+                    });
 
-                host.setData({
-                    curRecords: curRecords,
-                    selectedDate: e.currentTarget.dataset.date.value,
-                    selectedWeek: e.currentTarget.dataset.date.week,
-                    curYear: curYear,
-                    curMonth: curMonth,
-                    curDate: curDate
-                });
-
-                app.globalData.selectedDate = util.getDateFromString(e.currentTarget.dataset.date.value, '-');
-                console.log(app.globalData.selectedDate);
+                    app.globalData.selectedDate = util.getDateFromString(e.currentTarget.dataset.date.value, '-');
+                    console.log(app.globalData.selectedDate);
             }
         };
 
-        this.clearSelected = function (host) {
+        this.clearSelected = function (host, exitCopyMode) {
             var dateList = host.data.dateList;
             for (var week = 0; week < dateList.length; week++) {
                 for (var day = 0; day < dateList[week].length; day++) {
@@ -211,11 +226,19 @@ class RecordsPageFunctions {
             }
 
             // 重置主控界面的状态
-            host.setData({
-                selectedModel: -1,
-                showDateLongPress: false,
-                dateList: dateList
-            });
+            if (exitCopyMode) {
+                host.setData({
+                    selectedModel: -1,
+                    showDateLongPress: false,
+                    dateList: dateList
+                });
+            } else {
+                host.setData({
+                    selectedModel: -1,
+                    dateList: dateList
+                });
+            }
+
         }
     }
 }
