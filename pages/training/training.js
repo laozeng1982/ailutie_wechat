@@ -24,15 +24,11 @@ Page({
         // 当前锻炼的组数，初始为第一个
         curSelectedRecordId: 0,
 
-        // 输入框里的次数和重量
+        // 控件关联值，输入框里的次数和重量
         actualCount: '',
         actualWeight: '',
         actualGpFeeling: '',
         actualMvFeeling: 3, // 默认给5分，免得用户忘了选
-
-        // 1D数组用来存放一个动作的评分
-        movementScoreArray: '',
-        // mvFeelingIndex: 6,
 
         totalScoreStarArray: [
             {id: 1, src: "../image/start_checked.png", checked: true},
@@ -109,6 +105,8 @@ Page({
             disableModifyBtn: true,
             disableRemoveBtn: true
         });
+
+        this.setPickerIndex();
 
         // 给全局变量设值，方便切换到计划的时候，直接高亮当前计划，方便修改
         app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.partName;
@@ -365,11 +363,15 @@ Page({
         console.log("in onMovementScore, e", this.data.curSelectedRecordId, ",  type: ", typeof(this.data.curSelectedRecordId));
     },
 
+    /**
+     * 响应用户点击动作评分
+     * @param e，点击事件，携带id，即为分数
+     */
     onMovementScore: function (e) {
         console.log(e.currentTarget.id);
         var index = parseInt(e.currentTarget.id);
         var totalStars = this.data.totalScoreStarArray;
-        // 清零
+        // 清零，否则不能由大分数改为小分数
         for (var idx = 0; idx < 5; idx++) {
             totalStars[idx].src = "../image/start_unchecked.png";
             totalStars[idx].checked = false;
@@ -391,13 +393,63 @@ Page({
         });
     },
 
+    /**
+     * 将动作评分的初始值设为计划的值，方便用户选取
+     */
+    setPickerIndex: function () {
+        var selectedMovement = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1];
+        // 获取当前计划的计划数据
+        var planCount = selectedMovement.contents.details[0].planCount;
+        var planWeight = selectedMovement.contents.details[0].planWeight;
+
+        var groupScoreIndex = [
+            this.getArrayIndex(planCount, this.data.groupScoreMultiArray[0]),
+            this.getArrayIndex(planWeight, this.data.groupScoreMultiArray[1]),
+            2
+        ];
+        console.log("in setPickerIndex, ", planCount, planWeight);
+        // 重置索引
+        this.setData({
+            actualCount: planCount,
+            actualWeight: planWeight,
+            actualGpFeeling: 3,
+            groupScoreIndex: groupScoreIndex
+        })
+    },
+
+    /**
+     *
+     * @param element
+     * @param array，单调递增的数组
+     * @returns {number}
+     */
+    getArrayIndex: function (element, array) {
+        var indexOfElement = -1;
+        if (element <= array[0]) {
+            indexOfElement = 0;
+        } else if (element >= array[array.length - 1]) {
+            indexOfElement = array.length - 1;
+        } else {
+            for (var idx = 1; idx < array.length - 1; idx++) {
+                if (element >= array[idx] && element <= array[idx + 1])
+                    indexOfElement = idx;
+            }
+        }
+
+        return indexOfElement;
+    },
+
+    /**
+     * 根据选择的星数，获取动作感觉评分
+     * @returns {number}
+     */
     getMvFeeling: function () {
-      var feeling = 0;
-      for (var item of this.data.totalScoreStarArray) {
-          if (item.checked)
-              feeling++;
-      }
-      return feeling;
+        var feeling = 0;
+        for (var item of this.data.totalScoreStarArray) {
+            if (item.checked)
+                feeling++;
+        }
+        return feeling;
     },
 
     /**
@@ -409,7 +461,6 @@ Page({
         var countSelector = [];
         var weightSelector = [];
         var groupScoreSelector = [];
-        var mvScoreSelector = [];
         for (var idx = 1; idx <= 150; idx++) {
             countSelector.push(idx);
         }
@@ -420,7 +471,7 @@ Page({
 
         for (var idx = 1; idx <= 5; idx++) {
             groupScoreSelector.push(idx);
-            mvScoreSelector.push(idx);
+
         }
 
         var groupScoreMultiArray = [countSelector, weightSelector, groupScoreSelector];
@@ -433,7 +484,6 @@ Page({
             countSelector: countSelector,
             weightSelector: weightSelector,
             groupScoreMultiArray: groupScoreMultiArray,
-            movementScoreArray: mvScoreSelector,
             Controller: this.data.Controller,
 
         });
@@ -451,6 +501,7 @@ Page({
 
     /**
      * 生命周期函数--监听页面显示
+     * 页面Load以后，动态加载和初始化信息
      */
     onShow: function () {
         // this.loadData();
@@ -477,6 +528,8 @@ Page({
                 ? app.globalData.selectedMvIdOnRecordPage : this.data.curSelectedMovementId
         });
 
+        this.setPickerIndex();
+
         // 重置全局变量，保证翻回Training页面时，能记住上次的位置
         app.globalData.selectedMvIdOnRecordPage = -1;
         console.log("Training page onShow call, this.data.curRecords: ", this.data.curRecords);
@@ -489,6 +542,10 @@ Page({
         this.data.Controller.saveData(util.formatDateToString(new Date()),
             DATATYPE.DailyRecords,
             this.data.curRecords);
+        // 如果直接由此界面通过Tab跳到了计划界面，那么将选中的动作置为当前动作，方便修改。
+        app.globalData.selectedDate = new Date();
+        app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.partName;
+        app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.mvName;
         console.log("Training page onHide call: data saved");
     },
 

@@ -38,7 +38,8 @@ Page({
         dateListWithPlan: [],
         Functions: '',
         // 日期上长按，出现Modal的控制器
-        RECORDSMODAL: '',
+
+        selectedMovementId: -1,
         showDateLongPress: false,
 
         // 控制器，只能为1,2,3
@@ -87,17 +88,19 @@ Page({
         console.log("in onDateLongPress, long press", e.currentTarget.dataset.date.value);
         var tmpRecords = this.data.Functions.loadData(e.currentTarget.dataset.date.value);
         if (tmpRecords.movementList.length === 0) {
-            util.showToast("兄弟，别闹，这天没数据啊！！！", this, 2000);
-            return;
+
+            wx.switchTab({
+                url: '../plan/plan',
+            });
+
+            app.globalData.selectedDate = util.getDateFromString(e.currentTarget.dataset.date.value, '-');
+
         } else {
             this.setData({
                 selectedModel: 1,
                 showDateLongPress: true,
             });
         }
-
-
-        // util.showToast("兄弟，你想干啥！！！", this, 2000);
 
     },
 
@@ -115,23 +118,39 @@ Page({
         console.log("in onModelChange, set model to: ", this.data.selectedModel);
     },
 
-    onDateChecked:function (e) {
-      console.log("in onDateChecked",e);
+    /**
+     * 拷贝计划页面，模式选2时，选择终止日期
+     * @param e
+     */
+    onDateChange: function (e) {
+        console.log("in onDateChange, ", e);
+        this.setData({
+            endDate: e.detail.value,
+        });
+
     },
 
     /**
-     * 这里是主要的处理逻辑
+     * 拷贝计划页面，模式选2时，
+     * @param e
+     */
+    onDateChecked: function (e) {
+        console.log("in onDateChecked, selected", e.currentTarget.id, e.detail.value);
+    },
+
+    /**
+     * 拷贝计划页面，点击确定后，这里是主要的处理逻辑
      * @param e
      */
     onConfirm: function (e) {
-
         // 最后执行！
+
         this.data.Functions.clearSelected(this, true);
 
     },
 
     /**
-     * 退出，相当于返回
+     * 退出，相当于返回，啥事都不干
      * @param e
      */
     onCancel: function (e) {
@@ -165,8 +184,11 @@ Page({
                     this.data.curRecords.movementList[e.currentTarget.id - 1].mvInfo.partName;
                 app.globalData.selectedMoveNameOnRecordPage =
                     this.data.curRecords.movementList[e.currentTarget.id - 1].mvInfo.mvName;
+                this.setData({
+                    selectedMovementId: e.currentTarget.id,
+                });
                 wx.switchTab({
-                    url: '../listplan/plan',
+                    url: '../plan/plan',
                 });
                 break;
             default:
@@ -174,7 +196,6 @@ Page({
         }
 
     },
-
 
 
     /**
@@ -190,6 +211,7 @@ Page({
             Functions: Functions
         });
         console.log("Records page onLoad call, this.data.today: ", this.data.today);
+        console.log("Records page onLoad call, this.data.today: ", app.CONTROLLER);
     },
 
     /**
@@ -234,6 +256,17 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
+        // 如果直接由此界面通过Tab跳到了计划界面
+        // 当选中这天有计划的时候，将选中的动作置为当前第一个动作，方便修改。
+        // 当选中这天没有计划的时候，把部位统一设置到“胸部”。
+        if (this.data.curRecords.movementList.length === 0) {
+            app.globalData.selectedPartNameOnRecordPage = "胸部";
+            app.globalData.selectedMoveNameOnRecordPage = -1;
+        } else if (this.data.selectedMovementId === -1) {
+            app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[0].mvInfo.partName;
+            app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[0].mvInfo.mvName;
+        }
+
         console.log("Records page onHide call, Nothing to be saved");
     },
 

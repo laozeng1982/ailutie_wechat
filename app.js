@@ -103,6 +103,7 @@ App({
     },
 
     globalData: {
+        // 定义一些通用的工具类
         Controller: '',
         StorageType: '',
 

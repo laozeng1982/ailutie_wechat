@@ -1,0 +1,8 @@
+<!--donation.wxml-->
+<view class="thisContainer">
+<text style="height: 120rpx">如果您愿意打赏一下，请扫描下面二维码。</text>
+<text style="height: 120rpx">多少随意，在此谢过。</text>
+
+<!-- <image style="height: 100%" src="../../image/donation_code.jpg"></image> -->
+</view>
+

@@ -99,7 +99,7 @@
             </view>
 
             <view class="middlePanelRight_row3">
-                <picker style="width: 100%" mode="multiSelector" bindchange="onGroupScore" value="{{groupScoreIndex}}" range="{{groupScoreMultiArray}}">
+                <picker style="width: 100%;height: 120rpx" mode="multiSelector" bindchange="onGroupScore" value="{{groupScoreIndex}}" range="{{groupScoreMultiArray}}">
                     <view class="scrollItemContainer">
                         <view class="pickerItem"> {{actualCount}} 次 </view>
                         <view class="pickerItem"> {{actualWeight}} Kg </view>
@@ -108,22 +108,18 @@
                 </picker>
 
                 <view class="whiteSpace"></view>
-                <!-- <view class="totalScore">
-                    <picker style="width: 100%" bindchange="onMovementScore" value="{{actualMvFeeling}}" range="{{movementScoreArray}}">
-                        <view class="scrollItemContainer">
-                            <view class="pickerItem"> 总体感觉: </view>
-                            <view class="pickerItem"> {{actualMvFeeling}} 分 </view>
-                        </view>
-                    </picker>
-                </view> -->
 
-                <view class="imageContainer">
-                    <view class="classname" wx:for="{{totalScoreStarArray}}">
-                        <image value="{{item.id}}" id="{{item.id}}" class="image_star" bindtap="onMovementScore" src="{{item.src}}"></image>
+                <view class="middlePanelLeft_InnerLeft">
+                    <text>整套动作感觉</text>
+                    <view class="imageContainer">
+                        <view class="classname" wx:for="{{totalScoreStarArray}}">
+                            <image value="{{item.id}}" id="{{item.id}}" class="image_star" bindtap="onMovementScore" src="{{item.src}}"></image>
+
+                        </view>
 
                     </view>
-
                 </view>
+
 
             </view>
             <button class="recordBtn" style="width: 80%;background: green" bindtap="onRecordBtnTap">记录</button>
@@ -133,9 +129,8 @@
     <!-- 点击动作详情的时候响应 -->
     <view class="middlePanel" wx:if="{{showDetails}}">
         <view class="tmp">
-            <image class='header-img' src="../image/laidawo.gif"></image>
-            <text style="font-size: 60rpx">你想知道啥。。。。</text>
-            <text style="font-size: 60rpx">续费了么？</text>
+            <text style="font-size: 60rpx">还在抓紧整理中。。。。</text>
+
         </view>
     </view>
 

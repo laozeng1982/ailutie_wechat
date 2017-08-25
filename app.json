@@ -1,7 +1,7 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/listplan/plan",
+        "pages/plan/plan",
         "pages/training/training",
         "pages/settings/settings",
         "pages/ui/calender/calender",
@@ -9,7 +9,16 @@
         "pages/signUp/signUp2nd/signUp2nd",
         "pages/signUp/signUp3rd/signUp3rd",
         "pages/signUp/signTerms/signTerms",
-        "pages/records/records"
+        "pages/records/records",
+        "pages/settings/userprofile/userprofile",
+        "pages/settings/system/system",
+        "pages/settings/about/about",
+        "pages/settings/friends/friends",
+        "pages/settings/userinfo/userinfo",
+        "pages/settings/food/food",
+        "pages/settings/donation/donation",
+        "pages/settings/favorite/favorite",
+        "pages/settings/knowledge/knowledge"
     ],
     "window": {
         "navigationBarBackgroundColor": "#333",
@@ -41,7 +50,7 @@
                 "text": "锻炼"
             },
             {
-                "pagePath": "pages/listplan/plan",
+                "pagePath": "pages/plan/plan",
                 "iconPath": "pages/image/Note_unselected.png",
                 "selectedIconPath": "pages/image/Note_selected.png",
                 "text": "计划"

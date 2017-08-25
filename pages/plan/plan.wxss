@@ -1,0 +1,502 @@
+/* plan.wxss */
+
+/** wxss **/
+
+.container1 {
+    display: flex inline-flex;
+    border-bottom: 1rpx solid #eee;
+}
+
+.thiscontainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "微软雅黑";
+}
+
+.topLabel {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.topLabelLeft {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 25%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.title {
+    display: flex;
+    height: 80rpx;
+    flex-direction: row;
+    align-items: center;
+    font-size: 40rpx;
+    font-weight: 500;
+    justify-content: space-around;
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #eee;
+    background: #888;
+    color: #fff;
+    /* background-color: #fff; */
+}
+
+.topLabelRight {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 75%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.tow-panel-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left-panel {
+    border-bottom: 1rpx solid #eee;
+    border-top: 1rpx solid #eee;
+    border-right: 1rpx solid #eee;
+    border-left: 1rpx solid #eee;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+.right-panel {
+    border-bottom: 1rpx solid #eee;
+    border-top: 1rpx solid #eee;
+    border-right: 1rpx solid #eee;
+    border-left: 1rpx solid #eee;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollview {
+    height: 1000rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+
+.listSingleMovement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 以下是左边BodyPart的样式 */
+
+.bodypart {
+    position: absolute;
+    display: flex;
+    align-content: center;
+    width: 100%;
+    height: 100rpx;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+}
+
+.bodypart-item {
+    width: 100%;
+    height: 105rpx;
+    /* border-bottom: 1rpx solid rgb(233, 233, 233); */
+    position: relative;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+/* 基数加底色 */
+
+.bodypartCornor1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 90rpx;
+    border: 1px solid darkgray;
+    background: #b2b2b2;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* 偶数用白底 */
+
+.bodypartCornor2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 90rpx;
+    border: 1px solid darkgray;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.bodypartSelected {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 90rpx;
+    border: 3px solid #09bb07;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.bodypartHighlight {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 90rpx;
+    border: 3px solid blue;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.bodypartName {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.bodypartInnerName {
+    font-size: 12pt;
+    width: 100%;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+/* ----- */
+
+/* 以下是右边Movement的样式 */
+
+.movement-item {
+    width: 100%;
+    height: 165rpx;
+    /* border-bottom: 1rpx solid rgb(233, 233, 233); */
+    position: relative;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+.movement {
+    position: absolute;
+    display: flex;
+    align-content: center;
+    width: 100%;
+    height: 150rpx;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+}
+
+/* 基数加底色 */
+
+.movementCornor1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150rpx;
+    border: 1px solid darkgray;
+    background: #b2b2b2;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* 偶数用白底 */
+
+.movementCornor2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150rpx;
+    border: 1px solid darkgray;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.movementSelected {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150rpx;
+    border: 3px solid #09bb07;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.movementHighlight {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150rpx;
+    border: 3px solid blue;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.movementName {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.movementInnerGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.movementInnerItem {
+    font-size: 12pt;
+    width: 40%;
+    /* border-right: 1rpx solid #eee; */
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.movementInnerName {
+    font-size: 12pt;
+    width: 100%;
+    height: 60rpx;
+    border-bottom: 2rpx solid #eee;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.slider {
+    padding-left: 10 rpx;
+    padding-right: 10rpx;
+    flex-grow: 4;
+}
+
+.pickergroup {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 2rem;
+    align-items: center;
+}
+
+.button-group {
+    display: flex;
+    width: 100%;
+    /* height: 40rpx; */
+    justify-content: center;
+    height: 2rem;
+    align-items: center;
+}
+
+.graySpace {
+    /* width: 90%; */
+    background: #fff;
+    font-size: 12px;
+    min-height: 30rpx;
+    border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx;
+}
+
+.slimSpace {
+    /* width: 90%; */
+    background: #fff;
+    font-size: 10rpx;
+    min-height: 10rpx;
+    border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx;
+}
+
+.space {
+    padding-left: 40rpx;
+    background: #eee;
+    height: 1rpx;
+}
+
+/* 增加按钮 */
+
+.addButton {
+    /* position: fixed; */
+    right: 40rpx;
+    bottom: 40rpx;
+    background: #333;
+    color: #fff;
+    font-weight: bold;
+    font-size: 60rpx;
+    width: 50rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    padding: 16rpx;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 2px #669;
+    z-index: 1000;
+}
+
+.dateButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    flex-grow: 4;
+}
+
+.dateMoveButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+}
+
+.btn-cancel {
+    width: 20%;
+    color: #666;
+    text-align: center;
+    border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+    width: 60%;
+    height: 100%;
+    color: #353535;
+    background: #09bb07;
+    text-align: center;
+    border-right: 1px solid #dedede;
+}
+
+.btn-del {
+    width: 20%;
+    color: #e64340;
+    text-align: center;
+}
+
+/* for movement items */
+
+.item_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    border-bottom-right-radius: 20rpx;
+    border-top-right-radius: 20rpx;
+}
+
+.header-img {
+    /* position: absolute; */
+    width: 110rpx;
+    height: 110rpx;
+    left: 20rpx;
+    top: 20rpx;
+    border-radius: 10%;
+    border-bottom-left-radius: 10rpx;
+    border-top-left-radius: 20rpx;
+}
+
+.header-imgbak {
+    position: absolute;
+    width: 110rpx;
+    height: 110rpx;
+    left: 20rpx;
+    top: 20rpx;
+    border-radius: 10%;
+}
+
+.user-name {
+    position: absolute;
+    left: 150rpx;
+    top: 20rpx;
+}
+
+.movement-text {
+    position: absolute;
+    left: 150rpx;
+    bottom: 20rpx;
+    font-size: 80%;
+    color: rgb(127, 127, 127);
+}
+
+.movement-menu {
+    position: absolute;
+    width: 100%;
+    height: 150rpx;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+
+.menu-delete {
+    position: absolute;
+    width: 150rpx;
+    height: 148rpx;
+    top: 1rpx;
+    right: 0;
+    background-color: rgb(255, 58, 50);
+    color: #fff;
+    text-align: center;
+    line-height: 150rpx;
+}
+
+.menu-mark {
+    position: absolute;
+    width: 200rpx;
+    height: 148rpx;
+    top: 1rpx;
+    right: 150rpx;
+    background-color: rgb(200, 199, 205);
+    color: #fff;
+    text-align: center;
+    line-height: 150rpx;
+}

@@ -72,34 +72,36 @@
         <radio-group bindchange="onModelChange">
             <view class="choiceItemContainer">
                 <view class="choiceItemInnerContainer">
-                    <view id="1 " class="choiceItem ">
-                        <radio value="1 " checked="{{true}} " />
-                        <view class="classname ">拷贝到这些天（多选，直接戳日期）</view>
+                    <view id="1" class="choiceItem">
+                        <radio value="1 " checked="{{true}}" />
+                        <view class="classname">拷贝当前计划到这些天（多选，戳日期选择）</view>
                     </view>
                 </view>
 
                 <view class="choiceItemInnerContainerHigher">
-                    <view id="2 " class="choiceItem ">
+                    <view id="2" class="choiceItem ">
                         <radio value="2 " checked="{{false}}" />
 
-                        <picker mode="date" value="{{endDate}}" start="{{today}} " end="2099-12-31 " bindchange="onDateChange ">
+                        <picker mode="date" value="{{endDate}}"  disabled="{{selectedModel!==2}}" start="{{today}} " end="2099-12-31 " bindchange="onDateChange">
                             <view class="classname ">设为每周N的计划，截止: {{endDate}}</view>
                         </picker>
                     </view>
-                    <view class="choiceItemCheckboxGroup ">
-                        <checkbox-group wx:for="{{weekList}}">
+                    <view class="choiceItemCheckboxGroup">
+                        <checkbox-group id="{{item.id}}"  wx:for="{{weekList}}" bindchange="onDateChecked">
                             <view id="{{item.id}}">
                                 {{item.value}}
-                                <checkbox value="{{item.value}} " checked="{{item.checked}}" />
+                                <label>
+                                <checkbox id="{{item.id}}" disabled="{{selectedModel!==2}}" value="{{item.value}}" checked="{{item.checked}}" />
+                                </label>
                             </view>
                         </checkbox-group>
                     </view>
                 </view>
 
                 <view class="choiceItemInnerContainer ">
-                    <view id="3 " class="choiceItem ">
-                        <radio value="3 " checked="{{false}} " />
-                        <view class="classname ">删除这天的计划</view>
+                    <view id="3" class="choiceItem">
+                        <radio value="3 " checked="{{false}}" />
+                        <view class="classname">删除这些天的计划（多选，戳日期选择）</view>
                     </view>
                 </view>
 
@@ -108,7 +110,7 @@
 
 
         <view class="button-group">
-            <button class="dateMoveButton" type="default" style="plain" bindtap="onCancel"> 取消</button>
+            <button class="dateMoveButton" type="default" style="plain" bindtap="onCancel"> 退出</button>
             <button class="dateMoveButton" type="default" bindtap="onConfirm">确定</button>
         </view>
     </view>

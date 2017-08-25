@@ -2,34 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c04c828-cb55-44f6-af98-1852d5dda9bc" name="Default" comment="改界面前最后一版，这个交互实在太难用了。">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/c1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/calender1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/calender_select.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/calender_unselect.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/find.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/find_2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/green_tri.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/head.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/lengjing.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/mine.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/mine_2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/naotou.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/piaoliuping.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/records_selected.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/records_unselected.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/saoyisao.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/training1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/wechat.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/wechat_2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/welcome1.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/image/sc_2.png" afterPath="$PROJECT_DIR$/pages/image/sc_2.png" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/arm2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/bq_2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/card.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/friend_r.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/friends.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/friends_2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/gouwu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/label.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/laidawo.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/money.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/newFriend.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/note.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/note_2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/photo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/sc_2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/setting.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/yaoyiyao.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/youxi.png" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/pages/listplan/plan.js" afterPath="$PROJECT_DIR$/pages/plan/plan.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/pages/listplan/plan.json" afterPath="$PROJECT_DIR$/pages/plan/plan.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/pages/listplan/plan.wxml" afterPath="$PROJECT_DIR$/pages/plan/plan.wxml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/pages/listplan/plan.wxss" afterPath="$PROJECT_DIR$/pages/plan/plan.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/image/mine_selected.png" afterPath="$PROJECT_DIR$/pages/image/mine_selected.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.json" afterPath="$PROJECT_DIR$/app.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.wxss" afterPath="$PROJECT_DIR$/app.wxss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/RecordsPageFunctions.js" afterPath="$PROJECT_DIR$/pages/records/RecordsPageFunctions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/records.js" afterPath="$PROJECT_DIR$/pages/records/records.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/records.wxml" afterPath="$PROJECT_DIR$/pages/records/records.wxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/records/records.wxss" afterPath="$PROJECT_DIR$/pages/records/records.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/settings.js" afterPath="$PROJECT_DIR$/pages/settings/settings.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/settings.wxml" afterPath="$PROJECT_DIR$/pages/settings/settings.wxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.js" afterPath="$PROJECT_DIR$/pages/training/training.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxml" afterPath="$PROJECT_DIR$/pages/training/training.wxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxss" afterPath="$PROJECT_DIR$/pages/training/training.wxss" />
@@ -60,7 +65,7 @@
       <file leaf-file-name="Controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3381">
+            <state relative-caret-position="299">
               <caret line="171" column="11" lean-forward="false" selection-start-line="171" selection-start-column="11" selection-end-line="171" selection-end-column="11" />
               <folding />
             </state>
@@ -70,7 +75,7 @@
       <file leaf-file-name="calender.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/ui/calender/calender.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3339">
+            <state relative-caret-position="3657">
               <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
               <folding />
             </state>
@@ -78,10 +83,10 @@
         </entry>
       </file>
       <file leaf-file-name="plan.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/listplan/plan.js">
+        <entry file="file://$PROJECT_DIR$/pages/plan/plan.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1071">
-              <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
+            <state relative-caret-position="315">
+              <caret line="176" column="32" lean-forward="false" selection-start-line="176" selection-start-column="32" selection-end-line="176" selection-end-column="32" />
               <folding>
                 <element signature="e#35#73#0" expanded="true" />
               </folding>
@@ -92,31 +97,20 @@
       <file leaf-file-name="training.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/training/training.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="383" column="63" lean-forward="false" selection-start-line="383" selection-start-column="63" selection-end-line="383" selection-end-column="63" />
+            <state relative-caret-position="545">
+              <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
               <folding>
                 <element signature="e#20#58#0" expanded="true" />
-                <marker date="1503597181231" expanded="true" signature="15617:15719" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="records.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="records.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/records/records.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-679">
-              <caret line="111" column="44" lean-forward="false" selection-start-line="111" selection-start-column="44" selection-end-line="111" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="records_bak.wxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/records/records_bak.wxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="113" column="11" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="119" selection-end-column="7" />
+            <state relative-caret-position="259">
+              <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -125,8 +119,8 @@
       <file leaf-file-name="RecordsPageFunctions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/records/RecordsPageFunctions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4872">
-              <caret line="238" column="19" lean-forward="false" selection-start-line="238" selection-start-column="19" selection-end-line="238" selection-end-column="19" />
+            <state relative-caret-position="-143">
+              <caret line="150" column="54" lean-forward="false" selection-start-line="150" selection-start-column="54" selection-end-line="150" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -135,22 +129,36 @@
       <file leaf-file-name="Movement.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datamodel/Movement.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1386">
+            <state relative-caret-position="1518">
               <caret line="66" column="40" lean-forward="false" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2499">
-              <caret line="122" column="31" lean-forward="false" selection-start-line="122" selection-start-column="31" selection-end-line="122" selection-end-column="31" />
+            <state relative-caret-position="440">
+              <caret line="72" column="29" lean-forward="true" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
               <folding>
                 <element signature="e#27#61#0" expanded="true" />
-                <marker date="1503573733412" expanded="true" signature="246:780" ph="{...}" />
-                <marker date="1503573733412" expanded="true" signature="4717:4723" ph="{&quot;Controller&quot;: ''...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+              <folding>
+                <marker date="1503639997859" expanded="true" signature="15:778" ph="[...]" />
+                <marker date="1503639997859" expanded="true" signature="794:926" ph="{&quot;navigationBarBackgroundColor&quot;: &quot;##333&quot;...}" />
+                <marker date="1503639997859" expanded="true" signature="1097:1322" ph="{&quot;pagePath&quot;: &quot;pages/index/index&quot;...}" />
+                <marker date="1503639997859" expanded="true" signature="1336:1569" ph="{&quot;pagePath&quot;: &quot;pages/records/records&quot;...}" />
+                <marker date="1503639997859" expanded="true" signature="1583:1832" ph="{&quot;pagePath&quot;: &quot;pages/training/training&quot;...}" />
               </folding>
             </state>
           </provider>
@@ -168,11 +176,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>multiScoreNoIndex</find>
-      <find>number</find>
-      <find>scoreSelector</find>
-      <find>groupScoreMultiArray</find>
-      <find>movementScoreMultiArray</find>
       <find>onShowDetails</find>
       <find>curSelectedMovementId</find>
       <find>curTrainActNumber</find>
@@ -183,7 +186,6 @@
       <find>isEx</find>
       <find>allMovementsList</find>
       <find>in onGroupModify, curSelectedMovementId</find>
-      <find>onMovementItemClick</find>
       <find>selectedMovementId</find>
       <find>plan page</find>
       <find>this.Controller</find>
@@ -196,8 +198,14 @@
       <find>星期</find>
       <find>cl</find>
       <find>today</find>
-      <find>actualMvFeeling</find>
       <find>onModelChange</find>
+      <find>listplan</find>
+      <find>onDateChange</find>
+      <find>movementScoreArray</find>
+      <find>actualMvFeeling</find>
+      <find>onMovementItemClick</find>
+      <find>movmentClickedTwice</find>
+      <find>wechatUserInfo</find>
     </findStrings>
     <replaceStrings>
       <replace>readInData</replace>
@@ -269,14 +277,16 @@
         <option value="$PROJECT_DIR$/pages/ui/modal/PlanModal.js" />
         <option value="$PROJECT_DIR$/pages/records/records_funtions.js" />
         <option value="$PROJECT_DIR$/utils/util.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/pages/listplan/plan.js" />
         <option value="$PROJECT_DIR$/pages/ui/modal/RecordsModal.js" />
         <option value="$PROJECT_DIR$/utils/Controller.js" />
         <option value="$PROJECT_DIR$/pages/ui/calender/calender.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/app.json" />
+        <option value="$PROJECT_DIR$/pages/records/records.js" />
         <option value="$PROJECT_DIR$/pages/records/RecordsPageFunctions.js" />
         <option value="$PROJECT_DIR$/pages/training/training.js" />
-        <option value="$PROJECT_DIR$/pages/records/records.js" />
+        <option value="$PROJECT_DIR$/pages/plan/plan.js" />
       </list>
     </option>
   </component>
@@ -294,10 +304,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1672" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1696" />
-    <option name="height" value="1066" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -330,6 +340,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -351,66 +362,15 @@
               <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
               <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="listplan" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="records" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="training" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="calender" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="modal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="toast" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
+              <item name="plan" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -558,11 +518,12 @@
       <workItem from="1503569307742" duration="754000" />
       <workItem from="1503582123747" duration="4538000" />
       <workItem from="1503595771896" duration="3053000" />
+      <workItem from="1503624469263" duration="10632000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172071000" />
+    <option name="totallyTimeSpent" value="182703000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -574,7 +535,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1672" y="-8" width="1696" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -589,8 +550,9 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32814237" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21629901" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2185501" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19308035" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22068231" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -603,7 +565,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19308035" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -653,13 +614,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/datamodel/DailyRecords.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/datamodel/BodyPart.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1239">
@@ -674,7 +628,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/listplan/plan.wxml">
+    <entry file="file://$PROJECT_DIR$/pages/plan/plan.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1554">
           <caret line="74" column="56" lean-forward="false" selection-start-line="74" selection-start-column="56" selection-end-line="74" selection-end-column="56" />
@@ -687,8 +641,6 @@
           <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
             <element signature="e#27#61#0" expanded="true" />
-            <marker date="1503573733412" expanded="true" signature="246:780" ph="{...}" />
-            <marker date="1503573733412" expanded="true" signature="4717:4723" ph="{&quot;Controller&quot;: ''...}" />
           </folding>
         </state>
       </provider>
@@ -722,7 +674,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/listplan/plan.js">
+    <entry file="file://$PROJECT_DIR$/pages/plan/plan.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6048">
           <caret line="288" column="13" lean-forward="true" selection-start-line="288" selection-start-column="13" selection-end-line="288" selection-end-column="13" />
@@ -753,7 +705,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/listplan/plan.wxml">
+    <entry file="file://$PROJECT_DIR$/pages/plan/plan.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1428">
           <caret line="68" column="56" lean-forward="false" selection-start-line="68" selection-start-column="56" selection-end-line="68" selection-end-column="56" />
@@ -788,8 +740,6 @@
           <caret line="37" column="74" lean-forward="false" selection-start-line="37" selection-start-column="74" selection-end-line="37" selection-end-column="74" />
           <folding>
             <element signature="e#27#61#0" expanded="true" />
-            <marker date="1503573733412" expanded="true" signature="246:780" ph="{...}" />
-            <marker date="1503573733412" expanded="true" signature="4717:4723" ph="{&quot;Controller&quot;: ''...}" />
           </folding>
         </state>
       </provider>
@@ -823,7 +773,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/listplan/plan.js">
+    <entry file="file://$PROJECT_DIR$/pages/plan/plan.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6930">
           <caret line="339" column="9" lean-forward="true" selection-start-line="339" selection-start-column="9" selection-end-line="339" selection-end-column="9" />
@@ -840,7 +790,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/listplan/plan.wxml">
+    <entry file="file://$PROJECT_DIR$/pages/plan/plan.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1428">
           <caret line="68" column="56" lean-forward="false" selection-start-line="68" selection-start-column="56" selection-end-line="68" selection-end-column="56" />
@@ -853,8 +803,6 @@
           <caret line="111" column="8" lean-forward="false" selection-start-line="111" selection-start-column="8" selection-end-line="111" selection-end-column="8" />
           <folding>
             <element signature="e#27#61#0" expanded="true" />
-            <marker date="1503573733412" expanded="true" signature="246:780" ph="{...}" />
-            <marker date="1503573733412" expanded="true" signature="4717:4723" ph="{&quot;Controller&quot;: ''...}" />
           </folding>
         </state>
       </provider>
@@ -874,7 +822,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/listplan/plan.wxml">
+    <entry file="file://$PROJECT_DIR$/pages/plan/plan.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1702">
           <caret line="74" column="56" lean-forward="false" selection-start-line="74" selection-start-column="56" selection-end-line="74" selection-end-column="56" />
@@ -946,31 +894,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2499">
-          <caret line="122" column="31" lean-forward="false" selection-start-line="122" selection-start-column="31" selection-end-line="122" selection-end-column="31" />
-          <folding>
-            <element signature="e#27#61#0" expanded="true" />
-            <marker date="1503573733412" expanded="true" signature="246:780" ph="{...}" />
-            <marker date="1503573733412" expanded="true" signature="4717:4723" ph="{&quot;Controller&quot;: ''...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/ui/modal/RecordsModal.wxml" />
     <entry file="file://$PROJECT_DIR$/datamodel/Movement.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1386">
+        <state relative-caret-position="1518">
           <caret line="66" column="40" lean-forward="false" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/Controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3381">
-          <caret line="171" column="11" lean-forward="false" selection-start-line="171" selection-start-column="11" selection-end-line="171" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -978,54 +906,78 @@
     <entry file="file://$PROJECT_DIR$/pages/ui/modal/RecordsModal.js" />
     <entry file="file://$PROJECT_DIR$/pages/ui/calender/calender.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3339">
+        <state relative-caret-position="3657">
           <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/listplan/plan.js">
+    <entry file="file://$PROJECT_DIR$/pages/records/records_bak.wxml" />
+    <entry file="file://$PROJECT_DIR$/app.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
+        <state relative-caret-position="276">
+          <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
           <folding>
-            <element signature="e#35#73#0" expanded="true" />
+            <marker date="1503639997859" expanded="true" signature="15:778" ph="[...]" />
+            <marker date="1503639997859" expanded="true" signature="794:926" ph="{&quot;navigationBarBackgroundColor&quot;: &quot;##333&quot;...}" />
+            <marker date="1503639997859" expanded="true" signature="1097:1322" ph="{&quot;pagePath&quot;: &quot;pages/index/index&quot;...}" />
+            <marker date="1503639997859" expanded="true" signature="1336:1569" ph="{&quot;pagePath&quot;: &quot;pages/records/records&quot;...}" />
+            <marker date="1503639997859" expanded="true" signature="1583:1832" ph="{&quot;pagePath&quot;: &quot;pages/training/training&quot;...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/Controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="171" column="11" lean-forward="false" selection-start-line="171" selection-start-column="11" selection-end-line="171" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/records/RecordsPageFunctions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4872">
-          <caret line="238" column="19" lean-forward="false" selection-start-line="238" selection-start-column="19" selection-end-line="238" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/training/training.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="383" column="63" lean-forward="false" selection-start-line="383" selection-start-column="63" selection-end-line="383" selection-end-column="63" />
-          <folding>
-            <element signature="e#20#58#0" expanded="true" />
-            <marker date="1503597181231" expanded="true" signature="15617:15719" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/records/records_bak.wxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="113" column="11" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="119" selection-end-column="7" />
+        <state relative-caret-position="-143">
+          <caret line="150" column="54" lean-forward="false" selection-start-line="150" selection-start-column="54" selection-end-line="150" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/records/records.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-679">
-          <caret line="111" column="44" lean-forward="false" selection-start-line="111" selection-start-column="44" selection-end-line="111" selection-end-column="44" />
+        <state relative-caret-position="259">
+          <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/training/training.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding>
+            <element signature="e#20#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/plan.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="176" column="32" lean-forward="false" selection-start-line="176" selection-start-column="32" selection-end-line="176" selection-end-column="32" />
+          <folding>
+            <element signature="e#35#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="72" column="29" lean-forward="true" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
+          <folding>
+            <element signature="e#27#61#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

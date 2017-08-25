@@ -1,135 +1,138 @@
 // settings.js
+/**
+ * “我的”界面主控，负责分发各个选项的跳转页面
+ */
 Page({
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    userInfo: {},
-    list: [
-      {
-        list_tool: [
-          {
-            img: "../../pages/image/photo.png",
-            name: "朋友圈"
-          },
-          {
-            img: "../../pages/image/money.png",
-            name: "个人状态记录",
-            url: "../audio/audio"
-          },
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        userInfo: {},
+        list: [
+            {
+                list_tool: [
+                    {
+                        img: "../../pages/image/vintage_camera_64px.png",
+                        name: "朋友圈",
+                        url: "friends/friends"
+                    },
+                    {
+                        img: "../../pages/image/friend_64px.png",
+                        name: "个人信息",
+                        url: "userinfo/userinfo"
+                    },
+                    {
+                        img: "../../pages/image/writing_64px.png",
+                        name: "个人状态记录",
+                        url: "userprofile/userprofile"
+                    },
+                ]
+            },
+            {
+                list_tool: [
+                    {
+                        img: "../../pages/image/information_64px.png",
+                        name: "健身知识（重点）",
+                        url: "knowledge/knowledge"
+                    },
+                    {
+                        img: "../../pages/image/burger_64px.png",
+                        name: "我们吃什么",//(三个页面：增肌、减脂和营养)
+                        url: "food/food"
+                    },
+                    {
+                        img: "../../pages/image/rate_64px.png",
+                        name: "收藏",
+                        url: "favorite/favorite"
+                    },
+                ]
+            },
+            {
+                list_tool: [
 
+                    {
+                        img: "../../pages/image/settings_64px.png",
+                        name: "软件设置",
+                        url: "system/system"
+                    },
+                    {
+                        img: "../../pages/image/support_64px.png",
+                        name: "关于我们",
+                        url: "about/about"
+                    },
+                    {
+                        img: "../../pages/image/yen_64px.png",
+                        name: "打赏~~",
+                        url: "donation/donation"
+                    },
+                ]
+            },
         ]
-      },
-      {
-        list_tool: [
-          {
-            img: "../../pages/image/card.png",
-            name: "收藏",
-            url: "../picker/picker"
+    },
 
-          },
-          {
-            img: "../../pages/image/money.png",
-            name: "健身知识（重点）",
-            url: "../audio/audio"
-          },
-          {
-            img: "../../pages/image/sc_2.png",
-            name: "我们吃什么(三个页面：增肌、减脂和营养)",
-            url: "../upload/upload"
-          }
-        ]
-      },
-      {
-        list_tool: [
-          {
-            img: "../../pages/image/bq_2.png",
-            name: "表情"
-          },
-          {
-            img: "../../pages/image/setting.png",
-            name: "设置（软件和基础信息）",
-            url: "../info/info"
-          }
-        ]
-      },
-      {
-        list_tool: [
-          {
-            img: "../../pages/image/money.png",
-            name: "打赏~~",
-            url: "../audio/audio"
-          },
-          {
-            img: "../../pages/image/card.png",
-            name: "卡包",
-            url: "../picker/picker"
-          }
-        ]
-      },
-    ]
-  },
+    goPage: function (event) {
+        console.log(event.currentTarget.dataset.log);
+        wx.navigateTo({
+            url: event.currentTarget.dataset.url
+        })
+    },
 
-  goPage: function (event) {
-    console.log(event.currentTarget.dataset.log);
-    wx.navigateTo({
-      url: event.currentTarget.dataset.url
-    })
-  },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        this.setData({
+            userInfo: getApp().globalData.wechatUserInfo,
+        });
+        console.log(userInfo);
+    },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function () {
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function () {
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function () {
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
+    },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function () {
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
+    },
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function () {
+
+    },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function () {
+
+    },
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function () {
+
+    }
 })
