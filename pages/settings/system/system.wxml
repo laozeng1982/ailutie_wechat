@@ -1,4 +1,31 @@
 <!--system.wxml-->
 <view class="generalContainer">
-    <text>还在努力中</text>
+    <view class="graySpace"></view>
+    <view class="rowContainerStart" style="font-size:50rpx">
+        <text>系统存储信息</text>
+    </view>
+
+    <view class="rowContainerBetween">
+        <text>当前已使用</text>
+        <text>{{storageInfo.currentSize}}KB</text>
+    </view>
+
+    <view class="rowContainerBetween">
+        <text>系统总容量</text>
+        <text>{{storageInfo.limitSize}}KB</text>
+    </view>
+
+    <view class="graySpace"></view>
+
+    <view class="rowContainerStart" style="font-size:50rpx">
+        <text>系统存储内容</text>
+    </view>
+
+    <scroll-view wx:for="{{storageInfo.keys}}" wx:key="{{index}}">
+        <view class="rowContainerBetween">
+            <view style="width:100rpx">{{index}}</view>
+            <view style="width:300rpx">{{item}}</view>
+            <image style="height:40rpx;width:40rpx" bindtap="onDelete" src="../../../pages/image/bin_64px.png"></image>
+        </view>
+    </scroll-view>
 </view>

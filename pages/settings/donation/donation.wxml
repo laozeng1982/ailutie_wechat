@@ -1,8 +1,12 @@
 <!--donation.wxml-->
-<view class="thisContainer">
-<text style="height: 120rpx">如果您愿意打赏一下，请扫描下面二维码。</text>
-<text style="height: 120rpx">多少随意，在此谢过。</text>
 
-<!-- <image style="height: 100%" src="../../image/donation_code.jpg"></image> -->
+<view class="generalContainer">
+<view class="graySpace"></view>
+    <text style="height: 120rpx">亲爱的用户，感谢您使用，“我们爱撸铁”</text>
+    <text style="height: 120rpx">这款小程序是免费使用的，希望您喜欢。</text>
+    <text style="height: 120rpx">如果您愿意打赏一下，请扫描下面二维码。</text>
+    <text style="height: 120rpx">多少随意，在此谢过。祝健身愉快。</text>
+    <!-- <text style="height: 120rpx"></text> -->
+
+     <!-- <image style="height: 100%" src="../../image/donation_code.jpg"></image>  -->
 </view>
-

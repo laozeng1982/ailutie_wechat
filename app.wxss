@@ -568,3 +568,33 @@ page {
 }
 
 /*toast end*/
+
+/* 通用设置 */
+
+.rowContainerStart {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    border-bottom: 1rpx solid #bebebe;
+}
+
+.rowContainerEnd {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-bottom: 1rpx solid #bebebe;
+}
+
+.rowContainerAround {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-bottom: 1rpx solid #bebebe;
+}
+
+.rowContainerBetween {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #bebebe;
+}

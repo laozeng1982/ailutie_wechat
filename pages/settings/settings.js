@@ -11,11 +11,11 @@ Page({
         list: [
             {
                 list_tool: [
-                    {
-                        img: "../../pages/image/vintage_camera_64px.png",
-                        name: "朋友圈",
-                        url: "friends/friends"
-                    },
+                    // {
+                    //     img: "../../pages/image/vintage_camera_64px.png",
+                    //     name: "朋友圈",
+                    //     url: "friends/friends"
+                    // },
                     {
                         img: "../../pages/image/friend_64px.png",
                         name: "个人信息",

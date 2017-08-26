@@ -209,7 +209,13 @@ class RecordsPageFunctions {
                 break;
             default:
                 // 普通的选择日期
-                var now = e.currentTarget.dataset.date.value.split('-');
+                var now;
+                console.log(typeof (e));
+                if (typeof (e) === "string")
+                    now = util.formatDateToString(new Date());
+                else
+                    now = e.currentTarget.dataset.date.value.split('-');
+
                 var curYear = parseInt(now[0]);
                 var curMonth = parseInt(now[1]);
                 var curDate = parseInt(now[2]);

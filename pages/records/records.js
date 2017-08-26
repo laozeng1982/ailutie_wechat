@@ -86,17 +86,23 @@ Page({
      */
     onDateLongPress: function (e) {
         console.log("in onDateLongPress, long press", e);
+        this.setData({
+            selectedDate: e.currentTarget.dataset.date.value
+        });
         console.log("in onDateLongPress, long press", e.currentTarget.dataset.date.value);
         var tmpRecords = this.data.Functions.loadData(e.currentTarget.dataset.date.value);
-        if (tmpRecords.movementList.length === 0) {
+        // 没有计划，并且日期没有过期
+        if (tmpRecords.movementList.length === 0 ) {
+            if (util.dateDirection(e.currentTarget.dataset.date.value) !== -1) {
+                console.log("fuck");
+                app.globalData.selectedDate = util.getDateFromString(e.currentTarget.dataset.date.value, '-');
+                wx.switchTab({
+                    url: '../plan/plan',
+                });
 
-            wx.switchTab({
-                url: '../plan/plan',
-            });
-
-            app.globalData.selectedDate = util.getDateFromString(e.currentTarget.dataset.date.value, '-');
-
-        } else {
+            }
+        }
+        else {
             this.setData({
                 selectedModel: 1,
                 showDateLongPress: true,

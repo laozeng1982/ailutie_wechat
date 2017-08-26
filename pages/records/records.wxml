@@ -5,9 +5,21 @@
     <include src="../ui/toast/toast.wxml" />
 
     <view class="button-group">
-        <button class="dateMoveButton" type="default" bindtap="onLastMonth"> 上月</button>
-        <button class="dateButton" type="default" bindtap="onToToday">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</button>
-        <button class="dateMoveButton" type="default" bindtap="onNextMonth">下月</button>
+
+         <view class="graySpace"></view>
+        <image class="dateMoveButton" bindtap="onLastMonth" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
+        <!-- <button class="dateMoveButton" type="default" bindtap="onLastMonth"> 上月</button> -->
+
+        <view class="dateButton" bindtap="onToToday">
+            <text style="font-size: 40rpx;">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</text>
+        </view>
+        <!-- <button class="dateButton" type="default" bindtap="onToToday">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</button> -->
+      
+        <image class="dateMoveButton" bindtap="onNextMonth" src="../../pages/image/double_arrows_blod_right_64px.png"></image>
+        <!-- <button class="dateMoveButton" type="default" bindtap="onNextMonth">下月</button> -->
+       
+
+        <view class="graySpace"></view>
     </view>
 
     <!-- 日历面板 -->
