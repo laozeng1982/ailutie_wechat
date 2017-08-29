@@ -49,7 +49,7 @@
                     <image class='image_overlay_left' src="{{item.hasPlan?'../image/weightlifting1.png':''}}"></image>
                 </view> -->
 
-                <text class="{{item.hasPlan?'plan_date':''}} {{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected" bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</text>
+                <view class="{{!item.inThisMonth?'not_in_this_month_date':''}} {{item.hasPlan?'plan_date':''}} {{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected" bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</view>
 
                 <!-- 有锻炼记录的日期 -->
                 <view wx:for-item="{{dateListWithTraining}}" class="{{item.hasTrained?'image_overlay_left':''}}">
@@ -120,7 +120,7 @@
                         <radio value="2 " checked="{{false}}" />
 
                         <picker mode="date" value="{{endDate}}" disabled="{{selectedModel!==2}}" start="{{today}} " end="2099-12-31 " bindchange="onDateChange">
-                            <view class="classname ">设为每周N的计划，截止: {{endDate}}</view>
+                            <view class="classname ">拷贝为每周N的计划，截止: {{endDate}}</view>
                         </picker>
                     </view>
                     <view class="choiceItemCheckboxGroup">
@@ -147,8 +147,8 @@
 
 
         <view class="button-group">
-            <button class="dateMoveButton" type="default" style="plain" bindtap="onCancel"> 退出</button>
-            <button class="dateMoveButton" type="default" bindtap="onConfirm">确定</button>
+            <button class="operationButton" type="default" style="plain" bindtap="onCancel"> 退出</button>
+            <button class="operationButton" type="default" bindtap="onConfirm">确定</button>
         </view>
     </view>
 

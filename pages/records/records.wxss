@@ -88,12 +88,11 @@
 }
 
 .image_overlay_middle {
-  position: absolute;
+    position: absolute;
     display: flex;
     width: 64rpx;
     height: 64rpx;
     top: 0;
-    
     z-index: 100;
     /* background: red;  */
 }
@@ -113,21 +112,29 @@
 .active_date {
     background: #e64340;
     color: #fff;
-        border-radius: 30%;
+    border-radius: 30%;
     border-bottom: 5rpx;
 }
 
+.not_in_this_month_date {
+    /* background: #e64340; */
+    color: #eee;
+    /* border-radius: 30%;
+    border-bottom: 5rpx; */
+}
+
 .plan_date {
-     background: #888888; 
+    background: #888;
     color: #fff;
-    border-radius: 30%;
+    /* width: 50%; */
+    border-radius: 50%;
     border-bottom: 5rpx;
 }
 
 .today {
     /* background: #576b95; */
     color: blue;
-            border-radius: 30%;
+    border-radius: 30%;
     border-bottom: 5rpx;
 }
 
@@ -199,6 +206,17 @@
     z-index: 1000;
     flex-grow: 3;
     height: 50rpx;
+}
+
+.operationButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
 }
 
 .dateMoveButton {

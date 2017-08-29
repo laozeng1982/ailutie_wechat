@@ -119,6 +119,21 @@ class DailyRecords {
         for (var idx = 0; idx < this.movementList.length; idx++)
             this.movementList[idx].clicked = false;
     }
+
+    clearAllAcutalData() {
+        for (var index = 0; index < this.movementList.length; index++) {
+            this.movementList[index].contents.actualGpCount = 0;
+            this.movementList[index].contents.curFinishedGpCount = 0;
+            this.movementList[index].contents.finished = false;
+            this.movementList[index].contents.mvFeeling = 0;
+            for (var idx = 0; idx < this.movementList[index].contents.details.length; idx++) {
+                this.movementList[index].contents.details[idx].actualCount = 0;
+                this.movementList[index].contents.details[idx].actualWeight = 0;
+                this.movementList[index].contents.details[idx].finished = false;
+                this.movementList[index].contents.details[idx].groupFeeling = 0;
+            }
+        }
+    }
 }
 
 module.exports = {

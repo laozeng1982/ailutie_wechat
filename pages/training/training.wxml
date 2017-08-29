@@ -8,7 +8,7 @@
     <!-- 上半部分计划总览 -->
     <!-- <view class="graySpace"></view> -->
     <view class="topPanel">
-        <view class="topPanelLeft">
+        <view class="topPanelLeft" bindtap="onShowDetails">
             <view class="title">当前动作</view>
             <view class="topPanelLeft_InnerLeft">
                 <text style="font-size: 60rpx">{{curRecords.movementList[curSelectedMovementId-1].mvInfo.partName}}</text>
@@ -24,21 +24,20 @@
         <view class="topPanelRight">
             <view class="title">计划内容</view>
             <scroll-view class="topScrollview" scroll-y="true">
-                <view class="listSingleMovement" wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" wx:key="{{item.id}}" class='bodypart-item'>
+                <view class="listSingleMovement" wx:for="{{curRecords.movementList}}" wx:key="{{item.id}}" class='bodypart-item'>
                     <!-- <view class="graySpace"></view> -->
 
-                    <!-- <image class='header-img' src="../../image/arm2.png"></image> -->
-                    <view class="{{item.id%2==0?'bodypartCornor1':'bodypartCornor2'}} {{item.selected?'bodypartSelected':''}}" data-index="{{index}}">
+                    <view class="{{item.mvId%2==0?'bodypartCornor1':'bodypartCornor2'}} {{item.selected?'bodypartSelected':''}}" data-index="{{index}}">
                         <!-- <view class="graySpace"></view> -->
 
-                        <view id='{{item.id}}' class="{{item.id==curSelectedRecordId?'detailsItemSelected':'detailsItem'}}">
+                        <view id='{{item.mvId}}' class="" bindtap="onMovementSelected">
                             <view class="scrollItemContainer">
-                                <icon type="success" size="20" color="{{item.finished?'green':'gray'}}" />
-                                <view class="scrollItem">{{item.id }}. </view>
-                                <view class="scrollItem">{{item.planCount}}</view>
-                                <view class="scrollItemNarrow">次</view>
-                                <view class="scrollItem">{{item.planWeight}}</view>
-                                <view class="scrollItemNarrow">{{item.measurement}}</view>
+                                <icon type="success" size="20" color="{{item.contents.finished?'green':'gray'}}" />
+                                <view class="scrollItemContainer {{item.mvId==curSelectedMovementId?'detailsItemSelected':'detailsItem'}}">
+                                    <view class="scrollItemNarrowNumber">{{item.mvId}}. </view>
+                                    <view class="scrollItemNarrowNumber">{{item.contents.planGpCount}}x </view>
+                                    <view class="scrollItem">{{item.mvInfo.mvName}}</view>
+                                </view>
                             </view>
 
                         </view>
@@ -57,6 +56,20 @@
         <view class="middlePanelLeft">
             <view class="middlePanelLeft_InnerLeft">
                 <view class="title">已经完成</view>
+                <view class="scrollItemHeaderContainer" style="font-size:20rpx">
+                    <view class="scrollItem">完成/计划</view>
+                    <view class="scrollItemNarrow">次</view>
+                    <view class="scrollItem">完成/计划</view>
+                    <view class="scrollItemNarrow">Kg</view>
+                    <view class="scrollItemNarrow">得</view>
+                    <view class="scrollItemNarrow">分</view>
+                    <!-- <view class="scrollItem">完成/计划</view> -->
+                    <!-- <view class="scrollItemNarrow">次</view> -->
+                    <!-- <view class="scrollItem">完成/计划</view> -->
+                    <!-- <view class="scrollItemNarrow">{{item.measurement}}</view>
+                     <view class="scrollItemNarrow">{{item.groupFeeling}}</view>
+                    <view class="scrollItemNarrow">分</view>   -->
+                </view>
                 <scroll-view class="middleRecorderScrollview" scroll-into-view="{{scorllinTo}}" scroll-y="true">
                     <view class="listSingleMovement" wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" wx:key="{{item.id}}" class='bodypart-item'>
 
@@ -108,7 +121,7 @@
                 </picker>
 
                 <!-- <view class="whiteSpace"></view> -->
-                <view style="height:200rpx">
+                <view style="height:160rpx">
                     <view class=".middlePanelRight_row3_right_row3" wx:if="{{curRecords.movementList[curSelectedMovementId-1].contents.finished}}">
                         <text>整套动作感觉</text>
                         <view class="imageContainer">
@@ -120,7 +133,7 @@
                         </view>
                     </view>
                 </view>
-                <view style="height: 100rpx; width:100%">
+                <view style="height: 80rpx; width:100%">
                     <button class="recordBtn" style="width:80%; height:90rpx; background:green" bindtap="onRecordBtnTap">记录</button>
                 </view>
 
@@ -139,11 +152,11 @@
     </view>
 
     <!-- 底部具体翻动作，动作详情查看 -->
-    <view class="bottomPanel">
+    <!-- <view class="bottomPanel">
         <view class="button-group">
             <button class="dateMoveButton" bindtap="onLastMovement" size="default"> Last</button>
             <button class="dateButton" bindtap="onShowDetails" size="default">动作详情</button>
             <button class="dateMoveButton" bindtap="onNextMovement" size="default"> Next</button>
         </view>
-    </view>
+    </view> -->
 </view>

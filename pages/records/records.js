@@ -1,7 +1,6 @@
 // records.js
 import util from '../../utils/util.js'
 import RecordsPageFunctions from 'RecordsPageFunctions.js'
-import RecordsModal from '../ui/modal/RecordsModal.js'
 
 //全局变量
 const app = getApp();
@@ -32,13 +31,18 @@ Page({
             {id: 5, value: '五', checked: false},
             {id: 6, value: '六', checked: false}
         ],
-        //保存当月的日期
+        // 保存当月的日期
         dateList: [],
-        //保存有计划的日期
+        // 保存有计划的日期
         dateListWithPlan: [],
+        // 保存有锻炼的日期
         dateListWithTraining: [],
+
+        dateListSelected: [],
+
+        checkedDateList: [],
+
         Functions: '',
-        // 日期上长按，出现Modal的控制器
 
         selectedMovementId: -1,
         showDateLongPress: false,
@@ -92,14 +96,13 @@ Page({
         console.log("in onDateLongPress, long press", e.currentTarget.dataset.date.value);
         var tmpRecords = this.data.Functions.loadData(e.currentTarget.dataset.date.value);
         // 没有计划，并且日期没有过期
-        if (tmpRecords.movementList.length === 0 ) {
+        if (tmpRecords.movementList.length === 0) {
             if (util.dateDirection(e.currentTarget.dataset.date.value) !== -1) {
                 console.log("fuck");
                 app.globalData.selectedDate = util.getDateFromString(e.currentTarget.dataset.date.value, '-');
                 wx.switchTab({
                     url: '../plan/plan',
                 });
-
             }
         }
         else {
@@ -117,7 +120,7 @@ Page({
      */
     onModelChange: function (e) {
         console.log(e);
-        this.data.Functions.clearSelected(this, false);
+        this.data.Functions.clearSelected(this);
         this.setData({
             selectedModel: parseInt(e.detail.value),
         });
@@ -138,10 +141,13 @@ Page({
     },
 
     /**
-     * 拷贝计划页面，模式选2时，
+     * 拷贝计划页面，模式选2时，选择的日期
      * @param e
      */
     onDateChecked: function (e) {
+
+        this.data.Functions.checkDate(this, e);
+
         console.log("in onDateChecked, selected", e.currentTarget.id, e.detail.value);
     },
 
@@ -152,7 +158,14 @@ Page({
     onConfirm: function (e) {
         // 最后执行！
 
-        this.data.Functions.clearSelected(this, true);
+        var sucess = this.data.Functions.confirmOperation(this);
+
+        this.data.Functions.clearSelected(this);
+
+        if (sucess)
+            this.setData({
+                showDateLongPress: false
+            });
 
     },
 
@@ -161,7 +174,10 @@ Page({
      * @param e
      */
     onCancel: function (e) {
-        this.data.Functions.clearSelected(this, true);
+        this.data.Functions.clearSelected(this);
+        this.setData({
+            showDateLongPress: false
+        });
 
     },
 
@@ -221,7 +237,6 @@ Page({
         this.setData({
             today: today,
             endDate: today,
-            RECORDSMODAL: new RecordsModal.RecordsModal(),
             Functions: Functions
         });
         console.log("Records page onLoad call, this.data.today: ", this.data.today);

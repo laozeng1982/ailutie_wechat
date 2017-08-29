@@ -26,14 +26,6 @@ App({
         //   });
         // }
 
-        wx.getStorageInfo({
-            success: function (res) {
-                console.log("res.keys: ", res.keys);
-                console.log("res.currentSize: ", res.currentSize, " KB");
-                console.log("res.limitSize: ", res.limitSize, " KB");
-            }
-        });
-
         // 准备数据：
         this.globalData.Controller = new Controller.Controller();
         this.globalData.StorageType = new StorageType.StorageType();
@@ -81,7 +73,7 @@ App({
     },
 
     getWechatUserInfo: function (cb) {
-        var that = this
+        var that = this;
         if (this.globalData.wechatUserInfo) {
             typeof cb == "function" && cb(this.globalData.wechatUserInfo)
         } else {

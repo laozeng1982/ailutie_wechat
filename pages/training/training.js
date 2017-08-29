@@ -73,6 +73,13 @@ Page({
         console.log(this.data.showDetails);
     },
 
+    onMovementSelected: function (e) {
+        this.setData({
+            curSelectedMovementId: e.currentTarget.id
+        });
+        console.log("in onMovementSelected, selected id: ", e.currentTarget.id);
+    },
+
     /**
      * 功能：每组动作修改
      * 参数：e，点击事件
@@ -398,6 +405,11 @@ Page({
      * 将动作评分的初始值设为计划的值，方便用户选取
      */
     setPickerIndex: function () {
+        if (this.data.curRecords.movementList.length === 0) {
+            console.log("in setPickerIndex, today has no plan");
+            return;
+        }
+
         var selectedMovement = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1];
         // 获取当前计划的计划数据
         var planCount = selectedMovement.contents.details[0].planCount;
@@ -545,8 +557,11 @@ Page({
             this.data.curRecords);
         // 如果直接由此界面通过Tab跳到了计划界面，那么将选中的动作置为当前动作，方便修改。
         app.globalData.selectedDate = new Date();
-        app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.partName;
-        app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.mvName;
+        if (this.data.curRecords.movementList.length > 0) {
+            app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.partName;
+            app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.mvName;
+        }
+
         console.log("Training page onHide call: data saved");
     },
 

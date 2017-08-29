@@ -595,6 +595,7 @@ page {
 .rowContainerBetween {
     display: flex;
     flex-direction: row;
+    height: 100rpx;
     justify-content: space-between;
     border-bottom: 1rpx solid #bebebe;
 }
