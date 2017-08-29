@@ -10,13 +10,16 @@ Page({
     },
 
     onDelete: function (e) {
-        console.log(e);
+        var key = e.currentTarget.dataset.key;
+        console.log(key);
+
         wx.showModal({
             title: '删除记录',
             content: '您确定删除该条记录，如果未同步，将无法找回哦。',
             success: function (res) {
                 if (res.confirm) {
-                    console.log('用户点击确定')
+                    wx.removeStorageSync(key);
+                    console.log('用户点击确定');
                 } else if (res.cancel) {
                     console.log('用户点击取消')
                 }

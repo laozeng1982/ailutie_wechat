@@ -145,6 +145,20 @@
     flex-direction: column;
 }
 
+.bodypart-item {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-bottom: 1rpx solid #eee;
+}
+
+.plan-actual {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
 .middlePanelInnerRight {
     display: flex;
     align-items: center;
@@ -231,7 +245,7 @@ recordBtn {
     width: 100%;
     height: 100%;
     flex-direction: column;
-     border-bottom: 1rpx solid #eee; 
+    border-bottom: 1rpx solid #eee;
 }
 
 .scrollItemContainer {
@@ -280,6 +294,18 @@ recordBtn {
     justify-content: center;
 }
 
+/* 中段隐藏部分 */
+
+.middlePanelHide {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 65%;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #eee;
+}
+
 .tmp {
     width: 100%;
     display: flex;
@@ -304,10 +330,11 @@ recordBtn {
     height: 100%;
     flex-direction: row;
 }
+
 .image_star {
     display: flex;
     width: 64rpx;
-    height: 64rpx;   
+    height: 64rpx;
     z-index: 100;
     /* background: red;  */
 }
@@ -354,8 +381,6 @@ recordBtn {
     z-index: 1000;
 }
 
-
-
 .whiteSpace {
     width: 10%;
     background: #fff;
@@ -364,4 +389,3 @@ recordBtn {
     /* border-top-left-radius: 20rpx;
     border-top-right-radius: 20rpx; */
 }
-

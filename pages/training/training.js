@@ -52,18 +52,8 @@ Page({
         trainScrollHeight: 600,  //动作列表的scroll高度
         showDetails: false,
 
-        scorllinTo: '',
-
         disableRemoveBtn: true,
         disableModifyBtn: true,
-    },
-
-    onLastMovement: function (e) {
-        this.onMoveMovement(e, true);
-    },
-
-    onNextMovement: function (e) {
-        this.onMoveMovement(e, false);
     },
 
     onShowDetails: function (e) {
@@ -73,44 +63,46 @@ Page({
         console.log(this.data.showDetails);
     },
 
-    onMovementSelected: function (e) {
-        this.setData({
-            curSelectedMovementId: e.currentTarget.id
-        });
-        console.log("in onMovementSelected, selected id: ", e.currentTarget.id);
-    },
-
     /**
-     * 功能：每组动作修改
+     * 功能：响应计划点击事件
      * 参数：e，点击事件
      */
-    onMoveMovement: function (e, isLast) {
+    onMovementSelected: function (e) {
+        this.selectMovement(e);
+    },
 
-        var curSelectedMovementId = parseInt(this.data.curSelectedMovementId);
-        var maxId = this.data.curRecords.movementList.length;
-        if (isLast) {
-            if (curSelectedMovementId === 1) {
-                util.showToast("兄弟，已经到最前面啦~~", this, 1000);
-            } else {
-                curSelectedMovementId = parseInt(this.data.curSelectedMovementId) - 1;
-            }
-        } else {
-            if (curSelectedMovementId === maxId) {
-                util.showToast("兄弟，已经到最后面啦~~", this, 1000);
-            } else {
-                curSelectedMovementId = parseInt(this.data.curSelectedMovementId) + 1;
-            }
+    selectMovement: function (e) {
 
+        console.log("in selectMovement, selected id: ", e.currentTarget.id);
+
+        var curSelectedMovementId = parseInt(e.currentTarget.id);
+
+        // 重置打分的星
+        // 清零，否则不能由大分数改为小分数
+        var curRecords = this.data.curRecords;
+
+        var index = parseInt(curRecords.movementList[curSelectedMovementId - 1].contents.mvFeeling);
+        console.log("stars: ", index);
+        var totalStars = this.data.totalScoreStarArray;
+
+        for (var idx = 0; idx < 5; idx++) {
+            totalStars[idx].src = "../image/start_unchecked.png";
+            totalStars[idx].checked = false;
         }
 
-        console.log("in onMoveMovement, curSelectedMovementId ", curSelectedMovementId, " ,maxId: ", maxId);
+        // 点选
+        for (var idx = 0; idx < index; idx++) {
+            totalStars[idx].src = "../image/start_checked.png";
+            totalStars[idx].checked = true;
+        }
 
         this.setData({
             curSelectedMovementId: curSelectedMovementId,
             // 换动作就重置状态
             curSelectedRecordId: 0,
             disableModifyBtn: true,
-            disableRemoveBtn: true
+            disableRemoveBtn: true,
+            totalScoreStarArray: totalStars
         });
 
         this.setPickerIndex();
@@ -118,20 +110,6 @@ Page({
         // 给全局变量设值，方便切换到计划的时候，直接高亮当前计划，方便修改
         app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.partName;
         app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.mvName;
-    },
-
-    onCountTap: function (e) {
-        this.setData({
-            actualCount: e.currentTarget.id
-        });
-        console.log("in onCountTap, e.detail.scrollTop", e.currentTarget.id);
-    },
-
-    onWeightTap: function (e) {
-        this.setData({
-            actualWeight: e.currentTarget.id
-        });
-        console.log("in onWeightTap, e.detail.scrollTop", e.currentTarget.id);
     },
 
     /**
@@ -148,8 +126,8 @@ Page({
         var curRecords = this.data.curRecords;
         var curMovmentIdx = this.data.curSelectedMovementId - 1;
         var measurement = curRecords.movementList[curMovmentIdx].contents.details[0].measurement;
-        // console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount));
-        // console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount));
+        console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount));
+        console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount));
         if (parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount)
             < parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount)) {
 
@@ -167,6 +145,10 @@ Page({
 
                     break;
                 }
+            }
+            if (parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount)
+                === parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount)) {
+                curRecords.movementList[curMovmentIdx].contents.finished = true;
             }
         } else {
             util.showToast("帅哥，本动作计划已经完成了哦！", this, 1000);
@@ -187,7 +169,6 @@ Page({
             curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.getMvFeeling();
 
         }
-
 
         this.setData({
             curRecords: curRecords
@@ -347,18 +328,6 @@ Page({
 
     },
 
-    onMovementScore: function (e) {
-
-        console.log("in onMovementScore,e", e);
-        var curRecords = this.data.curRecords;
-        var mvFeeling = parseInt(e.detail.value) + 1;
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.mvFeeling = mvFeeling;
-        this.setData({
-            curRecords: curRecords,
-            actualMvFeeling: mvFeeling
-        });
-
-    },
 
     onSelectFinishedDetails: function (e) {
         console.log("in onMovementScore, e", e.currentTarget.id, ",  type: ", typeof(e.currentTarget.id));
@@ -366,7 +335,6 @@ Page({
             disableRemoveBtn: false,
             disableModifyBtn: false,
             curSelectedRecordId: e.currentTarget.id + "",
-            scorllinTo: e.currentTarget.id + ""
         });
         console.log("in onMovementScore, e", this.data.curSelectedRecordId, ",  type: ", typeof(this.data.curSelectedRecordId));
     },
@@ -377,8 +345,10 @@ Page({
      */
     onMovementScore: function (e) {
         console.log(e.currentTarget.id);
+        // 实际分数
         var index = parseInt(e.currentTarget.id);
         var totalStars = this.data.totalScoreStarArray;
+
         // 清零，否则不能由大分数改为小分数
         for (var idx = 0; idx < 5; idx++) {
             totalStars[idx].src = "../image/start_unchecked.png";
@@ -395,7 +365,12 @@ Page({
             totalStars[idx].checked = true;
         }
 
+        console.log("in onMovementScore,e", e);
+        var curRecords = this.data.curRecords;
+        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.mvFeeling = index;
+
         this.setData({
+            curRecords: curRecords,
             actualMvFeeling: index,
             totalScoreStarArray: totalStars
         });

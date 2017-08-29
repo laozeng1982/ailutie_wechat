@@ -6,24 +6,24 @@
 
     <view class="button-group">
 
-         <view class="graySpace"></view>
+        <view class="graySpace"></view>
         <image class="dateMoveButton" bindtap="onLastMonth" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
         <!-- <button class="dateMoveButton" type="default" bindtap="onLastMonth"> 上月</button> -->
 
-        <view class="dateButton" bindtap="onToToday">
+        <view class="dateButton" bindtap="onShowMonthYear">
             <text style="font-size: 40rpx;">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</text>
         </view>
         <!-- <button class="dateButton" type="default" bindtap="onToToday">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</button> -->
-      
+
         <image class="dateMoveButton" bindtap="onNextMonth" src="../../pages/image/double_arrows_blod_right_64px.png"></image>
         <!-- <button class="dateMoveButton" type="default" bindtap="onNextMonth">下月</button> -->
-       
+
 
         <view class="graySpace"></view>
     </view>
 
-    <!-- 日历面板 -->
-    <view class="calender_panel">
+    <!-- 正常的日历面板 -->
+    <view class="calender_panel" wx:if="{{!showMonthSelector}}">
         <!-- 日历头 -->
         <view class="calender_box">
             <view class="calender_box_header">
@@ -42,21 +42,48 @@
         </view>
 
         <!-- 日历中每天的显示 -->
-        <view class="calender_box" wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="week" style="{{index==0?'justfiy-content: flex-end;':''}}">
-            <view class="weekday_label_days" wx:for="{{week}}" wx:key="*this">
+        <view class="calender_box" wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="week">
+            <view class="weekday_label_days" wx:for="{{week}}" wx:key="{{index}}" >
                 <!-- 有计划的日期 -->
                 <!-- <view wx:for-item="{{dateListWithPlan}}" class="{{item.hasPlan?'image_overlay_left':''}}">
                     <image class='image_overlay_left' src="{{item.hasPlan?'../image/weightlifting1.png':''}}"></image>
                 </view> -->
 
-                <view class="{{!item.inThisMonth?'not_in_this_month_date':''}} {{item.hasPlan?'plan_date':''}} {{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected" bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</view>
+                <view class="{{!item.inThisMonth?'not_in_this_month_date':''}} {{item.hasPlan?'plan_date':''}} {{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected"
+                    bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</view>
 
                 <!-- 有锻炼记录的日期 -->
                 <view wx:for-item="{{dateListWithTraining}}" class="{{item.hasTrained?'image_overlay_left':''}}">
                     <image class='image_overlay_left' src="{{item.hasTrained?'../image/weightlifting1.png':''}}"></image>
                 </view>
+
             </view>
         </view>
+    </view>
+
+    <!-- 当点击选月或者年的时候弹出 -->
+    <view class="calender_panel" wx:if="{{showMonthSelector}}">
+
+        <view class="calender_month_box" wx:for="{{monthSelector}}" wx:key="{{index}}" wx:for-item="row">
+            <view class="month_label" wx:for="{{row}}">
+                <view id="{{item.id}}" bindtap="onMonthSelected" data-month="{{item.value}}">{{item.value}}</view>
+            </view>
+        </view>
+
+        <view class="graySpace"></view>
+
+        <view class="calender_month_box">
+            <image class="dateMoveButton" bindtap="onLastYear" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
+
+            <view class="dateButton" bindtap="">
+                <text style="font-size: 40rpx;">{{curYear+' 年'}} </text>
+            </view>
+
+            <image class="dateMoveButton" bindtap="onNextYear" src="../../pages/image/double_arrows_blod_right_64px.png"></image>
+
+            <view class="graySpace"></view>
+        </view>
+
     </view>
 
     <!-- 记录列表 -->

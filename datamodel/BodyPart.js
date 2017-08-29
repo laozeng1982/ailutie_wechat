@@ -34,6 +34,14 @@ class BodyPartList {
                 action.actionPart = partName;
                 bodyPart.actionList.push(action);
             }
+
+            var action = new Action();
+            action.actionId = item.length;
+            action.actionName = "自定义动作";
+            action.actionPartId = partIndex;
+            action.actionPart = partName;
+            bodyPart.actionList.push(action);
+
             partList.push(bodyPart);
             partIndex++;
         }
@@ -91,10 +99,14 @@ class OrgType {
     constructor() {
 
         // 有氧
-        this.movementNameArrayAerobic =[
+        this.movementNameArrayAerobic = [
             '有氧',
-            '慢步',
+            '跑步',
+            '游泳',
+            '跳绳',
+            '自行车',
             '椭圆机',
+            '划船机',
             '动感单车',
 
         ];

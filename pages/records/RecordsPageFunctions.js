@@ -53,12 +53,8 @@ class RecordsPageFunctions {
      */
     setDateList(host, year, month) {
         //如果是闰年，则2月有29天
-        var daysCountArr = this.daysCountArr;
         if (year % 4 === 0 && year % 100 !== 0) {
             this.daysCountArr[1] = 29;
-            host.setData({
-                daysCountArr: daysCountArr
-            });
         }
 
         //第几个月；下标从0开始，实际月份需要加1
@@ -70,19 +66,35 @@ class RecordsPageFunctions {
         var firstDayOfWeek = new Date(Date.UTC(year, month - 1, 1)).getDay();
         var hasDoneFirstWeek = false;
         // console.log(firstDayOfWeek);
-        var lastYear = month - 2 ? year : year - 1;
-        var lastMonth = month - 2 ? month - 2 : 12;
+        var lastYear = month - 1 > 0 ? year : year - 1;
+        var lastMonth = month - 1 > 0 ? month - 1 : 12;
         var nextYear = month + 1 === 13 ? year + 1 : year;
         var nextMonth = month + 1 === 13 ? 1 : month + 1;
         for (var idx = 0; idx < this.daysCountArr[month - 1]; idx++) {
             var week = new Date(Date.UTC(year, month - 1, idx + 1)).getDay();
             // 补齐每个月前面的日子，计算上个月的尾巴
-            if (!hasDoneFirstWeek) {
+            if (firstDayOfWeek === 0 && !hasDoneFirstWeek) {
+                for (var i = 0; i < 7; i++) {
+                    dateList[weekIndex].push({
+                        value: util.formatStringDate(lastYear, lastMonth, (this.daysCountArr[lastMonth] + i - 7)),
+                        date: this.daysCountArr[lastMonth] + i - 7,
+                        week: i,
+                        selected: false,
+                        hasPlan: false,
+                        hasTrained: false,
+                        inThisMonth: false
+                    });
+                }
+                weekIndex++;
+                dateList[weekIndex] = [];
+                hasDoneFirstWeek = true;
+
+            } else if (!hasDoneFirstWeek) {
                 for (var blank = 0; blank < firstDayOfWeek; blank++) {
                     dateList[weekIndex].push({
-                        value: util.formatStringDate(lastYear, lastMonth, this.daysCountArr[lastMonth] + blank + 1 - firstDayOfWeek),
-                        date: this.daysCountArr[lastMonth] + blank + 1 - firstDayOfWeek,
-                        week: week - blank,
+                        value: util.formatStringDate(lastYear, lastMonth, this.daysCountArr[lastMonth - 1] + blank + 1 - firstDayOfWeek),
+                        date: this.daysCountArr[lastMonth - 1] + blank + 1 - firstDayOfWeek,
+                        week: week + blank - firstDayOfWeek,
                         selected: false,
                         hasPlan: false,
                         hasTrained: false,
@@ -111,25 +123,49 @@ class RecordsPageFunctions {
 
             // 补齐每个月最后面的日子，计算下个月的头
             if (idx === this.daysCountArr[month - 1] - 1) {
-                console.log("rest", weekIndex, dateList[weekIndex].length);
-                console.log( 7 - dateList[weekIndex].length);
                 var rest = 7 - dateList[weekIndex].length;
-                for (var i = 0; i < rest ; i++) {
-                    console.log(i,": ", rest);
+                for (var i = 0; i < rest; i++) {
                     dateList[weekIndex].push({
                         value: util.formatStringDate(nextYear, nextMonth, (i + 1)),
                         date: i + 1,
-                        week: week + i + 1,
+                        week: week + i + 1 <= 6 ? week + i + 1 : i,
                         selected: false,
                         hasPlan: false,
                         hasTrained: false,
                         inThisMonth: false
                     });
                 }
+
+                if (weekIndex !== 5) {
+                    weekIndex = 5;
+                    dateList[weekIndex] = [];
+                    for (var i = 0; i < 7; i++) {
+                        dateList[weekIndex].push({
+                            value: util.formatStringDate(nextYear, nextMonth, (rest + i + 1)),
+                            date: rest + i + 1,
+                            week: i,
+                            selected: false,
+                            hasPlan: false,
+                            hasTrained: false,
+                            inThisMonth: false
+                        });
+                    }
+                }
             }
         }
 
-        console.log(dateList);
+        // console.log("log begins here~~~~~~~~~~~~~~~~~~~~~");
+        // for (var week = 0; week < dateList.length; week++) {
+        //     for (var day = 0; day < dateList[week].length; day++) {
+        //         console.log("dateList[", week, "][", day, "], is: ", dateList[week][day].value
+        //             , ",", dateList[week][day].date
+        //             , ",", dateList[week][day].week
+        //             , ",selected", dateList[week][day].selected
+        //             , ",hasPlan", dateList[week][day].hasPlan
+        //             , ",hasTrained", dateList[week][day].hasTrained
+        //             , ",inThisMonth", dateList[week][day].inThisMonth);
+        //     }
+        // }
 
         for (var week = 0; week < dateList.length; week++) {
             for (var day = 0; day < dateList[week].length; day++) {
@@ -164,35 +200,31 @@ class RecordsPageFunctions {
         var curMonth = host.data.curMonth;
         var curDate = host.data.curDate;
 
-        if (isNext !== "now") {
-            if (isNext === "next") {
-                curYear = curMonth + 1 === 13 ? curYear + 1 : curYear;
-                curMonth = curMonth + 1 === 13 ? 1 : curMonth + 1;
-            } else if (isNext === "last") {
-                curYear = curMonth - 1 ? curYear : curYear - 1;
-                curMonth = curMonth - 1 ? curMonth - 1 : 12;
-            }
-            host.setData({
-                curYear: curYear,
-                curMonth: curMonth
-            });
-            this.setDateList(host, curYear, curMonth);
+        if (isNext === "next") {
+            curYear = curMonth + 1 === 13 ? curYear + 1 : curYear;
+            curMonth = curMonth + 1 === 13 ? 1 : curMonth + 1;
+        } else if (isNext === "last") {
+            curYear = curMonth - 1 ? curYear : curYear - 1;
+            curMonth = curMonth - 1 ? curMonth - 1 : 12;
         } else if (isNext === "now") {
             var now = new Date();
             curYear = now.getFullYear();
             curMonth = now.getMonth() + 1;
             curDate = now.getDate();
+        } else if (isNext === "selected") {
 
-            host.setData({
-                selectedDate: util.formatDateToString(new Date()),
-                curYear: curYear,
-                curMonth: curMonth,
-                curDate: curDate
-            });
-
-            this.setDateList(host, curYear, curMonth);
-            this.selectDate(host, util.formatDateToString(new Date()));
         }
+
+        host.setData({
+            selectedDate: util.formatDateToString(new Date()),
+            curYear: curYear,
+            curMonth: curMonth,
+            curDate: curDate
+        });
+
+        this.setDateList(host, curYear, curMonth);
+        if (isNext === "now")
+            this.selectDate(host, util.formatDateToString(new Date()));
 
     };
 
@@ -219,7 +251,7 @@ class RecordsPageFunctions {
             default:
                 // 普通的选择日期
                 var now;
-                console.log(typeof (e));
+                console.log(e.currentTarget.dataset.date.value);
                 if (typeof (e) === "string")
                     now = util.formatDateToString(new Date());
                 else
@@ -280,6 +312,12 @@ class RecordsPageFunctions {
     }
 
     checkDate(host, e) {
+
+        if (host.data.endDate === host.data.selectedDate) {
+            util.showToast("请调整截止日期。", host, 2000);
+            return;
+        }
+
         var weekList = host.data.weekList;
 
         var dateListSelected = [];
@@ -393,7 +431,7 @@ class RecordsPageFunctions {
 
         // 重置主控界面的状态
         host.setData({
-            // selectedModel: -1,
+            selectedModel: -1,
             dateList: dateList,
             weekList: weekList,
             dateListSelected: []
