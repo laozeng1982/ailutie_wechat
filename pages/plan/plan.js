@@ -174,6 +174,16 @@ Page({
 
     onMovementItemClick: function (e) {
         // 当有锻炼数据时，一定置为选中，不能取消
+        console.log(e.currentTarget.id);
+        console.log(this.data.bodyPartList.partList[this.data.selectedPartId - 1]);
+        if (parseInt(e.currentTarget.id) === this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList.length) {
+            console.log(this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList);
+            wx.navigateTo({
+                url: '../settings/system/actionedit',
+            });
+            // return;
+        }
+
         if (this.hasTrainingData(e.currentTarget.id)) {
             this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList[e.currentTarget.id - 1].actionSelected = true;
         } else {

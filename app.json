@@ -18,7 +18,8 @@
         "pages/settings/food/food",
         "pages/settings/donation/donation",
         "pages/settings/favorite/favorite",
-        "pages/settings/knowledge/knowledge"
+        "pages/settings/knowledge/knowledge",
+        "pages/settings/system/actionedit"
     ],
     "window": {
         "navigationBarBackgroundColor": "#333",

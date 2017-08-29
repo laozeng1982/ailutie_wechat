@@ -49,7 +49,6 @@ Page({
             },
             {
                 list_tool: [
-
                     {
                         img: "../../pages/image/settings_64px.png",
                         name: "软件设置",

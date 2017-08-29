@@ -1,8 +1,9 @@
-<!--system.wxml-->
+<!--actionedit.wxml-->
+
 <view class="generalContainer">
     <view class="graySpace"></view>
-    <view class="rowContainerStart" style="font-size:50rpx">
-        <text>系统存储信息</text>
+    <view class="rowContainerAround" style="font-size:50rpx">
+        <view class="classname">自定义动作</view>
     </view>
 
     <view class="rowContainerBetween">

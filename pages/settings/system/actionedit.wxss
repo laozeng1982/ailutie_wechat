@@ -1,0 +1,7 @@
+/* actionedit.wxss */
+
+.topScrollview {
+    height: 620rpx;
+    display: flex;
+    flex-direction: column;
+}
