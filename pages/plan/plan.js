@@ -178,6 +178,7 @@ Page({
         console.log(this.data.bodyPartList.partList[this.data.selectedPartId - 1]);
         if (parseInt(e.currentTarget.id) === this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList.length) {
             console.log(this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList);
+            app.globalData.selectedPartNameOnPlanPage = this.data.bodyPartList.partList[this.data.selectedPartId - 1].partName;
             wx.navigateTo({
                 url: '../settings/system/actionedit',
             });

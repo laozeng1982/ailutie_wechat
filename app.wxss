@@ -424,6 +424,13 @@ page {
   min-height: 30rpx;
 }
 
+.whiteSpace {
+  padding-left: 40rpx;
+  background: #fff;
+  font-size: 12px;
+  min-height: 30rpx;
+}
+
 .item-avatar .text_box, .item-avatar-lg .text_box {
   display: flex;
   flex-direction: column;

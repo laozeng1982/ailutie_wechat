@@ -4,33 +4,28 @@
     <view class="graySpace"></view>
     <view class="rowContainerAround" style="font-size:50rpx">
         <view class="classname">自定义动作</view>
+        <!-- <view class="whiteSpace"></view> -->
     </view>
 
-    <view class="rowContainerBetween">
-        <text>当前已使用</text>
-        <text>{{storageInfo.currentSize}}KB</text>
-    </view>
-
-    <view class="rowContainerBetween">
-        <text>系统总容量</text>
-        <text>{{storageInfo.limitSize}}KB</text>
+    <view class="rowContainerStart">
+        <text>部位名称：</text>
+        <view class="whiteSpace"></view>
+        <picker bindchange="onPartChange" value="{{index}}" range="{{bodyPartNameArray}}">
+            <text>{{newAction.actionPart}}</text>
+        </picker>
+        <view class="whiteSpace"></view>
+        <checkbox value="value" checked="{{false}}" />自定义
+        <input placeholder-class="input-holder" disabled="{{}}" type="text" confirm-type="done" bindinput="onInputPartNameChange" class="input" value="{{newAction.actionPart}}" placeholder="部位名称"></input>
     </view>
 
     <view class="graySpace"></view>
 
-    <view class="rowContainerStart" style="font-size:50rpx">
-        <text>系统存储内容</text>
+    <view class="rowContainerStart">
+        <text>动作名称：</text>
+        <view class="whiteSpace"></view>
+        <input placeholder-class="input-holder" type="text" confirm-type="done" bindinput="onInputMvNameChange" class="input" value="{{newAction.actionName}}" placeholder="动作名字"></input>
     </view>
 
-    <scroll-view class="topScrollview" scroll-y="true">
-        <view class="rowContainerBetween" wx:for="{{storageInfo.keys}}" wx:key="{{index}}">
-            <view style="width:100rpx">{{index}}</view>
-            <view style="width:300rpx">{{item}}</view>
-            <image id="{{index}}" data-key="{{item}}" style="height:40rpx;width:40rpx" bindtap="onDelete" src="../../../pages/image/bin_64px.png"></image>
-        </view>
-    </scroll-view>
+    <view class="graySpace"></view>
 
-    <view class="rowContainerStart" style="font-size:50rpx" bindtap="onCustomAction">
-        <text>自定义动作</text>
-    </view>
 </view>

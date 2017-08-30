@@ -270,5 +270,6 @@ class OrgType {
 
 module.exports = {
     BodyPartList: BodyPartList,
-    BodyPart: BodyPart
+    BodyPart: BodyPart,
+    Action: Action
 }
