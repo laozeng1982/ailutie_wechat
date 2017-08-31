@@ -1,5 +1,7 @@
 // actionedit.js
 import BodyPartList from '../../../datamodel/BodyPart.js'
+import util from '../../../utils/util.js'
+import StorageType from '../../../datamodel/StorageType.js'
 
 const app = getApp();
 
@@ -11,7 +13,7 @@ Page({
     data: {
         bodyPartList: '',
 
-        // 新建一个动作来存储选择
+        // 新建一个动作来存储用户的修改
         newAction: '',
     },
 
@@ -32,7 +34,7 @@ Page({
 
         this.setData({
             newAction: newAction
-        })
+        });
     },
 
     /**
@@ -72,7 +74,14 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
+        var systemSeting = wx.getStorageSync();
+        systemSeting.bodyPartList = this.data.bodyPartList;
 
+        var storage = new StorageType.StorageType();
+
+        util.saveData(storage.SystemSetting.value, storage.SystemSetting, systemSeting);
+
+        console.log("ActionEdit page hide.");
     },
 
     /**

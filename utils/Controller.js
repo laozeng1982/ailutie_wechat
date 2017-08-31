@@ -174,7 +174,7 @@ class Controller {
 
         host.initRecords();
 
-        if (util.isExpired(host.data.selectedDate)) {
+        if (util.dateDirection(host.data.selectedDate) === -1) {
             util.showToast("历史数据不能修改哦^_^", host, 2000);
         }
     }
