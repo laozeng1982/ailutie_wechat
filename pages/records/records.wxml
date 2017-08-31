@@ -151,7 +151,7 @@
                         </picker>
                     </view>
                     <view class="choiceItemCheckboxGroup">
-                        <checkbox-group id="{{item.id}}" wx:for="{{weekList}}" wx:key="*this" bindchange="onDateChecked">
+                        <checkbox-group id="{{item.id}}" wx:for="{{weekList}}" wx:key="{{index}}" bindchange="onDateChecked">
                             <view id="{{item.id}}">
                                 {{item.value}}
                                 <label>
@@ -173,7 +173,7 @@
         </radio-group>
 
 
-        <view class="button-group">
+        <view class="two-button-group">
             <button class="operationButton" type="default" style="plain" bindtap="onCancel"> 退出</button>
             <button class="operationButton" type="default" bindtap="onConfirm">确定</button>
         </view>

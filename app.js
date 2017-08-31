@@ -42,7 +42,7 @@ App({
             this.globalData.StorageType.SystemSetting,
             this.globalData.bodyPartList);
 
-        //默认使用登录
+        //默认使用微信登录
         wx.login({
             success: res => {
                 // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -102,7 +102,7 @@ App({
         userInfo: null,
         wechatUserInfo: null,
 
-        isLogin: false,//登陆状态记录
+        isLogin: false,// 登陆状态记录
 
         selectedDateString: util.formatDateToString(new Date()),
         selectedDate: new Date(),

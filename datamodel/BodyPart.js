@@ -86,13 +86,12 @@ class Action {
         this.actionName = '';
         this.actionPart = '';
         this.actionPartId = '';
+        this.actionMeasurement = '';
         this.actionEquipment = '';
         this.actionPictureSrc = '';
         this.actionDescription = '';
         this.actionSelected = false;
-
     }
-
 }
 
 class OrgType {

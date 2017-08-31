@@ -15,15 +15,46 @@ Page({
 
         // 新建一个动作来存储用户的修改
         newAction: '',
+
+        bodyPartNameArray: [],
+        equipmentArray: [],
+        measurementArray: [],
+
+        contents: [],
+
     },
 
-    onPartChange: function (e) {
-        console.log(e);
-        var newAction = this.data.newAction;
-        newAction.actionPart = this.data.bodyPartNameArray[parseInt(e.detail.value) - 1];
+    onControllerChange: function (e) {
+        console.log("in onControllerChange, id: ", e.currentTarget.id, "value: ", e.detail.value);
+
+        var contents = this.data.contents;
+
+        var index = parseInt(e.currentTarget.id);
+
+        // 先判断事件的类型，如果是change类，那么是checkbox或者picker的值变化
+        // 否则是输入类型
+        if (e.type === "change") {
+            if (e.detail.value[0] === "checkbox") {
+                contents[index].userDefine = !contents[index].userDefine;
+            } else {
+                contents[index].value = contents[index].data[parseInt(e.detail.value)];
+            }
+        } else {
+            contents[index].value = e.detail.value;
+        }
+
+        console.log(contents);
         this.setData({
-            newAction: newAction
+            contents: contents
         });
+    },
+
+    onCancel: function (e) {
+
+    },
+
+    onConfirm: function (e) {
+
     },
 
     /**
@@ -52,20 +83,90 @@ Page({
         bodyPartList.fullCopyFrom(app.globalData.bodyPartList);
         bodyPartList.clearSelection();
 
-        var newAction = this.data.newAction;
-
-        newAction.actionPart = app.globalData.selectedPartNameOnPlanPage;
-
         var bodyPartNameArray = [];
+
+        bodyPartNameArray.push("请选择");
 
         for (var item of bodyPartList.partList) {
             bodyPartNameArray.push(item.partName);
         }
 
+        var equipmentArray = ["请选择", "杠铃", "哑铃", "龙门架", "操场"];
+
+        var measurementArray = ["请选择", "Kg", "Lbs", "Km", "个"];
+
+        var newAction = this.data.newAction;
+
+        if (app.globalData.selectedPartNameOnPlanPage !== -1)
+            newAction.actionPart = app.globalData.selectedPartNameOnPlanPage;
+        else
+            newAction.actionPart = bodyPartNameArray[0];
+
+        newAction.actionEquipment = equipmentArray[0];
+        newAction.actionMeasurement = measurementArray[0];
+
+        var contents = this.data.contents;
+
+        contents = [
+            {
+                id: 0,
+                name: "部位名称：",
+                input_style_class: "input-short",
+                input_holder: "",
+                data: bodyPartNameArray,
+                value: newAction.actionPart,
+                hasPicker: true,
+                userDefine: false
+            },
+            {
+                id: 1,
+                name: "动作名称：",
+                input_style_class: "",
+                input_holder: "",
+                data: [],
+                value: newAction.actionName,
+                hasPicker: false,
+                userDefine: true
+            },
+            {
+                id: 2,
+                name: "器械设备：",
+                input_style_class: "input-short",
+                input_holder: "",
+                data: equipmentArray,
+                value: newAction.actionEquipment,
+                hasPicker: true,
+                userDefine: false
+            },
+            {
+                id: 3,
+                name: "计量单位：",
+                input_style_class: "input-short",
+                input_holder: "",
+                data: measurementArray,
+                value: newAction.actionMeasurement,
+                hasPicker: true,
+                userDefine: false
+            },
+            {
+                id: 4,
+                name: "动作描述：",
+                input_style_class: "",
+                input_holder: "",
+                data: [],
+                value: newAction.actionDescription,
+                hasPicker: false,
+                userDefine: true
+            },
+        ];
+
         this.setData({
+            contents: contents,
             newAction: newAction,
             bodyPartList: bodyPartList,
             bodyPartNameArray: bodyPartNameArray,
+            equipmentArray: equipmentArray,
+            measurementArray: measurementArray,
 
         });
     },
@@ -80,6 +181,14 @@ Page({
         var storage = new StorageType.StorageType();
 
         util.saveData(storage.SystemSetting.value, storage.SystemSetting, systemSeting);
+
+
+        // 重置一些控件
+        this.setData({
+            userDefinePartName: false,
+            userDefineEquipment: false,
+            userDefineMeasurement: false
+        });
 
         console.log("ActionEdit page hide.");
     },

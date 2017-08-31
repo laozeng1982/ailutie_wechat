@@ -5,3 +5,19 @@
     display: flex;
     flex-direction: column;
 }
+
+.input-short {
+    width: 150rpx;
+}
+
+.input-long {
+    width: 100%;
+}
+
+.input{
+    border: 1 rpx solid #eee;
+    border-bottom: 1 rpx solid #eee;
+    border-top:  1 rpx solid #eee;
+    border-left:  1 rpx solid #eee;
+    border-right:  1 rpx solid #eee;
+}

@@ -1,31 +1,38 @@
 <!--actionedit.wxml-->
 
 <view class="generalContainer">
+    <!-- 头部 -->
     <view class="graySpace"></view>
     <view class="rowContainerAround" style="font-size:50rpx">
         <view class="classname">自定义动作</view>
-        <!-- <view class="whiteSpace"></view> -->
     </view>
 
-    <view class="rowContainerStart">
-        <text>部位名称：</text>
-        <view class="whiteSpace"></view>
-        <picker bindchange="onPartChange" value="{{index}}" range="{{bodyPartNameArray}}">
-            <text>{{newAction.actionPart}}</text>
-        </picker>
-        <view class="whiteSpace"></view>
-        <checkbox value="value" checked="{{false}}" />自定义
-        <input placeholder-class="input-holder" disabled="{{}}" type="text" confirm-type="done" bindinput="onInputPartNameChange" class="input" value="{{newAction.actionPart}}" placeholder="部位名称"></input>
-    </view>
+    <scroll-view>
+        <view class="rowContainerStart" style="height:120rpx" wx:for="{{contents}}" wx:key="{{index}}">
+            <view>{{item.name}}</view>
+            <view class="whiteSpace"></view>
+        
+            <picker wx:if="{{item.hasPicker}}" id='{{item.id}}' bindchange="onControllerChange" range="{{item.data}}">
+                <view style='width:100%'>{{item.value}}</view>
+            </picker>
+        
+            <view class="whiteSpace"></view>
+        
+            <checkbox-group wx:if="{{item.hasPicker}}" id='{{item.id}}' bindchange="onControllerChange">
+                <checkbox value="checkbox" checked="{{false}}"/>自定义
+            </checkbox-group>       
+
+         <!-- <view class="whiteSpace"></view>  -->
+
+            <input id='{{item.id}}' placeholder-class="input-holder" disabled="{{!item.userDefine}}" type="text" confirm-type="done" bindinput="onControllerChange" class="{{item.input_style_class}} input" value="{{item.value}}" placeholder=""></input>
+        </view>
+    </scroll-view>
 
     <view class="graySpace"></view>
 
-    <view class="rowContainerStart">
-        <text>动作名称：</text>
-        <view class="whiteSpace"></view>
-        <input placeholder-class="input-holder" type="text" confirm-type="done" bindinput="onInputMvNameChange" class="input" value="{{newAction.actionName}}" placeholder="动作名字"></input>
+    <view class="two-button-group">
+        <button class="operationButton" type="default" style="plain" bindtap="onCancel"> 退出</button>
+        <button class="operationButton" type="default" bindtap="onConfirm">确定</button>
     </view>
-
-    <view class="graySpace"></view>
 
 </view>

@@ -606,3 +606,22 @@ page {
     justify-content: space-between;
     border-bottom: 1rpx solid #bebebe;
 }
+
+.two-button-group {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 100rpx;
+    align-items: center;
+}
+
+.operationButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+}
