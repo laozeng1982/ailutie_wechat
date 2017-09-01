@@ -52,7 +52,7 @@ class Controller {
                 case 2:
                     // 2. DailyRecords
 
-                    if (typeof (requestData.date) != "undefined" && requestData.date != "") {
+                    if (typeof (requestData.date) !== "undefined" && requestData.date !== "") {
                         console.log("here222222222222222222222222222222");
                     } else {
                         requestData = new DailyRecords.DailyRecords();
@@ -150,7 +150,7 @@ class Controller {
      */
     moveDay(isNext, host) {
         // 先保存
-        host.collectDataToSave();
+        host.collectDataAndSave();
         console.log("in moveDay, host.data.curRecords", host.data.curRecords);
         host.data.Controller.saveData(host.data.selectedDate, DATATYPE.DailyRecords, host.data.curRecords);
 

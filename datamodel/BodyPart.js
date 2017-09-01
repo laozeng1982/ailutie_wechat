@@ -3,8 +3,8 @@
  */
 
 class BodyPartList {
-    constructor(type) {
-        this.type = type;
+    constructor() {
+        this.type = "";
         this.partList = this.createDefaultPartList();
     }
 

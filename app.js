@@ -7,6 +7,9 @@ import Controller from './utils/Controller.js'
 import StorageType from './datamodel/StorageType.js'
 import BodyPartList from './datamodel/BodyPart.js'
 
+const CONTROLLER = new Controller.Controller();
+const STORAGETYPE = new StorageType.StorageType();
+
 App({
     onLaunch: function () {
         console.log("app onLoad");
@@ -27,22 +30,21 @@ App({
         // }
 
         // 准备数据：
-        this.globalData.Controller = new Controller.Controller();
-        this.globalData.StorageType = new StorageType.StorageType();
-        this.globalData.bodyPartList = this.globalData.Controller.loadData(
-            this.globalData.StorageType.SystemSetting.value,
-            this.globalData.StorageType.SystemSetting);
-        console.log("SystemSetting: ", this.globalData.bodyPartList);
-        if (typeof (this.globalData.bodyPartList.partList) == "undefined") {
-            console.log("what the fuck", this.globalData.bodyPartList);
-            this.globalData.bodyPartList = new BodyPartList.BodyPartList();
-            console.log("what the fuck", this.globalData.bodyPartList);
-        }
-        this.globalData.Controller.saveData(this.globalData.StorageType.SystemSetting.value,
-            this.globalData.StorageType.SystemSetting,
-            this.globalData.bodyPartList);
 
-        //默认使用微信登录
+        var systemSetting = CONTROLLER.loadData(
+            STORAGETYPE.SystemSetting.value,
+            STORAGETYPE.SystemSetting);
+
+        console.log("SystemSetting: ", systemSetting);
+
+        if (systemSetting.bodyPartList.partList.length > 0) {
+            CONTROLLER.saveData(STORAGETYPE.SystemSetting.value,
+                STORAGETYPE.SystemSetting,
+                systemSetting);
+        }
+
+
+        //默认使用登录
         wx.login({
             success: res => {
                 // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -96,13 +98,13 @@ App({
 
     globalData: {
         // 定义一些通用的工具类
-        Controller: '',
-        StorageType: '',
+        // Controller: '',
+        // StorageType: '',
 
         userInfo: null,
         wechatUserInfo: null,
 
-        isLogin: false,// 登陆状态记录
+        isLogin: false,//登陆状态记录
 
         selectedDateString: util.formatDateToString(new Date()),
         selectedDate: new Date(),

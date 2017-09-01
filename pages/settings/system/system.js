@@ -27,10 +27,22 @@ Page({
         });
     },
 
-    onCustomAction: function (e) {
-        wx.navigateTo({
-            url: './actionedit',
-        })
+    onCustomAddAction: function (e) {
+        wx.redirectTo({
+            url: './actionedit?model=add&backUrl=./system'
+        });
+    },
+
+    onCustomModifyAction: function (e) {
+        wx.redirectTo({
+            url: './actionedit?model=modify&backUrl=./system'
+        });
+    },
+
+    onCustomRemoveAction: function (e) {
+        wx.redirectTo({
+            url: './actionedit?model=remove&backUrl=./system'
+        });
     },
 
     /**

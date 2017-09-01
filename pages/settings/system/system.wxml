@@ -29,7 +29,15 @@
         </view>
     </scroll-view>
 
-    <view class="rowContainerStart" style="font-size:50rpx" bindtap="onCustomAction">
+    <view class="rowContainerStart" style="font-size:50rpx" bindtap="onCustomAddAction">
         <text>自定义动作</text>
+    </view>
+
+    <view class="rowContainerStart" style="font-size:50rpx" bindtap="onCustomModifyAction">
+        <text>修改自定义动作</text>
+    </view>
+
+    <view class="rowContainerStart" style="font-size:50rpx" bindtap="onCustomRemoveAction">
+        <text>删除自定义动作</text>
     </view>
 </view>

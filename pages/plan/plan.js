@@ -15,6 +15,7 @@ import BodyPartList from '../../datamodel/BodyPart.js'
 //全局变量
 var app = getApp();
 const DATATYPE = new DataType.StorageType();
+const CONTROLLER = new Controller.Controller();
 
 Page({
 
@@ -62,14 +63,14 @@ Page({
      * 响应往前一天的操作
      */
     onLastDate: function () {
-        this.data.Controller.moveDay(false, this);
+        CONTROLLER.moveDay(false, this);
     },
 
     /**
      * 响应往前一天的操作
      */
     onNextDate: function () {
-        this.data.Controller.moveDay(true, this);
+        CONTROLLER.moveDay(true, this);
     },
 
     /**
@@ -180,7 +181,7 @@ Page({
             console.log(this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList);
             app.globalData.selectedPartNameOnPlanPage = this.data.bodyPartList.partList[this.data.selectedPartId - 1].partName;
             wx.navigateTo({
-                url: '../settings/system/actionedit',
+                url: '../settings/system/actionedit?model=add&backUrl=../../plan/plan',
             });
             // return;
         }
@@ -320,9 +321,9 @@ Page({
      */
     refreshAllData: function () {
         //初始化
-        var bodyPartList = new BodyPartList.BodyPartList();
-        bodyPartList.fullCopyFrom(app.globalData.bodyPartList);
-        bodyPartList.clearSelection();
+        var bodyPartList = CONTROLLER.loadData(DATATYPE.SystemSetting.value,DATATYPE.SystemSetting).bodyPartList;
+
+        // bodyPartList.clearSelection();
 
         var allHolder = [];
         for (var list of bodyPartList.partList) {
@@ -384,7 +385,6 @@ Page({
             movementNoMultiArray: movementNoMultiArray,
             bodyPartList: result[0],
             allMovementsHolder: result[1],
-            Controller: new Controller.Controller(),
 
         });
 
@@ -409,7 +409,7 @@ Page({
             selectedDate: util.formatDateToString(app.globalData.selectedDate),
         });
 
-        var curRecords = this.data.Controller.loadData(this.data.selectedDate, DATATYPE.DailyRecords);
+        var curRecords = CONTROLLER.loadData(this.data.selectedDate, DATATYPE.DailyRecords);
         console.log("Plan page onShow call", curRecords);
 
         this.setData({
@@ -465,9 +465,9 @@ Page({
      */
     onHide: function () {
         this.collectDataToSave();
-        this.data.Controller.saveData(this.data.selectedDate, DATATYPE.DailyRecords, this.data.curRecords);
+        CONTROLLER.saveData(this.data.selectedDate, DATATYPE.DailyRecords, this.data.curRecords);
 
-        // this.data.Controller.saveData(util.formatDateToString(app.globalData.selectedDate), DATATYPE.DailyRecords, this.data.curRecords);
+        // CONTROLLER.saveData(util.formatDateToString(app.globalData.selectedDate), DATATYPE.DailyRecords, this.data.curRecords);
         console.log("Plan page onHide call: data saved");
     }
     ,

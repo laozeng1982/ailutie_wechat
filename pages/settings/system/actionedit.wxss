@@ -7,7 +7,7 @@
 }
 
 .input-short {
-    width: 150rpx;
+    width: 250rpx;
 }
 
 .input-long {

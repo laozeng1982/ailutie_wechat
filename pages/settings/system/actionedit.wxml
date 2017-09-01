@@ -1,37 +1,53 @@
 <!--actionedit.wxml-->
 
 <view class="generalContainer">
+    <!-- 这是Toast -->
+    <include src="../../ui/toast/toast.wxml" />
     <!-- 头部 -->
     <view class="graySpace"></view>
     <view class="rowContainerAround" style="font-size:50rpx">
         <view class="classname">自定义动作</view>
     </view>
 
-    <scroll-view>
-        <view class="rowContainerStart" style="height:120rpx" wx:for="{{contents}}" wx:key="{{index}}">
-            <view>{{item.name}}</view>
-            <view class="whiteSpace"></view>
-        
-            <picker wx:if="{{item.hasPicker}}" id='{{item.id}}' bindchange="onControllerChange" range="{{item.data}}">
-                <view style='width:100%'>{{item.value}}</view>
-            </picker>
-        
-            <view class="whiteSpace"></view>
-        
-            <checkbox-group wx:if="{{item.hasPicker}}" id='{{item.id}}' bindchange="onControllerChange">
-                <checkbox value="checkbox" checked="{{false}}"/>自定义
-            </checkbox-group>       
+    <view class="graySpace"></view>
+    <view class="rowContainerAround" style="font-size:50rpx">
+        <radio-group class="radio-group" bindchange="onModelChange">
+            <label class="radio" wx:for="{{models}}" wx:key="{{index}}">
+                <radio id="{{index}}" value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+            </label>
+        </radio-group>
+    </view>
 
+    <scroll-view>
+        <view class="rowContainerBetween" style="height:120rpx" wx:for="{{controller}}" wx:if="{{item.show}}" wx:key="{{index}}">
+            <view style="width:60%">{{item.name}}</view>
+            <!-- <view class="whiteSpace"></view> -->
+        
+            <view wx:if="{{item.hasPicker}}" style="width:80%">
+                <picker id='{{item.id}}' bindchange="onControllerChange" range="{{item.data}}">
+                    <view style='width:100%'>{{item.value}}</view>
+                </picker>
+            </view>
+            <!-- <view class="whiteSpace"></view> -->
+        
+            <!-- <view wx:if="{{item.hasPicker}}" style="width:80%">
+                <checkbox-group id='{{item.id}}' bindchange="onControllerChange">
+                    <checkbox value="checkbox" checked="{{false}}"/>自定义
+                </checkbox-group>       
+            </view> -->
          <!-- <view class="whiteSpace"></view>  -->
 
-            <input id='{{item.id}}' placeholder-class="input-holder" disabled="{{!item.userDefine}}" type="text" confirm-type="done" bindinput="onControllerChange" class="{{item.input_style_class}} input" value="{{item.value}}" placeholder=""></input>
+            <view style="width:100%" wx:if="{{!models[2].checked}}">
+                <input id='{{item.id}}' placeholder-class="input-holder" disabled="{{!item.userDefine}}" type="text" confirm-type="done" bindinput="onControllerChange" class="{{item.input_style_class}} input" value="{{item.value}}" placeholder="输入"></input>
+            </view>
         </view>
+
     </scroll-view>
 
     <view class="graySpace"></view>
 
     <view class="two-button-group">
-        <button class="operationButton" type="default" style="plain" bindtap="onCancel"> 退出</button>
+        <!-- <button class="operationButton" type="default" style="plain" bindtap="onCancel"> 退出</button> -->
         <button class="operationButton" type="default" bindtap="onConfirm">确定</button>
     </view>
 

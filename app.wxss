@@ -583,6 +583,7 @@ page {
     flex-direction: row;
     justify-content: flex-start;
     border-bottom: 1rpx solid #bebebe;
+    align-content: center;
 }
 
 .rowContainerEnd {
