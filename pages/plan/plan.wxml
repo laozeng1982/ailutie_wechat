@@ -69,12 +69,13 @@
                                 <view class="movementInnerGroup">
                                     <view class="movementInnerName"> {{item.actionName}} </view>
 
-                                    <picker id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
+                                    <picker wx:if="{{item.actionId!==bodyPartList.partList[selectedPartId-1].actionList.length}}" id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
                                         <view class="movementName">
                                             <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.planGpCount}}组 </view>
-                                            <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details.length-1].planCount}}次 </view>
+                                            <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details.length-1].planCount}}
+                                            {{bodyPartList.partList[selectedPartId-1].actionList[item.actionId-1].actionGpMeasurement}} </view>
                                             <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details.length-1].planWeight}}</view>
-                                            <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details.length-1].measurement}}</view>
+                                            <view class="tableItem">{{allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details[allMovementsHolder[selectedPartId-1][item.actionId-1].contents.details.length-1].measurement}}</view> 
                                         </view>
                                     </picker>
                                 </view>

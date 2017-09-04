@@ -37,7 +37,7 @@ class Controller {
 
         // 根据类型来抽取需要的数据
         // 如果没有这个记录，取的会是空值，则新建一个对应的项
-        if (readInData != "") {
+        if (readInData !== "") {
             requestData = readInData;
         } else {
             switch (dataType.id) {
@@ -51,13 +51,11 @@ class Controller {
                     break;
                 case 2:
                     // 2. DailyRecords
-
                     if (typeof (requestData.date) !== "undefined" && requestData.date !== "") {
                         console.log("here222222222222222222222222222222");
                     } else {
                         requestData = new DailyRecords.DailyRecords();
                     }
-
                     break;
                 case 3:
                     requestData = new SystemSetting.SystemSetting();
@@ -96,7 +94,7 @@ class Controller {
                 // 读取该类型数据已存储的内容
                 var userInfo = wx.getStorageSync(this.STORAGETYPE.UserInfo.value);
                 // 如果没有，则新建一个
-                if (userInfo == "")
+                if (userInfo === "")
                     userInfo = new UserInfo.UserInfo();
                 console.log(userInfo);
                 // 如果有，先判断今天的数据情况
@@ -120,12 +118,12 @@ class Controller {
                 } else {
                     // 如果用户把这天数据删除了，找到记录里对应项删掉
                     var index = userInfo.hasPlanDateList.indexOf(dataToSave.date);
-                    console.log(index)
-                    if (index != -1)
+                    console.log(index);
+                    if (index !== -1)
                         userInfo.hasPlanDateList.splice(index, 1);
 
                     index = userInfo.hasTrainedDateList.indexOf(dataToSave.date);
-                    if (index != -1)
+                    if (index !== -1)
                         userInfo.hasTrainedDateList.splice(index, 1);
 
                 }
@@ -150,9 +148,9 @@ class Controller {
      */
     moveDay(isNext, host) {
         // 先保存
-        host.collectDataAndSave();
+        host.collectDataToSave();
         console.log("in moveDay, host.data.curRecords", host.data.curRecords);
-        host.data.Controller.saveData(host.data.selectedDate, DATATYPE.DailyRecords, host.data.curRecords);
+        this.saveData(host.data.selectedDate, DATATYPE.DailyRecords, host.data.curRecords);
 
         // 改变日期
         var dateAfterMove = util.getMoveDays(host.data.selectedDate, isNext, 1);
@@ -162,7 +160,7 @@ class Controller {
 
         });
 
-        var curRecords = host.data.Controller.loadData(host.data.selectedDate, DATATYPE.DailyRecords);
+        var curRecords = this.loadData(host.data.selectedDate, DATATYPE.DailyRecords);
         console.log("in moveDay: host.data.selectedDate", host.data.selectedDate);
         console.log("in moveDay: DATATYPE.DailyRecords", DATATYPE.DailyRecords);
         console.log("in moveDay: curRecords", curRecords);

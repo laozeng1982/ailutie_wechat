@@ -124,6 +124,7 @@ Page({
 
         // console.log("in onNumberChange, picker id: ", e.currentTarget.id);
         // console.log('in onNumberChange, picker发送选择改变，携带值为', e.detail.value);
+        console.log("onNumberChange called");
 
         var selectedRowArr = e.detail.value;
 
@@ -209,6 +210,8 @@ Page({
             selectedMovementId: parseInt(e.currentTarget.id),
             bodyPartList: this.data.bodyPartList
         });
+
+        this.makePicker();
     },
 
     hasTrainingData(index) {
@@ -252,16 +255,20 @@ Page({
         for (var partIdx = 0; partIdx < this.data.bodyPartList.partList.length; partIdx++)
             for (var mvIdx = 0; mvIdx < this.data.bodyPartList.partList[partIdx].actionList.length; mvIdx++) {
                 if (this.data.bodyPartList.partList[partIdx].selected && this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionSelected) {
-                    console.log("part", partIdx + 1, this.data.bodyPartList.partList[partIdx].selected,
-                        "movement", mvIdx + 1, this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionPart, ", ",
-                        this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionName, ", ",
-                        this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionSelected);
+                    // console.log("part", partIdx + 1, this.data.bodyPartList.partList[partIdx].selected,
+                    //     "movement", mvIdx + 1, this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionPart, ", ",
+                    //     this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionName, ", ",
+                    //     this.data.bodyPartList.partList[partIdx].actionList[mvIdx].actionSelected);
+
                     // console.log(this.data.allMovementsHolder[partIdx][mvIdx]);
 
-                    var movement = this.data.allMovementsHolder[partIdx][mvIdx];
-                    movement.mvId = mvIndex;
-                    mvIndex++;
-                    this.data.curRecords.movementList.push(this.data.allMovementsHolder[partIdx][mvIdx]);
+                    if (this.data.allMovementsHolder[partIdx][mvIdx].mvInfo.mvName !== "自定义动作") {
+                        var movement;
+                        movement = this.data.allMovementsHolder[partIdx][mvIdx];
+                        movement.mvId = mvIndex;
+                        mvIndex++;
+                        this.data.curRecords.movementList.push(this.data.allMovementsHolder[partIdx][mvIdx]);
+                    }
                 }
             }
     },
@@ -321,7 +328,7 @@ Page({
      */
     refreshAllData: function () {
         //初始化
-        var bodyPartList = CONTROLLER.loadData(DATATYPE.SystemSetting.value,DATATYPE.SystemSetting).bodyPartList;
+        var bodyPartList = CONTROLLER.loadData(DATATYPE.SystemSetting.value, DATATYPE.SystemSetting).bodyPartList;
 
         // bodyPartList.clearSelection();
 
@@ -340,7 +347,7 @@ Page({
                         30,
                         0,
                         0);
-                    record.measurement = "Kg";
+                    record.measurement = item.actionMeasurement;
                     movement.contents.details.push(record);
                 }
                 tmpHolder.push(movement);
@@ -351,6 +358,48 @@ Page({
         console.log("in refreshAllData, allHolder", allHolder);
 
         return [bodyPartList, allHolder];
+    },
+
+    /**
+     *
+     */
+
+    makePicker: function () {
+
+        console.log("makePicker called");
+        console.log("this.data.selectedPartId: ", this.data.selectedPartId);
+        console.log("this.data.selectedMovementId", this.data.selectedMovementId);
+
+        var movementNoMultiArray = [];
+
+        var array0 = [];
+        var array1 = [];
+        var array2 = [];
+        var array3 = ["Kg", "Lbs", "Km", "个"];
+
+        var gpMeasurement;
+
+        for (var idx = 0; idx < 200; idx++) {
+            array0.push((idx + 1) + "组");
+
+            if (this.data.selectedMovementId === "")
+                gpMeasurement = this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList[0].actionGpMeasurement;
+            else
+                gpMeasurement = this.data.bodyPartList.partList[this.data.selectedPartId - 1].actionList[this.data.selectedMovementId - 1].actionGpMeasurement;
+
+            array1.push((idx + 1) + gpMeasurement);
+            // array1.push((idx + 1) + "");
+            array2.push((idx + 1));
+        }
+        movementNoMultiArray.push(array0);
+        movementNoMultiArray.push(array1);
+        movementNoMultiArray.push(array2);
+        movementNoMultiArray.push(array3);
+
+
+        this.setData({
+            movementNoMultiArray: movementNoMultiArray,
+        });
     },
 
 //-------------------------------------------------------------------------------
@@ -364,25 +413,7 @@ Page({
 
         var result = this.refreshAllData();
 
-        var movementNoMultiArray = [];
-
-        var array0 = [];
-        var array1 = [];
-        var array2 = [];
-        var array3 = ["Kg", "Lbs"];
-
-        for (var idx = 0; idx < 200; idx++) {
-            array0.push((idx + 1) + "组");
-            array1.push((idx + 1) + "次");
-            array2.push((idx + 1));
-        }
-        movementNoMultiArray.push(array0);
-        movementNoMultiArray.push(array1);
-        movementNoMultiArray.push(array2);
-        movementNoMultiArray.push(array3);
-
         this.setData({
-            movementNoMultiArray: movementNoMultiArray,
             bodyPartList: result[0],
             allMovementsHolder: result[1],
 
@@ -452,6 +483,8 @@ Page({
             app.globalData.selectedMoveIdOnRecordPage = -1;
             app.globalData.selectedPartIdOnRecordPage = -1;
         }
+
+        this.makePicker();
 
         console.log("in onShow, this.data.curRecords: ", this.data.curRecords);
 

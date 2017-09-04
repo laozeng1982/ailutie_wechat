@@ -50,6 +50,8 @@ Page({
             models[2].checked = false;
             models[3].checked = false;
 
+            controller[0].show = true;
+            controller[1].show = true;
             controller[2].show = true;
             controller[3].show = true;
             controller[4].show = true;
@@ -64,6 +66,8 @@ Page({
             models[2].checked = false;
             models[3].checked = false;
 
+            controller[0].show = true;
+            controller[1].show = true;
             controller[2].show = true;
             controller[3].show = true;
             controller[4].show = true;
@@ -73,6 +77,8 @@ Page({
             models[2].checked = true;
             models[3].checked = false;
 
+            controller[0].show = true;
+            controller[1].show = true;
             controller[2].show = false;
             controller[3].show = false;
             controller[4].show = false;

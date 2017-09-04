@@ -13,18 +13,37 @@ Page({
         var key = e.currentTarget.dataset.key;
         console.log(key);
 
+        var host = this;
+
         wx.showModal({
             title: '删除记录',
             content: '您确定删除该条记录，如果未同步，将无法找回哦。',
             success: function (res) {
                 if (res.confirm) {
-                    wx.removeStorageSync(key);
+                    host.removeStorage(key);
                     console.log('用户点击确定');
                 } else if (res.cancel) {
                     console.log('用户点击取消')
                 }
             }
         });
+    },
+
+    removeStorage: function (key) {
+        wx.removeStorageSync(key);
+        var storageInfo = this.data.storageInfo;
+
+        for (var idx = 0; idx < storageInfo.keys.length; idx++) {
+            if (storageInfo.keys[idx] === key) {
+                storageInfo.keys.splice(idx, 1);
+                break;
+            }
+        }
+
+        this.setData({
+            storageInfo: storageInfo
+        });
+
     },
 
     onCustomAddAction: function (e) {
