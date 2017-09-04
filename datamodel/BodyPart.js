@@ -34,7 +34,7 @@ class BodyPartList {
                 action.actionGpMeasurement = item[idx].gpmeasurement;
                 action.actionMeasurement = item[idx].measurement;
                 action.actionPartId = partIndex;
-                action.actionPart = partName;
+                action.actionPartName = partName;
                 bodyPart.actionList.push(action);
             }
 
@@ -87,7 +87,7 @@ class Action {
     constructor() {
         this.actionId = '';
         this.actionName = '';
-        this.actionPart = '';
+        this.actionPartName = '';
         this.actionPartId = '';
         this.actionGpMeasurement = '';
         this.actionMeasurement = '';

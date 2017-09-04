@@ -124,37 +124,37 @@ Page({
         }
 
         var curRecords = this.data.curRecords;
-        var curMovmentIdx = this.data.curSelectedMovementId - 1;
-        var measurement = curRecords.movementList[curMovmentIdx].contents.details[0].measurement;
-        console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount));
-        console.log(parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount));
-        if (parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount)
-            < parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount)) {
+        var curMovementIdx = this.data.curSelectedMovementId - 1;
+        var measurement = curRecords.movementList[curMovementIdx].contents.details[0].measurement;
+        // console.log(parseInt(curRecords.movementList[curMovementIdx].contents.curFinishedGpCount));
+        // console.log(parseInt(curRecords.movementList[curMovementIdx].contents.planGpCount));
+        if (parseInt(curRecords.movementList[curMovementIdx].contents.curFinishedGpCount)
+            < parseInt(curRecords.movementList[curMovementIdx].contents.planGpCount)) {
 
-            for (var index = 0; index < curRecords.movementList[curMovmentIdx].contents.details.length; index++) {
-                if (parseInt(curRecords.movementList[curMovmentIdx].contents.details[index].actualCount) <= 0) {
+            for (var index = 0; index < curRecords.movementList[curMovementIdx].contents.details.length; index++) {
+                if (parseInt(curRecords.movementList[curMovementIdx].contents.details[index].actualCount) <= 0) {
                     // 为真时，表示没有记录
-                    curRecords.movementList[curMovmentIdx].contents.details[index].actualCount = this.data.actualCount;
-                    curRecords.movementList[curMovmentIdx].contents.details[index].actualWeight = this.data.actualWeight;
-                    curRecords.movementList[curMovmentIdx].contents.details[index].groupFeeling = this.data.actualGpFeeling;
-                    curRecords.movementList[curMovmentIdx].contents.details[index].finished = true;
+                    curRecords.movementList[curMovementIdx].contents.details[index].actualCount = this.data.actualCount;
+                    curRecords.movementList[curMovementIdx].contents.details[index].actualWeight = this.data.actualWeight;
+                    curRecords.movementList[curMovementIdx].contents.details[index].groupFeeling = this.data.actualGpFeeling;
+                    curRecords.movementList[curMovementIdx].contents.details[index].finished = true;
 
-                    curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount++;
-                    curRecords.movementList[curMovmentIdx].contents.actualGpCount = curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount;
-                    curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.getMvFeeling();
+                    curRecords.movementList[curMovementIdx].contents.curFinishedGpCount++;
+                    curRecords.movementList[curMovementIdx].contents.actualGpCount = curRecords.movementList[curMovementIdx].contents.curFinishedGpCount;
+                    curRecords.movementList[curMovementIdx].contents.mvFeeling = this.getMvFeeling();
 
                     break;
                 }
             }
-            if (parseInt(curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount)
-                === parseInt(curRecords.movementList[curMovmentIdx].contents.planGpCount)) {
-                curRecords.movementList[curMovmentIdx].contents.finished = true;
+            if (parseInt(curRecords.movementList[curMovementIdx].contents.curFinishedGpCount)
+                === parseInt(curRecords.movementList[curMovementIdx].contents.planGpCount)) {
+                curRecords.movementList[curMovementIdx].contents.finished = true;
             }
         } else {
             util.showToast("帅哥，本动作计划已经完成了哦！", this, 1000);
-            curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount++;
+            curRecords.movementList[curMovementIdx].contents.curFinishedGpCount++;
             var record = new RecordFactory.DetailRecord(
-                curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount,
+                curRecords.movementList[curMovementIdx].contents.curFinishedGpCount,
                 0,
                 0,
                 this.data.actualCount,
@@ -162,11 +162,11 @@ Page({
                 measurement);
             record.groupFeeling = this.data.actualGpFeeling;
             record.finished = true;
-            curRecords.movementList[curMovmentIdx].contents.details.push(record);
+            curRecords.movementList[curMovementIdx].contents.details.push(record);
 
-            curRecords.movementList[curMovmentIdx].contents.actualGpCount = curRecords.movementList[curMovmentIdx].contents.curFinishedGpCount;
-            curRecords.movementList[curMovmentIdx].contents.finished = true;
-            curRecords.movementList[curMovmentIdx].contents.mvFeeling = this.getMvFeeling();
+            curRecords.movementList[curMovementIdx].contents.actualGpCount = curRecords.movementList[curMovementIdx].contents.curFinishedGpCount;
+            curRecords.movementList[curMovementIdx].contents.finished = true;
+            curRecords.movementList[curMovementIdx].contents.mvFeeling = this.getMvFeeling();
 
         }
 

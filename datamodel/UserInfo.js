@@ -31,12 +31,13 @@ class UserInfo {
 class WechatUserInfo {
     constructor() {
         this.avatarUrl = '';
-        this.city = '';
-        this.country = '';
         this.gender = '';
-        this.language = '';
         this.nickName = '';
+        this.city = '';
         this.province = '';
+        this.country = '';
+        this.language = '';
+
 
     }
 
