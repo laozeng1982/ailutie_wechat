@@ -7,9 +7,9 @@
     <view class="button-group">
 
         <view style='width:500rpx;display:flex;flex-direction:row'>
-            <view class="graySpace"></view>
+           
             <image class="dateMoveButton" bindtap="onLastMonth" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
-
+            <view class="graySpace"></view>
             <picker mode="date" value="{{selectedDate}}" start="2015-09-01" end="2099-12-31" bindchange="onSelectMonthYear">
                 <view class="picker">
 
@@ -27,15 +27,15 @@
                 </view>
             </picker>
 
+            <view class="graySpace"></view>
             <image class="dateMoveButton" bindtap="onNextMonth" src="../../pages/image/double_arrows_blod_right_64px.png"></image>
 
-            <view class="graySpace"></view>
         </view>
 
-        <!-- wx:if="{{curMonth!==todayMonth || curYear!==todayYear}}" -->
-        <view class="today_date" bindtap="onToToday">今</view>
-
+        <!-- wx:if="{{}}" -->
         <view class="graySpace"></view>
+        <view class="{{curMonth!==todayMonth || curYear!==todayYear?'today_date':'not_today_date'}}" bindtap="onToToday">今</view>
+
     </view>
 
     <!-- 正常的日历面板 -->

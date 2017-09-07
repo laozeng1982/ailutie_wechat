@@ -200,6 +200,16 @@
     border-radius: 20%;
 }
 
+.not_today_date {
+    align-items: center;
+    width: 50rpx;
+    height: 50rpx;
+    z-index: 100;
+    /* background: #e64340;
+    color: #fff;
+    border-radius: 20%; */
+}
+
 .show_box {
     display: flex;
     justify-content: center;
