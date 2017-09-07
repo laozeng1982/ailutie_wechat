@@ -12,21 +12,26 @@
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    height: 100%;
+    /* height: 100%; */
     /* border-bottom: 1rpx solid #eee; */
 }
 
 .thiscontainer {
     height: 100%;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-start;
     font-family: "微软雅黑";
+}
+
+.picker{
+    display: flex;
+    flex-direction: row;
 }
 
 .calender_panel {
     width: 100%;
-    height: 510rpx;
+    /* height: 100%; */
     border-bottom: 1rpx solid #ececec;
 }
 
@@ -50,8 +55,7 @@
 }
 
 .month_label {
-    /* width: 14.28%; */
-    /* position: relative; */
+    /* width: 14.28%; *//* position: relative; */
     float: left;
     text-align: center;
     font-size: 40rpx;
@@ -65,7 +69,7 @@
 
 .calender_box_header {
     width: 100%;
-    background: #b2b2b2;
+    /* background: #b2b2b2; */
     overflow: hidden;
     border-bottom: 1rpx solid #ececec;
     display: flex;
@@ -75,19 +79,19 @@
     width: 14.28%;
     float: left;
     text-align: center;
-    font-size: 40rpx;
+    font-size: 25rpx;
     padding: 10rpx 0;
 }
 
 .weekday_label_days {
-    /* width: 14.28%; */
-    /* position: relative; */
+    /* width: 14.28%; *//* position: relative; */
     float: left;
     text-align: center;
+    font-weight: 600;
     font-size: 40rpx;
     padding: 10rpx 0;
-    height: 50rpx;
-    width: 50rpx;
+    height: 80rpx;
+    width: 80rpx;
 }
 
 .weekday_label_days_overlay {
@@ -138,7 +142,7 @@
 .active_date {
     background: #e64340;
     color: #fff;
-    border-radius: 30%;
+    border-radius: 20%;
     border-bottom: 5rpx;
 }
 
@@ -150,11 +154,11 @@
 }
 
 .plan_date {
-     background: #fff; 
+    background: #fff;
     /* color: #fff; */
-     width: 100%;
-     height: 100%; 
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 20%;
     border-bottom: 1rpx solid #888;
     border-top: 1rpx solid #888;
     border-left: 1rpx solid #888;
@@ -171,14 +175,24 @@
 .active_date_overlay {
     /* position: absolute; */
     align-items: center;
-    width: 50rpx;
-    height: 50rpx;
-    left: 30rpx;
-    top: 60prx;
+    width: 100%;
+    height: 100%;
+    /* left: 30rpx;
+    top: 60prx; */
     z-index: 100;
     background: #e64340;
     color: #fff;
-    border-radius: 50%;
+    border-radius: 20%;
+}
+
+.today_date {
+    align-items: center;
+    width: 50rpx;
+    height: 50rpx;
+    z-index: 100;
+    background: #e64340;
+    color: #fff;
+    border-radius: 20%;
 }
 
 .show_box {
@@ -199,7 +213,7 @@
 }
 
 .scrollview {
-    height: 550rpx;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -567,14 +581,14 @@ input-holder {
 .selected_date_overlay {
     /* position: absolute; */
     align-items: center;
-    width: 50rpx;
-    height: 50rpx;
+    width: 80rpx;
+    height: 80rpx;
     left: 30rpx;
     top: 60prx;
     z-index: 100;
     background: #09bb03;
     color: black;
-    border-radius: 50%;
+    border-radius: 20%;
 }
 
 .whiteSpace {

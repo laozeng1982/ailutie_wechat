@@ -15,6 +15,8 @@ Page({
 
         curRecords: '',
         today: '',
+        todayMonth: '',
+        todayYear: '',
         endDate: '',
         selectedDate: '',
         selectedWeek: '',
@@ -46,9 +48,6 @@ Page({
 
         selectedMovementId: -1,
         showDateLongPress: false,
-        // 年月选择器
-        showMonthSelector: false,
-        monthSelector: [],
 
         // 控制器，只能为1,2,3
         selectedModel: -1
@@ -79,34 +78,27 @@ Page({
     /**
      * 响应到今天按钮
      */
-    onShowMonthYear: function () {
+    onSelectMonthYear: function (e) {
         // this.data.Functions.moveMonth(this, "now");
-        this.setData({
-            showMonthSelector: !this.data.showMonthSelector
-        })
-    },
+        console.log(e);
 
-    onMonthSelected: function (e) {
-        // console.log(e);
-        console.log(e.currentTarget.id, e.target.dataset.month);
+        var dateArr = e.detail.value.split("-");
+
         this.setData({
-            curMonth: parseInt(e.currentTarget.id),
-            showMonthSelector: false
+            curYear: parseInt(dateArr[0]),
+            curMonth: parseInt(dateArr[1]),
+            curDate: parseInt(dateArr[2])
         });
-
+        // this.data.Functions.selectDate(this, e);
         this.data.Functions.moveMonth(this, "selected");
     },
 
-    onLastYear: function (e) {
-        this.setData({
-            curYear: parseInt(this.data.curYear) - 1
-        });
-    },
+    onToToday: function (e) {
+        // this.data.Functions.moveMonth(this, "now");
+        console.log(e);
 
-    onNextYear: function (e) {
-        this.setData({
-            curYear: parseInt(this.data.curYear) + 1
-        });
+        // this.data.Functions.selectDate(this, e);
+        this.data.Functions.moveMonth(this, "now");
     },
 
     /**
@@ -264,37 +256,14 @@ Page({
         var today = util.formatDateToString(new Date());
         var Functions = new RecordsPageFunctions.RecordsPageFunctions();
 
-        var row1 = [
-            {id: 1, value: "一月", selected: false},
-            {id: 2, value: "二月", selected: false},
-            {id: 3, value: "三月", selected: false},
-            {id: 4, value: "四月", selected: false},
-        ];
-
-        var row2 = [
-            {id: 5, value: "五月", selected: false},
-            {id: 6, value: "六月", selected: false},
-            {id: 7, value: "七月", selected: false},
-            {id: 8, value: "八月", selected: false},
-        ];
-
-        var row3 = [
-            {id: 9, value: "九月", selected: false},
-            {id: 10, value: "十月", selected: false},
-            {id: 11, value: "十一月", selected: false},
-            {id: 12, value: "十二月", selected: false},
-        ];
-
-        var monthSelector = [row1, row2, row3];
-
         this.setData({
             today: today,
+            todayMonth: parseInt(today.split('-')[1]),
+            todayYear: parseInt(today.split('-')[0]),
             endDate: today,
             Functions: Functions,
-            monthSelector: monthSelector
         });
         console.log("Records page onLoad call, this.data.today: ", this.data.today);
-        console.log("Records page onLoad call, this.data.today: ", app.CONTROLLER);
     },
 
     /**

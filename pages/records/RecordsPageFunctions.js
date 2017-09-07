@@ -203,9 +203,11 @@ class RecordsPageFunctions {
         if (isNext === "next") {
             curYear = curMonth + 1 === 13 ? curYear + 1 : curYear;
             curMonth = curMonth + 1 === 13 ? 1 : curMonth + 1;
+            curDate= 1;
         } else if (isNext === "last") {
             curYear = curMonth - 1 ? curYear : curYear - 1;
             curMonth = curMonth - 1 ? curMonth - 1 : 12;
+            curDate= 1;
         } else if (isNext === "now") {
             var now = new Date();
             curYear = now.getFullYear();
@@ -215,8 +217,10 @@ class RecordsPageFunctions {
 
         }
 
+        console.log("here: ", curYear, curMonth, curDate);
         host.setData({
-            selectedDate: util.formatDateToString(new Date()),
+            // 每换一月，都选到1号
+            selectedDate: util.formatStringDate(curYear, curMonth, curDate),
             curYear: curYear,
             curMonth: curMonth,
             curDate: curDate
@@ -251,28 +255,41 @@ class RecordsPageFunctions {
             default:
                 // 普通的选择日期
                 var now;
-                console.log(e.currentTarget.dataset.date.value);
-                if (typeof (e) === "string")
-                    now = util.formatDateToString(new Date());
-                else
-                    now = e.currentTarget.dataset.date.value.split('-');
+
+                console.log(e);
+                var date;
+                if (typeof (e) === "string") {
+                    now = util.formatDateToString(new Date()).split('-');
+                    date = util.formatDateToString(new Date());
+                }
+                else {
+                    if (e.type === "change") {
+                        now = e.detail.value.split('-');
+                        date = e.detail.value;
+                    }
+                    else {
+                        now = e.currentTarget.dataset.date.value.split('-');
+                        date = e.currentTarget.dataset.date.value;
+                    }
+
+                }
 
                 var curYear = parseInt(now[0]);
                 var curMonth = parseInt(now[1]);
                 var curDate = parseInt(now[2]);
 
-                var curRecords = CONTROLLER.loadData(e.currentTarget.dataset.date.value, DATATYPE.DailyRecords);
+                var curRecords = CONTROLLER.loadData(date, DATATYPE.DailyRecords);
 
                 host.setData({
                     curRecords: curRecords,
-                    selectedDate: e.currentTarget.dataset.date.value,
-                    selectedWeek: e.currentTarget.dataset.date.week,
+                    selectedDate: date,
+                    // selectedWeek: e.currentTarget.dataset.date.week,
                     curYear: curYear,
                     curMonth: curMonth,
                     curDate: curDate
                 });
 
-                app.globalData.selectedDate = util.getDateFromString(e.currentTarget.dataset.date.value, '-');
+                app.globalData.selectedDate = util.getDateFromString(date, '-');
                 console.log(app.globalData.selectedDate);
         }
     };

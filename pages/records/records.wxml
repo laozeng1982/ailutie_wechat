@@ -6,24 +6,31 @@
 
     <view class="button-group">
 
-        <view class="graySpace"></view>
-        <image class="dateMoveButton" bindtap="onLastMonth" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
-        <!-- <button class="dateMoveButton" type="default" bindtap="onLastMonth"> 上月</button> -->
+        <view style='width:500rpx;display:flex;flex-direction:row'>
+            <view class="graySpace"></view>
+            <image class="dateMoveButton" bindtap="onLastMonth" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
 
-        <view class="dateButton" bindtap="onShowMonthYear">
-            <text style="font-size: 40rpx;">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</text>
+            <picker mode="date" value="{{date}}" start="2015-09-01" end="2099-12-31" bindchange="onSelectMonthYear">
+                <view class="picker">
+                    <!-- <text style="font-size: 30rpx;">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</text> -->
+                    <view style='width:100rpx'>{{curYear}}</view>年
+                    <view style='width:50rpx'>{{curMonth}}</view>月
+                    <view style='width:50rpx'>{{curDate}}</view>日
+                </view>
+            </picker>
+
+            <image class="dateMoveButton" bindtap="onNextMonth" src="../../pages/image/double_arrows_blod_right_64px.png"></image>
+
+            <view class="graySpace"></view>
         </view>
-        <!-- <button class="dateButton" type="default" bindtap="onToToday">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</button> -->
 
-        <image class="dateMoveButton" bindtap="onNextMonth" src="../../pages/image/double_arrows_blod_right_64px.png"></image>
-        <!-- <button class="dateMoveButton" type="default" bindtap="onNextMonth">下月</button> -->
-
+        <view wx:if="{{curMonth!==todayMonth || curYear!==todayYear}}" class="today_date" bindtap="onToToday">今</view>
 
         <view class="graySpace"></view>
     </view>
 
     <!-- 正常的日历面板 -->
-    <view class="calender_panel" wx:if="{{!showMonthSelector}}">
+    <view class="calender_panel">
         <!-- 日历头 -->
         <view class="calender_box">
             <view class="calender_box_header">
@@ -43,7 +50,7 @@
 
         <!-- 日历中每天的显示 -->
         <view class="calender_box" wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="week">
-            <view class="weekday_label_days" wx:for="{{week}}" wx:key="{{index}}" >
+            <view class="weekday_label_days" wx:for="{{week}}" wx:key="{{index}}">
                 <!-- 有计划的日期 -->
                 <!-- <view wx:for-item="{{dateListWithPlan}}" class="{{item.hasPlan?'image_overlay_left':''}}">
                     <image class='image_overlay_left' src="{{item.hasPlan?'../image/weightlifting1.png':''}}"></image>
@@ -61,35 +68,11 @@
         </view>
     </view>
 
-    <!-- 当点击选月或者年的时候弹出 -->
-    <view class="calender_panel" wx:if="{{showMonthSelector}}">
-
-        <view class="calender_month_box" wx:for="{{monthSelector}}" wx:key="{{index}}" wx:for-item="row">
-            <view class="month_label" wx:for="{{row}}">
-                <view id="{{item.id}}" bindtap="onMonthSelected" data-month="{{item.value}}">{{item.value}}</view>
-            </view>
-        </view>
-
-        <view class="graySpace"></view>
-
-        <view class="calender_month_box">
-            <image class="dateMoveButton" bindtap="onLastYear" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
-
-            <view class="dateButton" bindtap="">
-                <text style="font-size: 40rpx;">{{curYear+' 年'}} </text>
-            </view>
-
-            <image class="dateMoveButton" bindtap="onNextYear" src="../../pages/image/double_arrows_blod_right_64px.png"></image>
-
-            <view class="graySpace"></view>
-        </view>
-
-    </view>
-
     <!-- 记录列表 -->
     <view class="planAndActionContainer" wx:if="{{!showDateLongPress}}">
         <scroll-view class="scrollview" scroll-y="true">
 
+            <!-- 每一个动作 -->
             <view class="listSingleMovement" wx:for="{{curRecords.movementList}}" wx:key="{{index}}" class='movement-item'>
                 <view id='{{item.mvId}}' class='movement'>
                     <view class="{{item.mvId%2==0?'tableCornor1':'tableCornor2'}}" data-index="{{index}}">
@@ -155,7 +138,7 @@
                             <view id="{{item.id}}">
                                 {{item.value}}
                                 <label>
-                                <checkbox id="{{item.id}}" disabled="{{selectedModel!==2}}" value="{{item.value}}" checked="{{item.checked}}" />
+                                    <checkbox id="{{item.id}}" disabled="{{selectedModel!==2}}" value="{{item.value}}" checked="{{item.checked}}" />
                                 </label>
                             </view>
                         </checkbox-group>

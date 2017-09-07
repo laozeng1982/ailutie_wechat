@@ -122,6 +122,7 @@ class DetailRecord {
         this.planWeight = planWeight;
         this.actualCount = actualCount;
         this.actualWeight = actualWeight;
+        this.gpMeasurement = '';
         this.measurement = '';
         this.finished = false;
         this.groupFeeling = ''; //这一组的感觉
@@ -133,6 +134,7 @@ class DetailRecord {
         this.planWeight = record.planWeight;
         this.actualCount = record.actualCount;
         this.actualWeight = record.actualWeight;
+        this.gpMeasurement = record.gpMeasurement;
         this.measurement = record.measurement;
         this.finished = record.finished;
         this.groupFeeling = record.groupFeeling;
