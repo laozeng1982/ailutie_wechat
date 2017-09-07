@@ -6,14 +6,18 @@
     height: 100%;
 }
 
+.swiper {
+    width: 100%;
+    height: 700rpx;
+}
+
 .planAndActionContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    /* height: 100%; */
-    /* border-bottom: 1rpx solid #eee; */
+    /* height: 100%; *//* border-bottom: 1rpx solid #eee; */
 }
 
 .thiscontainer {
@@ -24,12 +28,12 @@
     font-family: "微软雅黑";
 }
 
-.picker{
+.picker {
     display: flex;
     flex-direction: row;
 }
 
-.picker-text{
+.picker-text {
     display: flex;
     justify-content: center;
 }
@@ -164,10 +168,10 @@
     width: 100%;
     height: 100%;
     border-radius: 20%;
-    border-bottom: 1rpx solid #888;
-    border-top: 1rpx solid #888;
-    border-left: 1rpx solid #888;
-    border-right: 1rpx solid #888;
+    border-bottom: 5rpx solid #888;
+    border-top: 5rpx solid #888;
+    border-left: 5rpx solid #888;
+    border-right: 5rpx solid #888;
 }
 
 .today {

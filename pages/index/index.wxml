@@ -1,13 +1,21 @@
 <!--index.wxml-->
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{wechatUserInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{wechatUserInfo.nickName}}</text>
-  </view>
-  
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <view bindtap="bindViewTap" class="userinfo">
+        <image class="userinfo-avatar" src="{{wechatUserInfo.avatarUrl}}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{wechatUserInfo.nickName}}</text>
+    </view>
 
-  <text class="userinfo-nickname" wx:if="{{notSignUp}}">您还没有注册，将无法使用同步功能哦~~</text>
+    <view class="usermotto">
+        <text class="user-motto">{{motto}}</text>
+    </view>
+
+    <text class="userinfo-nickname" wx:if="{{notSignUp}}">您还没有注册，将无法使用同步功能哦~~</text>
 </view>
+
+<!-- <swiper indicator-dots="{{indicatorDots}}" circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="onSwiperChange">
+    <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <swiper-item id="{{index}}">
+            <image src="{{item}}" class="slide-image" width="355" height="150"/>
+        </swiper-item>
+    </block>
+</swiper> -->

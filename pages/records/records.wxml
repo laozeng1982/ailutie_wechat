@@ -7,7 +7,7 @@
     <view class="button-group">
 
         <view style='width:500rpx;display:flex;flex-direction:row'>
-           
+
             <image class="dateMoveButton" bindtap="onLastMonth" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
             <view class="graySpace"></view>
             <picker mode="date" value="{{selectedDate}}" start="2015-09-01" end="2099-12-31" bindchange="onSelectMonthYear">
@@ -32,50 +32,51 @@
 
         </view>
 
-        <!-- wx:if="{{}}" -->
         <view class="graySpace"></view>
         <view class="{{curMonth!==todayMonth || curYear!==todayYear?'today_date':'not_today_date'}}" bindtap="onToToday">今</view>
 
     </view>
 
-    <!-- 正常的日历面板 -->
-    <view class="calender_panel">
-        <!-- 日历头 -->
-        <view class="calender_box">
-            <view class="calender_box_header">
-                <view class="weekday_label_header">
-                    <text class="redcolor">日</text>
+    <swiper style='height:700rpx' indicator-dots="{{false}}" circular="{{true}}" autoplay="{{false}}" duration="{{duration}}" bindchange="onSwiperChange">
+        <block wx:for="{{calenders}}" wx:key="{{index}}">
+            <swiper-item id="{{item}}">
+                <!-- 正常的日历面板 -->
+                <view class="calender_panel">
+                    <!-- 日历头 -->
+                    <view class="calender_box">
+                        <view class="calender_box_header">
+                            <view class="weekday_label_header">
+                                <text class="redcolor">日</text>
+                            </view>
+                            <view class="weekday_label_header">一</view>
+                            <view class="weekday_label_header">二</view>
+                            <view class="weekday_label_header">三</view>
+                            <view class="weekday_label_header">四</view>
+                            <view class="weekday_label_header">五</view>
+                            <view class="weekday_label_header">
+                                <text class="redcolor">六</text>
+                            </view>
+                        </view>
+                    </view>
+
+                    <!-- 日历中每天的显示 -->
+                    <view class="calender_box" wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="week">
+                        <view class="weekday_label_days" wx:for="{{week}}" wx:key="{{index}}">
+
+                            <view class="{{!item.inThisMonth?'not_in_this_month_date':''}} {{item.hasPlan?'plan_date':''}} {{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected"
+                                bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</view>
+
+                            <!-- 有锻炼记录的日期 -->
+                            <view wx:for-item="{{dateListWithTraining}}" class="{{item.hasTrained?'image_overlay_left':''}}">
+                                <image class='image_overlay_left' src="{{item.hasTrained?'../image/weightlifting1.png':''}}"></image>
+                            </view>
+
+                        </view>
+                    </view>
                 </view>
-                <view class="weekday_label_header">一</view>
-                <view class="weekday_label_header">二</view>
-                <view class="weekday_label_header">三</view>
-                <view class="weekday_label_header">四</view>
-                <view class="weekday_label_header">五</view>
-                <view class="weekday_label_header">
-                    <text class="redcolor">六</text>
-                </view>
-            </view>
-        </view>
-
-        <!-- 日历中每天的显示 -->
-        <view class="calender_box" wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="week">
-            <view class="weekday_label_days" wx:for="{{week}}" wx:key="{{index}}">
-                <!-- 有计划的日期 -->
-                <!-- <view wx:for-item="{{dateListWithPlan}}" class="{{item.hasPlan?'image_overlay_left':''}}">
-                    <image class='image_overlay_left' src="{{item.hasPlan?'../image/weightlifting1.png':''}}"></image>
-                </view> -->
-
-                <view class="{{!item.inThisMonth?'not_in_this_month_date':''}} {{item.hasPlan?'plan_date':''}} {{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected"
-                    bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</view>
-
-                <!-- 有锻炼记录的日期 -->
-                <view wx:for-item="{{dateListWithTraining}}" class="{{item.hasTrained?'image_overlay_left':''}}">
-                    <image class='image_overlay_left' src="{{item.hasTrained?'../image/weightlifting1.png':''}}"></image>
-                </view>
-
-            </view>
-        </view>
-    </view>
+            </swiper-item>
+        </block>
+    </swiper>
 
     <!-- 记录列表 -->
     <view class="planAndActionContainer" wx:if="{{!showDateLongPress}}">

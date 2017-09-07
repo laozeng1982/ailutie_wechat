@@ -274,7 +274,7 @@ Page({
     },
 
     /**
-     * 若选择的天里完全没有记录，则直接刷新所有选择状态，如果有记录，把记录同步到allMovementsList中，以及重置部位和选中的状态
+     * 若选择的日期里完全没有记录，则直接刷新所有选择状态，如果有记录，把记录同步到allMovementsList中，以及重置部位和选中的状态
      */
     initRecords: function () {
         var result = this.refreshAllData();
@@ -321,7 +321,6 @@ Page({
 
     },
 
-
     /**
      * refreshAll Data
      * 为了避免两次刷新数据，refresh改回返回数据，到其他函数里去刷新，免得画面抖动
@@ -337,7 +336,7 @@ Page({
             var tmpHolder = [];
             for (var item of list.actionList) {
                 var movement = new Movement.Movement();
-                movement.mvInfo.partName = item.actionPart;
+                movement.mvInfo.partName = item.actionPartName;
                 movement.mvInfo.mvName = item.actionName;
                 movement.mvInfo.mvPictureSrc = item.actionPictureSrc;
                 movement.contents.planGpCount = 6;
@@ -363,7 +362,6 @@ Page({
     /**
      *
      */
-
     makePicker: function () {
 
         console.log("makePicker called");

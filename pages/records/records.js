@@ -25,13 +25,13 @@ Page({
         curDate: '',
         weekArr: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
         weekList: [
-            {id: 0, value: '日', checked: false},
-            {id: 1, value: '一', checked: false},
-            {id: 2, value: '二', checked: false},
-            {id: 3, value: '三', checked: false},
-            {id: 4, value: '四', checked: false},
-            {id: 5, value: '五', checked: false},
-            {id: 6, value: '六', checked: false}
+            { id: 0, value: '日', checked: false },
+            { id: 1, value: '一', checked: false },
+            { id: 2, value: '二', checked: false },
+            { id: 3, value: '三', checked: false },
+            { id: 4, value: '四', checked: false },
+            { id: 5, value: '五', checked: false },
+            { id: 6, value: '六', checked: false }
         ],
         // 保存当月的日期
         dateList: [],
@@ -45,6 +45,10 @@ Page({
         checkedDateList: [],
 
         Functions: '',
+
+        calenders: [1, 2, 3],
+        lastCalendarId: 0,
+        duration: 1000,
 
         selectedMovementId: -1,
         showDateLongPress: false,
@@ -75,9 +79,6 @@ Page({
         this.data.Functions.moveMonth(this, "next");
     },
 
-    /**
-     * 响应到今天按钮
-     */
     onSelectMonthYear: function (e) {
         // this.data.Functions.moveMonth(this, "now");
         console.log(e);
@@ -93,12 +94,64 @@ Page({
         this.data.Functions.moveMonth(this, "selected");
     },
 
+    /**
+     * 响应到今天按钮
+     */
     onToToday: function (e) {
         // this.data.Functions.moveMonth(this, "now");
         console.log(e);
 
         // this.data.Functions.selectDate(this, e);
         this.data.Functions.moveMonth(this, "now");
+    },
+
+    /**
+     * 响应日历左右滑动
+     */
+    onSwiperChange: function (e) {
+        // this.data.Functions.moveMonth(this, "now");
+        // console.log(e);
+
+        var current = parseInt(e.detail.current);
+        var lastCalenderId = this.data.lastCalendarId;
+        // console.log(e.detail.current, e.target.id);
+
+        var isNextMonth = false;
+
+        // 判断是左滑还是右划，左滑表示上个月
+        switch (lastCalenderId) {
+            case 0:
+                if (current === 1)
+                    isNextMonth = true;
+                else if (current === 2)
+                    isNextMonth = false;
+                break;
+            case 1:
+                if (current === 0)
+                    isNextMonth = false;
+                else if (current === 2)
+                    isNextMonth = true;
+                break;
+            case 2:
+                if (current === 0)
+                    isNextMonth = true;
+                else if (current === 1)
+                    isNextMonth = false;
+                break;
+            default:
+                console.log("what the fuck!!!!!");
+                break;
+        }
+
+        if (isNextMonth) {
+            this.data.Functions.moveMonth(this, "next");
+        } else {
+            this.data.Functions.moveMonth(this, "last");
+        }
+
+        this.setData({
+            lastCalendarId: current
+        });
     },
 
     /**
