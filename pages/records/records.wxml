@@ -10,12 +10,20 @@
             <view class="graySpace"></view>
             <image class="dateMoveButton" bindtap="onLastMonth" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
 
-            <picker mode="date" value="{{date}}" start="2015-09-01" end="2099-12-31" bindchange="onSelectMonthYear">
+            <picker mode="date" value="{{selectedDate}}" start="2015-09-01" end="2099-12-31" bindchange="onSelectMonthYear">
                 <view class="picker">
-                    <!-- <text style="font-size: 30rpx;">{{curYear+' 年 '+curMonth +' 月 ' + curDate+ '日'}}</text> -->
-                    <view style='width:100rpx'>{{curYear}}</view>年
-                    <view style='width:50rpx'>{{curMonth}}</view>月
-                    <view style='width:50rpx'>{{curDate}}</view>日
+
+                    <view class='picker-text' style='width:120rpx;'>
+                        <text>{{curYear}}</text>
+                    </view>年
+
+                    <view class='picker-text' style='width:60rpx;'>
+                        <text>{{curMonth}}</text>
+                    </view>月
+
+                    <view class='picker-text' style='width:60rpx;'>
+                        <text>{{curDate}}</text>
+                    </view>日
                 </view>
             </picker>
 
@@ -24,7 +32,8 @@
             <view class="graySpace"></view>
         </view>
 
-        <view wx:if="{{curMonth!==todayMonth || curYear!==todayYear}}" class="today_date" bindtap="onToToday">今</view>
+        <!-- wx:if="{{curMonth!==todayMonth || curYear!==todayYear}}" -->
+        <view class="today_date" bindtap="onToToday">今</view>
 
         <view class="graySpace"></view>
     </view>

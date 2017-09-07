@@ -29,6 +29,11 @@
     flex-direction: row;
 }
 
+.picker-text{
+    display: flex;
+    justify-content: center;
+}
+
 .calender_panel {
     width: 100%;
     /* height: 100%; */
@@ -87,7 +92,7 @@
     /* width: 14.28%; *//* position: relative; */
     float: left;
     text-align: center;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 40rpx;
     padding: 10rpx 0;
     height: 80rpx;
