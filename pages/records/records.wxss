@@ -6,6 +6,13 @@
     height: 100%;
 }
 
+.header {
+    width: 500rpx;
+    height: 50rpx;
+    display: flex;
+    flex-direction: row;
+}
+
 .swiper {
     width: 100%;
     height: 700rpx;
@@ -119,33 +126,20 @@
     display: flex;
     width: 32rpx;
     height: 32rpx;
-    /* left: 0; */
-    top: 0;
-    right: 0;
     z-index: 100;
-    /* background: red;  */
 }
 
-.image_overlay_middle {
-    /* position: absolute; */
+.calender-marker {
     display: flex;
-    width: 64rpx;
-    height: 64rpx;
-    top: 0;
-    z-index: 100;
-    /* background: red;  */
+    flex-direction: row;
+    justify-content: space-around;
 }
 
-.image_overlay_left {
-    /* position: absolute; */
+.image_overlay {
     display: flex;
     width: 24rpx;
-    height: 12rpx;
-    /* left: 0; */
-    top: 0;
-    left: 0;
+    height: 24rpx;
     z-index: 100;
-    /* background: red;  */
 }
 
 .active_date {
@@ -177,6 +171,11 @@
 .today {
     /* background: #576b95; */
     color: blue;
+    border-radius: 20%;
+    border-bottom: 5rpx solid #888;
+    border-top: 5rpx solid #888;
+    border-left: 5rpx solid #888;
+    border-right: 5rpx solid #888;
     /* border-radius: 30%;
     border-bottom: 5rpx; */
 }
@@ -195,6 +194,8 @@
 }
 
 .today_date {
+    display: flex;
+    justify-content: space-around;
     align-items: center;
     width: 50rpx;
     height: 50rpx;
@@ -205,6 +206,8 @@
 }
 
 .not_today_date {
+    display: flex;
+    justify-content: space-around;
     align-items: center;
     width: 50rpx;
     height: 50rpx;

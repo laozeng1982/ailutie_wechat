@@ -1,4 +1,41 @@
 <!--userprofile.wxml-->
 <view class="generalContainer">
-    <text>还在努力中</text>
+
+   <!-- 这是Toast -->
+    <include src="../../ui/toast/toast.wxml" />
+
+    <form bindsubmit="onFormSubmit" bindreset="onFormReset">
+
+        <view>
+            个人状态记录
+        </view>
+        <view class="section">
+            <view class="section_item_name">
+                <text>记录日期</text>
+            </view>
+
+            <picker mode="date" value="{{selectedDate}}" start="2015-09-01" end="2099-12-31" bindchange="onSelectDate">
+                <view class="picker">
+                    <text>{{selectedDate}}</text>
+                </view>
+            </picker>
+        </view>
+
+        <scroll-view style='height:800rpx' scroll-y="true">
+            <view class="section" wx:for="{{userProfile}}" wx:key="{{index}}">
+                <view class="section_item_name">
+                    <text>{{item.name}}</text>
+                </view>
+                <input id="{{item.type}}{{item.key}}" class="section_item_input" type='number' name="{{item.type}}{{item.key}}_input" placeholder="input" value="{{item.value}}" bindinput="onInput" />{{item.measurement}}
+
+                <slider id="{{item.type}}{{item.key}}" class="section_item_slider" name="{{item.type}}{{item.key}}_slider" show-value value="{{item.value}}" bindchange="onSliderChange"></slider>{{item.measurement}}
+            </view>
+        </scroll-view>
+
+        <view class="btn-area">
+            <button formType="submit">Submit</button>
+            <button formType="reset">Reset</button>
+        </view>
+
+    </form>
 </view>

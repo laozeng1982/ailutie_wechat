@@ -1,1 +1,30 @@
 /* userprofile.wxss */
+
+.section {
+    display: flex;
+    flex-direction: row;
+    padding: 20rpx;
+    height: 100rpx;
+    border-bottom: 1rpx solid #eee;
+}
+
+.section_item_name {
+    width: 200rpx;
+    height: 50rpx;
+    align-items: center;
+    align-content: center;
+}
+
+.section_item_input {
+    padding: 20rpx;
+    height: 50rpx;
+    width: 100rpx;
+    align-items: center;
+}
+
+.section_item_slider {
+    padding: 20rpx;
+    height: 50rpx;
+    width: 300rpx;
+    align-items: center;
+}

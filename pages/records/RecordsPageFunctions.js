@@ -53,7 +53,9 @@ class RecordsPageFunctions {
      */
     setDateList(host, year, month) {
         //如果是闰年，则2月有29天
-        if (year % 4 === 0 && year % 100 !== 0) {
+        this.daysCountArr[1] = 28;
+        if (parseInt(year) % 4 === 0 && parseInt(year) % 100 !== 0) {
+            console.log(parseInt(year) % 4,"and ", parseInt(year) % 100);
             this.daysCountArr[1] = 29;
         }
 
@@ -76,8 +78,8 @@ class RecordsPageFunctions {
             if (firstDayOfWeek === 0 && !hasDoneFirstWeek) {
                 for (var i = 0; i < 7; i++) {
                     dateList[weekIndex].push({
-                        value: util.formatStringDate(lastYear, lastMonth, (this.daysCountArr[lastMonth] + i - 7)),
-                        date: this.daysCountArr[lastMonth] + i - 7,
+                        value: util.formatStringDate(lastYear, lastMonth, (this.daysCountArr[lastMonth - 1] + i - 6)),
+                        date: this.daysCountArr[lastMonth - 1] + i - 6,
                         week: i,
                         selected: false,
                         hasPlan: false,
@@ -154,18 +156,18 @@ class RecordsPageFunctions {
             }
         }
 
-        // console.log("log begins here~~~~~~~~~~~~~~~~~~~~~");
-        // for (var week = 0; week < dateList.length; week++) {
-        //     for (var day = 0; day < dateList[week].length; day++) {
-        //         console.log("dateList[", week, "][", day, "], is: ", dateList[week][day].value
-        //             , ",", dateList[week][day].date
-        //             , ",", dateList[week][day].week
-        //             , ",selected", dateList[week][day].selected
-        //             , ",hasPlan", dateList[week][day].hasPlan
-        //             , ",hasTrained", dateList[week][day].hasTrained
-        //             , ",inThisMonth", dateList[week][day].inThisMonth);
-        //     }
-        // }
+        console.log("log begins here~~~~~~~~~~~~~~~~~~~~~");
+        for (var week = 0; week < dateList.length; week++) {
+            for (var day = 0; day < dateList[week].length; day++) {
+                console.log("dateList[", week, "][", day, "], is: ", dateList[week][day].value
+                    , ",", dateList[week][day].date
+                    , ",", dateList[week][day].week
+                    , ",selected", dateList[week][day].selected
+                    , ",hasPlan", dateList[week][day].hasPlan
+                    , ",hasTrained", dateList[week][day].hasTrained
+                    , ",inThisMonth", dateList[week][day].inThisMonth);
+            }
+        }
 
         for (var week = 0; week < dateList.length; week++) {
             for (var day = 0; day < dateList[week].length; day++) {
@@ -203,11 +205,11 @@ class RecordsPageFunctions {
         if (isNext === "next") {
             curYear = curMonth + 1 === 13 ? curYear + 1 : curYear;
             curMonth = curMonth + 1 === 13 ? 1 : curMonth + 1;
-            curDate= 1;
+            curDate = 1;
         } else if (isNext === "last") {
             curYear = curMonth - 1 ? curYear : curYear - 1;
             curMonth = curMonth - 1 ? curMonth - 1 : 12;
-            curDate= 1;
+            curDate = 1;
         } else if (isNext === "now") {
             var now = new Date();
             curYear = now.getFullYear();
@@ -220,7 +222,7 @@ class RecordsPageFunctions {
         console.log("here: ", curYear, curMonth, curDate);
         host.setData({
             // 每换一月，都选到1号
-            selectedDate: util.formatStringDate(curYear, curMonth, curDate),
+            // selectedDate: util.formatStringDate(curYear, curMonth, curDate),
             curYear: curYear,
             curMonth: curMonth,
             curDate: curDate
@@ -256,7 +258,7 @@ class RecordsPageFunctions {
                 // 普通的选择日期
                 var now;
 
-                console.log(e);
+                // console.log(e);
                 var date;
                 if (typeof (e) === "string") {
                     now = util.formatDateToString(new Date()).split('-');

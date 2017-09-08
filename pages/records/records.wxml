@@ -6,7 +6,7 @@
 
     <view class="button-group">
 
-        <view style='width:500rpx;display:flex;flex-direction:row'>
+        <view class="header">
 
             <image class="dateMoveButton" bindtap="onLastMonth" src="../../pages/image/double_arrows_blod_left_64px.png"></image>
             <view class="graySpace"></view>
@@ -33,7 +33,9 @@
         </view>
 
         <view class="graySpace"></view>
-        <view class="{{curMonth!==todayMonth || curYear!==todayYear?'today_date':'not_today_date'}}" bindtap="onToToday">今</view>
+        <view class="{{curMonth!==todayMonth || curYear!==todayYear?'today_date':'not_today_date'}}" bindtap="onToToday">
+            <text>今</text>
+        </view>
 
     </view>
 
@@ -63,12 +65,22 @@
                     <view class="calender_box" wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="week">
                         <view class="weekday_label_days" wx:for="{{week}}" wx:key="{{index}}">
 
-                            <view class="{{!item.inThisMonth?'not_in_this_month_date':''}} {{item.hasPlan?'plan_date':''}} {{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected"
-                                bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</view>
+                            <view class="{{item.value==selectedDate?'active_date_overlay':''}} {{item.value==today?'today':''}}">
+                                <view class="{{!item.inThisMonth?'not_in_this_month_date':''}} {{item.selected?'selected_date_overlay':''}}" bindtap="onDateSelected" bindlongpress="onDateLongPress" data-date="{{item}}">{{item.date}}</view>
 
-                            <!-- 有锻炼记录的日期 -->
-                            <view wx:for-item="{{dateListWithTraining}}" class="{{item.hasTrained?'image_overlay_left':''}}">
-                                <image class='image_overlay_left' src="{{item.hasTrained?'../image/weightlifting1.png':''}}"></image>
+                                <!-- 日历每天下段标注 -->
+                                <view class='calender-marker'>
+                                    <!-- 有计划记录的日期 -->
+                                    <view wx:for-item="{{dateListWithPlan}}" class="{{item.hasPlan?'image_overlay':''}}">
+                                        <image class='image_overlay' src="{{item.hasPlan?'../image/calender_64px.png':''}}"></image>
+                                    </view>
+
+                                    <!-- 有锻炼记录的日期 -->
+                                    <view wx:for-item="{{dateListWithTraining}}" class="{{item.hasTrained?'image_overlay':''}}">
+                                        <image class='image_overlay' src="{{item.hasTrained?'../image/rate_64px.png':''}}"></image>
+                                    </view>
+                                </view>
+
                             </view>
 
                         </view>
