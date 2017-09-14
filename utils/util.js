@@ -74,10 +74,18 @@ function formatStringDate(year, month, day) {
  *
  */
 function formatNumber(n) {
-    n = n.toString()
-    return n[1] ? n : '0' + n
+    n = n.toString();
+    return n[1] ? n : '0' + n;
 }
 
+function log(msg) {
+    // var time = formatTimeToString(new Date());
+    var trace = (new Error()).stack.split("\n")[2].replace(/(^\s*)|(\s*$)/g, "");
+    console.log(trace);
+    // console.error(trace);
+    var name = trace.toString().split(" ")[0] + " " + trace.split(" ")[1] + ":";
+    console.log(name, msg);
+}
 
 /**
  * 检查当前选择日期与今天的关系
@@ -255,5 +263,6 @@ module.exports = {
     showToast: showToast,
     getMovementNamePickerList: getMovementNamePickerList,
     getMoveDays: getMoveDays,
+    log: log
 
 }

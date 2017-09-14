@@ -52,7 +52,8 @@ class RecordsPageFunctions {
      * 2、搜索、标记日期状态
      */
     setDateList(host, year, month) {
-        //如果是闰年，则2月有29天
+        let week;
+//如果是闰年，则2月有29天
         this.daysCountArr[1] = 28;
         if (parseInt(year) % 4 === 0 && parseInt(year) % 100 !== 0) {
             console.log(parseInt(year) % 4,"and ", parseInt(year) % 100);
@@ -73,7 +74,7 @@ class RecordsPageFunctions {
         var nextYear = month + 1 === 13 ? year + 1 : year;
         var nextMonth = month + 1 === 13 ? 1 : month + 1;
         for (var idx = 0; idx < this.daysCountArr[month - 1]; idx++) {
-            var week = new Date(Date.UTC(year, month - 1, idx + 1)).getDay();
+            week = new Date(Date.UTC(year, month - 1, idx + 1)).getDay();
             // 补齐每个月前面的日子，计算上个月的尾巴
             if (firstDayOfWeek === 0 && !hasDoneFirstWeek) {
                 for (var i = 0; i < 7; i++) {
@@ -156,21 +157,21 @@ class RecordsPageFunctions {
             }
         }
 
-        console.log("log begins here~~~~~~~~~~~~~~~~~~~~~");
-        for (var week = 0; week < dateList.length; week++) {
-            for (var day = 0; day < dateList[week].length; day++) {
-                console.log("dateList[", week, "][", day, "], is: ", dateList[week][day].value
-                    , ",", dateList[week][day].date
-                    , ",", dateList[week][day].week
-                    , ",selected", dateList[week][day].selected
-                    , ",hasPlan", dateList[week][day].hasPlan
-                    , ",hasTrained", dateList[week][day].hasTrained
-                    , ",inThisMonth", dateList[week][day].inThisMonth);
-            }
-        }
+        // console.log("log begins here~~~~~~~~~~~~~~~~~~~~~");
+        // for (var week = 0; week < dateList.length; week++) {
+        //     for (var day = 0; day < dateList[week].length; day++) {
+        //         console.log("dateList[", week, "][", day, "], is: ", dateList[week][day].value
+        //             , ",", dateList[week][day].date
+        //             , ",", dateList[week][day].week
+        //             , ",selected", dateList[week][day].selected
+        //             , ",hasPlan", dateList[week][day].hasPlan
+        //             , ",hasTrained", dateList[week][day].hasTrained
+        //             , ",inThisMonth", dateList[week][day].inThisMonth);
+        //     }
+        // }
 
-        for (var week = 0; week < dateList.length; week++) {
-            for (var day = 0; day < dateList[week].length; day++) {
+        for (let week = 0; week < dateList.length; week++) {
+            for (let day = 0; day < dateList[week].length; day++) {
                 // 准备有计划的数据
 
                 if (host.data.dateListWithPlan.includes(dateList[week][day].value)) {
