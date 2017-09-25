@@ -1,0 +1,18 @@
+<!--pages/plan/plan_select_plan_type/plan_select_plan_type.wxml-->
+<view class='thisContainer'>
+    <view class='upperContainer'>
+        <view class='grayBackgroud'>
+            <button class='typeBtn' type='default' bindtap='on'>推荐计划</button>
+            <text style='color:#fff'>我们爱撸铁为您量身定制计划</text>
+            <text style='color:#fff'>为您打造火辣身材</text>
+        </view>
+        <view class='graySpace'></view>
+        <view class='grayBackgroud'>
+            <button class='typeBtn' type='default' bindtap='on'>自定义计划</button>
+            <text style='color:#fff'>定制您的个性计划</text>
+        </view>
+
+    </view>
+
+    <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
+</view>

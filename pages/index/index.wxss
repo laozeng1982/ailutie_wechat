@@ -16,6 +16,25 @@
   color: #aaa;
 }
 
-.usermotto {
-  margin-top: 200px;
+.showArea {
+  display: flex;
+  justify-content: space-around;
+  background: #fff;
+  width: 100%;
+  height: 65%;
+}
+
+.planArea {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  height: 35%;
+  background: #888;
+}
+
+.makePlanBtn{
+    width: 60;
+    height: 100rpx;
 }

@@ -1,0 +1,16 @@
+<!--pages/plan/plan_select_user_type/plan_select_user_type.wxml-->
+<view class='thisContainer'>
+    <view class='upperContainer'>
+
+        <view class='selectorContainer' wx:for="{{userType}}" wx:key="{{index}}">
+            <view id="{{item.id}}" class="{{item.selected?'selectorSelected':'selectorUnSelected'}}" bindtap='onUserTypeSelected'>
+                <text>{{item.text}}</text>
+            </view>
+        </view>
+
+    </view>
+    <!-- 这是Toast -->
+    <include src="../../ui/toast/warn_toast.wxml" />
+
+    <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
+</view>

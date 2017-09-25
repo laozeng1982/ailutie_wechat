@@ -1,0 +1,15 @@
+<!--pages/plan/plan_goal/plan_goal.wxml-->
+
+<view class='thisContainer'>
+    <view class='upperContainer'>
+
+        <view class='selectorContainer' wx:for="{{goalType}}" wx:key="{{index}}">
+            <view id="{{item.id}}" class="{{item.selected?'selectorSelected':'selectorUnSelected'}}" bindtap='onGoalTypeSelected'>
+                <text>{{item.text}}</text>
+            </view>
+        </view>
+
+    </view>
+
+    <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
+</view>

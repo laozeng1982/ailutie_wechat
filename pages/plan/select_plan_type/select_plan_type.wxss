@@ -1,0 +1,37 @@
+/* pages/plan/plan_select_plan_type/plan_select_plan_type.wxss */
+
+.thisContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    font-family: "微软雅黑";
+    background: #fff;
+}
+
+.upperContainer {
+    height: 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: "微软雅黑";
+}
+
+.grayBackgroud {
+    display: flex;
+    height: 50%;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    background: #888;
+}
+
+.typeBtn {
+    width: 80%;
+}
+
+.nextBtn {
+    width: 100%;
+}

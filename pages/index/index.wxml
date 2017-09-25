@@ -1,15 +1,21 @@
 <!--index.wxml-->
 <view class="container">
-  <view bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{wechatUserInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{wechatUserInfo.nickName}}</text>
-  </view>
 
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <view class='showArea'>
+        <view bindtap="bindViewTap" class="userinfo">
+            <image class="userinfo-avatar" src="{{wechatUserInfo.avatarUrl}}" background-size="cover"></image>
+            <text class="userinfo-nickname">{{wechatUserInfo.nickName}}</text>
+        </view>
+    </view>
 
-  <text class="userinfo-nickname" wx:if="{{notSignUp}}">您还没有注册，将无法使用同步功能哦~~</text>
+    <view class='graySpace'></view>
+
+    <view class="planArea">
+        <button class='makePlanBtn' type='default' bindtap='onMakePlan'>定制我的锻炼计划</button>
+    </view>
+
+    <view class='graySpace'></view>
+    <text class="userinfo-nickname" wx:if="{{notSignUp}}">您还没有注册，将无法使用同步功能哦~~</text>
 </view>
 
 <!-- <swiper indicator-dots="{{indicatorDots}}" circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="onSwiperChange">

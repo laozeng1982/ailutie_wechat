@@ -180,7 +180,21 @@ function checkSignUp() {
     return (userInfo.length == 0);
 }
 
-function showToast(text, o, count) {
+function showNormalToast(text, o, count) {
+    var that = o;
+    count = parseInt(count) ? parseInt(count) : 3000;
+    that.setData({
+        toastText: text,
+        isShowToast: true,
+    });
+    setTimeout(function () {
+        that.setData({
+            isShowToast: false
+        });
+    }, count);
+}
+
+function showWarnToast(text, o, count) {
     var that = o;
     count = parseInt(count) ? parseInt(count) : 3000;
     that.setData({
@@ -261,7 +275,8 @@ module.exports = {
     dateDirection: dateDirection,
     isLogin: isLogin,
     checkSignUp: checkSignUp,
-    showToast: showToast,
+    showNormalToast: showNormalToast,
+    showWarnToast: showWarnToast,
     getMovementNamePickerList: getMovementNamePickerList,
     getMoveDays: getMoveDays,
     log: log

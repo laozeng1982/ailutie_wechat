@@ -2,7 +2,7 @@
 import User from '../../datamodel/UserInfo.js'
 import util from '../../utils/util.js'
 
-const app = getApp()
+const app = getApp();
 
 Page({
     data: {
@@ -25,8 +25,8 @@ Page({
     //事件处理函数
     bindViewTap: function () {
         wx.switchTab({
-            url: '../listplan/plan',
-        })
+            url: '../plan/plan',
+        });
     },
 
     onSwiperChange: function (e) {
@@ -34,6 +34,11 @@ Page({
         console.log(e.detail.current, e.target.id);
     },
 
+    onMakePlan: function () {
+        wx.navigateTo({
+            url: '../plan/select_user_type/select_user_type',
+        });
+    },
 
     onLoad: function () {
         console.log('index page onLoad');
