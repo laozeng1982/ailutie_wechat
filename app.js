@@ -13,36 +13,6 @@ const STORAGETYPE = new StorageType.StorageType();
 App({
     onLaunch: function () {
         console.log("app onLoad");
-        //为了提升体验，首次登陆不强制注册，可以补充注册
-        // var userInfo = wx.getStorageSync("UserInfo");
-        // console.log("userInfo: ", userInfo);
-        // var userUID = userInfo.userUID;
-
-        // if (userInfo.defaultWechatLogin) {
-        //   // 使用微信登录
-        //   console.log("user wechat ID");
-
-        // } else if (typeof (userUID) == "undefined") {
-        //   //去注册
-        //   wx.navigateTo({
-        //     url: 'pages/signUp/signUp1st/signUp1st',
-        //   });
-        // }
-
-        // 准备数据：
-
-        var systemSetting = CONTROLLER.loadData(
-            STORAGETYPE.SystemSetting.value,
-            STORAGETYPE.SystemSetting);
-
-        console.log("SystemSetting: ", systemSetting);
-
-        if (systemSetting.bodyPartList.partList.length > 0) {
-            CONTROLLER.saveData(STORAGETYPE.SystemSetting.value,
-                STORAGETYPE.SystemSetting,
-                systemSetting);
-        }
-
 
         //默认使用登录
         wx.login({
@@ -71,6 +41,37 @@ App({
             }
         });
 
+        // 准备数据：
+        var systemSetting = CONTROLLER.loadData(
+            STORAGETYPE.SystemSetting.value,
+            STORAGETYPE.SystemSetting);
+
+        console.log("SystemSetting: ", systemSetting);
+
+        if (systemSetting.bodyPartList.partList.length > 0) {
+            CONTROLLER.saveData(STORAGETYPE.SystemSetting.value,
+                STORAGETYPE.SystemSetting,
+                systemSetting);
+        }
+
+        // 验证是否是首次登陆，首次登陆，录入用户基本信息
+        var userInfo = CONTROLLER.loadData("UserInfo", STORAGETYPE.UserInfo);
+        console.log("userInfo: ", userInfo);
+        var userHeight = userInfo.height;
+
+        if (typeof (userHeight) === 'undefined' || userHeight === "") {
+            // 去注册
+            console.log("in app, go to User information record page!");
+            wx.redirectTo({
+                url: 'pages/settings/userinfo/userinfo?model=newUser',
+            });
+        }
+
+        if (userInfo.defaultWechatLogin) {
+            // 使用微信登录
+            console.log("user wechat ID");
+
+        }
         console.log("app onLoad done");
     },
 
@@ -96,8 +97,10 @@ App({
         },
     },
 
+
+
     globalData: {
-        // 定义一些通用的工具类
+        // 定义一些全局变量
         // Controller: '',
         // StorageType: '',
 

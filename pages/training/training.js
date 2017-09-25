@@ -17,6 +17,7 @@ Page({
      */
     data: {
         selectedDate: '',
+        showDate: '',
         curRecords: [],
         curMovementName: '',
         // 当前选中的动作，初始选中第一个
@@ -31,11 +32,11 @@ Page({
         actualMvFeeling: 3, // 默认给5分，免得用户忘了选
 
         totalScoreStarArray: [
-            {id: 1, src: "../image/start_checked.png", checked: true},
-            {id: 2, src: "../image/start_unchecked.png", checked: false},
-            {id: 3, src: "../image/start_unchecked.png", checked: false},
-            {id: 4, src: "../image/start_unchecked.png", checked: false},
-            {id: 5, src: "../image/start_unchecked.png", checked: false},
+            { id: 1, src: "../image/start_checked.png", checked: true },
+            { id: 2, src: "../image/start_unchecked.png", checked: false },
+            { id: 3, src: "../image/start_unchecked.png", checked: false },
+            { id: 4, src: "../image/start_unchecked.png", checked: false },
+            { id: 5, src: "../image/start_unchecked.png", checked: false },
         ],
 
         countSelector: [],
@@ -330,13 +331,13 @@ Page({
 
 
     onSelectFinishedDetails: function (e) {
-        console.log("in onMovementScore, e", e.currentTarget.id, ",  type: ", typeof(e.currentTarget.id));
+        console.log("in onMovementScore, e", e.currentTarget.id, ",  type: ", typeof (e.currentTarget.id));
         this.setData({
             disableRemoveBtn: false,
             disableModifyBtn: false,
             curSelectedRecordId: e.currentTarget.id + "",
         });
-        console.log("in onMovementScore, e", this.data.curSelectedRecordId, ",  type: ", typeof(this.data.curSelectedRecordId));
+        console.log("in onMovementScore, e", this.data.curSelectedRecordId, ",  type: ", typeof (this.data.curSelectedRecordId));
     },
 
     /**
@@ -492,7 +493,9 @@ Page({
      * 页面Load以后，动态加载和初始化信息
      */
     onShow: function () {
-        // this.loadData();
+        var today = new Date();
+        var showDate = today.getMonth()+1 + "月" + util.formatNumber(today.getDate()) + "日";
+
         // 先读取，如果不存在，则新建一个
         this.data.curRecords = this.data.Controller.loadData(this.data.selectedDate, DATATYPE.DailyRecords);
 
@@ -500,7 +503,6 @@ Page({
         for (var movement of this.data.curRecords.movementList) {
             var finished = 0;
             for (var item of movement.contents.details) {
-                // console.log("item, ", item);
                 if (item.groupFeeling > 0) {
                     finished++;
                 }
@@ -509,8 +511,8 @@ Page({
             index++;
         }
 
-
         this.setData({
+            showDate: showDate,
             curRecords: this.data.curRecords,
             curSelectedMovementId: app.globalData.selectedMvIdOnRecordPage !== -1
                 ? app.globalData.selectedMvIdOnRecordPage : this.data.curSelectedMovementId

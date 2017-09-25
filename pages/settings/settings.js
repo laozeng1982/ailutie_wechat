@@ -72,7 +72,7 @@ Page({
     goPage: function (event) {
         console.log(event.currentTarget.dataset.log);
         wx.navigateTo({
-            url: event.currentTarget.dataset.url
+            url: event.currentTarget.dataset.url+"?model=fromSetting",
         })
     },
 

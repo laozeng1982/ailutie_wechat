@@ -257,6 +257,7 @@ module.exports = {
     formatDateToString: formatDateToString,
     getDateFromString: getDateFromString,
     formatStringDate: formatStringDate,
+    formatNumber: formatNumber,
     dateDirection: dateDirection,
     isLogin: isLogin,
     checkSignUp: checkSignUp,
