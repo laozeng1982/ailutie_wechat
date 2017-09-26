@@ -1,17 +1,62 @@
 // pages/plan/select_plan_type/select_plan_type.js
+import util from '../../../utils/util.js'
+
+var app = getApp();
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        
+        planType: [
+            { id: 1, text: "零基础小白", selected: false },
+            { id: 2, text: "有一定基础", selected: false },
+        ],
+    },
+
+    onTypeSelected: function (e) {
+        var planType = this.data.planType;
+        switch (e.currentTarget.id) {
+            case "1":
+                planType[0].selected = true;
+                planType[1].selected = false;
+                app.globalData.planMakeModel = 1;
+                break;
+            case "2":
+                planType[0].selected = false;
+                planType[1].selected = true;
+                app.globalData.planMakeModel = 2;
+                break;
+            default :
+                break;
+        }
+        this.setData({
+            planType: planType
+        });
     },
 
     onNext: function () {
-        wx.navigateTo({
-            url: '../select_goal/select_goal',
-        })
+        var selected = false;
+        for (let item of this.data.planType) {
+            selected = selected || item.selected;
+        }
+
+        if (!selected) {
+            util.showWarnToast("还未选择类型", this, 2000);
+            return;
+        }
+
+        if (app.globalData.planMakeModel === 1) {
+            wx.navigateTo({
+                url: '../select_goal/select_goal',
+            });
+        } else {
+            wx.navigateTo({
+                url: '../user_define/select_part',
+            });
+        }
+
     },
 
     /**

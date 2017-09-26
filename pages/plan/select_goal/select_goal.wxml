@@ -10,6 +10,8 @@
         </view>
 
     </view>
-
+    <!-- 这是Toast -->
+    <include src="../../ui/toast/warn_toast.wxml" />
+    
     <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
 </view>

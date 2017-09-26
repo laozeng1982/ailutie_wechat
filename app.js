@@ -97,7 +97,10 @@ App({
         },
     },
 
-
+    // 方便别的JS调用
+    Controller: CONTROLLER,
+    StorageType: STORAGETYPE,
+    Util: util,
 
     globalData: {
         // 定义一些全局变量
@@ -107,8 +110,12 @@ App({
         userInfo: null,
         wechatUserInfo: null,
 
-        isLogin: false,//登陆状态记录
+        isLogin: false,// 登陆状态记录
 
+        planMakeModel: -1,  // 用户对制定计划的选择，1代表使用推荐计划，2代表使用自定义计划，否则是-1
+        selectedPartId: [],
+        selectedPartName: [],
+    
         selectedDateString: util.formatDateToString(new Date()),
         selectedDate: new Date(),
 

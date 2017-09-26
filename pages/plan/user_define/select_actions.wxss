@@ -1,0 +1,135 @@
+/* pages/plan/user_define/select_actions.wxss */
+
+.thisContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    font-family: "微软雅黑";
+    background: #fff;
+}
+
+.upperContainer {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    background: #fff;
+}
+
+.scrollview {
+    height: 840rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.partContainerColumn {
+    width: 100%;
+    height: 400rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-content: center;
+    align-items: center; */
+    border-bottom: 1rpx solid #eee;
+}
+
+.part {
+    width: 80%;
+    height: 100rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.radio_group {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100rpx;
+    align-content: center;
+    align-items: center;
+}
+
+.radio {
+    padding: 40rpx;
+    align-content: center;
+    align-items: center;
+}
+
+.text {
+    /* padding: 40rpx; */
+    padding-left: 40rpx;
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+    padding-right: 40rpx;
+    align-content: center;
+    align-items: center;
+}
+
+.textBig {
+    padding-left: 40rpx;
+    padding-top: 20rpx;
+    font-size: 30 rpx;
+    font-weight: 600;
+    align-content: center;
+    align-items: center;
+}
+
+.header {
+    width: 100%;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icon {
+    padding: 30rpx;
+    border-right: 1rpx soild #eee;
+    size: 20;
+}
+
+.date {
+    width: 100rpx;
+    height: 100rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.selected_date {
+    width: 60rpx;
+    height: 60rpx;
+    background: #888;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.unselected_date {
+    width: 60rpx;
+    height: 60rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.nextBtn {
+    width: 100%;
+}

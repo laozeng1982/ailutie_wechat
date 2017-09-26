@@ -2,17 +2,24 @@
 <view class='thisContainer'>
     <view class='upperContainer'>
         <view class='grayBackgroud'>
-            <button class='typeBtn' type='default' bindtap='on'>推荐计划</button>
-            <text style='color:#fff'>我们爱撸铁为您量身定制计划</text>
-            <text style='color:#fff'>为您打造火辣身材</text>
+            <view style='padding: 60rpx 0'></view>
+            <view id='1' class="{{planType[0].selected?'selectorSelected':'selectorUnSelected'}}" type='default' bindtap='onTypeSelected'>推荐计划</view>
+            <text class='text'>我们爱撸铁为您量身定制计划</text>
+            <text class='text'>为您打造火辣身材</text>
         </view>
+
         <view class='graySpace'></view>
+
         <view class='grayBackgroud'>
-            <button class='typeBtn' type='default' bindtap='on'>自定义计划</button>
-            <text style='color:#fff'>定制您的个性计划</text>
+            <view style='padding: 60rpx 0'></view>
+            <view id='2' class="{{planType[1].selected?'selectorSelected':'selectorUnSelected'}}" type='default' bindtap='onTypeSelected'>自定义计划</view>
+            <text class='text'>定制您的个性计划</text>
         </view>
 
     </view>
+
+    <!-- 这是Toast -->
+    <include src="../../ui/toast/warn_toast.wxml" />
 
     <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
 </view>

@@ -36,7 +36,7 @@ Page({
 
     onMakePlan: function () {
         wx.navigateTo({
-            url: '../plan/select_user_type/select_user_type',
+            url: '../plan/select_plan_type/select_plan_type',
         });
     },
 
@@ -59,6 +59,5 @@ Page({
         // console.log(this.data.wechatUserInfo);
         // console.log(this.data.motto);
     },
-
 
 })

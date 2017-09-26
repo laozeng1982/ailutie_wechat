@@ -1,0 +1,25 @@
+<!--pages/plan/user_define/select_actions.wxml-->
+<view class='thisContainer'>
+    <view class='graySpaceSmall'></view>
+
+    <view class='upperContainer'>
+        <scroll-view class="scrollview" scroll-y="true">
+            <view id="{{index}}" class='partContainerColumn' wx:for="{{selectedPartNamesArray}}" wx:key="{{index}}">
+                <view class='header'>
+                    <view class='date' id='{{item.id}}' wx:for="{{weekList}}" wx:key="{{index}}" bindtap='onSelectDate'>
+                        <view class="{{item.selected?'selected_date':'unselected_date'}}">
+                            <view>{{item.value}}</view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class='graySpace'></view>
+            </view>
+        </scroll-view>
+    </view>
+
+    <!-- 这是Toast -->
+    <include src="../../ui/toast/warn_toast.wxml" />
+
+    <button class='nextBtn' type='primary' bindtap='onOK'> 确定 </button>
+</view>

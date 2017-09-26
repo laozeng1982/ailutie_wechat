@@ -50,7 +50,7 @@ Page({
         }
         wx.navigateTo({
             url: '../select_plan_type/select_plan_type',
-        })
+        });
     },
 
     /**

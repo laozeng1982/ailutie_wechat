@@ -1,2 +1,16 @@
 <!--pages/plan/recommend_planlist/recommend_planlist.wxml-->
 
+<view class='thisContainer'>
+
+    <view class='upperContainer'>
+        <view class='upperContainer'>
+            <view class='selectorContainer' wx:for="{{userType}}" wx:key="{{index}}">
+                <view id="{{item.id}}" class="{{item.selected?'selectorSelected':'selectorUnSelected'}}" bindtap='onUserTypeSelected'>
+                    <text>{{item.text}}</text>
+                </view>
+            </view>
+            <view class='graySpace'></view>
+        </view>
+    </view>
+
+</view>

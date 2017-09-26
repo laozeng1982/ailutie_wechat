@@ -1,4 +1,6 @@
 // pages/plan/plan_goal/plan_goal.js
+import util from '../../../utils/util.js'
+
 Page({
 
     /**
@@ -38,6 +40,16 @@ Page({
     },
 
     onNext: function () {
+        var selected = false;
+        for (let item of this.data.goalType) {
+            selected = selected || item.selected;
+        }
+
+        if (!selected) {
+            util.showWarnToast("还未选择类型", this, 2000);
+            return;
+        }
+
         wx.navigateTo({
             url: '../recommend_planlist/recommend_planlist',
         })

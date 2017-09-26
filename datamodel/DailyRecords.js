@@ -86,9 +86,7 @@ class DailyRecords {
         var sucess = false;
         console.log("in DailyRecords.modify: index", index, "ffff: obj ", obj);
         if (obj.contents.mvFeeling !== "" || obj.contents.curFinishedGpCount !== 0) {
-            console.log("ffffffffffffffff11111111111111");
             if (!this.hasMovement(obj, false)) {
-                console.log("ffffffffffffffff");
                 obj.mvId = this.movementList.length + 1;
                 // obj.clearActualDetails();
                 this.movementList.push(obj);

@@ -1,0 +1,50 @@
+<!--pages/plan/user_define/select_date.wxml-->
+<view class='thisContainer'>
+    <view class='graySpaceSmall'></view>
+
+    <radio-group class='radio_group' bindchange="onPatternChange">
+        <view wx:for="{{repeatPattern}}" wx:key="{{index}}">
+            <radio class='radio' value='{{item.id}}' checked='{{item.selected}}'>
+                {{item.name}}
+            </radio>
+        </view>
+    </radio-group>
+
+    <view class='header'>
+        <text class='text'>锻炼部位</text>
+        <text class='text'>{{selectedPartNames}}</text>
+    </view>
+
+    <view class='graySpace'></view>
+
+    <view class='upperContainer'>
+        <scroll-view class="scrollview" scroll-y="true">
+            <view id="{{index}}" class='partContainerColumn' wx:for="{{selectedPartNamesArray}}" wx:key="{{index}}">
+                <text class='textBig'>{{item}}</text>
+                <view class='header' style='border-bottom: 1rpx solid #eee' bindtap='onSelectAction'>
+                    <text class='text'>锻炼动作</text>
+                    <text class='text'>请选择 ></text>
+                </view>
+
+                <view class='header'>
+                    <text class='text'>锻炼时间</text>
+                </view>
+
+                <view class='header'>
+                    <view class='date' id='{{item.id}}' wx:for="{{weekList}}" wx:key="{{index}}" bindtap='onSelectDate'>
+                        <view class="{{item.selected?'selected_date':'unselected_date'}}">
+                            <view>{{item.value}}</view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class='graySpace'></view>
+            </view>
+        </scroll-view>
+    </view>
+
+    <!-- 这是Toast -->
+    <include src="../../ui/toast/warn_toast.wxml" />
+
+    <button class='nextBtn' type='primary' bindtap='onNext'> 预览 </button>
+</view>

@@ -20,7 +20,10 @@
         "pages/plan/select_goal/select_goal",
         "pages/plan/select_user_type/select_user_type",
         "pages/plan/select_plan_type/select_plan_type",
-        "pages/plan/recommend_planlist/recommend_planlist"
+        "pages/plan/recommend_planlist/recommend_planlist",
+        "pages/plan/user_define/select_part",
+        "pages/plan/user_define/select_date",
+        "pages/plan/user_define/select_actions"
     ],
     "window": {
         "navigationBarBackgroundColor": "#333",
