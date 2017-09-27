@@ -21,7 +21,7 @@
         <scroll-view class="scrollview" scroll-y="true">
             <view id="{{index}}" class='partContainerColumn' wx:for="{{selectedPartNamesArray}}" wx:key="{{index}}">
                 <text class='textBig'>{{item}}</text>
-                <view class='header' style='border-bottom: 1rpx solid #eee' bindtap='onSelectAction'>
+                <view id='{{item}}' class='header' style='border-bottom: 1rpx solid #eee' bindtap='onSelectAction'>
                     <text class='text'>锻炼动作</text>
                     <text class='text'>请选择 ></text>
                 </view>

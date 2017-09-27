@@ -19,7 +19,7 @@ class Plan {
         this.source = '';    // 计划来源：爱撸铁推荐，教练推荐，朋友推荐，自定义计划
         this.privacy = '';   // 计划权限设置：Public谁都可以看，Protect只给朋友看，Private只能自己看。
 
-        this.target = ''; // 计划的类型：减脂，塑性，增肌
+        this.target = '';   // 计划的类型：减脂，塑性，增肌
         this.level = '';    // 计划的级别：初级，中级，高级
         this.place = '';    // 健身地点
         this.frequence = 0; // 健身频率，一周N次
@@ -65,8 +65,6 @@ class PartSet {
 /**
  * 每组动作的具体内容，包括：
  * 1.计划组数
- * 2.完成组数
- * 3.目前完成的组数
  * 4.每组感觉
  * 5.每组的详细信息，见Details
  */
@@ -94,6 +92,7 @@ class GroupData {
 
 module.exports = {
     PlanSet: PlanSet,
+    Plan: Plan,
     PartSet: PartSet,
     ActionSet: ActionSet,
     GroupData: GroupData,

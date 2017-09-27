@@ -9,8 +9,8 @@ Page({
      */
     data: {
         repeatPattern: [
-            {id: 1, name: "按周重复", selected: true},
-            {id: 2, name: "按周交替", selected: false},
+            { id: 1, name: "按周重复", selected: true },
+            { id: 2, name: "按周交替", selected: false },
             // {id: 3, name: "按固定天重复", selected: false},
         ],
         selectedPartNames: '',
@@ -18,13 +18,13 @@ Page({
 
         weekArr: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
         weekList: [
-            {id: 0, value: '日', checked: false},
-            {id: 1, value: '一', checked: false},
-            {id: 2, value: '二', checked: false},
-            {id: 3, value: '三', checked: false},
-            {id: 4, value: '四', checked: false},
-            {id: 5, value: '五', checked: false},
-            {id: 6, value: '六', checked: false}
+            { id: 0, value: '日', checked: false },
+            { id: 1, value: '一', checked: false },
+            { id: 2, value: '二', checked: false },
+            { id: 3, value: '三', checked: false },
+            { id: 4, value: '四', checked: false },
+            { id: 5, value: '五', checked: false },
+            { id: 6, value: '六', checked: false }
         ],
     },
 
@@ -50,10 +50,10 @@ Page({
 
     onSelectAction: function (e) {
         console.log(e);
+
         wx.navigateTo({
-            url: './select_actions',
+            url: './select_actions?selectedPart=' + e.currentTarget.id,
         });
-        console.log(e);
     },
 
     onSelectDate: function (e) {
