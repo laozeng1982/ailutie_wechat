@@ -130,6 +130,15 @@
     justify-content: space-around;
 }
 
+.datePickerContainer {
+    height: 80rpx;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    font-size: 30rpx;
+}
+
 .nextBtn {
     width: 90%;
 }

@@ -13,6 +13,7 @@ Page({
             {id: 2, name: "按周交替", selected: false},
             // {id: 3, name: "按固定天重复", selected: false}
         ],
+
         partList: '',
     },
 
@@ -35,15 +36,13 @@ Page({
     },
 
     onNext: function (e) {
-        var selectedPartId = [];
-        var selectedPartName = [];
+        var selectedPartInfo = [];
         var hasSelectedPart = false;
         for (let item of this.data.partList) {
 
             if (item.selected) {
                 hasSelectedPart = true;
-                selectedPartId.push(item.partId);
-                selectedPartName.push(item.partName);
+                selectedPartInfo.push({index: item.partId, name: item.partName, actionCount: 0 });
             }
         }
 
@@ -52,8 +51,7 @@ Page({
             return;
         }
 
-        app.selectedPartId = selectedPartId;
-        app.selectedPartName = selectedPartName;
+        app.selectedPartInfo = selectedPartInfo;
 
         wx.navigateTo({
             url: './select_date',

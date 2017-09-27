@@ -15,15 +15,16 @@
         <text class='text'>{{selectedPartNames}}</text>
     </view>
 
-    <view class='graySpace'></view>
-
     <view class='upperContainer'>
         <scroll-view class="scrollview" scroll-y="true">
-            <view id="{{index}}" class='partContainerColumn' wx:for="{{selectedPartNamesArray}}" wx:key="{{index}}">
-                <text class='textBig'>{{item}}</text>
-                <view id='{{item}}' class='header' style='border-bottom: 1rpx solid #eee' bindtap='onSelectAction'>
+
+            <view id="{{index}}" class='partContainerColumn' wx:for="{{selectedPartInfo}}" wx:key="{{index}}">
+                <view class='graySpaceSmall'></view>
+                <text class='textBig'>{{item.name}}</text>
+                <view id='{{item.name}}' class='header' style='border-bottom: 1rpx solid #eee' bindtap='onSelectAction'>
                     <text class='text'>锻炼动作</text>
-                    <text class='text'>请选择 ></text>
+                    <text wx:if="{{item.actionCount== 0}}" class='text'>请选择 ></text>
+                    <text wx:if="{{item.actionCount!= 0}}" class='text'>已选择 {{item.actionCount}} 个动作</text>
                 </view>
 
                 <view class='header'>
@@ -38,11 +39,22 @@
                     </view>
                 </view>
 
-                <view class='graySpace'></view>
+
             </view>
         </scroll-view>
     </view>
 
+    <view class='datePickerContainer'>
+        <text>开始日期：</text>
+        <picker id='start' mode="date" value="{{startDate}}" start="{{startDate}}" end="2099-12-31" bindchange="onDateChange">
+            {{startDate}}
+        </picker>
+        <text>结束日期：</text>
+        <picker id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDateChange">
+            {{endDate}}
+        </picker>
+    </view>
+    <view class='graySpaceSmall'></view>
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
 

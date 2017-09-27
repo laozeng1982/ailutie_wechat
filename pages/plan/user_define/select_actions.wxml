@@ -64,7 +64,7 @@
             <scroll-view class="scrollviewColumn" scroll-y="true">
                 <!--  每个动作 -->
                 <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" wx:key="{{index}}" bindtap='onActionSelected'>
-                    <!-- 图片站位 -->
+                    <!-- 图片占位 -->
                     <view class='imageBig'></view>
                     <!-- <image src='../../image/pulse_64px.png'></image> -->
 
@@ -72,15 +72,14 @@
                         <view class='header'>
                             <view>{{item.actionName}}</view>
                         </view>
-                        <picker wx:if="{{item.actionMeasurement !== ''}}" id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiMovementNoIndex}}" range="{{movementNoMultiArray}}">
+                        <picker wx:if="{{item.actionMeasurement !== ''}}" id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
                             <view class="pickerContainer">
                                 <view class="pickerItem">{{item.groupData.length}} </view>
-                                <view class="pickerItem"> 组 </view>
+                                <view class="pickerItem">组</view>
                                 <view class="pickerItem">{{item.groupData[0].quantity}}</view>
                                 <view class="pickerItem">{{item.actionGpMeasurement}}</view>
                                 <view class="pickerItem">{{item.groupData[0].weight}}</view>
-                                <view wx:if="{{item.groupData[0].uom!==''}}" class="pickerItem">{{item.groupData[0].uom}}</view>
-                                <view wx:if="{{item.groupData[0].uom===''}}" class="pickerItem">{{item.actionMeasurement}}</view>
+                                <view class="pickerItem">{{item.groupData[0].uom}}</view>
                             </view>
                         </picker>
                     </view>

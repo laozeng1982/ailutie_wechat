@@ -102,15 +102,34 @@ function dateDirection(selectedDate) {
 
     // console.log("now: ", now);
     // console.log("selected: ", selected);
-    if (selected < now) {
+
+    var distance = datesDistance(selectedDate, formatDateToString(new Date()));
+    if (distance > 0) {
         direction = -1;
-    } else if (selected === now) {
+    } else if (distance === 0) {
         direction = 0;
     } else {
         direction = 1;
     }
 
     return direction;
+}
+
+/**
+ * 检查当前选择日期与今天的关系
+ * 返回end时间到start的天数，正数表示end时间靠后，反之亦然
+ */
+function datesDistance(start, end) {
+    var distance;
+
+    var startTime = getDateFromString(start, '-').getTime() / (3600 * 24 * 1000);
+    var endTime = getDateFromString(end, '-').getTime() / (3600 * 24 * 1000);
+
+    distance = endTime - startTime;
+
+    console.log("day distance is: " + distance);
+
+    return distance;
 }
 
 function getMoveDays(startDay, isNext, dayCount) {
@@ -273,6 +292,7 @@ module.exports = {
     formatStringDate: formatStringDate,
     formatNumber: formatNumber,
     dateDirection: dateDirection,
+    datesDistance: datesDistance,
     isLogin: isLogin,
     checkSignUp: checkSignUp,
     showNormalToast: showNormalToast,

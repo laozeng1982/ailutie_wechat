@@ -82,7 +82,6 @@
     /* border-bottom: 1rpx solid #eee; */
 }
 
-
 .pickerItem {
     width: 70rpx;
     font-size: 30rpx;
@@ -121,6 +120,8 @@
     padding-right: 40rpx;
     align-content: center;
     align-items: center;
+    font-size: 36rpx;
+    font-weight: 600;
     /* border-right: 1rpx solid #eee; */
 }
 
@@ -133,6 +134,8 @@
     padding-right: 40rpx;
     align-content: center;
     align-items: center;
+    font-size: 36rpx;
+    font-weight: 400;
     /* border-right: 1rpx solid #eee; */
 }
 

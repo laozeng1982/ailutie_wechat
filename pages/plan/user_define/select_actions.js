@@ -20,9 +20,9 @@ Page({
         searchResult: [],
 
         // 3D 数组，用来存放动作组数，次数和重量
-        movementNoMultiArray: [],
+        actionNoMultiArray: [],
         // 数量选择索引
-        multiMovementNoIndex: [5, 9, 19, 0],
+        multiActionNoIndex: [5, 9, 19, 0],
         plan: '',
     },
 
@@ -113,7 +113,7 @@ Page({
         console.log("this.data.selectedPartId: ", this.data.selectedPartIdx);
         console.log("this.data.selectedActionIdx", this.data.selectedActionIdx);
 
-        var movementNoMultiArray = [];
+        var actionNoMultiArray = [];
 
         var array0 = [];
         var array1 = [];
@@ -125,7 +125,7 @@ Page({
         for (var idx = 0; idx < 200; idx++) {
             array0.push((idx + 1) + "组");
 
-            if (this.data.selectedMovementId === "")
+            if (this.data.selectedActionIdx === "")
                 gpMeasurement = this.data.selectedPartList[this.data.selectedPartIdx].actionList[0].actionGpMeasurement;
             else
                 gpMeasurement = this.data.selectedPartList[this.data.selectedPartIdx].actionList[this.data.selectedActionIdx].actionGpMeasurement;
@@ -134,14 +134,13 @@ Page({
             // array1.push((idx + 1) + "");
             array2.push((idx + 1));
         }
-        movementNoMultiArray.push(array0);
-        movementNoMultiArray.push(array1);
-        movementNoMultiArray.push(array2);
-        movementNoMultiArray.push(array3);
-
+        actionNoMultiArray.push(array0);
+        actionNoMultiArray.push(array1);
+        actionNoMultiArray.push(array2);
+        actionNoMultiArray.push(array3);
 
         this.setData({
-            movementNoMultiArray: movementNoMultiArray,
+            actionNoMultiArray: actionNoMultiArray,
         });
     },
 
@@ -155,18 +154,18 @@ Page({
         var selectedRowArr = e.detail.value;
 
         // 获取当前页面用户的输入
-        var planGpCount = parseInt(this.data.movementNoMultiArray[0][selectedRowArr[0]]);
-        var planCount = parseInt(this.data.movementNoMultiArray[1][selectedRowArr[1]]);
-        var planWeight = parseInt(this.data.movementNoMultiArray[2][selectedRowArr[2]]);
-        var measurement = this.data.movementNoMultiArray[3][selectedRowArr[3]];
+        var planGpCount = parseInt(this.data.actionNoMultiArray[0][selectedRowArr[0]]);
+        var planCount = parseInt(this.data.actionNoMultiArray[1][selectedRowArr[1]]);
+        var planWeight = parseInt(this.data.actionNoMultiArray[2][selectedRowArr[2]]);
+        var measurement = this.data.actionNoMultiArray[3][selectedRowArr[3]];
 
         console.log("in onNumberChange, picker: ", planGpCount + "组, ", planCount + "次, ", +planWeight, measurement);
 
         var selectedPartList = this.data.selectedPartList;
 
         var groupData = [];
-        for (let idx = 0;idx < planGpCount; idx ++) {
-             groupData.push(new Plan.GroupData(idx+1, planCount,measurement,planWeight));
+        for (let idx = 0; idx < planGpCount; idx++) {
+            groupData.push(new Plan.GroupData(idx + 1, planCount, measurement, planWeight));
 
         }
 
@@ -191,7 +190,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        var selectedPartNamesArray = app.selectedPartName;
+        console.log(app.selectedPartInfo);
         var systemSetting = app.Controller.loadData(
             app.StorageType.SystemSetting.value,
             app.StorageType.SystemSetting);
@@ -199,10 +198,10 @@ Page({
         var selectedPartList = [];
         var selectedPartIdx = 0;
         for (let item of systemSetting.bodyPartList.partList) {
-            for (let partName of selectedPartNamesArray) {
-                if (partName === item.partName) {
+            for (let selectedPart of app.selectedPartInfo) {
+                if (selectedPart.name === item.partName) {
                     // 页面启动参数里带着前一个页面选中的部位，这里默认高亮这个部位
-                    if (partName === options.selectedPart) {
+                    if (selectedPart.name === options.selectedPart) {
                         item.selected = true;
                         selectedPartIdx = selectedPartList.length;
                     }
@@ -212,13 +211,35 @@ Page({
             }
         }
 
+        // 这里分两种情况，一是第一次进入，之前没有选过动作，需要重新构建，先统一赋值
         for (let part = 0; part < selectedPartList.length; part++) {
             for (let action = 0; action < selectedPartList[part].actionList.length; action++) {
                 // 临时增加一个数据项，用以保存数据
                 selectedPartList[part].actionList[action].groupData = [];
                 for (let idx = 0; idx < 6; idx++) {
-                    var group = new Plan.GroupData(idx + 1, 10, " ", 30);
+                    var group = new Plan.GroupData(idx + 1, 10,
+                        selectedPartList[part].actionList[action].actionMeasurement, 30);
+
                     selectedPartList[part].actionList[action].groupData.push(group);
+                }
+            }
+        }
+
+        if (app.plan !== '') {
+            for (let partItem of app.plan.partSet) {
+                for (let part = 0; part < selectedPartList.length; part++) {
+                    if (partItem.name === selectedPartList[part].partName) {
+                        for (let actionItem of partItem.actionSet) {
+                            for (let action = 0; action < selectedPartList[part].actionList.length; action++) {
+                                if (actionItem.name === selectedPartList[part].actionList[action].actionName) {
+                                    console.log("match: " + actionItem.name);
+                                    selectedPartList[part].actionList[action].actionSelected = true;
+                                    delete  selectedPartList[part].actionList[action].groupData;
+                                    selectedPartList[part].actionList[action].groupData = actionItem.groupSet;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -227,7 +248,6 @@ Page({
         console.log(selectedPartList);
 
         this.setData({
-            plan: new Plan.Plan(),
             selectedPartIdx: selectedPartIdx,
             selectedPartList: selectedPartList
         });
@@ -259,9 +279,51 @@ Page({
 
     /**
      * 生命周期函数--监听页面卸载
+     * 普通非Tab页面，每次切换出去，都直接Unload了，所以在这里保存数据。
      */
     onUnload: function () {
+        console.log("Action Page UnLoad!");
+        // var plan = (typeof app.plan === 'undefined' || app.plan === '') ?
+        //     new Plan.Plan() : app.plan;
 
+        // if (typeof app.plan === 'undefined' || app.plan === '')
+        //     plan = new Plan.Plan();
+        // else
+        //     plan = app.plan;
+
+        var plan = new Plan.Plan();
+
+        for (let part = 0; part < this.data.selectedPartList.length; part++) {
+            // 生成一个部位
+            var partSet = new Plan.PartSet(part + 1, this.data.selectedPartList[part].partName);
+            partSet.description = this.data.selectedPartList[part].partDescription;
+            partSet.imageUrl = this.data.selectedPartList[part].partPictureSrc;
+
+            // 当点中的时候，就算是计划中的元素
+            var idx = 1;
+            for (let action = 0; action < this.data.selectedPartList[part].actionList.length; action++) {
+                if (this.data.selectedPartList[part].actionList[action].actionSelected) {
+                    // 生成一个动作
+                    var actionSet = new Plan.ActionSet();
+                    actionSet.id = idx;
+                    actionSet.name = this.data.selectedPartList[part].actionList[action].actionName;
+                    actionSet.description = this.data.selectedPartList[part].actionList[action].actionDescription;
+                    actionSet.imageUrl = this.data.selectedPartList[part].actionList[action].actionPictureSrc;
+
+                    actionSet.groupSet = this.data.selectedPartList[part].actionList[action].groupData;
+                    partSet.actionSet.push(actionSet);
+                    idx++;
+                }
+            }
+            plan.partSet.push(partSet);
+
+            // 更新选中的数量
+            app.selectedPartInfo[part].actionCount = partSet.actionSet.length;
+        }
+
+        console.log(plan);
+
+        app.plan = plan;
     },
 
     /**

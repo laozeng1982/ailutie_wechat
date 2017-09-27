@@ -23,7 +23,8 @@
         "pages/plan/recommend_planlist/recommend_planlist",
         "pages/plan/user_define/select_part",
         "pages/plan/user_define/select_date",
-        "pages/plan/user_define/select_actions"
+        "pages/plan/user_define/select_actions",
+        "pages/plan/user_define/preview_plan"
     ],
     "window": {
         "navigationBarBackgroundColor": "#333",
