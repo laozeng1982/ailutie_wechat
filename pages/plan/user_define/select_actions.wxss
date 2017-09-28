@@ -1,33 +1,8 @@
 /* pages/plan/user_define/select_actions.wxss */
 
-.thisContainer {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    font-family: "微软雅黑";
-    background: #fff;
-}
+@import '../plan_wizzard_style';
 
-.upperContainer {
-    height: 90%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
-    background: #fff;
-}
 
-.scrollviewColumn {
-    height: 940rpx;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
 
 .scrollviewRow {
     width: 100%;
@@ -200,10 +175,6 @@
     align-items: center;
     flex-direction: row;
     justify-content: space-around;
-}
-
-.nextBtn {
-    width: 90%;
 }
 
 .person__top__wrapper {

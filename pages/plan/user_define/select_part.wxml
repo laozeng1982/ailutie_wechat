@@ -1,23 +1,23 @@
 <!--pages/plan/user_define/select_part.wxml-->
 <view class='thisContainer'>
     <view class='graySpaceSmall'></view>
+    <view class='topArea'>
 
-    <radio-group class='radio_group' bindchange="onPatternChange">
-        <view wx:for="{{repeatPattern}}" wx:key="{{index}}">
-            <radio class='radio' value='{{item.id}}' checked='{{item.selected}}'>
-                {{item.name}}
-            </radio>
+        <radio-group class='radio_group' bindchange="onPatternChange">
+            <view wx:for="{{repeatPattern}}" wx:key="{{index}}">
+                <radio class='radio' value='{{item.id}}' checked='{{item.selected}}'>
+                    {{item.name}}
+                </radio>
+            </view>
+        </radio-group>
+
+        <view class='header'>
+            <text class='text'>锻炼部位</text>
+            <text class='text'>请选择 ></text>
         </view>
-    </radio-group>
 
-    <view class='header'>
-        <text class='text'>锻炼部位</text>
-        <text class='text'>请选择 ></text>
-    </view>
+        <view class='graySpace'></view>
 
-    <view class='graySpace'></view>
-
-    <view class='upperContainer'>
         <scroll-view class="scrollview" scroll-y="true">
             <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onPartSelected'>
                 <icon type="success" class='icon' color="{{item.selected?'#09BB07':'#eee'}}" />
@@ -29,5 +29,9 @@
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
 
-    <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
+     <view class='graySpaceSmall'></view> 
+
+    <view class='footArea'>
+        <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
+    </view>
 </view>

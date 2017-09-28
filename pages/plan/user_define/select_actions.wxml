@@ -1,6 +1,5 @@
 <!--pages/plan/user_define/select_actions.wxml-->
 <view class='thisContainer'>
-    <view class='graySpaceSmall'></view>
     <!-- 搜索动作 -->
     <!-- <view class="search__top">
         <form class="search__form" bindsubmit="searchSubmit">
@@ -51,8 +50,10 @@
 
     <view class='graySpaceSmall'></view> -->
 
+    <view class='graySpaceSmall'></view>
+
     <!-- 显示部位和动作列表 -->
-    <view class='upperContainer'>
+    <view class='topArea'>
 
         <scroll-view class="scroll-view_H" scroll-x="true">
             <view id="{{item.partName}}" class="scroll-view-item_H {{item.selected?'text':'textUnselected'}}" wx:for="{{selectedPartList}}" wx:key="{{index}}" bindtap='onPartSelected'>
@@ -60,8 +61,8 @@
             </view>
         </scroll-view>
 
-        <view id="{{item.partName}}" wx:if="{{item.selected}}" class='scrollviewColumn' wx:for="{{selectedPartList}}" wx:key="{{index}}">
-            <scroll-view class="scrollviewColumn" scroll-y="true">
+        <view id="{{item.partName}}" wx:if="{{item.selected}}" class='scrollviewVertical' wx:for="{{selectedPartList}}" wx:key="{{index}}">
+            <scroll-view class="scrollviewVertical" scroll-y="true">
                 <!--  每个动作 -->
                 <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" wx:key="{{index}}" bindtap='onActionSelected'>
                     <!-- 图片占位 -->
@@ -95,5 +96,10 @@
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
 
-    <button class='nextBtn' type='primary' bindtap='onOK'> 确定 </button>
+    <view class='graySpaceSmall'></view>
+
+    <view class='footArea'>
+        <button class='nextBtn' type='primary' bindtap='onOK'> 确定 </button>
+    </view>
+
 </view>

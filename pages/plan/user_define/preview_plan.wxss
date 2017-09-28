@@ -1,1 +1,759 @@
 /* pages/plan/user_define/preview_plan.wxss */
+@import '../plan_wizzard_style';
+
+.dateTopArea {
+    width: 100%;
+    height: 1070rpx;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    background: #fff;
+}
+
+.scrollview {
+    height: 800rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.partContainerColumn {
+    width: 100%;
+    height: 400rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-content: center;
+    align-items: center; */
+    border-bottom: 1rpx solid #eee;
+}
+
+.part {
+    width: 80%;
+    height: 100rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.radio_group {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100rpx;
+    align-content: center;
+    align-items: center;
+}
+
+.radio {
+    padding: 40rpx;
+    align-content: center;
+    align-items: center;
+}
+
+.text {
+    /* padding: 40rpx; */
+    padding-left: 40rpx;
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+    padding-right: 40rpx;
+    align-content: center;
+    align-items: center;
+}
+
+.textBig {
+    padding-left: 40rpx;
+    padding-top: 20rpx;
+    font-size: 30 rpx;
+    font-weight: 600;
+    align-content: center;
+    align-items: center;
+}
+
+.header {
+    width: 100%;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icon {
+    padding: 30rpx;
+    border-right: 1rpx soild #eee;
+    size: 20;
+}
+
+.date {
+    width: 100rpx;
+    height: 100rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.selected_date {
+    width: 60rpx;
+    height: 60rpx;
+    background: #888;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.unselected_date {
+    width: 60rpx;
+    height: 60rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.datePickerContainer {
+    height: 80rpx;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    font-size: 30rpx;
+}
+
+.nextBtn {
+    width: 90%;
+}
+
+.container1 {
+    display: flex inline-flex;
+    /* border-bottom: 1rpx solid #eee; */
+    height: 100%;
+}
+
+.swiper {
+    width: 100%;
+    height: 700rpx;
+}
+
+.planAndActionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    /* height: 100%; *//* border-bottom: 1rpx solid #eee; */
+}
+
+.picker {
+    display: flex;
+    flex-direction: row;
+}
+
+.picker-text {
+    display: flex;
+    justify-content: center;
+}
+
+.calendar_panel {
+    width: 100%;
+    /* height: 100%; */
+    border-bottom: 1rpx solid #ececec;
+}
+
+.calendar_box {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1rpx solid #ececec;
+    display: flex;
+    justify-content: space-around;
+}
+
+.calendar_month_box {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1rpx solid #ececec;
+    display: flex;
+    justify-content: space-around;
+    height: 120rpx;
+}
+
+.month_label {
+    /* width: 14.28%; *//* position: relative; */
+    float: left;
+    text-align: center;
+    font-size: 40rpx;
+    /* padding: 10rpx 0; */
+    display: flex;
+    justify-content: space-around;
+    height: 50rpx;
+    width: 120rpx;
+    padding: 30rpx;
+}
+
+.calendar_box_header {
+    width: 100%;
+    /* background: #b2b2b2; */
+    overflow: hidden;
+    border-bottom: 1rpx solid #ececec;
+    display: flex;
+}
+
+.weekday_label_header {
+    width: 14.28%;
+    float: left;
+    text-align: center;
+    font-size: 24rpx;
+    padding: 10rpx 0;
+}
+
+.weekday_label_days {
+    /* width: 14.28%; *//* position: relative; */
+    float: left;
+    text-align: center;
+    font-weight: 300;
+    font-size: 32rpx;
+    padding: 10rpx 0;
+    height: 60rpx;
+    width: 60rpx;
+}
+
+.weekday_label_days_overlay {
+    /* position: absolute; */
+    display: flex;
+    width: 32rpx;
+    height: 32rpx;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background: #1d976c;
+}
+
+.image_overlay_right {
+    /* position: absolute; */
+    display: flex;
+    width: 32rpx;
+    height: 32rpx;
+    z-index: 100;
+}
+
+.calendar-marker {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.image_overlay {
+    display: flex;
+    width: 24rpx;
+    height: 24rpx;
+    z-index: 100;
+}
+
+.active_date {
+    background: #e64340;
+    color: #fff;
+    border-radius: 20%;
+    border-bottom: 5rpx;
+}
+
+.not_in_this_month_date {
+    color: #888;
+}
+
+.plan_date {
+    background: #fff;
+    /* color: #fff; */
+    width: 100%;
+    height: 100%;
+    border-radius: 20%;
+    border-bottom: 5rpx solid #888;
+    border-top: 5rpx solid #888;
+    border-left: 5rpx solid #888;
+    border-right: 5rpx solid #888;
+}
+
+.today {
+    /* background: #576b95; */
+    color: blue;
+    border-radius: 20%;
+    border-bottom: 5rpx solid #888;
+    border-top: 5rpx solid #888;
+    border-left: 5rpx solid #888;
+    border-right: 5rpx solid #888;
+    /* border-radius: 30%;
+    border-bottom: 5rpx; */
+}
+
+.active_date_overlay {
+    /* position: absolute; */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* left: 30rpx;
+    top: 60prx; */
+    z-index: 100;
+    background: #e64340;
+    color: #fff;
+    border-radius: 20%;
+}
+
+.thisMounthContanier {
+    display: flex;
+    justify-content: space-around;
+    width: 100rpx;
+    height: 50rpx;
+    z-index: 100;
+    border-radius: 5%;
+    padding-right: 40rpx;
+}
+
+.thisMounth {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    /* width: 100rpx; */
+    height: 50rpx;
+    z-index: 100;
+    background: #e64340;
+    color: #fff;
+    border-radius: 5%;
+    /* padding-right: 40rpx; */
+}
+
+.not_thisMounth {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    height: 50rpx;
+    z-index: 100;
+}
+
+.show_box {
+    display: flex;
+    justify-content: center;
+    padding: 20rpx;
+    font-size: 35rpx;
+    align-items: center;
+}
+
+.slimSpace {
+    /* width: 90%; */
+    background: #fff;
+    font-size: 10rpx;
+    min-height: 10rpx;
+    border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx;
+}
+
+.scrollview {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+
+.redcolor {
+    font-weight: 900;
+    color: red;
+}
+
+.dateControl {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start space-between;
+    height: 100rpx;
+    align-items: center;
+    align-content: center;
+}
+
+.dateButton {
+    /* background: #888; */
+    color: black;
+    font-weight: bold;
+    font-size: 40rpx;
+    /* text-align: center; */
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    flex-grow: 3;
+    height: 50rpx;
+}
+
+.operationButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    /* font-size: 60rpx; */
+    text-align: center;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+}
+
+.dateMoveButton {
+    /* background: #888; */
+    color: #fff;
+    font-weight: bold;
+    font-size: 30rpx;
+    text-align: center;
+    /* width: 50%; */
+    height: 50rpx;
+    width: 50rpx;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    /* height: 2rem; */
+}
+
+.tip_container {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    font-size: 30 rpx;
+    height: 80rpx;
+}
+
+.planButton {
+    background: #888;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30rpx;
+    text-align: center;
+    background: #09bb07;
+    /* box-shadow: 0 0 8px 2px #669; */
+    z-index: 1000;
+    height: 2rem;
+}
+
+.tip {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 30 rpx;
+}
+
+.date-marker {
+    height: 30rpx;
+    width: 30rpx;
+    background: #1d976c;
+}
+
+.movementName {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #eee;
+}
+
+.tableItem {
+    font-size: 10pt;
+    width: 60%;
+    flex-flow: 2;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.tableItemName {
+    font-size: 10pt;
+    width: 100%;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.listSingleMovement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scrollContainer1 {
+    align-content: center;
+    /* background: #eee; */
+}
+
+/* 基数加底色 */
+
+.tableCornor1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 72rpx;
+    /* border: 1px solid darkgray; */
+    background: #b2b2b2;
+    /* border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+}
+
+/* 偶数用白底 */
+
+.tableCornor2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 72rpx;
+    border: 1px solid darkgray;
+    /* border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+}
+
+.subTableItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+    height: 60rpx;
+    border: 1px solid darkgray;
+    /* border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+}
+
+.movement {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80rpx;
+}
+
+.graySpace {
+    /* width: 90%; */
+    background: #fff;
+    font-size: 12px;
+    min-height: 30rpx;
+    border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx;
+}
+
+/* for modal */
+
+/* 弹出窗口以后，阴影遮盖的部分 */
+
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+}
+
+/* 窗口大小 */
+
+.modal-dialog {
+    width: 95%;
+    height: 850rpx;
+    overflow: hidden;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    z-index: 9999;
+    background: #f9f9f9;
+    margin: -150rpx 20rpx;
+    border-radius: 36rpx;
+}
+
+/* 头部 */
+
+.modal-title {
+    padding-top: 20rpx;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 70rpx;
+    /* font-size: 36rpx; */
+    color: #030303;
+    text-align: center;
+    border-bottom: 2px solid #dedede;
+}
+
+/* 内容 */
+
+.modal-content {
+    padding: 15rpx 32rpx;
+    height: 640rpx;
+}
+
+/* 底部 */
+
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    height: 90rpx;
+    border-top: 2px solid #dedede;
+    font-size: 34rpx;
+    line-height: 86rpx;
+}
+
+.modal-input {
+    display: flex;
+    background: #fff;
+    border: 2rpx solid #ddd;
+    border-radius: 4rpx;
+    font-size: 28rpx;
+}
+
+.modal-text {
+    display: flex;
+    background: #fff;
+    border: 2rpx solid #ddd;
+    border-radius: 4rpx;
+    font-size: 28rpx;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.input {
+    width: 100%;
+    height: 82rpx;
+    font-size: 28rpx;
+    line-height: 28rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    color: #333;
+}
+
+.input_small {
+    width: 100%;
+    height: 70rpx;
+    font-size: 28rpx;
+    line-height: 28rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    color: #333;
+}
+
+input-holder {
+    color: #666;
+    font-size: 28rpx;
+}
+
+.btn-cancel {
+    width: 50%;
+    color: #666;
+    text-align: center;
+    border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+    width: 50%;
+    height: 100%;
+    color: #353535;
+    background: #09bb07;
+    text-align: center;
+    /* border-right: 1px solid #dedede; */
+}
+
+.btn-del {
+    width: 20%;
+    color: #e64340;
+    text-align: center;
+}
+
+.choiceItemContainer {
+    display: flex;
+    width: 100%;
+    height: 400rpx;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.choiceItemInnerContainer {
+    display: flex;
+    width: 100%;
+    height: 80%;
+    flex-direction: column;
+    justify-content: space-around;
+    border-bottom: 1rpx solid #dedede;
+}
+
+.choiceItemInnerContainerHigher {
+    display: flex;
+    width: 100%;
+    height: 130%;
+    flex-direction: column;
+    justify-content: space-around;
+    border-bottom: 1rpx solid #dedede;
+}
+
+.choiceItemCheckboxGroup {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.choiceItem {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.selected_date_overlay {
+    /* position: absolute; */
+    align-items: center;
+    width: 80rpx;
+    height: 80rpx;
+    left: 30rpx;
+    top: 60prx;
+    z-index: 100;
+    background: #09bb03;
+    color: black;
+    border-radius: 20%;
+}
+
+.whiteSpace {
+    /* width: 90%; */
+    background: #fff;
+    font-size: 12px;
+    min-height: 30rpx;
+    border-bottom: 1rpx solid #dedede;
+    /* border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx; */
+}
+
+.whiteSpaceNoBorder {
+    /* width: 90%; */
+    background: #fff;
+    font-size: 12px;
+    min-height: 30rpx;
+    /* border-bottom: 1rpx solid #dedede; *//* border-top-left-radius: 20rpx;
+    border-top-right-radius: 20rpx; */
+}

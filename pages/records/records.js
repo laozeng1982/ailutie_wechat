@@ -1,5 +1,4 @@
 // records.js
-import util from '../../utils/util.js'
 import RecordsPageFunctions from 'RecordsPageFunctions.js'
 
 //全局变量

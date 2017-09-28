@@ -1,0 +1,33 @@
+/* pages/plan/user_define/custom_actions.wxss */
+
+.itemHolder {
+    height: 100rpx;
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    border-bottom: 1rpx solid #eee;
+    /* justify-content: space-between; */
+}
+
+.text {
+    font-size: 50rpx;
+    font-weight: 500;
+}
+
+.itemLeft {
+    padding-left: 20rpx;
+    width: 200rpx;
+}
+
+.itemRight {
+    padding-right: 20rpx;
+    width: 300rpx;
+}
+
+.confirmBtn {
+    width: 100%;
+    padding-block-end: 10rpx;
+    padding-bottom: 10rpx;
+}

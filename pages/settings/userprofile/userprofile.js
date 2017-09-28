@@ -1,12 +1,8 @@
 // userprofile.js
 
-import StorageType from '../../../datamodel/StorageType.js'
-import Controller from '../../../utils/Controller.js'
-import util from '../../../utils/util.js'
 import UerProfile from '../../../datamodel/UserProfile.js'
 
-const DATATYPE = new StorageType.StorageType();
-const CONTROLLER = new Controller.Controller();
+const app = getApp();
 
 Page({
 
@@ -68,7 +64,7 @@ Page({
     onLoad: function (options) {
         var selectedDate = util.formatDateToString(new Date());
 
-        var curRecords = CONTROLLER.loadData(selectedDate, DATATYPE.DailyRecords);
+        var curRecords = app.Controller.loadData(selectedDate, app.StorageType.DailyRecords);
         var userProfile = curRecords.profiles;
 
         console.log("in onLoad, ", curRecords);

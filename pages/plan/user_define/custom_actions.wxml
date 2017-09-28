@@ -1,0 +1,73 @@
+<!--pages/plan/user_define/custom_actions.wxml-->
+
+<view class="generalContainer" style='justify-content:space-between'>
+
+    <view>
+        <view class='itemHolder' style='justify-content:space-around'>
+            <text class='text'>请填写信息</text>
+        </view>
+        <view class='graySpace'></view>
+
+
+        <view class='itemHolder'>
+            <view class='itemLeft'>
+                <text>部位</text>
+            </view>
+            <view class='itemRight'>
+                <picker id='birthday' mode="date" value="{{userInfo.birthday}}" start="1900-01-01" end="2099-12-31" bindchange="onPickerChange">
+                    {{userInfo.birthday}}
+                </picker>
+            </view>
+        </view>
+
+        <view class='itemHolder'>
+            <view class='itemLeft'>
+                <text>动作名称</text>
+            </view>
+            <view class='itemRight'>
+                <picker id='gender' mode="selector" value="{{userInfo.gender}}" range='{{genderArray}}' bindchange="onPickerChange">
+                    {{userInfo.gender}}
+                </picker>
+            </view>
+        </view>
+
+        <view class='itemHolder'>
+            <view class='itemLeft'>
+                <text>所需器械</text>
+            </view>
+            <view class='itemRight'>
+                <picker id='height' mode="selector" value="{{userInfo.height-1}}" range='{{heightArray}}' bindchange="onPickerChange">
+                    {{userInfo.height }}
+                </picker>
+            </view>
+        </view>
+
+        <view class='itemHolder'>
+            <view class='itemLeft'>
+                <text>锻炼场所</text>
+            </view>
+            <view class='itemRight'>
+                <picker id='height' mode="selector" value="{{userInfo.height-1}}" range='{{heightArray}}' bindchange="onPickerChange">
+                    {{userInfo.height }}
+                </picker>
+            </view>
+        </view>
+
+        <view class='itemHolder'>
+            <view class='itemLeft'>
+                <text>计量单位</text>
+            </view>
+            <view class='itemRight'>
+                <picker id='weight' mode="selector" value="{{userInfo.weight-1}}" range='{{weightArray}}' bindchange="onPickerChange">
+                    {{userInfo.weight }} Kg
+                </picker>
+            </view>
+        </view>
+    </view>
+
+    <!-- 这是Toast -->
+    <include src="../../ui/toast/toast.wxml" />
+
+    <button id='newAction' class='confirmBtn' type='primary' size='default' bindtap="onOK">OK</button>
+
+</view>

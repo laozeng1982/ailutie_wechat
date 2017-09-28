@@ -18,20 +18,24 @@ Page({
         endDate: app.Util.formatDateToString(new Date()),
         startDate: app.Util.formatDateToString(new Date()),
 
-        weekArr: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-        weekList: [
-            {id: 0, value: '日', checked: false},
-            {id: 1, value: '一', checked: false},
-            {id: 2, value: '二', checked: false},
-            {id: 3, value: '三', checked: false},
-            {id: 4, value: '四', checked: false},
-            {id: 5, value: '五', checked: false},
-            {id: 6, value: '六', checked: false}
-        ],
+    },
+
+
+    makeWeekList: function (part) {
+        // 暂时只想到了这个办法，给weekList加标志，好判断是选中了哪个部位的日期，e.target.id不好用了。
+        return [
+            {id: 0, value: '日', part: part, checked: false},
+            {id: 1, value: '一', part: part, checked: false},
+            {id: 2, value: '二', part: part, checked: false},
+            {id: 3, value: '三', part: part, checked: false},
+            {id: 4, value: '四', part: part, checked: false},
+            {id: 5, value: '五', part: part, checked: false},
+            {id: 6, value: '六', part: part, checked: false}
+        ];
     },
 
     onPatternChange: function (e) {
-        var repeatPattern = this.data.repeatPattern;
+        let repeatPattern = this.data.repeatPattern;
         switch (e.detail.value) {
             case "1":
                 repeatPattern[0].selected = true;
@@ -59,11 +63,20 @@ Page({
     },
 
     onSelectDate: function (e) {
+        console.log(e);
+        console.log(e.currentTarget.dataset.partname);
         console.log(e.currentTarget.id);
-        var weekList = this.data.weekList;
-        weekList[parseInt(e.currentTarget.id)].selected = !weekList[parseInt(e.currentTarget.id)].selected;
+        let selectedPartInfo = this.data.selectedPartInfo;
+
+        for (let partIdx = 0; partIdx < selectedPartInfo.length; partIdx++) {
+            if (e.currentTarget.dataset.partname === selectedPartInfo[partIdx].name) {
+                selectedPartInfo[partIdx].weekList[e.currentTarget.id].selected =
+                    !selectedPartInfo[partIdx].weekList[e.currentTarget.id].selected;
+            }
+        }
+
         this.setData({
-            weekList: weekList
+            selectedPartInfo: selectedPartInfo
         });
 
     },
@@ -82,41 +95,66 @@ Page({
     },
 
     onNext: function (e) {
-        for (let item of app.selectedPartInfo) {
-            if (item.actionCount === 0) {
-                app.Util.showWarnToast(item.name + "还未选动作！", this, 2000);
-                return;
+        // 检查输入
+        // for (let item of app.selectedPartInfo) {
+        //     if (item.actionCount === 0) {
+        //         app.Util.showWarnToast(item.name + "还未选动作！", this, 2000);
+        //         return;
+        //     }
+        // }
+        //
+        // let selected = false;
+        // for (let item of this.data.weekList) {
+        //     selected = selected || item.selected;
+        // }
+
+        // if (!selected) {
+        //     app.Util.showWarnToast("还未选日期！", this, 2000);
+        //     return;
+        // }
+        //
+        // if (app.Util.dateDirection(this.data.endDate) <= 0) {
+        //
+        //     app.Util.showWarnToast("兄弟，结束时间不对哦！", this, 2000);
+        //     return;
+        // }
+        //
+        // if (app.Util.dateDirection(this.data.startDate) < 0) {
+        //
+        //     app.Util.showWarnToast("兄弟，开始时间不对哦！", this, 2000);
+        //     return;
+        // }
+        //
+        // if (app.Util.datesDistance(this.data.startDate, this.data.endDate) <= 0) {
+        //
+        //     app.Util.showWarnToast("兄弟，时间段选择不对哦！", this, 2000);
+        //     return;
+        // }
+
+        app.plan.startDate = this.data.startDate;
+        app.plan.endDate = this.data.endDate;
+
+
+        // for (let item of this.data.weekList) {
+        //     if (item.selected) {
+        //         selectedDateArr.push(item.id);
+        //     }
+        // }
+
+        for (let idx = 0; idx < app.plan.partSet.length; idx++) {
+            let selectedDateArr = [];
+            for (let part of this.data.selectedPartInfo) {
+                if (part.name === app.plan.partSet[idx].name) {
+                    for (let item of part.weekList) {
+                        if (item.selected) {
+                            selectedDateArr.push(item.id);
+                        }
+                    }
+                    break;
+                }
             }
+            app.plan.partSet[idx].trainDate = selectedDateArr;
         }
-
-        let selected = false;
-        for (let item of this.data.weekList) {
-            selected = selected || item.selected;
-        }
-
-        if (!selected) {
-            app.Util.showWarnToast("还未选日期！", this, 2000);
-            return;
-        }
-
-        if (app.Util.dateDirection(this.data.endDate) <= 0) {
-
-            app.Util.showWarnToast("兄弟，结束时间不对哦！", this, 2000);
-            return;
-        }
-
-        if (app.Util.dateDirection(this.data.startDate) < 0) {
-
-            app.Util.showWarnToast("兄弟，开始时间不对哦！", this, 2000);
-            return;
-        }
-
-        if (app.Util.datesDistance(this.data.startDate, this.data.endDate) <= 0) {
-
-            app.Util.showWarnToast("兄弟，时间段选择不对哦！", this, 2000);
-            return;
-        }
-
 
         wx.navigateTo({
             url: './preview_plan',
@@ -128,7 +166,17 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        var selectedPartNames = [];
+        console.log("Select Date Page onLoad");
+
+        for (let idx = 0; idx < app.selectedPartInfo.length; idx++) {
+            app.selectedPartInfo[idx].weekList = this.makeWeekList(app.selectedPartInfo[idx].name);
+
+        }
+
+        wx.setNavigationBarTitle({
+            title: '选择日期和动作',
+        });
+        let selectedPartNames = [];
         for (let item of app.selectedPartInfo) {
             selectedPartNames.push(item.name);
         }
@@ -151,7 +199,8 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        console.log(app.selectedPartInfo);
+        console.log("Select Date Page onShow");
+        console.log("app.selectedPartInfo: ", app.selectedPartInfo);
         this.setData({
             selectedPartInfo: app.selectedPartInfo
         });
@@ -161,7 +210,8 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
+        console.log("Select Date Page onHide");
+        app.selectedPartInfo = this.data.selectedPartInfo;
     },
 
     /**

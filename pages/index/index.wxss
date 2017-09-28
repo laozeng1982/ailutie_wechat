@@ -1,40 +1,96 @@
 /**index.wxss**/
+
 .userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    height: 150rpx;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
 }
 
 .userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+    width: 128rpx;
+    height: 128rpx;
+    margin: 20rpx;
+    border-radius: 50%;
 }
 
 .userinfo-nickname {
-  color: #aaa;
+    color: #aaa;
 }
 
 .showArea {
-  display: flex;
-  justify-content: space-around;
-  background: #fff;
-  width: 100%;
-  height: 65%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    background: #fff;
+    width: 100%;
+    height: 65%;
 }
 
 .planArea {
-  display: flex;
-  justify-content: space-around;
-  align-content: center;
-  align-items: center;
-  width: 100%;
-  height: 35%;
-  background: #888;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 35%;
+    background: #888;
 }
 
-.makePlanBtn{
+.makePlanBtn {
     width: 60;
     height: 100rpx;
+}
+
+.grayBackgroud {
+    display: flex;
+    height: 50%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    background: #888;
+    border-bottom: 1rpx solid #eee;
+}
+
+.selectorUnSelected {
+    border-radius: 2%;
+    border: 2rpx solid #fff;
+    color: #fff;
+    width: 80%;
+    height: 80rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.selectorSelected {
+    border-radius: 2%;
+    border: 2rpx solid #333;
+    width: 80%;
+    height: 80rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: #fff;
+    color: #333;
+    align-content: center;
+    align-items: center;
+}
+
+.smalltext {
+    font-size: 16rprx;
+    color: #fff;
+}
+
+.chart-iframe {
+    margin: 10rpx 10rpx;
+    text-align: center;
 }

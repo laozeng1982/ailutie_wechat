@@ -24,7 +24,8 @@ class Plan {
         this.place = '';    // 健身地点
         this.frequence = 0; // 健身频率，一周N次
 
-        this.fromDate = '';     // 计划开始的日期，格式：2017-09-25
+        this.startDate = '';     // 计划开始的日期，格式：2017-09-25
+        this.endDate = '';     // 计划结束的日期，格式：2017-09-25
         this.dateLength = 0;    // 计划的天数
 
         this.description = '';  // 计划描述

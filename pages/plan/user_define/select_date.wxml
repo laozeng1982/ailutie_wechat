@@ -2,24 +2,27 @@
 <view class='thisContainer'>
     <view class='graySpaceSmall'></view>
 
-    <radio-group class='radio_group' bindchange="onPatternChange">
-        <view wx:for="{{repeatPattern}}" wx:key="{{index}}">
-            <radio class='radio' value='{{item.id}}' checked='{{item.selected}}'>
-                {{item.name}}
-            </radio>
+    <view class='topArea'>
+
+        <radio-group class='radio_group' bindchange="onPatternChange">
+            <view wx:for="{{repeatPattern}}" wx:key="{{index}}">
+                <radio class='radio' value='{{item.id}}' checked='{{item.selected}}'>
+                    {{item.name}}
+                </radio>
+            </view>
+        </radio-group>
+
+        <view class='header'>
+            <text class='text'>锻炼部位</text>
+            <text class='text'>{{selectedPartNames}}</text>
         </view>
-    </radio-group>
 
-    <view class='header'>
-        <text class='text'>锻炼部位</text>
-        <text class='text'>{{selectedPartNames}}</text>
-    </view>
+        <view class='graySpace'></view>
 
-    <view class='upperContainer'>
         <scroll-view class="scrollview" scroll-y="true">
 
             <view id="{{index}}" class='partContainerColumn' wx:for="{{selectedPartInfo}}" wx:key="{{index}}">
-                <view class='graySpaceSmall'></view>
+
                 <text class='textBig'>{{item.name}}</text>
                 <view id='{{item.name}}' class='header' style='border-bottom: 1rpx solid #eee' bindtap='onSelectAction'>
                     <text class='text'>锻炼动作</text>
@@ -32,31 +35,40 @@
                 </view>
 
                 <view class='header'>
-                    <view class='date' id='{{item.id}}' wx:for="{{weekList}}" wx:key="{{index}}" bindtap='onSelectDate'>
-                        <view class="{{item.selected?'selected_date':'unselected_date'}}">
+                    <view class='date' wx:for="{{item.weekList}}" wx:key="{{index}}">
+                        <view id='{{item.id}}' data-partname="{{item.part}}" class="{{item.selected?'selected_date':'unselected_date'}}" bindtap='onSelectDate'>
                             <view>{{item.value}}</view>
                         </view>
                     </view>
                 </view>
-
+                <!-- wx:if="{{(index+1)!=selectedPartInfo.length}}"   -->
+                <view class='graySpaceSmall'></view>
 
             </view>
         </scroll-view>
+
+        <!-- <view class='graySpaceSmall'></view> -->
+
+        <view class='datePickerContainer'>
+            <text>开始日期：</text>
+            <picker id='start' mode="date" value="{{startDate}}" start="{{startDate}}" end="2099-12-31" bindchange="onDateChange">
+                {{startDate}}
+            </picker>
+            <text>结束日期：</text>
+            <picker id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDateChange">
+                {{endDate}}
+            </picker>
+        </view>
+
     </view>
 
-    <view class='datePickerContainer'>
-        <text>开始日期：</text>
-        <picker id='start' mode="date" value="{{startDate}}" start="{{startDate}}" end="2099-12-31" bindchange="onDateChange">
-            {{startDate}}
-        </picker>
-        <text>结束日期：</text>
-        <picker id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDateChange">
-            {{endDate}}
-        </picker>
-    </view>
     <view class='graySpaceSmall'></view>
+
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
 
-    <button class='nextBtn' type='primary' bindtap='onNext'> 预览 </button>
+    <view class='footArea'>
+        <button class='nextBtn' type='primary' bindtap='onNext'> 预览 </button>
+    </view>
+
 </view>

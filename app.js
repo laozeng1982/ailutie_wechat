@@ -2,16 +2,25 @@
 /**
  * 小程序总入口
  */
-import util from './utils/util.js'
+import util from './utils/Util.js'
 import Controller from './utils/Controller.js'
 import StorageType from './datamodel/StorageType.js'
 import BodyPartList from './datamodel/BodyPart.js'
+
+let Promise = require('./utils/Promise').Promise;
 
 const CONTROLLER = new Controller.Controller();
 const STORAGETYPE = new StorageType.StorageType();
 
 App({
     onLaunch: function () {
+
+        // 屏幕相关
+        this.deviceInfo = this.promise.getDeviceInfo();
+
+        this.pageHeight = this.deviceInfo.windowHeight - 120 - 16;    // 用于跳转页面中间部分
+        this.pageWidth = this.deviceInfo.windowWidth;
+
         console.log("app onLoad");
 
         //默认使用登录
@@ -28,12 +37,12 @@ App({
                     wx.getUserInfo({
                         success: res => {
                             // 可以将 res 发送给后台解码出 unionId
-                            this.globalData.wechatUserInfo = res.userInfo
+                            this.globalData.wechatUserInfo = res.userInfo;
                             console.log("app onLoad, res.userInfo: ", res.userInfo);
                             // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                             // 所以此处加入 callback 以防止这种情况
                             if (this.userInfoReadyCallback) {
-                                this.userInfoReadyCallback(res)
+                                this.userInfoReadyCallback(res);
                             }
                         }
                     })
@@ -84,12 +93,36 @@ App({
             wx.getUserInfo({
                 withCredentials: false,
                 success: function (res) {
-                    that.globalData.wechatUserInfo = res.userInfo
+                    that.globalData.wechatUserInfo = res.userInfo;
                     typeof cb == "function" && cb(that.globalData.wechatUserInfo)
                 }
             })
         }
     },
+
+    promise: {
+        getDeviceInfo: function () {//获取设备信息
+            let promise = new Promise((resolve, reject) => {
+                wx.getSystemInfo({
+                    success: function (res) {
+                        resolve(res);
+                    },
+                    fail: function () {
+                        reject();
+                    }
+                });
+            });
+            return promise;
+        }
+    },
+
+    getGid: (function () {//全局唯一id
+        let id = 0;
+        return function () {
+            id++;
+            return id;
+        }
+    })(),
 
     system: {
         userConfig: {
@@ -104,6 +137,8 @@ App({
 
     selectedPartInfo: '',
     plan: '',
+
+
 
     globalData: {
         // 定义一些全局变量

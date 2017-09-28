@@ -4,7 +4,7 @@
  * 2、saveData数据存储，目前存储在localStorage里
  */
 
-import util from 'util.js'
+import util from 'Util.js'
 import UserInfo from '../datamodel/UserInfo.js'
 import UserProfile from '../datamodel/UserProfile.js'
 import DailyRecords from '../datamodel/DailyRecords.js'

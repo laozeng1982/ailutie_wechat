@@ -1,7 +1,7 @@
 /**
  * 锻炼计划记录页面
  */
-import util from '../../utils/util.js'
+import util from '../../utils/Util.js'
 import DataType from '../../datamodel/StorageType.js'
 import RecordFactory from '../../datamodel/RecordFactory.js'
 import Controller from '../../utils/Controller.js'

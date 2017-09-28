@@ -1,5 +1,5 @@
 // userinfo.js
-import util from '../../../utils/util.js'
+import util from '../../../utils/Util.js'
 import Controller from '../../../utils/Controller.js'
 import StorageType from '../../../datamodel/StorageType.js'
 

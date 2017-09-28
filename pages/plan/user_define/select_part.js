@@ -42,12 +42,12 @@ Page({
 
             if (item.selected) {
                 hasSelectedPart = true;
-                selectedPartInfo.push({index: item.partId, name: item.partName, actionCount: 0 });
+                selectedPartInfo.push({index: item.partId, name: item.partName, actionCount: 0});
             }
         }
 
         if (!hasSelectedPart) {
-            app.Util.showWarnToast("还未选择部位", this, 2000);
+            app.Util.showWarnToast("还未选择锻炼部位", this, 1000);
             return;
         }
 
@@ -61,6 +61,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        console.log("Select Part Page onLoad");
+        wx.setNavigationBarTitle({
+            title: '选择锻炼部位',
+        })
         var systemSetting = app.Controller.loadData(
             app.StorageType.SystemSetting.value,
             app.StorageType.SystemSetting);
@@ -84,7 +88,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        console.log("Select Part Page onShow");
     },
 
     /**

@@ -1,27 +1,41 @@
 <!--index.wxml-->
 <view class="container">
 
+    <!-- 上半部分显示 -->
     <view class='showArea'>
-        <view bindtap="bindViewTap" class="userinfo">
+        <view class="userinfo">
             <image class="userinfo-avatar" src="{{wechatUserInfo.avatarUrl}}" background-size="cover"></image>
             <text class="userinfo-nickname">{{wechatUserInfo.nickName}}</text>
         </view>
+
+        <!-- <swiper style='width:100%; height:600rpx' indicator-dots="{{false}}" circular="{{true}}" autoplay="{{false}}" duration="{{duration}}" bindchange="onSwiperChange">
+            <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+                <swiper-item id="{{index}}">
+                    <image src="{{item}}" style='width:300 rpx; height:300rpx' />
+                </swiper-item>
+            </block>
+        </swiper> -->
+
     </view>
 
     <view class='graySpace'></view>
 
+    <!-- 计划部分 -->
     <view class="planArea">
-        <button class='makePlanBtn' type='default' bindtap='onMakePlan'>定制我的锻炼计划</button>
+
+        <view class='grayBackgroud'>
+            <view id='1' class="{{planType[0].selected?'selectorSelected':'selectorUnSelected'}}" bindtap='onTypeSelected'>推荐计划</view>
+            <text class='smalltext'>为您优选的计划，打造火辣身材</text>
+        </view>
+
+        <view class='grayBackgroud'>
+            <view id='2' class="{{planType[1].selected?'selectorSelected':'selectorUnSelected'}}" bindtap='onTypeSelected'>自定义计划</view>
+            <text class='smalltext'>定制您的个性计划</text>
+        </view>
+        <!-- <button class='makePlanBtn' type='default' bindtap='onMakePlan'>定制我的锻炼计划</button> -->
     </view>
 
-    <view class='graySpace'></view>
-    <text class="userinfo-nickname" wx:if="{{notSignUp}}">您还没有注册，将无法使用同步功能哦~~</text>
 </view>
 
-<!-- <swiper indicator-dots="{{indicatorDots}}" circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="onSwiperChange">
-    <block wx:for="{{imgUrls}}" wx:key="{{index}}">
-        <swiper-item id="{{index}}">
-            <image src="{{item}}" class="slide-image" width="355" height="150"/>
-        </swiper-item>
-    </block>
-</swiper> -->
+<!-- <view class='graySpace'></view>
+<text class="userinfo-nickname" wx:if="{{notSignUp}}">您还没有注册，将无法使用同步功能哦~~</text> -->

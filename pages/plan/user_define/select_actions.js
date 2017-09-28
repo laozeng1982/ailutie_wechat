@@ -82,6 +82,16 @@ Page({
 
     onActionSelected: function (e) {
         console.log(e.currentTarget.id);
+
+
+        if (e.currentTarget.id === "自定义动作") {
+            console.log("go to custom");
+            wx.navigateTo({
+                url: './custom_actions',
+            });
+            return;
+        }
+
         var selectedPartList = this.data.selectedPartList;
         var selectedPartIdx = this.data.selectedPartIdx;
         var selectedActionIdx = -1;
@@ -191,6 +201,9 @@ Page({
      */
     onLoad: function (options) {
         console.log(app.selectedPartInfo);
+        wx.setNavigationBarTitle({
+            title: '选择动作',
+        })
         var systemSetting = app.Controller.loadData(
             app.StorageType.SystemSetting.value,
             app.StorageType.SystemSetting);

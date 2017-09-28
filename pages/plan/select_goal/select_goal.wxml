@@ -1,17 +1,40 @@
 <!--pages/plan/plan_goal/plan_goal.wxml-->
 
 <view class='thisContainer'>
-    <view class='upperContainer'>
+    <view class='graySpaceSmall'></view>
+    <view class='topArea'>
+        <view>健身目标
+        </view>
 
         <view class='selectorContainer' wx:for="{{goalType}}" wx:key="{{index}}">
-            <view id="{{item.id}}" class="{{item.selected?'selectorSelected':'selectorUnSelected'}}" bindtap='onGoalTypeSelected'>
-                <text>{{item.text}}</text>
+            <view id="{{item.id}}" class='selectorContainer' bindtap='onGoalTypeSelected'>
+                <icon type="success" class='icon' color="{{item.selected?'#09BB07':'#eee'}}" />
+                <view>
+                    <text>{{item.text}}</text>
+                </view>
+            </view>
+        </view>
+
+        <view class='graySpaceSmall'></view>
+        <view>我的基础
+        </view>
+
+        <view class='selectorContainer' wx:for="{{userType}}" wx:key="{{index}}">
+            <view id="{{item.id}}" class='selectorContainer' bindtap='onUserTypeSelected'>
+                <icon type="success" class='icon' color="{{item.selected?'#09BB07':'#eee'}}" />
+                <view>
+                    <text>{{item.text}}</text>
+                </view>
             </view>
         </view>
 
     </view>
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
-    
-    <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
+
+    <view class='graySpaceSmall'></view>
+
+    <view class='footArea'>
+        <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
+    </view>
 </view>
