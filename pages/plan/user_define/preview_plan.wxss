@@ -129,6 +129,19 @@
     width: 340rpx;
 }
 
+.cancel_btn {
+    width: 340rpx;
+    color: #666;
+    text-align: center;
+}
+
+.confirm_btn {
+    width: 340rpx;
+    color: #353535;
+    background: #09bb07;
+    text-align: center;
+}
+
 .container1 {
     display: flex inline-flex;
     /* border-bottom: 1rpx solid #eee; */
@@ -246,7 +259,7 @@
     width: 60rpx;
     height: 60rpx;
     z-index: 100;
-    background: #e64340;
+    background: #888;
     color: #fff;
     border-radius: 20%;
 }
@@ -604,27 +617,7 @@ input-holder {
     font-size: 28rpx;
 }
 
-.btn-cancel {
-    width: 50%;
-    color: #666;
-    text-align: center;
-    border-right: 1px solid #dedede;
-}
 
-.btn-confirm {
-    width: 50%;
-    height: 100%;
-    color: #353535;
-    background: #09bb07;
-    text-align: center;
-    /* border-right: 1px solid #dedede; */
-}
-
-.btn-del {
-    width: 20%;
-    color: #e64340;
-    text-align: center;
-}
 
 .choiceItemContainer {
     display: flex;

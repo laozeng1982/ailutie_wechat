@@ -40,7 +40,7 @@
                             <view>{{item.value}}</view>
                         </view>
                         <view class='textSmall'>
-                            <text>{{item.currpart}}</text>
+                            <text>{{item.hasparts}}</text>
                         </view>
                     </view>
                 </view>

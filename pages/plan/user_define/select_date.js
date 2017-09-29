@@ -144,10 +144,9 @@ Page({
                             selectedDateArr.push(item.id);
                         }
                     }
-                    break;
+                    app.currentPlan.partSet[idx].trainDate = selectedDateArr;
                 }
             }
-            app.currentPlan.partSet[idx].trainDate = selectedDateArr;
         }
 
         wx.navigateTo({
@@ -209,6 +208,22 @@ Page({
     onShow: function () {
         console.log("Select Date Page onShow");
         console.log("app.selectedPartInfo: ", app.selectedPartInfo);
+
+        // 一周七天
+        var weekList = [];
+        for (let partIdx = 0; partIdx < app.selectedPartInfo.length; partIdx++) {
+            for (let week = 0; week < 7; week++) {
+                var partArr = [];
+                for (let partSet of app.currentPlan.partSet) {
+                    if (partSet.trainDate.includes(week)) {
+                        partArr.push(partSet.name);
+                    }
+                }
+                app.selectedPartInfo[partIdx].weekList[week].hasparts = app.Util.makePartString(partArr);
+            }
+
+        }
+
         this.setData({
             selectedPartInfo: app.selectedPartInfo
         });

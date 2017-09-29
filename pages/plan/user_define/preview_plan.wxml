@@ -148,8 +148,8 @@
     </view>
 
     <view class='footArea' wx:if="{{options.model=='modify'}}">
-        <button class='cancel_confirmBtn' type='warn' bindtap='onDeletePlan'> 删除此计划 </button>
-        <button class='cancel_confirmBtn' type='primary' bindtap='onModifyPlan'> 修改此计划 </button>
+        <button class='cancel_btn'  bindtap='onDeletePlan'> 删除此计划 </button>
+        <button class='confirm_btn' bindtap='onModifyPlan'> 修改此计划 </button>
     </view>
 
 </view>

@@ -22,13 +22,13 @@ Page({
         currentDate: '',
         daysCountArr: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
         weekList: [
-            {id: 0, value: '日', checked: false},
-            {id: 1, value: '一', checked: false},
-            {id: 2, value: '二', checked: false},
-            {id: 3, value: '三', checked: false},
-            {id: 4, value: '四', checked: false},
-            {id: 5, value: '五', checked: false},
-            {id: 6, value: '六', checked: false}
+            { id: 0, value: '日', checked: false },
+            { id: 1, value: '一', checked: false },
+            { id: 2, value: '二', checked: false },
+            { id: 3, value: '三', checked: false },
+            { id: 4, value: '四', checked: false },
+            { id: 5, value: '五', checked: false },
+            { id: 6, value: '六', checked: false }
         ],
         // 保存当月的日期
         dateList: [],
@@ -446,18 +446,26 @@ Page({
     },
 
     onDeletePlan: function () {
-        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
-        for (let idx = 0; idx < planSet.length; idx++) {
-            planSet[idx].currentUse = false;
+        wx.showModal({
+            title: '提醒',
+            content: '确定删除？',
+            success: function (res) {
+                if (res.confirm) {
+                    let planSet = app.Controller.loadData(app.StorageType.PlanSet);
+                    for (let idx = 0; idx < planSet.length; idx++) {
+                        planSet[idx].currentUse = false;
+                    }
 
-        }
+                    app.Controller.saveData(app.StorageType.PlanSet, planSet);
 
-        app.Controller.saveData(app.StorageType.PlanSet, planSet);
-
-        wx.switchTab({
-            url: '../../index/index',
+                    wx.switchTab({
+                        url: '../../index/index',
+                    });
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
         });
-
     },
 
     onModifyPlan: function () {

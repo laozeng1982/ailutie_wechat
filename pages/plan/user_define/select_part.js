@@ -100,6 +100,43 @@ Page({
                     partList[idx].selected = false;
                 }
 
+                // 如果之前的计划有这个部位了，标注出来
+                for (let item of app.currentPlan.partSet) {
+                    for (let partIdx = 0; partIdx < partList.length; partIdx++) {
+                        if (item.name === partList[partIdx].partName) {
+                            var trainDate = [];
+                            for (let date of item.trainDate) {
+                                switch (date) {
+                                    case 0:
+                                        trainDate.push("周日");
+                                        break;
+                                    case 1:
+                                        trainDate.push("周一");
+                                        break;
+                                    case 2:
+                                        trainDate.push("周二");
+                                        break;
+                                    case 3:
+                                        trainDate.push("周三");
+                                        break;
+                                    case 4:
+                                        trainDate.push("周四");
+                                        break;
+                                    case 5:
+                                        trainDate.push("周五");
+                                        break;
+                                    case 6:
+                                        trainDate.push("周六");
+                                        break;
+                                }
+                            }
+                            partList[partIdx].trainDate ="( "+ trainDate.join("，") +" )";
+                            console.log("item.trainDate ", partList[partIdx].trainDate);
+                        }
+                    }
+
+                }
+
                 this.setData({
                     partList: partList
                 });

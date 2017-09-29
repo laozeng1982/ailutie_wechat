@@ -1,0 +1,252 @@
+[
+  {
+    "id": "",
+    "name": "",
+    "source": "你剑哥",
+    "privacy": "",
+    "currentUse": true,
+    "target": "减脂",
+    "level": "锻炼达人",
+    "place": "",
+    "frequence": 0,
+    "startDate": "2017-09-29",
+    "endDate": "2017-10-29",
+    "dateLength": 0,
+    "description": "",
+    "reading": 0,
+    "comments": [],
+    "agree": 0,
+    "partSet": [
+      {
+        "id": 1,
+        "name": "背部",
+        "description": "",
+        "imageUrl": "",
+        "trainDate": [
+          3
+        ],
+        "actionSet": [
+          {
+            "id": 1,
+            "name": "宽握引体向上",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "",
+            "trainDate": [],
+            "groupSet": [
+              {
+                "id": 1,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 2,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 3,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 4,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 5,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 6,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "窄握引体向上",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "",
+            "trainDate": [],
+            "groupSet": [
+              {
+                "id": 1,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 2,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 3,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 4,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 5,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 6,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "肱二头",
+        "description": "",
+        "imageUrl": "",
+        "trainDate": [
+          3
+        ],
+        "actionSet": [
+          {
+            "id": 1,
+            "name": "站姿杠铃弯举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "",
+            "trainDate": [],
+            "groupSet": [
+              {
+                "id": 1,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 2,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 3,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 4,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 5,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 6,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "坐姿哑铃弯举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "",
+            "trainDate": [],
+            "groupSet": [
+              {
+                "id": 1,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 2,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 3,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 4,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 5,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              },
+              {
+                "id": 6,
+                "quantity": 10,
+                "gpUom": "",
+                "weight": 30,
+                "uom": "Kg"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -20,7 +20,8 @@
 
         <scroll-view class="scrollview" scroll-y="true">
             <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onPartSelected'>
-                <icon type="success" class='icon' color="{{item.selected?'#09BB07':'#eee'}}" />
+                <icon type="success" class='icon' color="{{item.selected?'#09BB07':'#eee'}}"/>
+                <view style='font-size:32rpx'>{{item.trainDate}}</view>
                 <text class='text'>{{item.partName}}</text>
             </view>
         </scroll-view>
