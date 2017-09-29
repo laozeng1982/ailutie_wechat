@@ -13,13 +13,13 @@ const STORAGETYPE = new StorageType.StorageType();
  * 参数：date，日期类（Date）
  */
 function formatTimeToString(date) {
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
 
-    var hour = date.getHours();
-    var minute = date.getMinutes();
-    var second = date.getSeconds();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
 
     return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
 }
@@ -29,9 +29,9 @@ function formatTimeToString(date) {
  * 参数：date，日期类（Date）
  */
 function formatDateToString(date) {
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
 
     return [year, month, day].map(formatNumber).join('-');
 }
@@ -53,9 +53,9 @@ function getDateFromString(year, month, day) {
  * 参数spliter：字符串中的分隔符
  */
 function getDateFromString(date, spliter) {
-    var year = date.split(spliter)[0];
-    var month = date.split(spliter)[1];
-    var day = date.split(spliter)[2];
+    let year = date.split(spliter)[0];
+    let month = date.split(spliter)[1];
+    let day = date.split(spliter)[2];
 
     return new Date(Date.UTC(year, month - 1, day));
 }
@@ -79,11 +79,11 @@ function formatNumber(n) {
 }
 
 function log(msg) {
-    // var time = formatTimeToString(new Date());
-    var trace = (new Error()).stack.split("\n")[2].replace(/(^\s*)|(\s*$)/g, "");
+    // let time = formatTimeToString(new Date());
+    let trace = (new Error()).stack.split("\n")[2].replace(/(^\s*)|(\s*$)/g, "");
     console.log(trace);
     // console.error(trace);
-    var name = trace.toString().split(" ")[0] + " " + trace.split(" ")[1] + ":";
+    let name = trace.toString().split(" ")[0] + " " + trace.split(" ")[1] + ":";
     console.log(name, msg);
 }
 
@@ -94,16 +94,16 @@ function log(msg) {
  * 将来返回：1
  */
 function dateDirection(selectedDate) {
-    var direction = -1;
+    let direction = -1;
 
-    var nowString = formatDateToString(new Date());
-    var now = getDateFromString(nowString, '-').getTime() / (3600 * 24 * 1000);
-    var selected = getDateFromString(selectedDate, '-').getTime() / (3600 * 24 * 1000);
+    let nowString = formatDateToString(new Date());
+    let now = getDateFromString(nowString, '-').getTime() / (3600 * 24 * 1000);
+    let selected = getDateFromString(selectedDate, '-').getTime() / (3600 * 24 * 1000);
 
     // console.log("now: ", now);
     // console.log("selected: ", selected);
 
-    var distance = datesDistance(selectedDate, formatDateToString(new Date()));
+    let distance = datesDistance(selectedDate, formatDateToString(new Date()));
     if (distance > 0) {
         direction = -1;
     } else if (distance === 0) {
@@ -120,10 +120,10 @@ function dateDirection(selectedDate) {
  * 返回end时间到start的天数，正数表示end时间靠后，反之亦然
  */
 function datesDistance(start, end) {
-    var distance;
+    let distance;
 
-    var startTime = getDateFromString(start, '-').getTime() / (3600 * 24 * 1000);
-    var endTime = getDateFromString(end, '-').getTime() / (3600 * 24 * 1000);
+    let startTime = getDateFromString(start, '-').getTime() / (3600 * 24 * 1000);
+    let endTime = getDateFromString(end, '-').getTime() / (3600 * 24 * 1000);
 
     distance = endTime - startTime;
 
@@ -132,27 +132,48 @@ function datesDistance(start, end) {
     return distance;
 }
 
-function getMoveDays(startDay, isNext, dayCount) {
-    var selectedDayTimeMills = getDateFromString(startDay, '-').getTime();
-    var moveDayTimeMills;
+/**
+ *
+ * @param startDay
+ * @param isNext
+ * @param dayCount
+ */
+function getMovedDate(startDay, isNext, dayCount) {
+    let selectedDayTimeMills = getDateFromString(startDay, '-').getTime();
+    let movedDayTimeMills;
     //时间改变一天，直接加上、或减去一天的毫秒数
     if (isNext) {
-        moveDayTimeMills = selectedDayTimeMills + 3600 * 24 * 1000 * dayCount;
+        movedDayTimeMills = selectedDayTimeMills + 3600 * 24 * 1000 * dayCount;
     } else {
-        moveDayTimeMills = selectedDayTimeMills - 3600 * 24 * 1000 * dayCount;
+        movedDayTimeMills = selectedDayTimeMills - 3600 * 24 * 1000 * dayCount;
     }
-    var moveDayDate = new Date();
-    moveDayDate.setTime(moveDayTimeMills);
-    console.log("move to ", moveDayDate + ".............");
+    let movedDayDate = new Date();
+    movedDayDate.setTime(movedDayTimeMills);
+    console.log("move to ", movedDayDate + ".............");
 
-    return formatDateToString(moveDayDate);
+    return formatDateToString(movedDayDate);
 
+}
+
+
+/**
+ *
+ * @param startDate
+ * @param checkDate
+ * @param endDate
+ */
+function inPeriod(startDate, checkDate, endDate) {
+    let startDateTimeMills = getDateFromString(startDate, '-').getTime();
+    let checkDateTimeMills = getDateFromString(checkDate, '-').getTime();
+    let endDateTimeMills = getDateFromString(endDate, '-').getTime();
+
+    return checkDateTimeMills >= startDateTimeMills && checkDateTimeMills <= endDateTimeMills;
 }
 
 function objClone(obj) {
     if (obj instanceof Object) {
-        var copy = {};
-        for (var attr in obj) {
+        let copy = {};
+        for (let attr in obj) {
             if (obj.hasOwnProperty(attr))
                 copy[attr] = objClone(obj[attr]);
         }
@@ -165,7 +186,7 @@ function objClone(obj) {
  * 这个是重量单位选择器的函数，先放着
  */
 function onChangeMeasure(e) {
-    var measurement;
+    let measurement;
     if (e.detail.value) {
         measurement = 'Kg';
     } else {
@@ -180,7 +201,7 @@ function onChangeMeasure(e) {
 }
 
 function isLogin() {
-    var app = getApp();
+    let app = getApp();
     if (!app.globalData.isLogin) {
         console.log("No user login...");
         return false;
@@ -194,13 +215,13 @@ function isLogin() {
  * 检查用户是否有注册，如果没有注册，将不能远程同步
  */
 function checkSignUp() {
-    var userInfo = wx.getStorageSync("UserInfo");
+    let userInfo = wx.getStorageSync("UserInfo");
     // console.log(userInfo.length);
     return (userInfo.length == 0);
 }
 
 function showNormalToast(text, o, count) {
-    var that = o;
+    let that = o;
     count = parseInt(count) ? parseInt(count) : 3000;
     that.setData({
         toastText: text,
@@ -214,7 +235,7 @@ function showNormalToast(text, o, count) {
 }
 
 function showWarnToast(text, o, count) {
-    var that = o;
+    let that = o;
     count = parseInt(count) ? parseInt(count) : 3000;
     that.setData({
         toastText: text,
@@ -228,11 +249,37 @@ function showWarnToast(text, o, count) {
 }
 
 /**
+ * 把所有部位简写，生成一个长度合适显示的字符串
+ * @param partArr
+ * @returns {string}
+ */
+function makePartString(partArr) {
+    // 先替换，换成单字
+    var partArrString = partArr.toString().replace(/部/g, "").replace(/有氧/, "氧")
+        .replace(/肱二头/, "臂").replace(/肱三头/, "臂").replace(/小臂/g, "臂")
+        .replace(/股二头/g, "腿").replace(/股四头/g, "腿").replace(/小腿/g, "腿");
+
+    let noRepeatStringArr = [];
+
+    // 去重复，好像搞复杂了~~
+    for (let item of partArrString) {
+        if (item !== "," && !noRepeatStringArr.includes(item)) {
+            noRepeatStringArr.push(item);
+        }
+    }
+    // console.log("partArrString: ", partArrString);
+    // console.log("noRepeatStringArr: ", noRepeatStringArr);
+    let partString = noRepeatStringArr.length > 3 ? noRepeatStringArr.slice(0, 3).join(",") + "..." : noRepeatStringArr.join(",");
+
+    return partString;
+}
+
+/**
  * 根据第一列数据的变化，动态获取第二列的值
  */
 function getMovementNamePickerList(idxOfColumn1) {
-    var app = getApp();
-    var movementNamePickerList;
+    let app = getApp();
+    let movementNamePickerList;
     switch (idxOfColumn1) {
         case 0:
             //0、胸部
@@ -281,7 +328,7 @@ function getMovementNamePickerList(idxOfColumn1) {
         default:
             break;
     }
-    ;
+
     return movementNamePickerList;
 }
 
@@ -298,7 +345,9 @@ module.exports = {
     showNormalToast: showNormalToast,
     showWarnToast: showWarnToast,
     getMovementNamePickerList: getMovementNamePickerList,
-    getMoveDays: getMoveDays,
+    getMovedDate: getMovedDate,
+    inPeriod: inPeriod,
+    makePartString: makePartString,
     log: log
 
 }

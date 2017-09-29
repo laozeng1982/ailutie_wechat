@@ -14,6 +14,7 @@ Page({
             // {id: 3, name: "按固定天重复", selected: false}
         ],
 
+        options: '',
         partList: '',
     },
 
@@ -65,16 +66,14 @@ Page({
         wx.setNavigationBarTitle({
             title: '选择锻炼部位',
         })
-        var systemSetting = app.Controller.loadData(
-            app.StorageType.SystemSetting.value,
-            app.StorageType.SystemSetting);
+        var systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
 
 
         this.setData({
+            options: options,
             partList: systemSetting.bodyPartList.partList
         });
 
-        console.log(this.data.partList);
     },
 
     /**
@@ -89,6 +88,26 @@ Page({
      */
     onShow: function () {
         console.log("Select Part Page onShow");
+
+        var partList = this.data.partList;
+
+        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
+
+        // 进行判断，如果是继续制定计划，那么之前的计划，已经保存了，这里刷新一下数据，如果不是，则不用刷新
+        for (let plan of planSet) {
+            if (plan.currentUse && app.currentPlan.partSet.length > 0) {
+                for (let idx = 0; idx < partList.length; idx++) {
+                    partList[idx].selected = false;
+                }
+
+                this.setData({
+                    partList: partList
+                });
+
+                break;
+            }
+        }
+
     },
 
     /**

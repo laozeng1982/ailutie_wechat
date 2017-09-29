@@ -5,7 +5,7 @@
 import util from './utils/Util.js'
 import Controller from './utils/Controller.js'
 import StorageType from './datamodel/StorageType.js'
-import BodyPartList from './datamodel/BodyPart.js'
+import Plan from './datamodel/PlanSet.js'
 
 let Promise = require('./utils/Promise').Promise;
 
@@ -21,6 +21,21 @@ App({
         this.pageHeight = this.deviceInfo.windowHeight - 120 - 16;    // 用于跳转页面中间部分
         this.pageWidth = this.deviceInfo.windowWidth;
 
+        // 全局变量
+        this.planSet = CONTROLLER.loadData(STORAGETYPE.PlanSet);
+
+        if (this.planSet.length > 0) {
+            for (let plan of this.planSet) {
+                if (plan.currentUse) {
+                    this.currentPlan = plan;
+                }
+            }
+        } else {
+            this.currentPlan = new Plan.Plan();
+
+        }
+
+        console.log("this.planSet: ", this.planSet);
         console.log("app onLoad");
 
         //默认使用登录
@@ -51,20 +66,16 @@ App({
         });
 
         // 准备数据：
-        var systemSetting = CONTROLLER.loadData(
-            STORAGETYPE.SystemSetting.value,
-            STORAGETYPE.SystemSetting);
+        var systemSetting = CONTROLLER.loadData(STORAGETYPE.SystemSetting);
 
-        console.log("SystemSetting: ", systemSetting);
+        // console.log("SystemSetting: ", systemSetting);
 
         if (systemSetting.bodyPartList.partList.length > 0) {
-            CONTROLLER.saveData(STORAGETYPE.SystemSetting.value,
-                STORAGETYPE.SystemSetting,
-                systemSetting);
+            CONTROLLER.saveData(STORAGETYPE.SystemSetting, systemSetting);
         }
 
         // 验证是否是首次登陆，首次登陆，录入用户基本信息
-        var userInfo = CONTROLLER.loadData("UserInfo", STORAGETYPE.UserInfo);
+        var userInfo = CONTROLLER.loadData(STORAGETYPE.UserInfo);
         console.log("userInfo: ", userInfo);
         var userHeight = userInfo.height;
 
@@ -136,9 +147,6 @@ App({
     Util: util,
 
     selectedPartInfo: '',
-    plan: '',
-
-
 
     globalData: {
         // 定义一些全局变量

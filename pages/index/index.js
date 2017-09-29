@@ -2,15 +2,13 @@
 import User from '../../datamodel/UserInfo.js'
 import chartWrap from '../ui/canvas/chartWrap'
 import getConfig from './getConfig'
+import PlanSet from '../../datamodel/PlanSet'
 
 const app = getApp();
 
 Page({
     data: {
-        planType: [
-            { id: 1, text: "零基础小白", selected: false },
-            { id: 2, text: "有一定基础", selected: false },
-        ],
+        currentPlan: '',
 
         motto: 'Hello',
         wechatUserInfo: {},
@@ -29,45 +27,20 @@ Page({
     },
 
     //事件处理函数
-    bindViewTap: function () {
-        wx.switchTab({
-            url: '../plan/plan',
-        });
-    },
-
     onSwiperChange: function (e) {
         // console.log(e);
         console.log(e.detail.current, e.target.id);
     },
 
-    onTypeSelected: function (e) {
-        var planType = this.data.planType;
-        switch (e.currentTarget.id) {
-            case "1":
-                planType[0].selected = true;
-                planType[1].selected = false;
-                app.globalData.planMakeModel = 1;
-                break;
-            case "2":
-                planType[0].selected = false;
-                planType[1].selected = true;
-                app.globalData.planMakeModel = 2;
-                break;
-            default:
-                break;
-        }
-        this.setData({
-            planType: planType
-        });
-
+    onModifyPlan: function (e) {
         wx.navigateTo({
-            url: '../plan/select_goal/select_goal',
+            url: '../plan/user_define/preview_plan?model=modify',
         });
     },
 
     onMakePlan: function () {
         wx.navigateTo({
-            url: '../plan/select_plan_type/select_plan_type',
+            url: '../plan/select_goal/select_goal',
         });
     },
 
@@ -82,6 +55,7 @@ Page({
         app.getWechatUserInfo(function (wechatUserInfo) {
             //更新数据
             that.setData({
+                currentPlan: app.currentPlan,
                 wechatUserInfo: wechatUserInfo,
                 motto: 'Hello ' + wechatUserInfo.nickName,
                 notSignUp: notSignUp
@@ -90,6 +64,7 @@ Page({
     },
 
     onShow: function () {
+        console.log('index page onShow');
         let pageThis = this;
 
         app.deviceInfo.then(function (deviceInfo) {
@@ -112,6 +87,25 @@ Page({
             // console.log("canvasConfig", canvasConfig);
             // console.log("config", config);
         });
+
+        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
+        let currentPlan = '';
+
+        console.log(planSet);
+
+        for (let plan of planSet) {
+            if (plan.currentUse) {
+                currentPlan = plan;
+            }
+        }
+
+        app.currentPlan = (currentPlan === '') ? new PlanSet.Plan() : currentPlan;
+
+        this.setData({
+            currentPlan: app.currentPlan
+        });
+
+        console.log(this.data.currentPlan);
     }
 
 })

@@ -174,7 +174,7 @@ Page({
                 console.log("fuck");
                 app.globalData.selectedDate = util.getDateFromString(e.currentTarget.dataset.date.value, '-');
                 wx.switchTab({
-                    url: '../plan/plan',
+                    url: '../currentPlan/currentPlan',
                 });
             }
         }
@@ -291,7 +291,7 @@ Page({
                     selectedMovementId: e.currentTarget.id,
                 });
                 wx.switchTab({
-                    url: '../plan/plan',
+                    url: '../currentPlan/currentPlan',
                 });
                 break;
             default:

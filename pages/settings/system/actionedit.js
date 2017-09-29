@@ -155,7 +155,7 @@ Page({
     },
 
     goPage: function () {
-        if (this.data.routeParameter.backUrl.indexOf("plan") !== -1) {
+        if (this.data.routeParameter.backUrl.indexOf("currentPlan") !== -1) {
             wx.switchTab({
                 url: this.data.routeParameter.backUrl
             });
@@ -170,7 +170,7 @@ Page({
      *
      */
     initDataSets: function () {
-        var systemSetting = CONTROLLER.loadData(storageType.SystemSetting.value, storageType.SystemSetting);
+        var systemSetting = CONTROLLER.loadData(storageType.SystemSetting);
         console.log("in onLoad: ", systemSetting);
 
         // 根据系统中存储的动作库，准备初始数据
@@ -434,7 +434,7 @@ Page({
 
         console.log("in onUnload, bodyPartList", bodyPartList);
 
-        var systemSetting = CONTROLLER.loadData(storageType.SystemSetting.value, storageType.SystemSetting);
+        var systemSetting = CONTROLLER.loadData(storageType.SystemSetting);
 
         systemSetting.bodyPartList = bodyPartList;
 
@@ -442,7 +442,7 @@ Page({
             bodyPartList: bodyPartList
         });
 
-        CONTROLLER.saveData(storageType.SystemSetting.value, storageType.SystemSetting, systemSetting);
+        CONTROLLER.saveData(storageType.SystemSetting, systemSetting);
 
         this.initDataSets();
 

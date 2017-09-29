@@ -23,16 +23,13 @@
     <!-- 计划部分 -->
     <view class="planArea">
 
-        <view class='grayBackgroud'>
-            <view id='1' class="{{planType[0].selected?'selectorSelected':'selectorUnSelected'}}" bindtap='onTypeSelected'>推荐计划</view>
-            <text class='smalltext'>为您优选的计划，打造火辣身材</text>
-        </view>
+         <view class='whiteBackgroud' wx:if="{{currentPlan.currentUse}}">
+            <view class='text' bindtap='onModifyPlan'>我的计划（进行中）</view>
+            <image class='imageBig' src='../image/arrows_square_right_64px.png'></image>
+        </view> 
 
-        <view class='grayBackgroud'>
-            <view id='2' class="{{planType[1].selected?'selectorSelected':'selectorUnSelected'}}" bindtap='onTypeSelected'>自定义计划</view>
-            <text class='smalltext'>定制您的个性计划</text>
-        </view>
-        <!-- <button class='makePlanBtn' type='default' bindtap='onMakePlan'>定制我的锻炼计划</button> -->
+        <button class='makePlanBtn' type='default' bindtap='onMakePlan'>定制我的锻炼计划</button>
+        <text class='smalltext'>您还没有锻炼计划，定制一个吧</text>
     </view>
 
 </view>

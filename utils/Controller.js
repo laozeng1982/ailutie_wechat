@@ -27,11 +27,9 @@ class Controller {
      * 返回：请求类型的数据
      * 调用关系：外部函数，开放接口
      */
-    loadData(key, dataType) {
-        // TODO，判断是否过期？
-
+    loadData(dataType) {
         // 读取该类型数据已存储的内容
-        var readInData = wx.getStorageSync(key);
+        var readInData = wx.getStorageSync(dataType.key);
         // 当天请求的数据
         var requestData = '';
 
@@ -59,6 +57,10 @@ class Controller {
                     break;
                 case 3:
                     requestData = new SystemSetting.SystemSetting();
+                    break;
+                case 4:
+                    requestData = [];
+                    break;
                 default:
                     break;
             }
@@ -78,64 +80,12 @@ class Controller {
      * 当存储的数据，为DailyRecords的时候，需要更新记录表
      * 调用关系：外部函数，开放接口
      */
-    saveData(key, dataType, dataToSave) {
+    saveData(dataType, dataToSave) {
 
         // 根据类型来判断是否需要替换其中的数据，还是直接覆盖
-        switch (dataType.id) {
-            case 0:
-                // 0. UserInfo
-                break;
-            case 1:
-                // 1. UserProfile
-                break;
-            case 2:
-                // 2. DailyRecords
-                // 在这种情况，dataToSave一定是个DailyRecords的类型
-                // 读取该类型数据已存储的内容
-                var userInfo = wx.getStorageSync(this.STORAGETYPE.UserInfo.value);
-                // 如果没有，则新建一个
-                if (userInfo === "")
-                    userInfo = new UserInfo.UserInfo();
-                console.log(userInfo);
-                // 如果有，先判断今天的数据情况
-                if (dataToSave.movementList.length > 0) {
-                    // 有计划数据
-                    if (!userInfo.hasPlanDateList.includes(dataToSave.date))
-                        userInfo.hasPlanDateList.push(dataToSave.date);
-                    // 根据时间和组的感觉来判断是否执行计划
-                    // 过了今天的数据，一概不能编辑
-                    var isToday = util.formatDateToString(new Date()) === dataToSave.date;
-
-                    if (isToday)
-                        for (var item of dataToSave.movementList) {
-                            if (typeof (item.contents.mvFeeling) !== "undefined" &&
-                                item.contents.mvFeeling !== "" &&
-                                !userInfo.hasTrainedDateList.includes(dataToSave.date)) {
-                                userInfo.hasTrainedDateList.push(dataToSave.date);
-                            }
-                        }
-
-                } else {
-                    // 如果用户把这天数据删除了，找到记录里对应项删掉
-                    var index = userInfo.hasPlanDateList.indexOf(dataToSave.date);
-                    console.log(index);
-                    if (index !== -1)
-                        userInfo.hasPlanDateList.splice(index, 1);
-
-                    index = userInfo.hasTrainedDateList.indexOf(dataToSave.date);
-                    if (index !== -1)
-                        userInfo.hasTrainedDateList.splice(index, 1);
-
-                }
-                wx.setStorageSync(this.STORAGETYPE.UserInfo.value, userInfo);
-                break;
-            default:
-                break;
-        }
-
         console.log("in saveData, targetToSave: ", dataToSave);
 
-        wx.setStorageSync(key, dataToSave);
+        wx.setStorageSync(dataType.key, dataToSave);
     }
 
     /**
@@ -160,7 +110,7 @@ class Controller {
 
         });
 
-        var curRecords = this.loadData(host.data.selectedDate, DATATYPE.DailyRecords);
+        var curRecords = this.loadData(DATATYPE.DailyRecords);
         console.log("in moveDay: host.data.selectedDate", host.data.selectedDate);
         console.log("in moveDay: DATATYPE.DailyRecords", DATATYPE.DailyRecords);
         console.log("in moveDay: curRecords", curRecords);

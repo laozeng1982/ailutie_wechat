@@ -15,22 +15,22 @@ Page({
         ],
         selectedPartNames: '',
         selectedPartInfo: [],
-        endDate: app.Util.formatDateToString(new Date()),
-        startDate: app.Util.formatDateToString(new Date()),
 
+        startDate: '',
+        endDate: '',
     },
 
 
     makeWeekList: function (part) {
         // 暂时只想到了这个办法，给weekList加标志，好判断是选中了哪个部位的日期，e.target.id不好用了。
         return [
-            {id: 0, value: '日', part: part, checked: false},
-            {id: 1, value: '一', part: part, checked: false},
-            {id: 2, value: '二', part: part, checked: false},
-            {id: 3, value: '三', part: part, checked: false},
-            {id: 4, value: '四', part: part, checked: false},
-            {id: 5, value: '五', part: part, checked: false},
-            {id: 6, value: '六', part: part, checked: false}
+            {id: 0, value: '日', currpart: part, hasparts: '', selected: false},
+            {id: 1, value: '一', currpart: part, hasparts: '', selected: false},
+            {id: 2, value: '二', currpart: part, hasparts: '', selected: false},
+            {id: 3, value: '三', currpart: part, hasparts: '', selected: false},
+            {id: 4, value: '四', currpart: part, hasparts: '', selected: false},
+            {id: 5, value: '五', currpart: part, hasparts: '', selected: false},
+            {id: 6, value: '六', currpart: part, hasparts: '', selected: false}
         ];
     },
 
@@ -131,20 +131,14 @@ Page({
         //     return;
         // }
 
-        app.plan.startDate = this.data.startDate;
-        app.plan.endDate = this.data.endDate;
+        // 准备Plan的数据
+        app.currentPlan.startDate = this.data.startDate;
+        app.currentPlan.endDate = this.data.endDate;
 
-
-        // for (let item of this.data.weekList) {
-        //     if (item.selected) {
-        //         selectedDateArr.push(item.id);
-        //     }
-        // }
-
-        for (let idx = 0; idx < app.plan.partSet.length; idx++) {
+        for (let idx = 0; idx < app.currentPlan.partSet.length; idx++) {
             let selectedDateArr = [];
             for (let part of this.data.selectedPartInfo) {
-                if (part.name === app.plan.partSet[idx].name) {
+                if (part.name === app.currentPlan.partSet[idx].name) {
                     for (let item of part.weekList) {
                         if (item.selected) {
                             selectedDateArr.push(item.id);
@@ -153,13 +147,12 @@ Page({
                     break;
                 }
             }
-            app.plan.partSet[idx].trainDate = selectedDateArr;
+            app.currentPlan.partSet[idx].trainDate = selectedDateArr;
         }
 
         wx.navigateTo({
             url: './preview_plan',
-        })
-
+        });
     },
 
     /**
@@ -170,22 +163,37 @@ Page({
 
         for (let idx = 0; idx < app.selectedPartInfo.length; idx++) {
             app.selectedPartInfo[idx].weekList = this.makeWeekList(app.selectedPartInfo[idx].name);
-
         }
+
+        let startDate = app.Util.formatDateToString(new Date());
+        let endDate = app.Util.getMovedDate(startDate, true, 30);
 
         wx.setNavigationBarTitle({
             title: '选择日期和动作',
         });
-        let selectedPartNames = [];
-        for (let item of app.selectedPartInfo) {
-            selectedPartNames.push(item.name);
+
+        let selectedPartNamesArrs = [];
+        let selectedPartNames;
+        for (let idx = 0; idx < app.selectedPartInfo.length; idx++) {
+            selectedPartNamesArrs.push(app.selectedPartInfo[idx].name);
+            // 有可能会超出显示长度，UI会难看，截取部分
+            if (idx >= 2) {
+                selectedPartNames = selectedPartNamesArrs.join("，") + "...";
+                break;
+            } else if (idx === app.selectedPartInfo.length - 1) {
+                selectedPartNames = selectedPartNamesArrs.join("，");
+            }
         }
 
         this.setData({
-            selectedPartNames: selectedPartNames.join("，"),
+            startDate: startDate,
+            endDate: endDate,
+            selectedPartNames: selectedPartNames,
             selectedPartInfo: app.selectedPartInfo
         });
 
+        console.log("startDate: ", this.data.startDate);
+        console.log("endDate: ", this.data.endDate);
     },
 
     /**

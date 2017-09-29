@@ -1,7 +1,6 @@
 /* 外面的大框 */
 
 .thisContainer {
-    /* height: 100%; */
     display: flex;
     height: 100%;
     width: 100%;
@@ -31,10 +30,11 @@
 .footArea {
     width: 100%;
     height: 120rpx;
-    display: flex;
     justify-content: space-around;
+    flex-direction: row;
     align-content: center;
     align-items: center;
+    display: flex;
 }
 
 /* 底部按钮 */
@@ -62,7 +62,6 @@
     border-bottom: 1rpx solid #eee;
 }
 
-
 .radio_group {
     display: flex;
     flex-direction: row;
@@ -81,7 +80,6 @@
 .header {
     width: 100%;
     height: 80rpx;
-    font-weight: 500;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -92,4 +90,90 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.textBig {
+    padding-left: 40rpx;
+    padding-top: 20rpx;
+    font-size: 40 rpx;
+    font-weight: 600;
+    align-content: center;
+    align-items: center;
+}
+
+.textSmall {
+    width: 100%;
+    height: 22rpx;
+    font-size: 20rpx;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+}
+
+.text {
+    padding-left: 40rpx;
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+    padding-right: 40rpx;
+    align-content: center;
+    align-items: center;
+}
+
+.textBold {
+    padding-left: 40rpx;
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+    padding-right: 40rpx;
+    font-weight: 500;
+    align-content: center;
+    align-items: center;
+}
+
+.actionContainer {
+    width: 100%;
+    height: 200rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    border-bottom: 1rpx solid #eee;
+}
+
+.actionItem {
+    width: 60%;
+    height: 200rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: flex-start;
+    align-items: center;
+}
+
+.pickerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* border-bottom: 1rpx solid #eee; */
+}
+
+.pickerItem {
+    width: 70rpx;
+    font-size: 30rpx;
+}
+
+.imageBig {
+    width: 160rpx;
+    height: 160rpx;
+    border: 1rpx solid #eee;
+    border-radius: 2%;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

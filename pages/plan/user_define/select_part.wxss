@@ -29,23 +29,6 @@
     align-items: center;
 }
 
-.text {
-    padding-left: 40rpx;
-    padding-top: 20rpx;
-    padding-bottom: 20rpx;
-    padding-right: 40rpx;
-    align-content: center;
-    align-items: center;
-}
-
-.textSmall {
-    padding-top: 40rpx;
-    padding-bottom: 40rpx;
-    font-size: 18 rpx;
-    align-content: center;
-    align-items: center;
-}
-
 .selector {
     display: flex;
     flex-direction: row;

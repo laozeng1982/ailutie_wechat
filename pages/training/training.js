@@ -32,11 +32,11 @@ Page({
         actualMvFeeling: 3, // 默认给5分，免得用户忘了选
 
         totalScoreStarArray: [
-            { id: 1, src: "../image/start_checked.png", checked: true },
-            { id: 2, src: "../image/start_unchecked.png", checked: false },
-            { id: 3, src: "../image/start_unchecked.png", checked: false },
-            { id: 4, src: "../image/start_unchecked.png", checked: false },
-            { id: 5, src: "../image/start_unchecked.png", checked: false },
+            {id: 1, src: "../image/start_checked.png", checked: true},
+            {id: 2, src: "../image/start_unchecked.png", checked: false},
+            {id: 3, src: "../image/start_unchecked.png", checked: false},
+            {id: 4, src: "../image/start_unchecked.png", checked: false},
+            {id: 5, src: "../image/start_unchecked.png", checked: false},
         ],
 
         countSelector: [],
@@ -382,7 +382,7 @@ Page({
      */
     setPickerIndex: function () {
         if (this.data.curRecords.movementList.length === 0) {
-            console.log("in setPickerIndex, today has no plan");
+            console.log("in setPickerIndex, today has no currentPlan");
             return;
         }
 
@@ -494,10 +494,10 @@ Page({
      */
     onShow: function () {
         var today = new Date();
-        var showDate = today.getMonth()+1 + "月" + util.formatNumber(today.getDate()) + "日";
+        var showDate = today.getMonth() + 1 + "月" + util.formatNumber(today.getDate()) + "日";
 
         // 先读取，如果不存在，则新建一个
-        this.data.curRecords = this.data.Controller.loadData(this.data.selectedDate, DATATYPE.DailyRecords);
+        this.data.curRecords = this.data.Controller.loadData(DATATYPE.DailyRecords);
 
         var index = 0;
         for (var movement of this.data.curRecords.movementList) {
@@ -529,9 +529,7 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        this.data.Controller.saveData(util.formatDateToString(new Date()),
-            DATATYPE.DailyRecords,
-            this.data.curRecords);
+        this.data.Controller.saveData(DATATYPE.DailyRecords, this.data.curRecords);
         // 如果直接由此界面通过Tab跳到了计划界面，那么将选中的动作置为当前动作，方便修改。
         app.globalData.selectedDate = new Date();
         if (this.data.curRecords.movementList.length > 0) {

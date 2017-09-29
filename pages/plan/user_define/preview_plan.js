@@ -11,17 +11,16 @@ Page({
      */
     data: {
 
-        curRecords: '',
+        selectedDatePlan: '',
         today: '',
         todayMonth: '',
         todayYear: '',
         selectedDate: '',
         selectedWeek: '',
-        curYear: 2017,
-        curMonth: 0,
-        curDate: '',
+        currentYear: 2017,
+        currentMonth: 0,
+        currentDate: '',
         daysCountArr: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-        weekArr: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
         weekList: [
             {id: 0, value: '日', checked: false},
             {id: 1, value: '一', checked: false},
@@ -40,37 +39,13 @@ Page({
 
         showPlanDetail: false,
 
+        // 日历滑动
         calendars: [1, 2, 3],
         lastCalendarId: 0,
         duration: 1000,
 
-        selectedMovementId: -1,
-        showDateLongPress: false,
+        options: '',
 
-    },
-
-    /**
-     * 读取数据
-     * @param key
-     */
-    loadData: function (key) {
-        return app.Controller.loadData(key, app.StorageType.DailyRecords);
-    },
-
-    /**
-     * 准备需要标注的数据
-     */
-    prepareData: function () {
-        //同步获取
-        let userInfo = app.Controller.loadData(app.StorageType.UserInfo.value, app.StorageType.UserInfo);
-
-        let dateListWithPlan = userInfo.hasPlanDateList;
-        let dateListWithTraining = userInfo.hasTrainedDateList;
-
-        this.setData({
-            dateListWithPlan: dateListWithPlan,
-            dateListWithTraining: dateListWithTraining
-        });
     },
 
     /**
@@ -104,14 +79,17 @@ Page({
             week = new Date(Date.UTC(year, month - 1, idx + 1)).getDay();
             // 补齐每个月前面的日子，计算上个月的尾巴
             if (firstDayOfWeek === 0 && !hasDoneFirstWeek) {
-                for (let i = 0; i < 7; i++) {
+                for (let idx = 0; idx < 7; idx++) {
                     dateList[weekIndex].push({
-                        value: app.Util.formatStringDate(lastYear, lastMonth, (this.data.daysCountArr[lastMonth - 1] + i - 6)),
-                        date: this.data.daysCountArr[lastMonth - 1] + i - 6,
-                        week: i,
+                        value: app.Util.formatStringDate(lastYear,
+                            lastMonth,
+                            this.data.daysCountArr[lastMonth - 1] + idx - 6),
+                        date: this.data.daysCountArr[lastMonth - 1] + idx - 6,
+                        week: idx,
                         selected: false,
                         hasPlan: false,
-                        hasTrained: false,
+                        planPartsArr: [],
+                        planPartsStr: '',
                         inThisMonth: false
                     });
                 }
@@ -122,12 +100,15 @@ Page({
             } else if (!hasDoneFirstWeek) {
                 for (let blank = 0; blank < firstDayOfWeek; blank++) {
                     dateList[weekIndex].push({
-                        value: app.Util.formatStringDate(lastYear, lastMonth, this.data.daysCountArr[lastMonth - 1] + blank + 1 - firstDayOfWeek),
+                        value: app.Util.formatStringDate(lastYear,
+                            lastMonth,
+                            this.data.daysCountArr[lastMonth - 1] + blank + 1 - firstDayOfWeek),
                         date: this.data.daysCountArr[lastMonth - 1] + blank + 1 - firstDayOfWeek,
                         week: week + blank - firstDayOfWeek,
                         selected: false,
                         hasPlan: false,
-                        hasTrained: false,
+                        planPartsArr: [],
+                        planPartsStr: '',
                         inThisMonth: false
                     });
                 }
@@ -141,7 +122,8 @@ Page({
                 week: week,
                 selected: false,
                 hasPlan: false,
-                hasTrained: false,
+                planPartsArr: [],
+                planPartsStr: '',
                 inThisMonth: true
             });
 
@@ -161,7 +143,8 @@ Page({
                         week: week + i + 1 <= 6 ? week + i + 1 : i,
                         selected: false,
                         hasPlan: false,
-                        hasTrained: false,
+                        planPartsArr: [],
+                        planPartsStr: '',
                         inThisMonth: false
                     });
                 }
@@ -176,7 +159,8 @@ Page({
                             week: i,
                             selected: false,
                             hasPlan: false,
-                            hasTrained: false,
+                            planPartsArr: [],
+                            planPartsStr: '',
                             inThisMonth: false
                         });
                     }
@@ -184,16 +168,38 @@ Page({
             }
         }
 
-        // 准备有计划的数据
-        console.log(app.plan);
+        // 准备有计划的标注数据
+        console.log(app.currentPlan);
         for (let week = 0; week < dateList.length; week++) {
             for (let day = 0; day < dateList[week].length; day++) {
-                if (this.data.dateListWithPlan.includes(dateList[week][day].value)) {
-                    dateList[week][day].hasPlan = true;
+                // 先判断这天是否在周期内
+                if (app.Util.inPeriod(app.currentPlan.startDate, dateList[week][day].value, app.currentPlan.endDate)) {
+                    let partArr = [];
+                    for (let partSet of app.currentPlan.partSet) {
+                        if (partSet.trainDate.includes(dateList[week][day].week)) {
+                            dateList[week][day].hasPlan = true;
+                            dateList[week][day].planPartsArr.push(partSet.name);
+                            partArr.push(partSet.name);
+                        }
+                    }
+                    dateList[week][day].planPartsStr = app.Util.makePartString(partArr);
                 }
-
             }
         }
+
+        // 打印检验
+        // console.log("log begins here~~~~~~~~~~~~~~~~~~~~~");
+        // for (let week = 0; week < dateList.length; week++) {
+        //     for (let day = 0; day < dateList[week].length; day++) {
+        //         console.log("dateList[", week, "][", day, "], is: ", dateList[week][day].value
+        //             , ", ", dateList[week][day].date
+        //             , ", ", dateList[week][day].week
+        //             , ", selected", dateList[week][day].selected
+        //             , ", hasPlan", dateList[week][day].hasPlan
+        //             , ", planPartsStr", dateList[week][day].planPartsStr.toString()
+        //             , ", inThisMonth", dateList[week][day].inThisMonth);
+        //     }
+        // }
 
         this.setData({
             dateList: dateList
@@ -204,68 +210,81 @@ Page({
      * 移动月的操作
      */
     moveMonth: function (isNext) {
-        let curYear = this.data.curYear;
-        let curMonth = this.data.curMonth;
-        let curDate = this.data.curDate;
+        let currentYear = this.data.currentYear;
+        let currentMonth = this.data.currentMonth;
+        let currentDate = this.data.currentDate;
 
         if (isNext === "next") {
-            curYear = curMonth + 1 === 13 ? curYear + 1 : curYear;
-            curMonth = curMonth + 1 === 13 ? 1 : curMonth + 1;
-            curDate = 1;
+            currentYear = currentMonth + 1 === 13 ? currentYear + 1 : currentYear;
+            currentMonth = currentMonth + 1 === 13 ? 1 : currentMonth + 1;
+            currentDate = 1;
         } else if (isNext === "last") {
-            curYear = curMonth - 1 ? curYear : curYear - 1;
-            curMonth = curMonth - 1 ? curMonth - 1 : 12;
-            curDate = 1;
+            currentYear = currentMonth - 1 ? currentYear : currentYear - 1;
+            currentMonth = currentMonth - 1 ? currentMonth - 1 : 12;
+            currentDate = 1;
         } else if (isNext === "now") {
             let now = new Date();
-            curYear = now.getFullYear();
-            curMonth = now.getMonth() + 1;
-            curDate = now.getDate();
+            currentYear = now.getFullYear();
+            currentMonth = now.getMonth() + 1;
+            currentDate = now.getDate();
         } else if (isNext === "selected") {
 
         }
 
-        console.log("here: ", curYear, curMonth, curDate);
+        console.log("here: ", currentYear, currentMonth, currentDate);
         this.setData({
-            curYear: curYear,
-            curMonth: curMonth,
-            curDate: curDate,
+            currentYear: currentYear,
+            currentMonth: currentMonth,
+            currentDate: currentDate,
             showPlanDetail: false
         });
 
-        this.setDateList(curYear, curMonth);
+        this.setDateList(currentYear, currentMonth);
         if (isNext === "now")
             this.selectDate(app.Util.formatDateToString(new Date()));
 
     },
 
     /**
-     *
+     * 日历控制的核心函数
      * @param e
      */
     selectDate: function (e) {
-        let selectedDate = e.currentTarget.dataset.date.value;
+        console.log(e.currentTarget.dataset.date);
+
+        let selectedDate = e.currentTarget.dataset.date;
         let selectedWeek = [];
 
         for (let week of this.data.dateList) {
             for (let day of week) {
-                if (day.value === selectedDate) {
+                if (day.value === selectedDate.value) {
                     selectedWeek = week;
                     break;
                 }
             }
         }
 
-        let curRecords = app.Controller.loadData(selectedDate, app.StorageType.DailyRecords);
+        let selectedDatePlan = [];
+
+        // 先判断这天是否在周期内
+        if (app.Util.inPeriod(app.currentPlan.startDate, selectedDate.value, app.currentPlan.endDate)) {
+            for (let partSet of app.currentPlan.partSet) {
+                if (partSet.trainDate.includes(selectedDate.week)) {
+                    selectedDatePlan.push(partSet);
+                }
+            }
+        }
+
+        console.log("Selected Date's Plan: ", selectedDatePlan);
 
         this.setData({
-            curRecords: curRecords,
-            selectedDate: selectedDate,
+            selectedDatePlan: selectedDatePlan,
+            selectedDate: selectedDate.value,
             selectedWeek: selectedWeek,
-            showPlanDetail: true
+            showPlanDetail: selectedDatePlan.length > 0
         });
 
-        app.globalData.selectedDate = app.Util.getDateFromString(selectedDate, '-');
+        app.globalData.selectedDate = app.Util.getDateFromString(selectedDate.value, '-');
         console.log(app.globalData.selectedDate);
 
     },
@@ -289,9 +308,9 @@ Page({
         let dateArr = e.detail.value.split("-");
 
         this.setData({
-            curYear: parseInt(dateArr[0]),
-            curMonth: parseInt(dateArr[1]),
-            curDate: parseInt(dateArr[2]),
+            currentYear: parseInt(dateArr[0]),
+            currentMonth: parseInt(dateArr[1]),
+            currentDate: parseInt(dateArr[2]),
             showPlanDetail: false
         });
         this.moveMonth("selected");
@@ -364,11 +383,37 @@ Page({
     },
 
     /**
+     * 保存数据
+     */
+    savePlanData: function () {
+
+        app.currentPlan.currentUse = true;
+
+        if (app.planSet.length === 0) {
+            app.planSet.push(app.currentPlan);
+        } else {
+            // 暂时不考虑删除计划，隐藏即可，这里就需要判断是否有激活的计划，有的话直接替换，没有的话，直接添加
+            var hasUsingPlan = false;
+            for (let idx = 0; idx < app.planSet.length; idx++) {
+                if (app.planSet[idx].currentUse) {
+                    hasUsingPlan = true;
+                    app.planSet.splice(idx, 1, app.currentPlan);
+                }
+            }
+            if (!hasUsingPlan) {
+                app.planSet.push(app.currentPlan);
+            }
+        }
+        app.Controller.saveData(app.StorageType.PlanSet, app.planSet);
+        console.log(app.planSet);
+    },
+
+    /**
      * 点击确定返回上一个界面
      * @param e
      */
-    onNext: function (e) {
-
+    onConfirmSave: function (e) {
+        var host = this;
         wx.showActionSheet({
             itemList: ['继续其他日期和部位', '开始锻炼', '回到首页'],
             success: function (res) {
@@ -390,12 +435,35 @@ Page({
                         });
                         break;
                 }
+                // 离开页面，保存工作
+                host.savePlanData();
             },
             fail: function (res) {
                 console.log(res.errMsg);
             }
         });
-        // wx.navigateBack({});
+
+    },
+
+    onDeletePlan: function () {
+        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
+        for (let idx = 0; idx < planSet.length; idx++) {
+            planSet[idx].currentUse = false;
+
+        }
+
+        app.Controller.saveData(app.StorageType.PlanSet, planSet);
+
+        wx.switchTab({
+            url: '../../index/index',
+        });
+
+    },
+
+    onModifyPlan: function () {
+        wx.navigateTo({
+            url: './select_part',
+        });
     },
 
     /**
@@ -409,6 +477,7 @@ Page({
         let today = app.Util.formatDateToString(new Date());
 
         this.setData({
+            options: options,
             today: today,
             todayMonth: parseInt(today.split('-')[1]),
             todayYear: parseInt(today.split('-')[0]),
@@ -433,17 +502,12 @@ Page({
         let month = app.globalData.selectedDate.getMonth() + 1;
         let day = app.globalData.selectedDate.getDate();
 
-        let curRecords = this.loadData(app.Util.formatStringDate(year, month, day));
-
         this.setData({
-            curYear: year,
-            curMonth: month,
-            curDate: day,
-            curRecords: curRecords,
+            currentYear: year,
+            currentMonth: month,
+            currentDate: day,
             selectedDate: app.Util.formatStringDate(year, month, day),
         });
-
-        this.prepareData();
 
         this.setDateList(year, month);
     },

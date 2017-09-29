@@ -11,6 +11,8 @@ class StorageType {
         this.DailyRecords = new Record(2, "DailyRecords");
         // 系统内部信息
         this.SystemSetting = new Record(3, "SystemSetting");
+        // 计划
+        this.PlanSet = new Record(4, "PlanSet");
     }
 
 }
@@ -18,7 +20,7 @@ class StorageType {
 class Record {
     constructor(id, value) {
         this.id = id;
-        this.value = value;
+        this.key = value;
     }
 }
 

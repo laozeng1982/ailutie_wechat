@@ -18,6 +18,7 @@ class Plan {
         this.name = '';      // 计划的名字
         this.source = '';    // 计划来源：爱撸铁推荐，教练推荐，朋友推荐，自定义计划
         this.privacy = '';   // 计划权限设置：Public谁都可以看，Protect只给朋友看，Private只能自己看。
+        this.currentUse = false;    // 这个计划是不是当前使用
 
         this.target = '';   // 计划的类型：减脂，塑性，增肌
         this.level = '';    // 计划的级别：初级，中级，高级
@@ -81,10 +82,11 @@ class ActionSet {
     }
 }
 
-class GroupData {
+class GroupSet {
     constructor(id, quantity, uom, weight) {
         this.id = id;
         this.quantity = quantity;
+        this.gpUom = '';
         this.weight = weight;
         this.uom = uom;
     }
@@ -95,5 +97,5 @@ module.exports = {
     Plan: Plan,
     PartSet: PartSet,
     ActionSet: ActionSet,
-    GroupData: GroupData,
+    GroupSet: GroupSet,
 };

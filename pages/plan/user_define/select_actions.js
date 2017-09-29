@@ -136,9 +136,11 @@ Page({
             array0.push((idx + 1) + "组");
 
             if (this.data.selectedActionIdx === "")
-                gpMeasurement = this.data.selectedPartList[this.data.selectedPartIdx].actionList[0].actionGpMeasurement;
+                gpMeasurement = this.data.selectedPartList[this.data.selectedPartIdx].
+                    actionList[0].actionGpMeasurement;
             else
-                gpMeasurement = this.data.selectedPartList[this.data.selectedPartIdx].actionList[this.data.selectedActionIdx].actionGpMeasurement;
+                gpMeasurement = this.data.selectedPartList[this.data.selectedPartIdx].
+                    actionList[this.data.selectedActionIdx].actionGpMeasurement;
 
             array1.push((idx + 1) + gpMeasurement);
             // array1.push((idx + 1) + "");
@@ -173,14 +175,14 @@ Page({
 
         var selectedPartList = this.data.selectedPartList;
 
-        var groupData = [];
+        var groupSet = [];
         for (let idx = 0; idx < planGpCount; idx++) {
-            groupData.push(new Plan.GroupData(idx + 1, planCount, measurement, planWeight));
+            groupSet.push(new Plan.GroupSet(idx + 1, planCount, measurement, planWeight));
 
         }
 
-        delete selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupData;
-        selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupData = groupData;
+        delete selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupSet;
+        selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupSet = groupSet;
 
         // 重新置为选中
         selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].actionSelected = true;
@@ -204,9 +206,7 @@ Page({
         wx.setNavigationBarTitle({
             title: '选择动作',
         })
-        var systemSetting = app.Controller.loadData(
-            app.StorageType.SystemSetting.value,
-            app.StorageType.SystemSetting);
+        var systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
 
         var selectedPartList = [];
         var selectedPartIdx = 0;
@@ -228,18 +228,18 @@ Page({
         for (let part = 0; part < selectedPartList.length; part++) {
             for (let action = 0; action < selectedPartList[part].actionList.length; action++) {
                 // 临时增加一个数据项，用以保存数据
-                selectedPartList[part].actionList[action].groupData = [];
+                selectedPartList[part].actionList[action].groupSet = [];
                 for (let idx = 0; idx < 6; idx++) {
-                    var group = new Plan.GroupData(idx + 1, 10,
+                    var group = new Plan.GroupSet(idx + 1, 10,
                         selectedPartList[part].actionList[action].actionMeasurement, 30);
 
-                    selectedPartList[part].actionList[action].groupData.push(group);
+                    selectedPartList[part].actionList[action].groupSet.push(group);
                 }
             }
         }
 
-        if (app.plan !== '') {
-            for (let partItem of app.plan.partSet) {
+        if (app.currentPlan !== '') {
+            for (let partItem of app.currentPlan.partSet) {
                 for (let part = 0; part < selectedPartList.length; part++) {
                     if (partItem.name === selectedPartList[part].partName) {
                         for (let actionItem of partItem.actionSet) {
@@ -247,8 +247,8 @@ Page({
                                 if (actionItem.name === selectedPartList[part].actionList[action].actionName) {
                                     console.log("match: " + actionItem.name);
                                     selectedPartList[part].actionList[action].actionSelected = true;
-                                    delete  selectedPartList[part].actionList[action].groupData;
-                                    selectedPartList[part].actionList[action].groupData = actionItem.groupSet;
+                                    delete  selectedPartList[part].actionList[action].groupSet;
+                                    selectedPartList[part].actionList[action].groupSet = actionItem.groupSet;
                                 }
                             }
                         }
@@ -296,15 +296,6 @@ Page({
      */
     onUnload: function () {
         console.log("Action Page UnLoad!");
-        // var plan = (typeof app.plan === 'undefined' || app.plan === '') ?
-        //     new Plan.Plan() : app.plan;
-
-        // if (typeof app.plan === 'undefined' || app.plan === '')
-        //     plan = new Plan.Plan();
-        // else
-        //     plan = app.plan;
-
-        var plan = new Plan.Plan();
 
         for (let part = 0; part < this.data.selectedPartList.length; part++) {
             // 生成一个部位
@@ -323,20 +314,19 @@ Page({
                     actionSet.description = this.data.selectedPartList[part].actionList[action].actionDescription;
                     actionSet.imageUrl = this.data.selectedPartList[part].actionList[action].actionPictureSrc;
 
-                    actionSet.groupSet = this.data.selectedPartList[part].actionList[action].groupData;
+                    actionSet.groupSet = this.data.selectedPartList[part].actionList[action].groupSet;
                     partSet.actionSet.push(actionSet);
                     idx++;
                 }
             }
-            plan.partSet.push(partSet);
+            app.currentPlan.partSet.push(partSet);
 
             // 更新选中的数量
             app.selectedPartInfo[part].actionCount = partSet.actionSet.length;
         }
 
-        console.log(plan);
+        console.log(app.currentPlan);
 
-        app.plan = plan;
     },
 
     /**

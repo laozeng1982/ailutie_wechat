@@ -19,7 +19,6 @@
 
 .partContainerColumn {
     width: 100%;
-    height: 400rpx;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -70,14 +69,6 @@
     font-weight: 600;
     align-content: center;
     align-items: center;
-}
-
-.header {
-    width: 100%;
-    font-weight: 500;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 .icon {
@@ -132,6 +123,10 @@
 
 .nextBtn {
     width: 90%;
+}
+
+.cancel_confirmBtn {
+    width: 340rpx;
 }
 
 .container1 {
@@ -190,11 +185,9 @@
 }
 
 .month_label {
-    /* width: 14.28%; *//* position: relative; */
     float: left;
     text-align: center;
     font-size: 40rpx;
-    /* padding: 10rpx 0; */
     display: flex;
     justify-content: space-around;
     height: 50rpx;
@@ -204,7 +197,6 @@
 
 .calendar_box_header {
     width: 100%;
-    /* background: #b2b2b2; */
     overflow: hidden;
     border-bottom: 1rpx solid #ececec;
     display: flex;
@@ -219,94 +211,51 @@
 }
 
 .weekday_label_days {
-    /* width: 14.28%; *//* position: relative; */
+    width: 14.28%;
     float: left;
     text-align: center;
     font-weight: 300;
-    font-size: 32rpx;
-    padding: 10rpx 0;
+    font-size: 36rpx;
+    padding-top: 10rpx;
+    padding-bottom: 30rpx;
     height: 60rpx;
-    width: 60rpx;
 }
 
-.weekday_label_days_overlay {
-    /* position: absolute; */
+.date_item {
     display: flex;
-    width: 32rpx;
-    height: 32rpx;
-    left: 0;
-    top: 0;
-    z-index: 100;
-    background: #1d976c;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
-.image_overlay_right {
-    /* position: absolute; */
-    display: flex;
-    width: 32rpx;
-    height: 32rpx;
-    z-index: 100;
-}
-
-.calendar-marker {
+.date_marker {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-}
-
-.image_overlay {
-    display: flex;
-    width: 24rpx;
-    height: 24rpx;
-    z-index: 100;
-}
-
-.active_date {
-    background: #e64340;
-    color: #fff;
-    border-radius: 20%;
-    border-bottom: 5rpx;
+    font-size: 20rpx;
 }
 
 .not_in_this_month_date {
     color: #888;
 }
 
-.plan_date {
-    background: #fff;
-    /* color: #fff; */
-    width: 100%;
-    height: 100%;
-    border-radius: 20%;
-    border-bottom: 5rpx solid #888;
-    border-top: 5rpx solid #888;
-    border-left: 5rpx solid #888;
-    border-right: 5rpx solid #888;
-}
-
-.today {
-    /* background: #576b95; */
-    color: blue;
-    border-radius: 20%;
-    border-bottom: 5rpx solid #888;
-    border-top: 5rpx solid #888;
-    border-left: 5rpx solid #888;
-    border-right: 5rpx solid #888;
-    /* border-radius: 30%;
-    border-bottom: 5rpx; */
-}
-
-.active_date_overlay {
-    /* position: absolute; */
+.active_date {
     align-items: center;
-    width: 100%;
-    height: 100%;
-    /* left: 30rpx;
-    top: 60prx; */
+    width: 60rpx;
+    height: 60rpx;
     z-index: 100;
     background: #e64340;
     color: #fff;
     border-radius: 20%;
+}
+
+.nomal_date {
+    align-items: center;
+    width: 60rpx;
+    height: 60rpx;
+    z-index: 100;
 }
 
 .thisMounthContanier {
@@ -348,15 +297,6 @@
     padding: 20rpx;
     font-size: 35rpx;
     align-items: center;
-}
-
-.slimSpace {
-    /* width: 90%; */
-    background: #fff;
-    font-size: 10rpx;
-    min-height: 10rpx;
-    border-top-left-radius: 20rpx;
-    border-top-right-radius: 20rpx;
 }
 
 .scrollview {

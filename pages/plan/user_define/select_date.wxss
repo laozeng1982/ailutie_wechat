@@ -29,34 +29,13 @@
     align-items: center;
 }
 
-.text {
-    /* padding: 40rpx; */
-    padding-left: 40rpx;
-    padding-top: 20rpx;
-    padding-bottom: 20rpx;
-    padding-right: 40rpx;
-    align-content: center;
-    align-items: center;
-}
-
-.textBig {
-    padding-left: 40rpx;
-    padding-top: 20rpx;
-    font-size: 30 rpx;
-    font-weight: 600;
-    align-content: center;
-    align-items: center;
-}
-
-
-
 .date {
     width: 100rpx;
     height: 100rpx;
     display: flex;
     align-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
 }
 

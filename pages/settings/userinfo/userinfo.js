@@ -1,10 +1,6 @@
 // userinfo.js
-import util from '../../../utils/Util.js'
-import Controller from '../../../utils/Controller.js'
-import StorageType from '../../../datamodel/StorageType.js'
 
-const CONTROLLER = new Controller.Controller();
-const STORAGETYPE = new StorageType.StorageType();
+const app = getApp();
 
 Page({
 
@@ -33,6 +29,7 @@ Page({
                 break;
             case "weight":
                 userInfo.weight = parseInt(this.data.weightArray[parseInt(e.detail.value)]);
+                break;
             default:
                 break;
         }
@@ -44,7 +41,7 @@ Page({
 
     onOK: function () {
         // 根据入口不同，选择切换不同的Tab
-        CONTROLLER.saveData("UserInfo", STORAGETYPE.UserInfo, this.data.userInfo);
+        app.Controller.saveData(app.StorageType.UserInfo, this.data.userInfo);
         if (this.data.option === "newUser") {
             wx.switchTab({
                 url: '../../index/index',
@@ -64,7 +61,7 @@ Page({
     onLoad: function (options) {
         // 初始化入口参数，以备离开页面的时候正确切换,请选择
         this.data.option = options.model;
-        var userInfo = CONTROLLER.loadData("UserInfo", STORAGETYPE.UserInfo);
+        var userInfo = app.Controller.loadData(app.StorageType.UserInfo);
         // var
 
         if (userInfo.birthday === "") {

@@ -1,4 +1,5 @@
 // pages/plan/plan_goal/plan_goal.js
+
 const app = getApp();
 
 Page({
@@ -7,70 +8,71 @@ Page({
      * 页面的初始数据
      */
     data: {
-        goalType: [
-            { id: 1, text: "减脂", selected: false },
-            { id: 2, text: "增肌", selected: false },
-            { id: 3, text: "塑形", selected: false },
+        target: [
+            {id: 1, text: "减脂", selected: false},
+            {id: 2, text: "增肌", selected: false},
+            {id: 3, text: "塑形", selected: false},
         ],
-        userType: [
-            { id: 1, text: "零基础小白", selected: false },
-            { id: 2, text: "有一定基础", selected: false },
-            { id: 3, text: "锻炼达人", selected: false },
+        level: [
+            {id: 1, text: "零基础小白", selected: false},
+            {id: 2, text: "有一定基础", selected: false},
+            {id: 3, text: "锻炼达人", selected: false},
         ],
     },
 
     onGoalTypeSelected: function (e) {
         console.log(e.currentTarget.id);
-        var goalType = this.data.goalType;
+        var target = this.data.target;
         switch (e.currentTarget.id) {
             case "1":
-                goalType[0].selected = true;
-                goalType[1].selected = false;
-                goalType[2].selected = false;
+                target[0].selected = true;
+                target[1].selected = false;
+                target[2].selected = false;
                 break;
             case "2":
-                goalType[0].selected = false;
-                goalType[1].selected = true;
-                goalType[2].selected = false;
+                target[0].selected = false;
+                target[1].selected = true;
+                target[2].selected = false;
                 break;
             case "3":
-                goalType[0].selected = false;
-                goalType[1].selected = false;
-                goalType[2].selected = true;
+                target[0].selected = false;
+                target[1].selected = false;
+                target[2].selected = true;
                 break;
         }
         this.setData({
-            goalType: goalType
+            target: target
         });
     },
 
     onUserTypeSelected: function (e) {
-        var userType = this.data.userType;
+        var level = this.data.level;
         switch (e.currentTarget.id) {
             case "1":
-                userType[0].selected = true;
-                userType[1].selected = false;
-                userType[2].selected = false;
+                level[0].selected = true;
+                level[1].selected = false;
+                level[2].selected = false;
                 break;
             case "2":
-                userType[0].selected = false;
-                userType[1].selected = true;
-                userType[2].selected = false;
+                level[0].selected = false;
+                level[1].selected = true;
+                level[2].selected = false;
                 break;
             case "3":
-                userType[0].selected = false;
-                userType[1].selected = false;
-                userType[2].selected = true;
+                level[0].selected = false;
+                level[1].selected = false;
+                level[2].selected = true;
                 break;
         }
         this.setData({
-            userType: userType
+            level: level
         });
     },
 
     onNext: function () {
         var selected = false;
-        // for (let item of this.data.goalType) {
+        var host = this;
+        // for (let item of this.data.target) {
         //     selected = selected || item.selected;
         // }
 
@@ -80,7 +82,7 @@ Page({
         // }
 
         // var selected = false;
-        // for (let item of this.data.userType) {
+        // for (let item of this.data.level) {
         //     selected = selected || item.selected;
         // }
 
@@ -89,17 +91,52 @@ Page({
         //     return;
         // }
 
-        if (app.globalData.planMakeModel===1) {
-            wx.navigateTo({
-                url: '../recommend_planlist/recommend_planlist',
-            });
-        } else {
-            wx.navigateTo({
-                url: '../user_define/select_part',
-            });
+
+        wx.showActionSheet({
+            itemList: ['使用推荐计划', '自己定制计划'],
+            success: function (res) {
+                console.log(res.tapIndex);
+                switch (res.tapIndex) {
+                    case 0:
+                        wx.navigateTo({
+                            url: '../recommend_planlist/recommend_planlist',
+                        });
+                        break;
+                    case 1:
+                        wx.navigateTo({
+                            url: '../user_define/select_part',
+                        });
+                        host.fillPlan();
+                        break;
+                }
+            },
+            fail: function (res) {
+                console.log(res.errMsg);
+            }
+        });
+
+    },
+
+    fillPlan: function () {
+        // 复制信息
+
+        app.currentPlan.source = app.globalData.wechatUserInfo.nickName;
+
+        for (let item of this.data.target) {
+            if (item.selected) {
+                app.currentPlan.target = item.text;
+                break;
+            }
         }
 
+        for (let item of this.data.level) {
+            if (item.selected) {
+                app.currentPlan.level = item.text;
+                break;
+            }
+        }
 
+        console.log(app.currentPlan);
     },
 
     /**

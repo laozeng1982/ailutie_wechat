@@ -75,12 +75,12 @@
                         </view>
                         <picker wx:if="{{item.actionMeasurement !== ''}}" id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
                             <view class="pickerContainer">
-                                <view class="pickerItem">{{item.groupData.length}} </view>
+                                <view class="pickerItem">{{item.groupSet.length}} </view>
                                 <view class="pickerItem">组</view>
-                                <view class="pickerItem">{{item.groupData[0].quantity}}</view>
+                                <view class="pickerItem">{{item.groupSet[0].quantity}}</view>
                                 <view class="pickerItem">{{item.actionGpMeasurement}}</view>
-                                <view class="pickerItem">{{item.groupData[0].weight}}</view>
-                                <view class="pickerItem">{{item.groupData[0].uom}}</view>
+                                <view class="pickerItem">{{item.groupSet[0].weight}}</view>
+                                <view class="pickerItem">{{item.groupSet[0].uom}}</view>
                             </view>
                         </picker>
                     </view>
