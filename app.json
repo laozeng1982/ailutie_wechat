@@ -26,9 +26,9 @@
         "pages/plan/user_define/custom_actions"
     ],
     "window": {
-        "navigationBarBackgroundColor": "#333",
+        "navigationBarBackgroundColor": "#000000",
         "navigationBarTextStyle": "white",
-        "enablePullDownRefresh": "true",
+        "enablePullDownRefresh": "false",
         "backgroundColor": "#333"
     },
     "tabBar": {

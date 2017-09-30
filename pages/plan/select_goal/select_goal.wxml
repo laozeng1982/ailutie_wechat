@@ -8,29 +8,32 @@
         </view>
 
         <view class='selectorContainer' wx:for="{{level}}" wx:key="{{index}}">
-            <view id="{{item.id}}" class='selectorContainer' bindtap='onUserTypeSelected'>
+
+            <view id="{{item.id}}" class="roundCornor {{item.selected?'border_black':''}}" bindtap='onUserTypeSelected'>
                 <icon type="success" class='icon' color="{{item.selected?'#09BB07':'#eee'}}" />
-                <view>
+                <view class='textLabel'>
                     <text>{{item.text}}</text>
                 </view>
             </view>
+
         </view>
 
         <view class='graySpaceSmall'></view>
-        
+
         <view>
             健身目标
         </view>
 
         <view class='selectorContainer' wx:for="{{target}}" wx:key="{{index}}">
-            <view id="{{item.id}}" class='selectorContainer' bindtap='onGoalTypeSelected'>
+
+            <view id="{{item.id}}" class="roundCornor {{item.selected?'border_black':''}}" bindtap='onGoalTypeSelected'>
                 <icon type="success" class='icon' color="{{item.selected?'#09BB07':'#eee'}}" />
-                <view>
+                <view class='textLabel'>
                     <text>{{item.text}}</text>
                 </view>
             </view>
-        </view>
 
+        </view>
     </view>
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />

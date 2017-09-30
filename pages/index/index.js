@@ -1,35 +1,94 @@
 //index.js
 import User from '../../datamodel/UserInfo.js'
-import chartWrap from '../ui/canvas/chartWrap'
-import getConfig from './getConfig'
 import PlanSet from '../../datamodel/PlanSet'
+import ChartMaker from 'ChartMaker'
 
 const app = getApp();
+const chartMaker = new ChartMaker.ChartMaker();
 
 Page({
     data: {
         currentPlan: '',
-
+        currentChart: '',
+        chartTitle: '',
         motto: 'Hello',
         wechatUserInfo: {},
         notSignUp: true,
 
-        imgUrls: [
-            '../image/friend_64px.png',
-            '../image/friends_search.png',
-            '../image/fruits_64px.png'
+        chartType: [
+            { id: 1 + "", text: "本周", checked: true },
+            { id: 2 + "", text: "本月", checked: false },
+            { id: 3 + "", text: "部位", checked: false },
         ],
 
         indicatorDots: false,
         autoplay: false,
-        interval: 5000,
-        duration: 1000
+        duration: 500
     },
 
-    //事件处理函数
-    onSwiperChange: function (e) {
-        // console.log(e);
-        console.log(e.detail.current, e.target.id);
+    touchHandler: function (e) {
+        this.data.currentChart.scrollStart(e);
+    },
+
+    moveHandler: function (e) {
+        this.data.currentChart.scroll(e);
+    },
+
+    touchEndHandler: function (e) {
+        // TODO 这里可以做的更复杂，实现点击进入当天详细内容
+        console.log("touchEnd:", e.target.id);
+        this.data.currentChart.scrollEnd(e);
+        this.data.currentChart.showToolTip(e, {
+            format: function (item, category) {
+                return category + ', ' + item.name + ': ' + item.data
+            }
+        });
+    },
+
+    onRadioChange: function (e) {
+        let chartType = this.data.chartType;
+        let currentChart;
+        switch (e.detail.value) {
+            case "1":
+                for (let idx = 0; idx < chartType.length; idx++) {
+                    chartType[idx].checked = (parseInt(e.detail.value) - 1) === idx;
+                }
+                chartMaker.setDrawType("line");
+                currentChart = chartMaker.makeChart();
+                this.setData({
+                    chartTitle: "运动量",
+                });
+                break;
+            case "2":
+                for (let idx = 0; idx < chartType.length; idx++) {
+                    chartType[idx].checked = (parseInt(e.detail.value) - 1) === idx;
+                }
+                chartMaker.setDrawType("scroll");
+                currentChart = chartMaker.makeChart();
+                this.setData({
+                    chartTitle: "运动量",
+                });
+                break;
+            case "3":
+                for (let idx = 0; idx < chartType.length; idx++) {
+                    chartType[idx].checked = (parseInt(e.detail.value) - 1) === idx;
+                }
+                chartMaker.setDrawType("pie");
+                currentChart = chartMaker.makeChart();
+                this.setData({
+                    chartTitle: "各部位锻炼次数比例",
+                });
+                break;
+            default:
+                break;
+        }
+
+        this.setData({
+            currentChart: currentChart,
+            chartType: chartType
+        });
+
+        // console.log("in onRadioChange:", this.data.currentChart);
     },
 
     onModifyPlan: function (e) {
@@ -45,6 +104,7 @@ Page({
     },
 
     onLoad: function () {
+
         console.log('index page onLoad');
         var that = this;
 
@@ -63,30 +123,22 @@ Page({
         });
     },
 
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function () {
+        // 首次进入，渲染第一张，周视图
+        var currentChart = chartMaker.makeChart();
+
+        this.setData({
+            chartTitle: "运动量",
+            currentChart: currentChart
+        });
+        // console.log("in onReady:", this.data.currentChart);
+    },
+
     onShow: function () {
         console.log('index page onShow');
-        let pageThis = this;
-
-        app.deviceInfo.then(function (deviceInfo) {
-            console.log('设备信息', deviceInfo);
-            let labels = ["11-01", "11-02", "11-03", "11-04", "11-05", "11-06", "11-07"];
-            let data = [1, 12, 123, 1234, 12345, 123456, 56789];
-
-            let width = Math.floor(deviceInfo.windowWidth - (deviceInfo.windowWidth / 750) * 10 * 2);  //canvas宽度
-            let height = Math.floor(width / 1.6);//这个项目canvas的width/height为1.6
-            let canvasId = 'myCanvas';
-            let canvasConfig = {
-                width: width,
-                height: height,
-                id: canvasId
-            };
-
-            let config = getConfig(canvasConfig);
-            chartWrap.bind(pageThis)(config);
-
-            // console.log("canvasConfig", canvasConfig);
-            // console.log("config", config);
-        });
 
         let planSet = app.Controller.loadData(app.StorageType.PlanSet);
         let currentPlan = '';
@@ -102,7 +154,8 @@ Page({
         app.currentPlan = (currentPlan === '') ? new PlanSet.Plan() : currentPlan;
 
         this.setData({
-            currentPlan: app.currentPlan
+            currentPlan: app.currentPlan,
+            
         });
 
         console.log(this.data.currentPlan);

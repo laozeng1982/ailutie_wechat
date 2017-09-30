@@ -2,21 +2,32 @@
 
 .userinfo {
     display: flex;
-    height: 150rpx;
+    height: 120rpx;
     width: 100%;
     flex-direction: row;
+    /* justify-content: space-around; */
+    align-content: center;
     align-items: center;
 }
 
 .userinfo-avatar {
-    width: 128rpx;
-    height: 128rpx;
+    width: 80rpx;
+    height: 80rpx;
     margin: 20rpx;
     border-radius: 50%;
 }
 
 .userinfo-nickname {
     color: #aaa;
+}
+
+.chartTitle {
+    width: 100%;
+    height: 40rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .showArea {
@@ -38,11 +49,6 @@
     width: 100%;
     height: 35%;
     background: #888;
-}
-
-.makePlanBtn {
-    width: 60;
-    height: 100rpx;
 }
 
 .grayBackgroud {
@@ -67,41 +73,10 @@
     background: #fff;
 }
 
-.selectorUnSelected {
-    border-radius: 2%;
-    border: 2rpx solid #fff;
-    color: #fff;
-    width: 80%;
-    height: 80rpx;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
-}
-
-.selectorSelected {
-    border-radius: 2%;
-    border: 2rpx solid #333;
-    width: 80%;
-    height: 80rpx;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    background: #fff;
-    color: #333;
-    align-content: center;
-    align-items: center;
-}
-
 .smalltext {
+    margin-top: 40rpx;
     font-size: 16rprx;
     color: #fff;
-}
-
-.chart-iframe {
-    margin: 10rpx 10rpx;
-    text-align: center;
 }
 
 .text {
@@ -110,8 +85,53 @@
     height: 80rpx;
 }
 
+.radioContainer {
+    display: flex;
+    flex-direction: row;
+    width: 400rpx;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.radioItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.radio {
+    padding-left: 10rpx;
+    margin-right: 0;
+}
+
+.textUnSelected {
+    font-size: 24rpx;
+    color: #888;
+}
+
+.textSelected {
+    font-size: 24rpx;
+}
+
 .imageBig {
-    width: 80rpx;
-    height: 80rpx;
+    width: 70rpx;
+    height: 70rpx;
     padding: 30rpx;
 }
+
+.roundCornor {
+    margin-top: 120rpx;
+    border: 2px solid;
+    border-radius: 75rpx;
+    width: 400rpx;
+    height: 100rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    color: #fff;
+}
+

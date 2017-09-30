@@ -3,3 +3,15 @@
 @import '../plan_wizzard_style.wxss';
 
 
+.textLabel {
+    margin-right:80rpx;
+    width: 200rpx;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.icon {
+    margin-left: 60rpx;
+}

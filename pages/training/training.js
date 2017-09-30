@@ -4,11 +4,9 @@
 import util from '../../utils/Util.js'
 import DataType from '../../datamodel/StorageType.js'
 import RecordFactory from '../../datamodel/RecordFactory.js'
-import Controller from '../../utils/Controller.js'
 
 //获取应用实例
-var app = getApp();
-const DATATYPE = new DataType.StorageType();
+const app = getApp();
 
 Page({
 
@@ -18,10 +16,11 @@ Page({
     data: {
         selectedDate: '',
         showDate: '',
-        curRecords: [],
+        todayPlan: [],
         curMovementName: '',
         // 当前选中的动作，初始选中第一个
-        curSelectedMovementId: 1,
+        curSelectedActionId: 0,
+        curSelectedPartId: 0,
         // 当前锻炼的组数，初始为第一个
         curSelectedRecordId: 0,
 
@@ -46,6 +45,8 @@ Page({
         groupScoreMultiArray: '',
         // 数量选择索引
         groupScoreIndex: [7, 4, 3],
+
+        actionTips: '',
 
         Controller: '',
         scrollY: true,
@@ -76,29 +77,29 @@ Page({
 
         console.log("in selectMovement, selected id: ", e.currentTarget.id);
 
-        var curSelectedMovementId = parseInt(e.currentTarget.id);
+        let curSelectedActionId = parseInt(e.currentTarget.id);
 
         // 重置打分的星
         // 清零，否则不能由大分数改为小分数
-        var curRecords = this.data.curRecords;
+        let todayPlan = this.data.todayPlan;
 
-        var index = parseInt(curRecords.movementList[curSelectedMovementId - 1].contents.mvFeeling);
+        let index = parseInt(todayPlan.movementList[curSelectedActionId - 1].contents.mvFeeling);
         console.log("stars: ", index);
-        var totalStars = this.data.totalScoreStarArray;
+        let totalStars = this.data.totalScoreStarArray;
 
-        for (var idx = 0; idx < 5; idx++) {
+        for (let idx = 0; idx < 5; idx++) {
             totalStars[idx].src = "../image/start_unchecked.png";
             totalStars[idx].checked = false;
         }
 
         // 点选
-        for (var idx = 0; idx < index; idx++) {
+        for (let idx = 0; idx < index; idx++) {
             totalStars[idx].src = "../image/start_checked.png";
             totalStars[idx].checked = true;
         }
 
         this.setData({
-            curSelectedMovementId: curSelectedMovementId,
+            curSelectedActionId: curSelectedActionId,
             // 换动作就重置状态
             curSelectedRecordId: 0,
             disableModifyBtn: true,
@@ -109,8 +110,8 @@ Page({
         this.setPickerIndex();
 
         // 给全局变量设值，方便切换到计划的时候，直接高亮当前计划，方便修改
-        app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.partName;
-        app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.mvName;
+        app.globalData.selectedPartNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.partName;
+        app.globalData.selectedMoveNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.mvName;
     },
 
     /**
@@ -124,38 +125,38 @@ Page({
             return;
         }
 
-        var curRecords = this.data.curRecords;
-        var curMovementIdx = this.data.curSelectedMovementId - 1;
-        var measurement = curRecords.movementList[curMovementIdx].contents.details[0].measurement;
-        // console.log(parseInt(curRecords.movementList[curMovementIdx].contents.curFinishedGpCount));
-        // console.log(parseInt(curRecords.movementList[curMovementIdx].contents.planGpCount));
-        if (parseInt(curRecords.movementList[curMovementIdx].contents.curFinishedGpCount)
-            < parseInt(curRecords.movementList[curMovementIdx].contents.planGpCount)) {
+        let todayPlan = this.data.todayPlan;
+        let curMovementIdx = this.data.curSelectedActionId - 1;
+        let measurement = todayPlan.movementList[curMovementIdx].contents.details[0].measurement;
+        // console.log(parseInt(todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount));
+        // console.log(parseInt(todayPlan.movementList[curMovementIdx].contents.planGpCount));
+        if (parseInt(todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount)
+            < parseInt(todayPlan.movementList[curMovementIdx].contents.planGpCount)) {
 
-            for (var index = 0; index < curRecords.movementList[curMovementIdx].contents.details.length; index++) {
-                if (parseInt(curRecords.movementList[curMovementIdx].contents.details[index].actualCount) <= 0) {
+            for (let index = 0; index < todayPlan.movementList[curMovementIdx].contents.details.length; index++) {
+                if (parseInt(todayPlan.movementList[curMovementIdx].contents.details[index].actualCount) <= 0) {
                     // 为真时，表示没有记录
-                    curRecords.movementList[curMovementIdx].contents.details[index].actualCount = this.data.actualCount;
-                    curRecords.movementList[curMovementIdx].contents.details[index].actualWeight = this.data.actualWeight;
-                    curRecords.movementList[curMovementIdx].contents.details[index].groupFeeling = this.data.actualGpFeeling;
-                    curRecords.movementList[curMovementIdx].contents.details[index].finished = true;
+                    todayPlan.movementList[curMovementIdx].contents.details[index].actualCount = this.data.actualCount;
+                    todayPlan.movementList[curMovementIdx].contents.details[index].actualWeight = this.data.actualWeight;
+                    todayPlan.movementList[curMovementIdx].contents.details[index].groupFeeling = this.data.actualGpFeeling;
+                    todayPlan.movementList[curMovementIdx].contents.details[index].finished = true;
 
-                    curRecords.movementList[curMovementIdx].contents.curFinishedGpCount++;
-                    curRecords.movementList[curMovementIdx].contents.actualGpCount = curRecords.movementList[curMovementIdx].contents.curFinishedGpCount;
-                    curRecords.movementList[curMovementIdx].contents.mvFeeling = this.getMvFeeling();
+                    todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount++;
+                    todayPlan.movementList[curMovementIdx].contents.actualGpCount = todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount;
+                    todayPlan.movementList[curMovementIdx].contents.mvFeeling = this.getMvFeeling();
 
                     break;
                 }
             }
-            if (parseInt(curRecords.movementList[curMovementIdx].contents.curFinishedGpCount)
-                === parseInt(curRecords.movementList[curMovementIdx].contents.planGpCount)) {
-                curRecords.movementList[curMovementIdx].contents.finished = true;
+            if (parseInt(todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount)
+                === parseInt(todayPlan.movementList[curMovementIdx].contents.planGpCount)) {
+                todayPlan.movementList[curMovementIdx].contents.finished = true;
             }
         } else {
             util.showToast("帅哥，本动作计划已经完成了哦！", this, 1000);
-            curRecords.movementList[curMovementIdx].contents.curFinishedGpCount++;
-            var record = new RecordFactory.DetailRecord(
-                curRecords.movementList[curMovementIdx].contents.curFinishedGpCount,
+            todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount++;
+            let record = new RecordFactory.DetailRecord(
+                todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount,
                 0,
                 0,
                 this.data.actualCount,
@@ -163,16 +164,16 @@ Page({
                 measurement);
             record.groupFeeling = this.data.actualGpFeeling;
             record.finished = true;
-            curRecords.movementList[curMovementIdx].contents.details.push(record);
+            todayPlan.movementList[curMovementIdx].contents.details.push(record);
 
-            curRecords.movementList[curMovementIdx].contents.actualGpCount = curRecords.movementList[curMovementIdx].contents.curFinishedGpCount;
-            curRecords.movementList[curMovementIdx].contents.finished = true;
-            curRecords.movementList[curMovementIdx].contents.mvFeeling = this.getMvFeeling();
+            todayPlan.movementList[curMovementIdx].contents.actualGpCount = todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount;
+            todayPlan.movementList[curMovementIdx].contents.finished = true;
+            todayPlan.movementList[curMovementIdx].contents.mvFeeling = this.getMvFeeling();
 
         }
 
         this.setData({
-            curRecords: curRecords
+            todayPlan: todayPlan
         });
     },
 
@@ -186,17 +187,17 @@ Page({
             return;
         }
 
-        var curRecords = this.data.curRecords;
+        let todayPlan = this.data.todayPlan;
 
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details[this.data.curSelectedRecordId - 1].actualCount = this.data.actualCount;
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details[this.data.curSelectedRecordId - 1].actualWeight = this.data.actualWeight;
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details[this.data.curSelectedRecordId - 1].groupFeeling = this.data.actualGpFeeling;
+        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details[this.data.curSelectedRecordId - 1].actualCount = this.data.actualCount;
+        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details[this.data.curSelectedRecordId - 1].actualWeight = this.data.actualWeight;
+        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details[this.data.curSelectedRecordId - 1].groupFeeling = this.data.actualGpFeeling;
 
         this.setData({
             disableRemoveBtn: true,
             disableModifyBtn: true,
             curSelectedRecordId: -1,
-            curRecords: curRecords
+            todayPlan: todayPlan
         });
 
     },
@@ -208,14 +209,14 @@ Page({
      */
     onRemoveBtnTap: function (e) {
 
-        var details = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details;
+        let details = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details;
 
         // 如果是计划内的
-        var planCount = parseInt(details[this.data.curSelectedRecordId - 1].planCount);
-        var planWeight = parseInt(details[this.data.curSelectedRecordId - 1].planWeight);
+        let planCount = parseInt(details[this.data.curSelectedRecordId - 1].planCount);
+        let planWeight = parseInt(details[this.data.curSelectedRecordId - 1].planWeight);
 
         console.log(planWeight, planCount);
-        var host = this;
+        let host = this;
         if (planCount > 0 || planWeight > 0) {
             wx.showModal({
                 title: '提示',
@@ -239,33 +240,33 @@ Page({
      * @param removePlanItem，是否删除计划内的内容
      */
     removeItem: function (removePlanItem) {
-        var curRecords = this.data.curRecords;
+        let todayPlan = this.data.todayPlan;
 
         // 先删除，修改对应的数据
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.curFinishedGpCount--;
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.actualGpCount--;
+        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.curFinishedGpCount--;
+        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.actualGpCount--;
 
         // 如果删除的是计划内的，planGpCount也的减去
         if (removePlanItem) {
-            curRecords.movementList[this.data.curSelectedMovementId - 1].contents.planGpCount--;
+            todayPlan.movementList[this.data.curSelectedActionId - 1].contents.planGpCount--;
         }
 
-        var details = curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details;
+        let details = todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details;
 
         details.splice(this.data.curSelectedRecordId - 1, 1);
 
         // 重置序号，然后拷贝回来
-        for (var idx = 0; idx < details.length; idx++) {
+        for (let idx = 0; idx < details.length; idx++) {
             details[idx].id = idx + 1;
         }
 
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.details = details;
+        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details = details;
 
         this.setData({
             disableRemoveBtn: true,
             disableModifyBtn: true,
             curSelectedRecordId: -1,
-            curRecords: curRecords
+            todayPlan: todayPlan
         });
     },
 
@@ -300,7 +301,7 @@ Page({
     },
 
     onScoreInput: function (e) {
-        var groupFeeling = e.detail.value;
+        let groupFeeling = e.detail.value;
         if (parseInt(groupFeeling) > 10)
             groupFeeling = 10;
         else if (parseInt(groupFeeling) <= 0)
@@ -316,10 +317,10 @@ Page({
         console.log(e);
 
         // 选中数据的索引
-        var selectedRowArr = e.detail.value;
-        var actualCount = this.data.groupScoreMultiArray[0][selectedRowArr[0]];
-        var actualWeight = this.data.groupScoreMultiArray[1][selectedRowArr[1]];
-        var groupFeeling = this.data.groupScoreMultiArray[2][selectedRowArr[2]];
+        let selectedRowArr = e.detail.value;
+        let actualCount = this.data.groupScoreMultiArray[0][selectedRowArr[0]];
+        let actualWeight = this.data.groupScoreMultiArray[1][selectedRowArr[1]];
+        let groupFeeling = this.data.groupScoreMultiArray[2][selectedRowArr[2]];
 
         this.setData({
             actualCount: actualCount,
@@ -347,11 +348,11 @@ Page({
     onMovementScore: function (e) {
         console.log(e.currentTarget.id);
         // 实际分数
-        var index = parseInt(e.currentTarget.id);
-        var totalStars = this.data.totalScoreStarArray;
+        let index = parseInt(e.currentTarget.id);
+        let totalStars = this.data.totalScoreStarArray;
 
         // 清零，否则不能由大分数改为小分数
-        for (var idx = 0; idx < 5; idx++) {
+        for (let idx = 0; idx < 5; idx++) {
             totalStars[idx].src = "../image/start_unchecked.png";
             totalStars[idx].checked = false;
         }
@@ -361,17 +362,17 @@ Page({
         });
 
         // 点选
-        for (var idx = 0; idx < index; idx++) {
+        for (let idx = 0; idx < index; idx++) {
             totalStars[idx].src = "../image/start_checked.png";
             totalStars[idx].checked = true;
         }
 
         console.log("in onMovementScore,e", e);
-        var curRecords = this.data.curRecords;
-        curRecords.movementList[this.data.curSelectedMovementId - 1].contents.mvFeeling = index;
+        let todayPlan = this.data.todayPlan;
+        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.mvFeeling = index;
 
         this.setData({
-            curRecords: curRecords,
+            todayPlan: todayPlan,
             actualMvFeeling: index,
             totalScoreStarArray: totalStars
         });
@@ -381,17 +382,17 @@ Page({
      * 将动作评分的初始值设为计划的值，方便用户选取
      */
     setPickerIndex: function () {
-        if (this.data.curRecords.movementList.length === 0) {
+        if (this.data.todayPlan.movementList.length === 0) {
             console.log("in setPickerIndex, today has no currentPlan");
             return;
         }
 
-        var selectedMovement = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1];
+        let selectedMovement = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1];
         // 获取当前计划的计划数据
-        var planCount = selectedMovement.contents.details[0].planCount;
-        var planWeight = selectedMovement.contents.details[0].planWeight;
+        let planCount = selectedMovement.contents.details[0].planCount;
+        let planWeight = selectedMovement.contents.details[0].planWeight;
 
-        var groupScoreIndex = [
+        let groupScoreIndex = [
             this.getArrayIndex(planCount, this.data.groupScoreMultiArray[0]),
             this.getArrayIndex(planWeight, this.data.groupScoreMultiArray[1]),
             2
@@ -413,13 +414,13 @@ Page({
      * @returns {number}
      */
     getArrayIndex: function (element, array) {
-        var indexOfElement = -1;
+        let indexOfElement = -1;
         if (element <= array[0]) {
             indexOfElement = 0;
         } else if (element >= array[array.length - 1]) {
             indexOfElement = array.length - 1;
         } else {
-            for (var idx = 1; idx < array.length - 1; idx++) {
+            for (let idx = 1; idx < array.length - 1; idx++) {
                 if (element >= array[idx] && element <= array[idx + 1])
                     indexOfElement = idx;
             }
@@ -433,12 +434,18 @@ Page({
      * @returns {number}
      */
     getMvFeeling: function () {
-        var feeling = 0;
-        for (var item of this.data.totalScoreStarArray) {
+        let feeling = 0;
+        for (let item of this.data.totalScoreStarArray) {
             if (item.checked)
                 feeling++;
         }
         return feeling;
+    },
+
+    onMakePlan:function () {
+        wx.navigateTo({
+            url: '../plan/select_goal/select_goal',
+        })
     },
 
     /**
@@ -447,33 +454,30 @@ Page({
     onLoad: function (options) {
         //初始化
 
-        var countSelector = [];
-        var weightSelector = [];
-        var groupScoreSelector = [];
-        for (var idx = 1; idx <= 150; idx++) {
+        let countSelector = [];
+        let weightSelector = [];
+        let groupScoreSelector = [];
+        for (let idx = 1; idx <= 150; idx++) {
             countSelector.push(idx);
         }
 
-        for (var idx = 1; idx <= 200; idx++) {
+        for (let idx = 1; idx <= 200; idx++) {
             weightSelector.push(idx);
         }
 
-        for (var idx = 1; idx <= 5; idx++) {
+        for (let idx = 1; idx <= 5; idx++) {
             groupScoreSelector.push(idx);
 
         }
 
-        var groupScoreMultiArray = [countSelector, weightSelector, groupScoreSelector];
-
-
-        this.data.Controller = new Controller.Controller();
+        let groupScoreMultiArray = [countSelector, weightSelector, groupScoreSelector];
 
         this.setData({
             selectedDate: util.formatDateToString(new Date()),
             countSelector: countSelector,
             weightSelector: weightSelector,
             groupScoreMultiArray: groupScoreMultiArray,
-            Controller: this.data.Controller,
+            Controller: app.Controller,
 
         });
 
@@ -493,48 +497,72 @@ Page({
      * 页面Load以后，动态加载和初始化信息
      */
     onShow: function () {
-        var today = new Date();
-        var showDate = today.getMonth() + 1 + "月" + util.formatNumber(today.getDate()) + "日";
+        let today = new Date();
+        let showDate = today.getMonth() + 1 + "月" + util.formatNumber(today.getDate()) + "日";
 
+        let todayPlan = [];
+        let todayHasPlan = false;
+        let hasActivePlan = false;
+        let actionTips;
         // 先读取，如果不存在，则新建一个
-        this.data.curRecords = this.data.Controller.loadData(DATATYPE.DailyRecords);
+        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
+        let currentPlan;
 
-        var index = 0;
-        for (var movement of this.data.curRecords.movementList) {
-            var finished = 0;
-            for (var item of movement.contents.details) {
-                if (item.groupFeeling > 0) {
-                    finished++;
+        for (let plan of planSet) {
+            if (plan.currentUse) {
+                currentPlan = plan;
+            }
+        }
+
+        if (typeof currentPlan === 'undefined') {
+            hasActivePlan = false;
+            actionTips = "还未创建计划";
+        } else {
+            hasActivePlan = true;
+            // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
+            if (app.Util.inPeriod(currentPlan.startDate, app.Util.formatDateToString(today), currentPlan.endDate)) {
+                for (let partSet of app.currentPlan.partSet) {
+                    if (partSet.trainDate.includes(today.getDay())) {
+                        todayPlan.push(partSet);
+                        todayHasPlan = true;
+                    }
                 }
             }
-            this.data.curRecords.movementList[index].contents.curFinishedGpCount = finished;
-            index++;
         }
+
+        if (todayPlan.length === 0) {
+            todayHasPlan = false;
+            if (actionTips === "")
+                actionTips = "今天没计划";
+        }
+
+        console.log("actionTips: ", actionTips);
 
         this.setData({
             showDate: showDate,
-            curRecords: this.data.curRecords,
-            curSelectedMovementId: app.globalData.selectedMvIdOnRecordPage !== -1
-                ? app.globalData.selectedMvIdOnRecordPage : this.data.curSelectedMovementId
+            todayPlan: todayPlan,
+            todayHasPlan: todayHasPlan,
+            actionTips: actionTips,
+            hasActivePlan: hasActivePlan,
+            curSelectedActionId: 0
         });
 
-        this.setPickerIndex();
 
         // 重置全局变量，保证翻回Training页面时，能记住上次的位置
         app.globalData.selectedMvIdOnRecordPage = -1;
-        console.log("Training page onShow call, this.data.curRecords: ", this.data.curRecords);
+        console.log("Training page onShow call, this.data.todayPlan: ", this.data.todayPlan);
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        this.data.Controller.saveData(DATATYPE.DailyRecords, this.data.curRecords);
+        app.Controller.saveData(app.StorageType.DailyRecords, this.data.todayPlan);
         // 如果直接由此界面通过Tab跳到了计划界面，那么将选中的动作置为当前动作，方便修改。
         app.globalData.selectedDate = new Date();
-        if (this.data.curRecords.movementList.length > 0) {
-            app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.partName;
-            app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[this.data.curSelectedMovementId - 1].mvInfo.mvName;
+        if (this.data.todayPlan.length > 0) {
+            app.globalData.selectedPartNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.partName;
+            app.globalData.selectedMoveNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.mvName;
         }
 
         console.log("Training page onHide call: data saved");

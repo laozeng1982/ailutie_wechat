@@ -14,9 +14,13 @@
         </view>
 
         <view class="topPanelRight">
-            <view class="topPanelLeft_InnerLeft" bindtap="onShowDetails">
-                <text style="font-size: 50rpx">{{curRecords.movementList[curSelectedMovementId-1].mvInfo.partName}}</text>
-                <text style="font-size: 30rpx">{{curRecords.movementList[curSelectedMovementId-1].mvInfo.mvName}}</text>
+            <view wx:if="{{todayHasPlan}}" class="topPanelLeft_InnerLeft" bindtap="onShowDetails">
+                <text style="font-size: 40rpx">{{todayPlan[curSelectedPartId].name}}</text>
+                <text style="font-size: 60rpx">{{todayPlan[curSelectedPartId].actionSet[curSelectedActionId].name}}</text>
+            </view>
+
+            <view wx:else class="topPanelLeft_InnerLeft">
+                <text style="font-size: 50rpx">{{actionTips}}</text>
             </view>
 
         </view>
@@ -26,7 +30,7 @@
     <!-- 中间部分具体锻炼记录 -->
     <view class="middlePanel" wx:if="{{!showDetails}}">
 
-        <view class="middlePanelLeft_InnerLeft">
+        <view class="middlePanelLeft_InnerLeft" wx:if="{{hasActivePlan}}">
             <scroll-view class="middleRecorderScrollview" scroll-y="true">
                 <view class='bodypart-item' wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" wx:key="{{item.id}}">
                     <icon type="success" style="padding:20rpx;border-right:1rpx soild #eee" size="20" color="{{item.finished?'green':'gray'}}" />
@@ -57,9 +61,16 @@
                 </view>
 
             </scroll-view>
+            <button class='addBtn' type='primary' bindtap='onAdd'>ADD</button>
         </view>
 
-        <button class='addBtn' type='primary' bindtap='onAdd'>ADD</button>
+        <view wx:else class="middlePanelLeft_InnerLeft">
+            <image class='imageBig' src='../image/plus_128px.png' bindtap='onMakePlan'></image>
+            <view style='margin-top:80rpx;color:#888'>您还没有计划，创建一个吧</view>
+            <!-- <view class='roundCornor' bindtap='onMakePlan'>去定制计划</view> -->
+        </view>
+
+
     </view>
 
     <!-- 点击动作详情的时候响应 -->

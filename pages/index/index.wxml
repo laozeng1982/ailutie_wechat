@@ -8,31 +8,49 @@
             <text class="userinfo-nickname">{{wechatUserInfo.nickName}}</text>
         </view>
 
-        <!-- <swiper style='width:100%; height:600rpx' indicator-dots="{{false}}" circular="{{true}}" autoplay="{{false}}" duration="{{duration}}" bindchange="onSwiperChange">
-            <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <!-- <swiper style='width:100%; height:600rpx' indicator-dots="{{true}}" vertical='true' circular="{{true}}" autoplay="{{false}}" duration="{{duration}}" bindchange="onSwiperChange">
+            <block wx:for="{{chartsPool}}" wx:key="{{index}}">
                 <swiper-item id="{{index}}">
-                    <image src="{{item}}" style='width:300 rpx; height:300rpx' />
+                   <canvas class="canvas" disable-scroll="true" canvas-id="{{item.id}}" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
                 </swiper-item>
             </block>
-        </swiper> -->
+        </swiper>  -->
+
+        <view class='chartTitle'>
+            {{chartTitle}}
+        </view>
+
+        <!-- 这里的canvas只能用固定字符串，用变量不行，和swiper里原理不一样 -->
+        <view style='width:100%; height:440rpx'>
+            <canvas class="canvas" disable-scroll="true" canvas-id="myCanvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
+        </view>
+
+
+        <radio-group class="radioContainer" bindchange="onRadioChange">
+            <label id="{{item.id}}" wx:for="{{chartType}}" wx:key="{{index}}">
+                <view class='radioItem' id="{{item.id}}">
+                    <text class="{{item.checked?'textSelected':'textUnSelected'}}">{{item.text}}</text>
+                    <radio id="{{item.id}}" class='radio' value="{{item.id}}" checked="{{item.checked}}" />
+                </view>
+            </label>
+        </radio-group>
+
 
     </view>
 
     <view class='graySpace'></view>
 
     <!-- 计划部分 -->
-    <view class="planArea">
-
-         <view class='whiteBackgroud' wx:if="{{currentPlan.currentUse}}">
+    <view class="planArea" wx:if="{{currentPlan.currentUse}}">
+        <view class='whiteBackgroud' >
             <view class='text' bindtap='onModifyPlan'>我的计划（进行中）</view>
             <image class='imageBig' src='../image/arrows_square_right_64px.png'></image>
-        </view> 
+        </view>
+    </view>
 
-        <button class='makePlanBtn' type='default' bindtap='onMakePlan'>定制我的锻炼计划</button>
+    <view wx:else class="planArea">
+        <view class='roundCornor' type='default' bindtap='onMakePlan'>定制我的锻炼计划</view>
         <text class='smalltext'>您还没有锻炼计划，定制一个吧</text>
     </view>
 
 </view>
-
-<!-- <view class='graySpace'></view>
-<text class="userinfo-nickname" wx:if="{{notSignUp}}">您还没有注册，将无法使用同步功能哦~~</text> -->
