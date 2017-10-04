@@ -85,8 +85,9 @@
                         </picker>
                     </view>
 
+                    <icon wx:if="{{!item.actionSelected}}" class='icon' type="circle" size="23"></icon>
+                    <icon wx:else class='icon' class='icon' type="success_circle" size="23"></icon>
 
-                    <icon type="success" class='icon' color="{{item.actionSelected?'#09BB07':'#eee'}}" />
                 </view>
             </scroll-view>
         </view>

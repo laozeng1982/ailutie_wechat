@@ -56,7 +56,7 @@ Page({
                 chartMaker.setDrawType("line");
                 currentChart = chartMaker.makeChart();
                 this.setData({
-                    chartTitle: "运动量",
+                    chartTitle: "本周运动量",
                 });
                 break;
             case "2":
@@ -66,7 +66,7 @@ Page({
                 chartMaker.setDrawType("scroll");
                 currentChart = chartMaker.makeChart();
                 this.setData({
-                    chartTitle: "运动量",
+                    chartTitle: "本月运动量",
                 });
                 break;
             case "3":
@@ -76,7 +76,7 @@ Page({
                 chartMaker.setDrawType("pie");
                 currentChart = chartMaker.makeChart();
                 this.setData({
-                    chartTitle: "各部位锻炼次数比例",
+                    chartTitle: "本次计划各部位锻炼次数比例",
                 });
                 break;
             default:
@@ -99,7 +99,8 @@ Page({
 
     onMakePlan: function () {
         wx.navigateTo({
-            url: '../plan/select_goal/select_goal',
+            // url: '../plan/select_goal/select_goal',
+            url: '../ui/tabs/tabs',
         });
     },
 

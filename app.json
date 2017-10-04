@@ -23,7 +23,8 @@
         "pages/plan/user_define/select_date",
         "pages/plan/user_define/select_actions",
         "pages/plan/user_define/preview_plan",
-        "pages/plan/user_define/custom_actions"
+        "pages/plan/user_define/custom_actions",
+        "pages/ui/tabs/tabs"
     ],
     "window": {
         "navigationBarBackgroundColor": "#000000",

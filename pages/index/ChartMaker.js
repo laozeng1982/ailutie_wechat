@@ -67,6 +67,9 @@ class ChartMaker {
             name: '肩',
             data: 78,
         }, {
+            name: '臂',
+            data: 63,
+        },{
             name: '背',
             data: 63,
         }, {
@@ -75,9 +78,6 @@ class ChartMaker {
         }, {
             name: '腹',
             data: 78,
-        }, {
-            name: '手',
-            data: 63,
         }, {
             name: '腿',
             data: 35,

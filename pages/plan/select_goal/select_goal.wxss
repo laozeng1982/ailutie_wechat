@@ -4,7 +4,7 @@
 
 
 .textLabel {
-    margin-right:80rpx;
+    margin-left:80rpx;
     width: 200rpx;
     display: flex;
     justify-content: space-around;
@@ -13,5 +13,5 @@
 }
 
 .icon {
-    margin-left: 60rpx;
+    margin-right: 60rpx;
 }

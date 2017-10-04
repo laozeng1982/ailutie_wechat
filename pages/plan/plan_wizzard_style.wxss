@@ -47,7 +47,7 @@
 
 .icon {
     padding: 40rpx;
-    size: 20;
+    size: 36;
 }
 
 .selectorContainer {
@@ -191,4 +191,24 @@
 
 .border_black {
     border-color: #000;
+}
+
+
+/*整个复选框组容器*/
+.lxCheckboxGroup {
+    width: 80px;
+    height: 26px;
+    margin:20px auto;
+}
+ 
+/*单个复选框容器*/
+.lxCheckboxGroup view {
+    /*上下间距4px*/
+    margin: 4px auto;
+}
+ 
+/*复选框图标*/
+.lxCheckboxGroup icon {
+    /*text用block描述，所以要左浮动*/
+    float: left;
 }

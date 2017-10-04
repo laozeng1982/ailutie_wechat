@@ -8,14 +8,16 @@
         </view>
 
         <view class='selectorContainer' wx:for="{{level}}" wx:key="{{index}}">
+            <radio-group>
+                <view id="{{item.id}}" class="roundCornor {{item.selected?'border_black':''}}" bindtap='onUserTypeSelected'>
+                    <view class='textLabel'>
+                        <text>{{item.text}}</text>
+                    </view>
+                    <radio class='icon' size="23" checked='{{item.selected}}'>
 
-            <view id="{{item.id}}" class="roundCornor {{item.selected?'border_black':''}}" bindtap='onUserTypeSelected'>
-                <icon type="success" class='icon' color="{{item.selected?'#09BB07':'#eee'}}" />
-                <view class='textLabel'>
-                    <text>{{item.text}}</text>
+                    </radio>
                 </view>
-            </view>
-
+            </radio-group>
         </view>
 
         <view class='graySpaceSmall'></view>
@@ -25,14 +27,14 @@
         </view>
 
         <view class='selectorContainer' wx:for="{{target}}" wx:key="{{index}}">
-
-            <view id="{{item.id}}" class="roundCornor {{item.selected?'border_black':''}}" bindtap='onGoalTypeSelected'>
-                <icon type="success" class='icon' color="{{item.selected?'#09BB07':'#eee'}}" />
-                <view class='textLabel'>
-                    <text>{{item.text}}</text>
+            <radio-group>
+                <view id="{{item.id}}" class="roundCornor {{item.selected?'border_black':''}}" bindtap='onGoalTypeSelected'>
+                    <view class='textLabel'>
+                        <text>{{item.text}}</text>
+                    </view>
+                    <radio class='icon' size="36" checked='{{item.selected}}'> </radio>
                 </view>
-            </view>
-
+            </radio-group>
         </view>
     </view>
     <!-- 这是Toast -->
