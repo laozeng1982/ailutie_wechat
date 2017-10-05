@@ -1,32 +1,95 @@
 <!--pages/plan/user_define/select_part.wxml-->
 <view class='thisContainer'>
     <view class='graySpaceSmall'></view>
+
     <view class='topArea'>
-
-        <radio-group class='radio_group' bindchange="onPatternChange">
-            <view wx:for="{{repeatPattern}}" wx:key="{{index}}">
-                <radio class='radio' value='{{item.id}}' checked='{{item.selected}}'>
-                    {{item.name}}
-                </radio>
-            </view>
-        </radio-group>
-
-        <view class='header'>
-            <text class='textBold'>锻炼部位</text>
-            <text class='text'>请选择 ></text>
-        </view>
-
-        <view class='graySpace'></view>
-
-        <scroll-view class="scrollview" scroll-y="true">
-            <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onPartSelected'>
-                <icon wx:if="{{!item.selected }}" class='icon' type="circle"></icon>
-                <icon wx:else class='icon' type="success_circle" ></icon>
-                
-                <view style='font-size:32rpx'>{{item.trainDate}}</view>
-                <text class='text'>{{item.partName}}</text>
-            </view>
+        <scroll-view class="swiper-tab">
+            <block wx:for="{{tabData}}" wx:key="{{index}}">
+                <view class="swiper-tab-list {{item.finished ? 'on' : ''}} {{currentTabIdx===index ? 'current_highlight': ''}}" data-current="{{index}}" bindtap="onSwitchNav">{{item.name}}</view>
+            </block>
         </scroll-view>
+
+        <view class='graySpaceSmall'></view>
+
+        <swiper current="{{currentTabIdx}}" class="swiper-box" duration="300" bindchange="onSwiperChange">
+            <!-- 时间选择页面 -->
+            <swiper-item id="{{tabData[0].type}}">
+                <view class='partContainer'>
+                    <text>开始日期：</text>
+                    <picker id='start' mode="date" value="{{startDate}}" start="{{startDate}}" end="2099-12-31" bindchange="onDateChange">
+                        {{startDate}}
+                    </picker>
+                </view>
+                <view class='partContainer'>
+                    <text>结束日期：</text>
+                    <picker id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDateChange">
+                        {{endDate}}
+                    </picker>
+                </view>
+                <view class='partContainer'>
+                    <text>结束日期：</text>
+                    <picker id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDateChange">
+                        {{endDate}}
+                    </picker>
+                </view>
+
+            </swiper-item>
+
+            <!-- 部位选择页面 -->
+            <swiper-item id="{{tabData[1].type}}">
+                <scroll-view class="scrollview" scroll-y="true">
+                    <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onPartSelected'>
+                        <icon wx:if="{{!item.selected }}" class='icon' type="circle"></icon>
+                        <icon wx:else class='icon' type="success_circle"></icon>
+
+                        <view style='font-size:32rpx'>{{item.trainDate}}</view>
+                        <text class='text'>{{item.partName}}</text>
+                    </view>
+                </scroll-view>
+            </swiper-item>
+
+            <!-- 动作选择页面 -->
+            <swiper-item id="{{tabData[2].type}}">
+                <scroll-view class="scroll-view_H" scroll-x="true">
+                    <view id="{{item.partName}}" class="scroll-view-item_H {{item.selected?'text':'textUnselected'}}" wx:for="{{selectedPartList}}" wx:key="{{index}}" bindtap='onPartSelected'>
+                        {{item.partName}}
+                    </view>
+                </scroll-view>
+
+                <view id="{{item.partName}}" wx:if="{{item.selected}}" class='scrollviewVertical' wx:for="{{selectedPartList}}" wx:key="{{index}}">
+                    <scroll-view class="scrollviewVertical" scroll-y="true">
+                        <!--  每个动作 -->
+                        <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" wx:key="{{index}}" bindtap='onActionSelected'>
+                            <!-- 图片占位 -->
+                            <view class='imageBig'></view>
+                            <!-- <image src='../../image/pulse_64px.png'></image> -->
+
+                            <view class='actionItem'>
+                                <view class='header'>
+                                    <view>{{item.actionName}}</view>
+                                </view>
+                                <picker wx:if="{{item.actionMeasurement !== ''}}" id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
+                                    <view class="pickerContainer">
+                                        <view class="pickerItem">{{item.groupSet.length}} </view>
+                                        <view class="pickerItem">组</view>
+                                        <view class="pickerItem">{{item.groupSet[0].quantity}}</view>
+                                        <view class="pickerItem">{{item.actionGpMeasurement}}</view>
+                                        <view class="pickerItem">{{item.groupSet[0].weight}}</view>
+                                        <view class="pickerItem">{{item.groupSet[0].uom}}</view>
+                                    </view>
+                                </picker>
+                            </view>
+
+                            <icon wx:if="{{!item.actionSelected}}" class='icon' type="circle" size="23"></icon>
+                            <icon wx:else class='icon' class='icon' type="success_circle" size="23"></icon>
+
+                        </view>
+                    </scroll-view>
+                </view>
+
+            </swiper-item>
+
+        </swiper>
     </view>
 
     <!-- 这是Toast -->
@@ -35,6 +98,6 @@
     <view class='graySpaceSmall'></view>
 
     <view class='footArea'>
-        <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
+        <button class='nextBtn' type='primary' disabled='{{!allTabFinished}}' bindtap='onNext'> 下一步 </button>
     </view>
 </view>

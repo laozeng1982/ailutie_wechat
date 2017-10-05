@@ -8,14 +8,98 @@ Page({
      * 页面的初始数据
      */
     data: {
-        repeatPattern: [
-            {id: 1, name: "按周重复", selected: true},
-            {id: 2, name: "按周交替", selected: false},
-            // {id: 3, name: "按固定天重复", selected: false}
+        tabData: [
+            {
+                type: "date",
+                name: "1、设定时间",
+                finished: false
+            },
+
+            {
+                type: "bodypart",
+                name: "2、选择部位",
+                finished: false
+            },
+            {
+                type: "actions",
+                name: "3、选择动作",
+                finished: false
+            }
         ],
 
-        options: '',
+        // 时间tab
+        startDate: '',
+        endDate: '',
+
+        // 部位tab
         partList: '',
+
+        // 动作tab
+
+        currentTabIdx: 0,
+        allTabFinished: false,
+        firstTimeIn: true,
+    },
+
+    makeWeekList: function (part) {
+        // 暂时只想到了这个办法，给weekList加标志，好判断是选中了哪个部位的日期，e.target.id不好用了。
+        return [
+            { id: 0, value: '日', currpart: part, hasparts: '', selected: false },
+            { id: 1, value: '一', currpart: part, hasparts: '', selected: false },
+            { id: 2, value: '二', currpart: part, hasparts: '', selected: false },
+            { id: 3, value: '三', currpart: part, hasparts: '', selected: false },
+            { id: 4, value: '四', currpart: part, hasparts: '', selected: false },
+            { id: 5, value: '五', currpart: part, hasparts: '', selected: false },
+            { id: 6, value: '六', currpart: part, hasparts: '', selected: false }
+        ];
+    },
+
+    /**
+     * 滑动切换tab
+     */
+    onSwiperChange: function (e) {
+        console.log("swipe to tab:", e.detail.current);
+        this.switchTab(e.detail.current);
+
+    },
+
+    /**
+     * 点击切换tab
+     */
+    onSwitchNav: function (e) {
+        // console.log("clicked tab:", e.target.dataset.current);
+
+        this.switchTab(e.target.dataset.current);
+    },
+
+    /**
+     * tab切换的具体函数
+     */
+    switchTab: function (tabIdx) {
+        let itemSelected = true;
+        switch (tabIdx) {
+            case 0:
+                break;
+            case 1:
+                if (itemSelected) {
+                    break;
+                } else {
+                    return;
+                }
+            case 2:
+
+                if (itemSelected) {
+                    break;
+                } else {
+                    return;
+                }
+            default:
+                return;
+        }
+
+        this.setData({
+            currentTabIdx: tabIdx,
+        });
     },
 
     onPartSelected: function (e) {
@@ -68,8 +152,13 @@ Page({
         })
         var systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
 
+        let startDate = app.Util.formatDateToString(new Date());
+        let endDate = app.Util.getMovedDate(startDate, true, 30);
+
 
         this.setData({
+            startDate: startDate,
+            endDate: endDate,
             options: options,
             partList: systemSetting.bodyPartList.partList
         });
@@ -130,7 +219,7 @@ Page({
                                         break;
                                 }
                             }
-                            partList[partIdx].trainDate ="( "+ trainDate.join("，") +" )";
+                            partList[partIdx].trainDate = "( " + trainDate.join("，") + " )";
                             console.log("item.trainDate ", partList[partIdx].trainDate);
                         }
                     }

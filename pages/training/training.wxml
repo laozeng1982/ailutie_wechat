@@ -65,12 +65,10 @@
         </view>
 
         <view wx:else class="middlePanelLeft_InnerLeft">
-            <image class='imageBig' src='../image/plus_128px.png' bindtap='onMakePlan'></image>
-            <view style='margin-top:80rpx;color:#888'>您还没有计划，创建一个吧</view>
-            <!-- <view class='roundCornor' bindtap='onMakePlan'>去定制计划</view> -->
+            <!-- <image class='imageBig' src='../image/plus_128px.png' bindtap='onMakePlan'></image> -->
+            <view style='margin-top:280rpx;color:#888'>您还没有计划，创建一个吧</view>
+             <view class='roundCornor' bindtap='onMakePlan'>去定制计划</view> 
         </view>
-
-
     </view>
 
     <!-- 点击动作详情的时候响应 -->

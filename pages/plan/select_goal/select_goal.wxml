@@ -3,46 +3,33 @@
 <view class='thisContainer'>
     <view class='graySpaceSmall'></view>
     <view class='topArea'>
-        <view>
-            我的基础
-        </view>
-
-        <view class='selectorContainer' wx:for="{{level}}" wx:key="{{index}}">
-            <radio-group>
-                <view id="{{item.id}}" class="roundCornor {{item.selected?'border_black':''}}" bindtap='onUserTypeSelected'>
-                    <view class='textLabel'>
-                        <text>{{item.text}}</text>
-                    </view>
-                    <radio class='icon' size="23" checked='{{item.selected}}'>
-
-                    </radio>
-                </view>
-            </radio-group>
-        </view>
+        <scroll-view class="swiper-tab">
+            <block wx:for="{{tabData}}" wx:key="{{index}}">
+                <view class="swiper-tab-list {{item.finished ? 'on' : ''}} {{currentTabIdx===index ? 'current_highlight': ''}}" data-current="{{index}}" bindtap="onSwitchNav">{{item.name}}</view>
+            </block>
+        </scroll-view>
 
         <view class='graySpaceSmall'></view>
 
-        <view>
-            健身目标
-        </view>
-
-        <view class='selectorContainer' wx:for="{{target}}" wx:key="{{index}}">
-            <radio-group>
-                <view id="{{item.id}}" class="roundCornor {{item.selected?'border_black':''}}" bindtap='onGoalTypeSelected'>
-                    <view class='textLabel'>
-                        <text>{{item.text}}</text>
+        <swiper current="{{currentTabIdx}}" class="swiper-box" duration="300" bindchange="onSwiperChange">
+            <block wx:for="{{tabData}}" wx:key="{{index}}">
+                <swiper-item id="{{item.type}}" style="padding-top:200rpx">
+                    <view class='selectorContainer' wx:for="{{tabData[currentTabIdx].data}}" wx:key="{{index}}">
+                        <view id="{{item.id}}" class="roundCornor {{item.selected?'item_selected':''}}" bindtap='onItemSelected'>
+                            <text>{{item.text}}</text>
+                        </view>
                     </view>
-                    <radio class='icon' size="36" checked='{{item.selected}}'> </radio>
-                </view>
-            </radio-group>
-        </view>
+                </swiper-item>
+            </block>
+        </swiper>
     </view>
+
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
 
     <view class='graySpaceSmall'></view>
 
     <view class='footArea'>
-        <button class='nextBtn' type='primary' bindtap='onNext'> 下一步 </button>
+        <button class='nextBtn' type='primary' disabled='{{!allTabFinished}}' bindtap='onNext'> 下一步 </button>
     </view>
 </view>

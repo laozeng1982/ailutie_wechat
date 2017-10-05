@@ -16,9 +16,9 @@ Page({
         notSignUp: true,
 
         chartType: [
-            { id: 1 + "", text: "本周", checked: true },
-            { id: 2 + "", text: "本月", checked: false },
-            { id: 3 + "", text: "部位", checked: false },
+            {id: 1 + "", text: "本周", checked: true},
+            {id: 2 + "", text: "本月", checked: false},
+            {id: 3 + "", text: "部位", checked: false},
         ],
 
         indicatorDots: false,
@@ -99,8 +99,7 @@ Page({
 
     onMakePlan: function () {
         wx.navigateTo({
-            // url: '../plan/select_goal/select_goal',
-            url: '../ui/tabs/tabs',
+            url: '../plan/select_goal/select_goal',
         });
     },
 
@@ -132,7 +131,7 @@ Page({
         var currentChart = chartMaker.makeChart();
 
         this.setData({
-            chartTitle: "运动量",
+            chartTitle: "本周运动量",
             currentChart: currentChart
         });
         // console.log("in onReady:", this.data.currentChart);
@@ -156,7 +155,7 @@ Page({
 
         this.setData({
             currentPlan: app.currentPlan,
-            
+
         });
 
         console.log(this.data.currentPlan);

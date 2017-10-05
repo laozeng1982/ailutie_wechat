@@ -5,9 +5,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        /** 
-            * 页面配置 
-            */
         winWidth: 0,
         winHeight: 0,
         // tab切换  
@@ -42,11 +39,11 @@ Page({
     /** 
      * 点击tab切换 
      */
-    swichNav: function (e) {
+    switchNav: function (e) {
 
         var that = this;
 
-        if (this.data.currentTab === e.target.dataset.current) {
+        if (this.data.currentTabIdx === e.target.dataset.current) {
             return false;
         } else {
             that.setData({

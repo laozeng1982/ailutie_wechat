@@ -8,112 +8,149 @@ Page({
      * 页面的初始数据
      */
     data: {
-        target: [
-            {id: 1, text: "减脂", selected: false},
-            {id: 2, text: "增肌", selected: false},
-            {id: 3, text: "塑形", selected: false},
+        tabData: [
+            {
+                type: "level",
+                name: "1、我的基础",
+                data:
+                    [
+                        {id: 1, text: "零基础小白", selected: false},
+                        {id: 2, text: "有一定基础", selected: false},
+                        {id: 3, text: "锻炼达人", selected: false},
+                    ],
+                finished: false
+            },
+
+            {
+                type: "target",
+                name: "2、我的目标",
+                data:
+                    [
+                        {id: 1, text: "减脂", selected: false},
+                        {id: 2, text: "增肌", selected: false},
+                        {id: 3, text: "塑形", selected: false},
+                    ],
+                finished: false
+            },
+            {
+                type: "plan_type",
+                name: "3、计划来源",
+                data:
+                    [
+                        {id: 1, text: "使用推荐计划", selected: false},
+                        {id: 2, text: "自己定制计划", selected: false},
+                    ],
+                finished: false
+            }
         ],
-        level: [
-            {id: 1, text: "零基础小白", selected: false},
-            {id: 2, text: "有一定基础", selected: false},
-            {id: 3, text: "锻炼达人", selected: false},
-        ],
+
+        currentTabIdx: 0,
+        allTabFinished: false,
+        firstTimeIn: true,
+
     },
 
-    onGoalTypeSelected: function (e) {
-        console.log(e.currentTarget.id);
-        var target = this.data.target;
-        switch (e.currentTarget.id) {
-            case "1":
-                target[0].selected = true;
-                target[1].selected = false;
-                target[2].selected = false;
+    /**
+     * 滑动切换tab
+     */
+    onSwiperChange: function (e) {
+        console.log("swipe to tab:", e.detail.current);
+        this.switchTab(e.detail.current);
+
+    },
+
+    /**
+     * 点击切换tab
+     */
+    onSwitchNav: function (e) {
+        // console.log("clicked tab:", e.target.dataset.current);
+
+        this.switchTab(e.target.dataset.current);
+    },
+
+    /**
+     * tab切换的具体函数
+     */
+    switchTab: function (tabIdx) {
+        let itemSelected = false;
+        switch (tabIdx) {
+            case 0:
                 break;
-            case "2":
-                target[0].selected = false;
-                target[1].selected = true;
-                target[2].selected = false;
-                break;
-            case "3":
-                target[0].selected = false;
-                target[1].selected = false;
-                target[2].selected = true;
-                break;
+            case 1:
+                for (let item of this.data.tabData[0].data) {
+                    itemSelected = itemSelected || item.selected;
+                }
+
+                if (itemSelected) {
+                    break;
+                } else {
+                    return;
+                }
+            case 2:
+                for (let item of this.data.tabData[1].data) {
+                    itemSelected = itemSelected || item.selected;
+                }
+
+                if (itemSelected) {
+                    break;
+                } else {
+                    return;
+                }
+            default:
+                return;
         }
+
         this.setData({
-            target: target
+            currentTabIdx: tabIdx,
         });
     },
 
-    onUserTypeSelected: function (e) {
-        var level = this.data.level;
-        switch (e.currentTarget.id) {
-            case "1":
-                level[0].selected = true;
-                level[1].selected = false;
-                level[2].selected = false;
-                break;
-            case "2":
-                level[0].selected = false;
-                level[1].selected = true;
-                level[2].selected = false;
-                break;
-            case "3":
-                level[0].selected = false;
-                level[1].selected = false;
-                level[2].selected = true;
-                break;
+    onItemSelected: function (e) {
+        // console.log(e.currentTarget.id);
+
+        let tabData = this.data.tabData;
+        for (let idx = 0; idx < tabData[this.data.currentTabIdx].data.length; idx++) {
+            tabData[this.data.currentTabIdx].data[idx].selected =
+                (parseInt(e.currentTarget.id) === tabData[this.data.currentTabIdx].data[idx].id);
         }
+        tabData[this.data.currentTabIdx].finished = true;
+
+        let allTabFinished = true;
+        for (let item of this.data.tabData) {
+            allTabFinished = allTabFinished && item.finished;
+        }
+
         this.setData({
-            level: level
+            tabData: tabData,
+            allTabFinished: allTabFinished
         });
+
+        if (this.data.firstTimeIn) {
+            this.switchTab(this.data.currentTabIdx + 1);
+            if (this.data.currentTabIdx === 2)
+                this.setData({firstTimeIn: false});
+        }
+
     },
 
     onNext: function () {
-        var selected = false;
-        var host = this;
-        // for (let item of this.data.target) {
-        //     selected = selected || item.selected;
-        // }
-
-        // if (!selected) {
-        //     app.Util.showWarnToast("还未选择类型", this, 2000);
-        //     return;
-        // }
-
-        // var selected = false;
-        // for (let item of this.data.level) {
-        //     selected = selected || item.selected;
-        // }
-
-        // if (!selected) {
-        //     app.Util.showWarnToast("还未选择类型", this, 2000);
-        //     return;
-        // }
-
-
-        wx.showActionSheet({
-            itemList: ['使用推荐计划', '自己定制计划'],
-            success: function (res) {
-                console.log(res.tapIndex);
-                switch (res.tapIndex) {
-                    case 0:
+        for (let item of this.data.tabData[2].data) {
+            if (item.selected) {
+                switch (item.id) {
+                    case 1:
                         wx.navigateTo({
                             url: '../recommend_planlist/recommend_planlist',
                         });
                         break;
-                    case 1:
+                    case 2:
                         wx.navigateTo({
                             url: '../user_define/select_part',
                         });
-                        host.fillPlan();
+                        this.fillPlan();
                         break;
                 }
-            },
-            fail: function (res) {
-                console.log(res.errMsg);
             }
-        });
+        }
 
     },
 
@@ -122,16 +159,16 @@ Page({
 
         app.currentPlan.source = app.globalData.wechatUserInfo.nickName;
 
-        for (let item of this.data.target) {
+        for (let item of this.data.tabData[0].data) {
             if (item.selected) {
-                app.currentPlan.target = item.text;
+                app.currentPlan.level = item.text;
                 break;
             }
         }
 
-        for (let item of this.data.level) {
+        for (let item of this.data.tabData[1].data) {
             if (item.selected) {
-                app.currentPlan.level = item.text;
+                app.currentPlan.target = item.text;
                 break;
             }
         }
