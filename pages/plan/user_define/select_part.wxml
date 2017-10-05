@@ -12,30 +12,59 @@
         <view class='graySpaceSmall'></view>
 
         <swiper current="{{currentTabIdx}}" class="swiper-box" duration="300" bindchange="onSwiperChange">
-            <!-- 时间选择页面 -->
+            <!-- 时间选择Tab -->
             <swiper-item id="{{tabData[0].type}}">
-                <view class='partContainer'>
-                    <text>开始日期：</text>
-                    <picker id='start' mode="date" value="{{startDate}}" start="{{startDate}}" end="2099-12-31" bindchange="onDateChange">
-                        {{startDate}}
+                <view class='rowContainer'>
+                    <view class='text1'>开始日期：</view>
+                    <picker class='picker_row' id='start' mode="date" value="{{startDate}}" start="{{startDate}}" end="2099-12-31" bindchange="onDateChange">
+                        <view style='margin-left:50rpx'>{{startDate}}</view>
+                        <!-- <image class='arrow' src='../../image/down_arrow.png'></image> -->
                     </picker>
                 </view>
-                <view class='partContainer'>
-                    <text>结束日期：</text>
-                    <picker id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDateChange">
-                        {{endDate}}
+
+                <view class='rowContainer'>
+                    <view class='text1'>结束日期：</view>
+                    <picker class='picker_row' id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDateChange">
+                        <view style='margin-left:50rpx'>{{endDate}}</view>
+                        <!-- <image class='arrow' src='../../image/down_arrow.png'></image> -->
                     </picker>
                 </view>
-                <view class='partContainer'>
-                    <text>结束日期：</text>
-                    <picker id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDateChange">
-                        {{endDate}}
+
+                <view class='rowContainer'>
+                    <view class='text1'>周期天数：</view>
+                    <picker class='picker_row' id='period' value="{{index}}" range="{{dayArray}}" bindchange="onDaysChange">
+                        <view style='margin-left:50rpx'>{{period}} 天</view>
+                        <!-- <image class='arrow' src='../../image/down_arrow.png'></image> -->
                     </picker>
+                </view>
+
+                <view class='rowContainer'>
+                    <view class='text1'>休息天数：</view>
+                    <picker class='picker_row' id='restDay' value="{{index}}" range="{{dayArray}}" bindchange="onDaysChange">
+                        <view style='margin-left:50rpx'>{{restDays}} 天</view>
+                        <!-- <image class='arrow' src='../../image/down_arrow.png'></image> -->
+                    </picker>
+                </view>
+
+                <view class='graySpaceSmall'></view>
+
+                <view class='header'>
+                    <view class='date' wx:for="{{weekList}}" wx:key="{{index}}">
+                        <view id='{{item.id}}' data-partname="{{item.currpart}}" class="{{item.selected?'selected_date':'unselected_date'}}" bindtap='onSelectDate'>
+                            <view>{{item.value}}</view>
+                        </view>
+                        <view class='textSmall'>
+                            <text>{{item.hasparts}}</text>
+                        </view>
+                    </view>
+                </view>
+
+                <view>
                 </view>
 
             </swiper-item>
 
-            <!-- 部位选择页面 -->
+            <!-- 部位选择Tab -->
             <swiper-item id="{{tabData[1].type}}">
                 <scroll-view class="scrollview" scroll-y="true">
                     <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onPartSelected'>
@@ -48,7 +77,7 @@
                 </scroll-view>
             </swiper-item>
 
-            <!-- 动作选择页面 -->
+            <!-- 动作选择Tab -->
             <swiper-item id="{{tabData[2].type}}">
                 <scroll-view class="scroll-view_H" scroll-x="true">
                     <view id="{{item.partName}}" class="scroll-view-item_H {{item.selected?'text':'textUnselected'}}" wx:for="{{selectedPartList}}" wx:key="{{index}}" bindtap='onPartSelected'>
@@ -98,6 +127,6 @@
     <view class='graySpaceSmall'></view>
 
     <view class='footArea'>
-        <button class='nextBtn' type='primary' disabled='{{!allTabFinished}}' bindtap='onNext'> 下一步 </button>
+        <button class='nextBtn' type='primary' disabled='{{!allTabFinished}}' bindtap='onNext'> 预览 </button>
     </view>
 </view>

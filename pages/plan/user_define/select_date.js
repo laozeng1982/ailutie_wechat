@@ -20,7 +20,6 @@ Page({
         endDate: '',
     },
 
-
     makeWeekList: function (part) {
         // 暂时只想到了这个办法，给weekList加标志，好判断是选中了哪个部位的日期，e.target.id不好用了。
         return [

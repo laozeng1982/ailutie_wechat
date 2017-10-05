@@ -226,6 +226,6 @@
     overflow: hidden;
 }
 
-.swiper-box view {
+/* .swiper-box view {
     text-align: center;
-}
+} */
