@@ -52,10 +52,10 @@ function getDateFromString(year, month, day) {
  * 参数date：字符串表示的日期，比如 '2016-9-01'或者'2016/9/01'
  * 参数spliter：字符串中的分隔符
  */
-function getDateFromString(date, spliter) {
-    let year = date.split(spliter)[0];
-    let month = date.split(spliter)[1];
-    let day = date.split(spliter)[2];
+function getDateFromString(date, splicer) {
+    let year = date.split(splicer)[0];
+    let month = date.split(splicer)[1];
+    let day = date.split(splicer)[2];
 
     return new Date(Date.UTC(year, month - 1, day));
 }

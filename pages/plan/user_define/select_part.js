@@ -1,4 +1,5 @@
 // pages/plan/user_define/select_part.js
+import Plan from '../../../datamodel/PlanSet.js'
 
 const app = getApp();
 
@@ -33,10 +34,12 @@ Page({
         // 时间tab的数据
         startDate: "请选择",
         endDate: "请选择",
-        period: "请选择",
+        period: 6,
         restDays: "请选择",
-        dayArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+        dayPickerArray: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+        allPickerSelected: false,
         weekList: [],
+        selectedDateList: [],
 
         // 部位tab的数据
         partList: '',
@@ -58,16 +61,49 @@ Page({
         plan: '',
     },
 
-    makeWeekList: function (length, part) {
+    /**
+     * 设定时间tab，根据选项生成日期列表。
+     * @param period
+     * @param restDays
+     * @param part
+     * @returns {Array}
+     */
+    makeWeekList: function (period, restDays, part) {
         // 暂时只想到了这个办法，给weekList加标志，好判断是选中了哪个部位的日期，e.target.id不好用了。
 
         let weekList = [];
 
-        for (let idx = 0; idx < length; idx++) {
-            weekList.push(
-                {id: idx, value: idx + 1, currpart: part, hasparts: '', selected: false}
-            );
+        console.log("Math.ceil((period + restDays)/7)", Math.ceil((period + restDays) / 7));
+
+        for (let index = 0; index < Math.ceil((period + restDays) / 7); index++) {
+            let week = [];
+            for (let idx = 0; idx < 7 && (index * 7 + idx) < (period + restDays); idx++) {
+                if (index * 7 + idx < period) {
+                    week.push(
+                        {
+                            id: index * 7 + idx,
+                            value: index * 7 + idx + 1,
+                            currpart: part,
+                            hasparts: '',
+                            selected: false
+                        }
+                    );
+                } else {
+                    week.push(
+                        {
+                            id: index * 7 + idx,
+                            value: index * 7 + idx + 1,
+                            currpart: part,
+                            hasparts: '休',
+                            selected: false
+                        }
+                    );
+                }
+            }
+            weekList.push(week);
         }
+
+        console.log("weekList: ", weekList);
 
         return weekList;
     },
@@ -76,35 +112,48 @@ Page({
      * 设定时间tab
      * @param e
      */
-    onDateChange: function (e) {
+    onDatePickerChange: function (e) {
         console.log(e);
-        if (e.currentTarget.id === "start") {
-            this.setData({
-                startDate: e.detail.value
-            });
-        } else {
-            this.setData({
-                endDate: e.detail.value
-            });
+        switch (e.currentTarget.id) {
+            case "start":
+                this.setData({
+                    startDate: e.detail.value,
+                    endDate: app.Util.getMovedDate(e.detail.value, true, 30)
+                });
+                break;
+            case "end":
+                this.setData({
+                    endDate: e.detail.value
+                });
+                break;
+            case "period":
+                let period = parseInt(e.detail.value);
+                this.setData({
+                    period: period
+                });
+                break;
+            case "rest":
+                let restDays = parseInt(e.detail.value);
+                this.setData({
+                    restDays: restDays
+                });
+                break;
+            default:
+                break;
         }
-    },
 
-    /**
-     * 设定时间tab
-     * @param e
-     */
-    onDaysChange: function (e) {
-        if (e.currentTarget.id === "period") {
-            let period = parseInt(e.detail.value) + 1;
+        // 条件检查
+        let allPickerSelected = this.data.startDate !== "请选择" && app.Util.dateDirection(this.data.startDate) >= 0
+            && this.data.endDate !== "请选择" && app.Util.datesDistance(this.data.startDate, this.data.endDate) >= this.data.period
+            && this.data.period !== "请选择" && this.data.restDays !== "请选择";
+
+        if (allPickerSelected) {
             this.setData({
-                weekList: this.makeWeekList(period, ""),
-                period: period
-            });
-        } else {
-            this.setData({
-                restDays: parseInt(e.detail.value) + 1
+                weekList: this.makeWeekList(this.data.period, this.data.restDays, ""),
+                allPickerSelected: allPickerSelected
             });
         }
+
     },
 
     /**
@@ -112,20 +161,34 @@ Page({
      * @param e
      */
     onSelectDate: function (e) {
-        console.log(e);
-        console.log(e.currentTarget.dataset.partname);
-        console.log(e.currentTarget.id);
-        let selectedPartInfo = this.data.selectedPartInfo;
+        // console.log(e);
+        // console.log(e.currentTarget.dataset.date.value);
+        let tabData = this.data.tabData;
+        let weekList = this.data.weekList;
+        let selectedDateList = [];
+        let hasSelectedDate = false;
 
-        for (let partIdx = 0; partIdx < selectedPartInfo.length; partIdx++) {
-            if (e.currentTarget.dataset.partname === selectedPartInfo[partIdx].name) {
-                selectedPartInfo[partIdx].weekList[e.currentTarget.id].selected =
-                    !selectedPartInfo[partIdx].weekList[e.currentTarget.id].selected;
+        for (let week = 0; week < weekList.length; week++) {
+            for (let day = 0; day < weekList[week].length; day++) {
+                if (parseInt(e.currentTarget.id) === weekList[week][day].id
+                    && weekList[week][day].hasparts !== "休") {
+                    weekList[week][day].selected = !weekList[week][day].selected;
+                }
+                if (weekList[week][day].selected) {
+                    selectedDateList.push(weekList[week][day].value);
+                }
+                hasSelectedDate = hasSelectedDate || weekList[week][day].selected;
             }
         }
 
+        tabData[0].finished = hasSelectedDate;
+
+        console.log("selectedDateList:", selectedDateList);
         this.setData({
-            selectedPartInfo: selectedPartInfo
+            tabData: tabData,
+            selectedDateList: selectedDateList,
+            weekList: weekList,
+            allTabFinished: tabData[0].finished && tabData[1].finished && tabData[2].finished
         });
 
     },
@@ -135,7 +198,8 @@ Page({
      * 当部位点击时，取反其选中状态，同时更新选中列表，用于动作选择
      * @param e
      */
-    onPartSelected: function (e) {
+    onSelectPart: function (e) {
+        let tabData = this.data.tabData;
         let partList = this.data.partList;
         let selectedPartList = [];
         for (let idx = 0; idx < partList.length; idx++) {
@@ -145,47 +209,57 @@ Page({
             }
         }
 
+        let hasSelectedPart = false;
+        // 获取选择的部位
         for (let item of partList) {
+            hasSelectedPart = hasSelectedPart || item.selected;
             if (item.selected) {
-                selectedPartList.push(item.partName);
+                selectedPartList.push(item);
             }
         }
 
-        // 简单的做法，但是有可能id被人为修改，有可能出错
+        tabData[1].finished = hasSelectedPart;
+
         console.log("selectedPartList", selectedPartList);
 
         this.setData({
+            tabData: tabData,
             partList: partList,
+            selectedPartList: selectedPartList,
+            allTabFinished: tabData[0].finished && tabData[1].finished && tabData[2].finished
+        });
+    },
+
+    /**
+     * 动作选择tab，响应部位导航的选择
+     * @param e
+     */
+    onPartSelected: function (e) {
+        console.log(e.currentTarget.id);
+        let selectedPartList = this.data.selectedPartList;
+        let selectedPartName = '';
+        let selectedPartIdx = -1;
+        for (let idx = 0; idx < selectedPartList.length; idx++) {
+            selectedPartList[idx].selected = false;
+            if (e.currentTarget.id === selectedPartList[idx].partName) {
+                selectedPartName = e.currentTarget.id;
+                selectedPartIdx = idx;
+                selectedPartList[idx].selected = true;
+            }
+        }
+
+        this.setData({
+            selectedPartName: selectedPartName,
+            selectedPartIdx: selectedPartIdx,
             selectedPartList: selectedPartList
         });
     },
 
-    // /**
-    //  *
-    //  * @param e
-    //  */
-    // onPartSelected: function (e) {
-    //     console.log(e.currentTarget.id);
-    //     let selectedPartList = this.data.selectedPartList;
-    //     let selectedPartName = '';
-    //     let selectedPartIdx = -1;
-    //     for (let idx = 0; idx < selectedPartList.length; idx++) {
-    //         selectedPartList[idx].selected = false;
-    //         if (e.currentTarget.id === selectedPartList[idx].partName) {
-    //             selectedPartName = e.currentTarget.id;
-    //             selectedPartIdx = idx;
-    //             selectedPartList[idx].selected = true;
-    //         }
-    //     }
-    //
-    //     this.setData({
-    //         selectedPartName: selectedPartName,
-    //         selectedPartIdx: selectedPartIdx,
-    //         selectedPartList: selectedPartList
-    //     });
-    // },
-
-    onActionSelected: function (e) {
+    /**
+     * 动作选择tab，响应动作选择
+     * @param e
+     */
+    onSelectAction: function (e) {
         console.log(e.currentTarget.id);
 
 
@@ -201,7 +275,6 @@ Page({
         let selectedPartIdx = this.data.selectedPartIdx;
         let selectedActionIdx = -1;
 
-
         for (let idx = 0; idx < selectedPartList[selectedPartIdx].actionList.length; idx++) {
             if (e.currentTarget.id === selectedPartList[selectedPartIdx].actionList[idx].actionName) {
                 selectedActionIdx = idx;
@@ -210,17 +283,32 @@ Page({
             }
         }
 
+        let allActionSelected = true;
+        let thisPartActionSelected = false;
+        let tabData = this.data.tabData;
+
+        for (let part of selectedPartList) {
+            for (let action of part.actionList) {
+                thisPartActionSelected = thisPartActionSelected || action.actionSelected;
+            }
+            allActionSelected = allActionSelected && thisPartActionSelected;
+        }
+
+        tabData[2].finished = allActionSelected;
+
         console.log("selectedPartIdx: ", selectedPartIdx, "selectedActionIdx: ", selectedActionIdx);
 
         this.setData({
+            tabData: tabData,
             selectedActionIdx: selectedActionIdx,
-            selectedPartList: selectedPartList
-        })
+            selectedPartList: selectedPartList,
+            allTabFinished: tabData[0].finished && tabData[1].finished && tabData[2].finished
+        });
 
     },
 
     /**
-     *
+     * 动作选择tab，响应重量选择
      */
     makePicker: function () {
 
@@ -260,7 +348,7 @@ Page({
     },
 
     /**
-     *
+     * 动作选择tab，响应重量选择
      * @param e
      */
     onNumberChange: function (e) {
@@ -310,8 +398,7 @@ Page({
      * 点击切换tab
      */
     onSwitchNav: function (e) {
-        // console.log("clicked tab:", e.target.dataset.current);
-
+        console.log("clicked tab:", e.target.dataset.current);
         this.switchTab(e.target.dataset.current);
     },
 
@@ -320,19 +407,23 @@ Page({
      * tab切换的具体函数
      */
     switchTab: function (tabIdx) {
-        let itemSelected = true;
+        let tabData = this.data.tabData;
+        let currentTabIdx = tabIdx;
+
         switch (tabIdx) {
             case 0:
                 break;
             case 1:
-                if (itemSelected) {
+                if (tabData[0].finished) {
+
                     break;
                 } else {
                     return;
                 }
             case 2:
-
-                if (itemSelected) {
+                if (tabData[1].finished) {
+                    this.makePicker();
+                    this.loadActionData();
                     break;
                 } else {
                     return;
@@ -341,71 +432,21 @@ Page({
                 return;
         }
 
+        console.log("currentTabIdx:", this.data.currentTabIdx);
+        console.log("fuck ddddd");
+
         this.setData({
             currentTabIdx: tabIdx,
         });
     },
 
-    /**
-     * 页面总体控制
-     * 所有选项都已选择，进入下一步
-     * @param e
-     */
-    onNext: function (e) {
-        let selectedPartInfo = [];
-        let hasSelectedPart = false;
-        for (let item of this.data.partList) {
-
-            if (item.selected) {
-                hasSelectedPart = true;
-                selectedPartInfo.push({index: item.partId, name: item.partName, actionCount: 0});
-            }
-        }
-
-        if (!hasSelectedPart) {
-            app.Util.showWarnToast("还未选择锻炼部位", this, 1000);
-            return;
-        }
-
-        app.selectedPartInfo = selectedPartInfo;
-
-        wx.navigateTo({
-            url: './preview_view',
-        });
-    },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-        console.log("Select Part Page onLoad");
-        wx.setNavigationBarTitle({
-            title: '定制我的锻炼计划',
-        });
-
-        // TODO 判断入口
-        // 判断进入的入口，如果是定制新计划，日期用当前日期；如果是修改已有计划，日期则使用计划的日期
-
-        let systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
+    loadActionData: function () {
 
         // let startDate = app.Util.formatDateToString(new Date());
         // let endDate = app.Util.getMovedDate(startDate, true, 30);
 
-        let selectedPartList = [];
+        let selectedPartList = this.data.selectedPartList;
         let selectedPartIdx = 0;
-        for (let item of systemSetting.bodyPartList.partList) {
-            for (let selectedPart of app.selectedPartInfo) {
-                if (selectedPart.name === item.partName) {
-                    // 页面启动参数里带着前一个页面选中的部位，这里默认高亮这个部位
-                    if (selectedPart.name === options.selectedPart) {
-                        item.selected = true;
-                        selectedPartIdx = selectedPartList.length;
-                    }
-                    selectedPartList.push(item);
-
-                }
-            }
-        }
 
         // 这里分两种情况，一是第一次进入，之前没有选过动作，需要重新构建，先统一赋值
         for (let part = 0; part < selectedPartList.length; part++) {
@@ -441,11 +482,40 @@ Page({
         }
 
         this.setData({
+            selectedPartIdx: selectedPartIdx,
+
+        });
+    },
+
+    /**
+     * 页面总体控制
+     * 所有选项都已选择，进入下一步
+     * @param e
+     */
+    onNext: function (e) {
+
+
+
+        wx.navigateTo({
+            url: './preview_plan',
+        });
+    },
+
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        console.log("Select Part Page onLoad");
+        wx.setNavigationBarTitle({
+            title: '定制我的锻炼计划',
+        });
+
+        // TODO 判断入口
+        // 判断进入的入口，如果是定制新计划，日期用当前日期；如果是修改已有计划，日期则使用计划的日期
+        let systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
+        this.setData({
             // startDate: startDate,
             // endDate: endDate,
-            selectedPartIdx: selectedPartIdx,
-            selectedPartList: selectedPartList,
-            options: options,
             partList: systemSetting.bodyPartList.partList
         });
 

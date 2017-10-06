@@ -16,50 +16,51 @@
             <swiper-item id="{{tabData[0].type}}">
                 <view class='rowContainer'>
                     <view class='text1'>开始日期：</view>
-                    <picker class='picker_row' id='start' mode="date" value="{{startDate}}" start="{{startDate}}" end="2099-12-31" bindchange="onDateChange">
+                    <picker class='picker_row' id='start' mode="date" value="{{startDate}}" start="{{startDate}}" end="2099-12-31" bindchange="onDatePickerChange">
                         <view style='margin-left:50rpx'>{{startDate}}</view>
-                        <!-- <image class='arrow' src='../../image/down_arrow.png'></image> -->
                     </picker>
                 </view>
 
                 <view class='rowContainer'>
                     <view class='text1'>结束日期：</view>
-                    <picker class='picker_row' id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDateChange">
+                    <picker class='picker_row' id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDatePickerChange">
                         <view style='margin-left:50rpx'>{{endDate}}</view>
-                        <!-- <image class='arrow' src='../../image/down_arrow.png'></image> -->
                     </picker>
                 </view>
 
                 <view class='rowContainer'>
                     <view class='text1'>周期天数：</view>
-                    <picker class='picker_row' id='period' value="{{index}}" range="{{dayArray}}" bindchange="onDaysChange">
+                    <picker class='picker_row' id='period' value="{{index}}" range="{{dayPickerArray}}" bindchange="onDatePickerChange">
                         <view style='margin-left:50rpx'>{{period}} 天</view>
-                        <!-- <image class='arrow' src='../../image/down_arrow.png'></image> -->
                     </picker>
                 </view>
 
                 <view class='rowContainer'>
                     <view class='text1'>休息天数：</view>
-                    <picker class='picker_row' id='restDay' value="{{index}}" range="{{dayArray}}" bindchange="onDaysChange">
+                    <picker class='picker_row' id='rest' value="{{index}}" range="{{dayPickerArray}}" bindchange="onDatePickerChange">
                         <view style='margin-left:50rpx'>{{restDays}} 天</view>
-                        <!-- <image class='arrow' src='../../image/down_arrow.png'></image> -->
                     </picker>
                 </view>
 
                 <view class='graySpaceSmall'></view>
 
-                <view class='header'>
-                    <view class='date' wx:for="{{weekList}}" wx:key="{{index}}">
-                        <view id='{{item.id}}' data-partname="{{item.currpart}}" class="{{item.selected?'selected_date':'unselected_date'}}" bindtap='onSelectDate'>
-                            <view>{{item.value}}</view>
-                        </view>
-                        <view class='textSmall'>
-                            <text>{{item.hasparts}}</text>
+                <view class='text2'>
+                    请点选日期
+                </view>
+
+                <view class='dateSelectorContanier'>
+                    <view class='dateSelectorRow' wx:for="{{weekList}}" wx:key="{{index}}" wx:for-item="week">
+                        <view class='date' wx:for="{{week}}" wx:key="{{index}}" id='{{item.id}}' data-date="{{item}}" bindtap='onSelectDate'>
+                            <view class="{{item.selected?'selected_date':'unselected_date'}}">{{item.value}}</view>
+                            <view class='textSmall'>
+                                <text>{{item.hasparts}}</text>
+                            </view>
                         </view>
                     </view>
                 </view>
 
-                <view>
+                <view wx:if="{{period!='请选择'}}" class='tips_text'>
+                    请点选日期（可多选），再左滑去选择该日期的锻炼部位
                 </view>
 
             </swiper-item>
@@ -67,7 +68,7 @@
             <!-- 部位选择Tab -->
             <swiper-item id="{{tabData[1].type}}">
                 <scroll-view class="scrollview" scroll-y="true">
-                    <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onPartSelected'>
+                    <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onSelectPart'>
                         <icon wx:if="{{!item.selected }}" class='icon' type="circle"></icon>
                         <icon wx:else class='icon' type="success_circle"></icon>
 
@@ -75,12 +76,16 @@
                         <text class='text'>{{item.partName}}</text>
                     </view>
                 </scroll-view>
+
+                <view wx:if="{{period!='请选择'}}" class='tips_text'>
+                    请点选部位（可多选），再左滑去选择该部位的锻炼动作
+                </view>
             </swiper-item>
 
             <!-- 动作选择Tab -->
             <swiper-item id="{{tabData[2].type}}">
                 <scroll-view class="scroll-view_H" scroll-x="true">
-                    <view id="{{item.partName}}" class="scroll-view-item_H {{item.selected?'text':'textUnselected'}}" wx:for="{{selectedPartList}}" wx:key="{{index}}" bindtap='onPartSelected'>
+                    <view id="{{item.partName}}" class="scroll-view-item_H {{item.selected?'textSelected':'textUnselected'}}" wx:for="{{selectedPartList}}" wx:key="{{index}}" bindtap='onPartSelected'>
                         {{item.partName}}
                     </view>
                 </scroll-view>
@@ -88,7 +93,7 @@
                 <view id="{{item.partName}}" wx:if="{{item.selected}}" class='scrollviewVertical' wx:for="{{selectedPartList}}" wx:key="{{index}}">
                     <scroll-view class="scrollviewVertical" scroll-y="true">
                         <!--  每个动作 -->
-                        <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" wx:key="{{index}}" bindtap='onActionSelected'>
+                        <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" wx:key="{{index}}" bindtap='onSelectAction'>
                             <!-- 图片占位 -->
                             <view class='imageBig'></view>
                             <!-- <image src='../../image/pulse_64px.png'></image> -->

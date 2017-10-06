@@ -143,7 +143,7 @@ Page({
         let planSet = app.Controller.loadData(app.StorageType.PlanSet);
         let currentPlan = '';
 
-        console.log(planSet);
+        console.log("planSet:", planSet);
 
         for (let plan of planSet) {
             if (plan.currentUse) {

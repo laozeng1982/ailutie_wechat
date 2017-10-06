@@ -3,11 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="43d0bba8-bdcd-471c-9d2f-9c090f19b525" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/index/index.js" afterPath="$PROJECT_DIR$/pages/index/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/plan_wizzard_style.wxss" afterPath="$PROJECT_DIR$/pages/plan/plan_wizzard_style.wxss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/select_date.js" afterPath="$PROJECT_DIR$/pages/plan/user_define/select_date.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/select_goal/select_goal.js" afterPath="$PROJECT_DIR$/pages/plan/select_goal/select_goal.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/preview_plan.wxss" afterPath="$PROJECT_DIR$/pages/plan/user_define/preview_plan.wxss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/select_part.js" afterPath="$PROJECT_DIR$/pages/plan/user_define/select_part.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/select_part.wxml" afterPath="$PROJECT_DIR$/pages/plan/user_define/select_part.wxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/select_part.wxss" afterPath="$PROJECT_DIR$/pages/plan/user_define/select_part.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/util.js" afterPath="$PROJECT_DIR$/utils/util.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,14 +28,9 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/index/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3171">
-              <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
-              <folding>
-                <element signature="e#11#57#0" expanded="true" />
-                <marker date="1507211766435" expanded="true" signature="4447:4457" ph="{&quot;currentPlan&quot;: app.currentPlan...}" />
-                <marker date="1507211766435" expanded="true" signature="4447:4510" ph="{...}" />
-                <marker date="1507211766435" expanded="true" signature="4447:4513" ph="{...}" />
-              </folding>
+            <state relative-caret-position="3318">
+              <caret line="160" column="39" lean-forward="true" selection-start-line="160" selection-start-column="39" selection-end-line="160" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -40,45 +38,44 @@
       <file leaf-file-name="select_goal.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3192">
-              <caret line="152" column="9" lean-forward="false" selection-start-line="152" selection-start-column="9" selection-end-line="152" selection-end-column="9" />
+            <state relative-caret-position="649">
+              <caret line="86" column="27" lean-forward="true" selection-start-line="86" selection-start-column="27" selection-end-line="86" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="select_part.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="339">
+              <caret line="495" column="0" lean-forward="true" selection-start-line="495" selection-start-column="0" selection-end-line="495" selection-end-column="0" />
               <folding>
-                <marker date="1507211766437" expanded="true" signature="110:122" ph="{...}" />
-                <marker date="1507211766437" expanded="true" signature="4575:4680" ph="{...}" />
-                <marker date="1507211766437" expanded="true" signature="4687:4720" ph="/** 生命周期函数--监听页面加载 ...*/" />
-                <marker date="1507211766437" expanded="true" signature="4752:4837" ph="{...}" />
-                <marker date="1507211766437" expanded="true" signature="4844:4881" ph="/** 生命周期函数--监听页面初次渲染完成 ...*/" />
-                <marker date="1507211766437" expanded="true" signature="4922:4955" ph="/** 生命周期函数--监听页面显示 ...*/" />
+                <element signature="e#1551#2852#0" expanded="false" />
+                <element signature="e#2939#4377#0" expanded="false" />
+                <element signature="e#9409#10635#0" expanded="false" />
+                <element signature="e#10725#11964#0" expanded="false" />
+                <element signature="e#13253#15314#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="select_part.wxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.wxml">
+      <file leaf-file-name="preview_plan.wxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/plan/user_define/preview_plan.wxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="546">
+              <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="select_part.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
-              <caret line="95" column="56" lean-forward="false" selection-start-line="95" selection-start-column="56" selection-end-line="95" selection-end-column="56" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="select_date.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="select_date.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_date.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="66" column="15" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="80" selection-end-column="6" />
+            <state relative-caret-position="483">
+              <caret line="23" column="66" lean-forward="false" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -97,7 +94,7 @@
       <file leaf-file-name="select_actions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_actions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1071">
+            <state relative-caret-position="5355">
               <caret line="255" column="17" lean-forward="true" selection-start-line="255" selection-start-column="17" selection-end-line="255" selection-end-column="17" />
               <folding />
             </state>
@@ -107,8 +104,8 @@
       <file leaf-file-name="select_goal.wxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.wxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="420">
+              <caret line="20" column="27" lean-forward="true" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -117,14 +114,11 @@
       <file leaf-file-name="training.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/training/training.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9135">
+            <state relative-caret-position="775">
               <caret line="440" column="9" lean-forward="false" selection-start-line="440" selection-start-column="9" selection-end-line="440" selection-end-column="9" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#20#58#0" expanded="true" />
-                <marker date="1507129331288" expanded="true" signature="18302:18334" ph="{...}" />
-                <marker date="1507129331288" expanded="true" signature="18302:18403" ph="{...}" />
-                <marker date="1507129331288" expanded="true" signature="18302:18728" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -133,79 +127,9 @@
       <file leaf-file-name="preview_plan.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/plan/user_define/preview_plan.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5628">
-              <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="275" selection-end-column="9" />
-              <folding>
-                <marker date="1507129331287" expanded="true" signature="8948:10190" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="9526:9749" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="9585:9739" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="9654:9725" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="9838:10039" ph="{&quot;selectedDatePlan&quot;: selectedDatePlan...}" />
-                <marker date="1507129331287" expanded="true" signature="10197:10241" ph="/** 响应日历上选中日期 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="10275:10311" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="10318:10369" ph="/** 响应日期选择器，跳转到选择的月份 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="10406:10735" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="10504:10691" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="10742:10768" ph="/** 响应到今天按钮 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="10802:10841" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="10848:10898" ph="/** 响应日历头部点击，重新显示日历 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="10934:11011" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="10957:11002" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="11018:11045" ph="/** 响应日历上下滑动 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="11087:12282" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="11374:12077" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="11395:11574" ph="..." />
-                <marker date="1507129331287" expanded="true" signature="11594:11773" ph="..." />
-                <marker date="1507129331287" expanded="true" signature="11793:11972" ph="..." />
-                <marker date="1507129331287" expanded="true" signature="11993:12067" ph="..." />
-                <marker date="1507129331287" expanded="true" signature="12104:12151" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="12157:12204" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="12227:12274" ph="{&quot;lastCalendarId&quot;: current...}" />
-                <marker date="1507129331287" expanded="true" signature="12289:12312" ph="/** 保存数据 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="12343:13068" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="12428:12486" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="12492:12957" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="12659:12849" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="12710:12835" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="12881:12947" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="13075:13121" ph="/** 点击确定返回上一个界面 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="13154:14124" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="13208:14115" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="13299:14014" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="13382:13934" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="13411:13550" ph="..." />
-                <marker date="1507129331287" expanded="true" signature="13452:13517" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="13578:13736" ph="..." />
-                <marker date="1507129331287" expanded="true" signature="13616:13703" ph="{&quot;url&quot;: '../../training/training'...}" />
-                <marker date="1507129331287" expanded="true" signature="13764:13916" ph="..." />
-                <marker date="1507129331287" expanded="true" signature="13802:13883" ph="{&quot;url&quot;: '../../index/index'...}" />
-                <marker date="1507129331287" expanded="true" signature="14049:14105" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="14157:14864" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="14180:14856" ph="{&quot;title&quot;: '提醒'...}" />
-                <marker date="1507129331287" expanded="true" signature="14273:14846" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="14308:14749" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="14461:14541" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="14656:14729" ph="{&quot;url&quot;: '../../index/index'...}" />
-                <marker date="1507129331287" expanded="true" signature="14771:14832" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="14897:14974" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="14921:14966" ph="{&quot;url&quot;: './select_part'...}" />
-                <marker date="1507129331287" expanded="true" signature="14981:15031" ph="/** 生命周期函数--监听页面加载 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="15063:15492" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="15098:15136" ph="{&quot;title&quot;: '计划预览'...}" />
-                <marker date="1507129331287" expanded="true" signature="15222:15399" ph="{&quot;options&quot;: options...}" />
-                <marker date="1507129331287" expanded="true" signature="15499:15536" ph="/** 生命周期函数--监听页面初次渲染完成 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="15577:15642" ph="/** 生命周期函数--监听页面显示 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="15667:16098" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="15874:16050" ph="{&quot;currentYear&quot;: year...}" />
-                <marker date="1507129331287" expanded="true" signature="16105:16153" ph="/** 生命周期函数--监听页面隐藏 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="16193:16226" ph="/** 生命周期函数--监听页面卸载 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="16253:16304" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="16311:16350" ph="/** 页面相关事件处理函数--监听用户下拉动作 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="16401:16433" ph="/** 页面上拉触底事件的处理函数 ...*/" />
-                <marker date="1507129331287" expanded="true" signature="16465:16586" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="16488:16533" ph="{...}" />
-                <marker date="1507129331287" expanded="true" signature="16593:16621" ph="/** 用户点击右上角分享 ...*/" />
-              </folding>
+            <state relative-caret-position="413">
+              <caret line="164" column="27" lean-forward="true" selection-start-line="164" selection-start-column="27" selection-end-line="164" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -237,6 +161,17 @@
       <find>allTabSelected</find>
       <find>selected</find>
       <find>var</find>
+      <find>onSelectDate</find>
+      <find>onNext</find>
+      <find>daysCountArr</find>
+      <find>dateDirection</find>
+      <find>makeWeekList</find>
+      <find>console.log(selectedDate.getYear(), selectedDate.getMonth() + 1);</find>
+      <find>getDateFromString</find>
+      <find>week</find>
+      <find>console.log(&quot;selectedPartList&quot;, selectedPartList);</find>
+      <find>console.log(planSet);</find>
+      <find>selectedPartList</find>
     </findStrings>
     <replaceStrings>
       <replace>canvasPool</replace>
@@ -249,6 +184,7 @@
       <replace>allTabFinished</replace>
       <replace>finished</replace>
       <replace>let</replace>
+      <replace>monthDaysCountArr</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -261,8 +197,10 @@
         <option value="$PROJECT_DIR$/pages/index/index.wxml" />
         <option value="$PROJECT_DIR$/pages/index/ChartDataMaker.js" />
         <option value="$PROJECT_DIR$/pages/index/ChartMaker.js" />
-        <option value="$PROJECT_DIR$/pages/plan/user_define/preview_plan.js" />
         <option value="$PROJECT_DIR$/pages/training/training.js" />
+        <option value="$PROJECT_DIR$/pages/plan/user_define/select_date.js" />
+        <option value="$PROJECT_DIR$/pages/plan/user_define/preview_plan.js" />
+        <option value="$PROJECT_DIR$/utils/Util.js" />
         <option value="$PROJECT_DIR$/pages/index/index.js" />
         <option value="$PROJECT_DIR$/pages/plan/select_goal/select_goal.js" />
         <option value="$PROJECT_DIR$/pages/plan/user_define/select_part.js" />
@@ -283,8 +221,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2029" />
-    <option name="y" value="457" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -303,29 +241,40 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="ailutie_wechat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ailutie_wechat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ailutie_wechat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="plan" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ailutie_wechat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ailutie_wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="plan" type="462c0819:PsiDirectoryNode" />
+              <item name="select_goal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="plan" type="462c0819:PsiDirectoryNode" />
               <item name="user_define" type="462c0819:PsiDirectoryNode" />
@@ -334,6 +283,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -461,34 +412,35 @@
       <workItem from="1506738469430" duration="26418000" />
       <workItem from="1507167294424" duration="15440000" />
       <workItem from="1507211851425" duration="5089000" />
+      <workItem from="1507276521529" duration="19988000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46947000" />
+    <option name="totallyTimeSpent" value="66935000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1672" y="-8" width="1696" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19746377" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19725738" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973376" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32845894" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -498,20 +450,106 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/pages/index/index.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3234">
+          <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3192">
+          <caret line="152" column="9" lean-forward="false" selection-start-line="152" selection-start-column="9" selection-end-line="152" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1995">
+          <caret line="95" column="20" lean-forward="true" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="20" />
+          <folding>
+            <element signature="e#1551#2852#0" expanded="false" />
+            <element signature="e#2939#4377#0" expanded="false" />
+            <element signature="e#9409#10635#0" expanded="false" />
+            <element signature="e#10725#11964#0" expanded="false" />
+            <element signature="e#13253#15314#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.wxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_actions.wxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5355">
+          <caret line="255" column="17" lean-forward="true" selection-start-line="255" selection-start-column="17" selection-end-line="255" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.wxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/training/training.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9156">
+          <caret line="440" column="9" lean-forward="false" selection-start-line="440" selection-start-column="9" selection-end-line="440" selection-end-column="9" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#20#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/preview_plan.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5628">
+          <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="275" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_date.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="66" column="15" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/index/index.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2079">
           <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding>
-            <element signature="e#11#57#0" expanded="true" />
-            <marker date="1507211766435" expanded="true" signature="4447:4457" ph="{&quot;currentPlan&quot;: app.currentPlan...}" />
-            <marker date="1507211766435" expanded="true" signature="4447:4510" ph="{...}" />
-            <marker date="1507211766435" expanded="true" signature="4447:4513" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -519,14 +557,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2415">
           <caret line="115" column="11" lean-forward="true" selection-start-line="115" selection-start-column="11" selection-end-line="115" selection-end-column="11" />
-          <folding>
-            <marker date="1507211766437" expanded="true" signature="110:122" ph="{...}" />
-            <marker date="1507211766437" expanded="true" signature="4575:4680" ph="{...}" />
-            <marker date="1507211766437" expanded="true" signature="4687:4720" ph="/** 生命周期函数--监听页面加载 ...*/" />
-            <marker date="1507211766437" expanded="true" signature="4752:4837" ph="{...}" />
-            <marker date="1507211766437" expanded="true" signature="4844:4881" ph="/** 生命周期函数--监听页面初次渲染完成 ...*/" />
-            <marker date="1507211766437" expanded="true" signature="4922:4955" ph="/** 生命周期函数--监听页面显示 ...*/" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -542,7 +573,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
           <caret line="36" column="6" lean-forward="true" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
-          <folding />
+          <folding>
+            <element signature="e#1551#2852#0" expanded="false" />
+            <element signature="e#2939#4377#0" expanded="false" />
+            <element signature="e#9409#10635#0" expanded="false" />
+            <element signature="e#10725#11964#0" expanded="false" />
+            <element signature="e#13253#15314#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -571,9 +608,6 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#20#58#0" expanded="true" />
-            <marker date="1507129331288" expanded="true" signature="18302:18334" ph="{...}" />
-            <marker date="1507129331288" expanded="true" signature="18302:18403" ph="{...}" />
-            <marker date="1507129331288" expanded="true" signature="18302:18728" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -582,77 +616,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5628">
           <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="275" selection-end-column="9" />
-          <folding>
-            <marker date="1507129331287" expanded="true" signature="8948:10190" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9526:9749" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9585:9739" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9654:9725" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9838:10039" ph="{&quot;selectedDatePlan&quot;: selectedDatePlan...}" />
-            <marker date="1507129331287" expanded="true" signature="10197:10241" ph="/** 响应日历上选中日期 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10275:10311" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10318:10369" ph="/** 响应日期选择器，跳转到选择的月份 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10406:10735" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10504:10691" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10742:10768" ph="/** 响应到今天按钮 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10802:10841" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10848:10898" ph="/** 响应日历头部点击，重新显示日历 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10934:11011" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10957:11002" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="11018:11045" ph="/** 响应日历上下滑动 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="11087:12282" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="11374:12077" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="11395:11574" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="11594:11773" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="11793:11972" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="11993:12067" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="12104:12151" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12157:12204" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12227:12274" ph="{&quot;lastCalendarId&quot;: current...}" />
-            <marker date="1507129331287" expanded="true" signature="12289:12312" ph="/** 保存数据 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="12343:13068" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12428:12486" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12492:12957" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12659:12849" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12710:12835" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12881:12947" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13075:13121" ph="/** 点击确定返回上一个界面 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="13154:14124" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13208:14115" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13299:14014" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13382:13934" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13411:13550" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="13452:13517" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13578:13736" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="13616:13703" ph="{&quot;url&quot;: '../../training/training'...}" />
-            <marker date="1507129331287" expanded="true" signature="13764:13916" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="13802:13883" ph="{&quot;url&quot;: '../../index/index'...}" />
-            <marker date="1507129331287" expanded="true" signature="14049:14105" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14157:14864" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14180:14856" ph="{&quot;title&quot;: '提醒'...}" />
-            <marker date="1507129331287" expanded="true" signature="14273:14846" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14308:14749" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14461:14541" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14656:14729" ph="{&quot;url&quot;: '../../index/index'...}" />
-            <marker date="1507129331287" expanded="true" signature="14771:14832" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14897:14974" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14921:14966" ph="{&quot;url&quot;: './select_part'...}" />
-            <marker date="1507129331287" expanded="true" signature="14981:15031" ph="/** 生命周期函数--监听页面加载 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="15063:15492" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="15098:15136" ph="{&quot;title&quot;: '计划预览'...}" />
-            <marker date="1507129331287" expanded="true" signature="15222:15399" ph="{&quot;options&quot;: options...}" />
-            <marker date="1507129331287" expanded="true" signature="15499:15536" ph="/** 生命周期函数--监听页面初次渲染完成 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="15577:15642" ph="/** 生命周期函数--监听页面显示 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="15667:16098" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="15874:16050" ph="{&quot;currentYear&quot;: year...}" />
-            <marker date="1507129331287" expanded="true" signature="16105:16153" ph="/** 生命周期函数--监听页面隐藏 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16193:16226" ph="/** 生命周期函数--监听页面卸载 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16253:16304" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="16311:16350" ph="/** 页面相关事件处理函数--监听用户下拉动作 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16401:16433" ph="/** 页面上拉触底事件的处理函数 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16465:16586" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="16488:16533" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="16593:16621" ph="/** 用户点击右上角分享 ...*/" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -696,12 +660,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="735">
           <caret line="37" column="38" lean-forward="false" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
-          <folding>
-            <element signature="e#11#57#0" expanded="true" />
-            <marker date="1507211766435" expanded="true" signature="4447:4457" ph="{&quot;currentPlan&quot;: app.currentPlan...}" />
-            <marker date="1507211766435" expanded="true" signature="4447:4510" ph="{...}" />
-            <marker date="1507211766435" expanded="true" signature="4447:4513" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -719,77 +678,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5628">
           <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="275" selection-end-column="9" />
-          <folding>
-            <marker date="1507129331287" expanded="true" signature="8948:10190" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9526:9749" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9585:9739" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9654:9725" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9838:10039" ph="{&quot;selectedDatePlan&quot;: selectedDatePlan...}" />
-            <marker date="1507129331287" expanded="true" signature="10197:10241" ph="/** 响应日历上选中日期 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10275:10311" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10318:10369" ph="/** 响应日期选择器，跳转到选择的月份 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10406:10735" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10504:10691" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10742:10768" ph="/** 响应到今天按钮 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10802:10841" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10848:10898" ph="/** 响应日历头部点击，重新显示日历 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10934:11011" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10957:11002" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="11018:11045" ph="/** 响应日历上下滑动 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="11087:12282" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="11374:12077" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="11395:11574" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="11594:11773" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="11793:11972" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="11993:12067" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="12104:12151" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12157:12204" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12227:12274" ph="{&quot;lastCalendarId&quot;: current...}" />
-            <marker date="1507129331287" expanded="true" signature="12289:12312" ph="/** 保存数据 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="12343:13068" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12428:12486" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12492:12957" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12659:12849" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12710:12835" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12881:12947" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13075:13121" ph="/** 点击确定返回上一个界面 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="13154:14124" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13208:14115" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13299:14014" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13382:13934" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13411:13550" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="13452:13517" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13578:13736" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="13616:13703" ph="{&quot;url&quot;: '../../training/training'...}" />
-            <marker date="1507129331287" expanded="true" signature="13764:13916" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="13802:13883" ph="{&quot;url&quot;: '../../index/index'...}" />
-            <marker date="1507129331287" expanded="true" signature="14049:14105" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14157:14864" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14180:14856" ph="{&quot;title&quot;: '提醒'...}" />
-            <marker date="1507129331287" expanded="true" signature="14273:14846" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14308:14749" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14461:14541" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14656:14729" ph="{&quot;url&quot;: '../../index/index'...}" />
-            <marker date="1507129331287" expanded="true" signature="14771:14832" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14897:14974" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14921:14966" ph="{&quot;url&quot;: './select_part'...}" />
-            <marker date="1507129331287" expanded="true" signature="14981:15031" ph="/** 生命周期函数--监听页面加载 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="15063:15492" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="15098:15136" ph="{&quot;title&quot;: '计划预览'...}" />
-            <marker date="1507129331287" expanded="true" signature="15222:15399" ph="{&quot;options&quot;: options...}" />
-            <marker date="1507129331287" expanded="true" signature="15499:15536" ph="/** 生命周期函数--监听页面初次渲染完成 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="15577:15642" ph="/** 生命周期函数--监听页面显示 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="15667:16098" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="15874:16050" ph="{&quot;currentYear&quot;: year...}" />
-            <marker date="1507129331287" expanded="true" signature="16105:16153" ph="/** 生命周期函数--监听页面隐藏 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16193:16226" ph="/** 生命周期函数--监听页面卸载 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16253:16304" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="16311:16350" ph="/** 页面相关事件处理函数--监听用户下拉动作 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16401:16433" ph="/** 页面上拉触底事件的处理函数 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16465:16586" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="16488:16533" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="16593:16621" ph="/** 用户点击右上角分享 ...*/" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -809,9 +698,6 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#20#58#0" expanded="true" />
-            <marker date="1507129331288" expanded="true" signature="18302:18334" ph="{...}" />
-            <marker date="1507129331288" expanded="true" signature="18302:18403" ph="{...}" />
-            <marker date="1507129331288" expanded="true" signature="18302:18728" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -861,126 +747,30 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/index/ChartMaker.js" />
-    <entry file="file://$PROJECT_DIR$/utils/Util.js">
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_actions.wxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5061">
-          <caret line="245" column="30" lean-forward="false" selection-start-line="245" selection-start-column="30" selection-end-line="245" selection-end-column="30" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/preview_plan.js">
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_date.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5628">
-          <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="275" selection-end-column="9" />
-          <folding>
-            <marker date="1507129331287" expanded="true" signature="8948:10190" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9526:9749" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9585:9739" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9654:9725" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="9838:10039" ph="{&quot;selectedDatePlan&quot;: selectedDatePlan...}" />
-            <marker date="1507129331287" expanded="true" signature="10197:10241" ph="/** 响应日历上选中日期 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10275:10311" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10318:10369" ph="/** 响应日期选择器，跳转到选择的月份 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10406:10735" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10504:10691" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10742:10768" ph="/** 响应到今天按钮 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10802:10841" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10848:10898" ph="/** 响应日历头部点击，重新显示日历 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="10934:11011" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="10957:11002" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="11018:11045" ph="/** 响应日历上下滑动 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="11087:12282" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="11374:12077" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="11395:11574" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="11594:11773" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="11793:11972" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="11993:12067" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="12104:12151" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12157:12204" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12227:12274" ph="{&quot;lastCalendarId&quot;: current...}" />
-            <marker date="1507129331287" expanded="true" signature="12289:12312" ph="/** 保存数据 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="12343:13068" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12428:12486" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12492:12957" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12659:12849" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12710:12835" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="12881:12947" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13075:13121" ph="/** 点击确定返回上一个界面 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="13154:14124" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13208:14115" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13299:14014" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13382:13934" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13411:13550" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="13452:13517" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="13578:13736" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="13616:13703" ph="{&quot;url&quot;: '../../training/training'...}" />
-            <marker date="1507129331287" expanded="true" signature="13764:13916" ph="..." />
-            <marker date="1507129331287" expanded="true" signature="13802:13883" ph="{&quot;url&quot;: '../../index/index'...}" />
-            <marker date="1507129331287" expanded="true" signature="14049:14105" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14157:14864" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14180:14856" ph="{&quot;title&quot;: '提醒'...}" />
-            <marker date="1507129331287" expanded="true" signature="14273:14846" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14308:14749" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14461:14541" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14656:14729" ph="{&quot;url&quot;: '../../index/index'...}" />
-            <marker date="1507129331287" expanded="true" signature="14771:14832" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14897:14974" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="14921:14966" ph="{&quot;url&quot;: './select_part'...}" />
-            <marker date="1507129331287" expanded="true" signature="14981:15031" ph="/** 生命周期函数--监听页面加载 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="15063:15492" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="15098:15136" ph="{&quot;title&quot;: '计划预览'...}" />
-            <marker date="1507129331287" expanded="true" signature="15222:15399" ph="{&quot;options&quot;: options...}" />
-            <marker date="1507129331287" expanded="true" signature="15499:15536" ph="/** 生命周期函数--监听页面初次渲染完成 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="15577:15642" ph="/** 生命周期函数--监听页面显示 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="15667:16098" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="15874:16050" ph="{&quot;currentYear&quot;: year...}" />
-            <marker date="1507129331287" expanded="true" signature="16105:16153" ph="/** 生命周期函数--监听页面隐藏 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16193:16226" ph="/** 生命周期函数--监听页面卸载 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16253:16304" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="16311:16350" ph="/** 页面相关事件处理函数--监听用户下拉动作 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16401:16433" ph="/** 页面上拉触底事件的处理函数 ...*/" />
-            <marker date="1507129331287" expanded="true" signature="16465:16586" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="16488:16533" ph="{...}" />
-            <marker date="1507129331287" expanded="true" signature="16593:16621" ph="/** 用户点击右上角分享 ...*/" />
-          </folding>
+        <state relative-caret-position="483">
+          <caret line="23" column="66" lean-forward="false" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/training/training.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9135">
+        <state relative-caret-position="775">
           <caret line="440" column="9" lean-forward="false" selection-start-line="440" selection-start-column="9" selection-end-line="440" selection-end-column="9" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#20#58#0" expanded="true" />
-            <marker date="1507129331288" expanded="true" signature="18302:18334" ph="{...}" />
-            <marker date="1507129331288" expanded="true" signature="18302:18403" ph="{...}" />
-            <marker date="1507129331288" expanded="true" signature="18302:18728" ph="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/index/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3171">
-          <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
-          <folding>
-            <element signature="e#11#57#0" expanded="true" />
-            <marker date="1507211766435" expanded="true" signature="4447:4457" ph="{&quot;currentPlan&quot;: app.currentPlan...}" />
-            <marker date="1507211766435" expanded="true" signature="4447:4510" ph="{...}" />
-            <marker date="1507211766435" expanded="true" signature="4447:4513" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.wxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -992,32 +782,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.js">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3192">
-          <caret line="152" column="9" lean-forward="false" selection-start-line="152" selection-start-column="9" selection-end-line="152" selection-end-column="9" />
+        <state relative-caret-position="281">
+          <caret line="278" column="0" lean-forward="false" selection-start-line="278" selection-start-column="0" selection-end-line="278" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/Util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2066">
+          <caret line="55" column="38" lean-forward="true" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
           <folding>
-            <marker date="1507211766437" expanded="true" signature="110:122" ph="{...}" />
-            <marker date="1507211766437" expanded="true" signature="4575:4680" ph="{...}" />
-            <marker date="1507211766437" expanded="true" signature="4687:4720" ph="/** 生命周期函数--监听页面加载 ...*/" />
-            <marker date="1507211766437" expanded="true" signature="4752:4837" ph="{...}" />
-            <marker date="1507211766437" expanded="true" signature="4844:4881" ph="/** 生命周期函数--监听页面初次渲染完成 ...*/" />
-            <marker date="1507211766437" expanded="true" signature="4922:4955" ph="/** 生命周期函数--监听页面显示 ...*/" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_actions.wxml">
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/preview_plan.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="413">
+          <caret line="164" column="27" lean-forward="true" selection-start-line="164" selection-start-column="27" selection-end-line="164" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/preview_plan.wxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/index/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3318">
+          <caret line="160" column="39" lean-forward="true" selection-start-line="160" selection-start-column="39" selection-end-line="160" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.wxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="20" column="27" lean-forward="true" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="649">
+          <caret line="86" column="27" lean-forward="true" selection-start-line="86" selection-start-column="27" selection-end-line="86" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_actions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1071">
+        <state relative-caret-position="5355">
           <caret line="255" column="17" lean-forward="true" selection-start-line="255" selection-start-column="17" selection-end-line="255" selection-end-column="17" />
           <folding />
         </state>
@@ -1025,17 +850,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="95" column="56" lean-forward="false" selection-start-line="95" selection-start-column="56" selection-end-line="95" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_date.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="66" column="15" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="80" selection-end-column="6" />
-          <folding />
+        <state relative-caret-position="339">
+          <caret line="495" column="0" lean-forward="true" selection-start-line="495" selection-start-column="0" selection-end-line="495" selection-end-column="0" />
+          <folding>
+            <element signature="e#1551#2852#0" expanded="false" />
+            <element signature="e#2939#4377#0" expanded="false" />
+            <element signature="e#9409#10635#0" expanded="false" />
+            <element signature="e#10725#11964#0" expanded="false" />
+            <element signature="e#13253#15314#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
