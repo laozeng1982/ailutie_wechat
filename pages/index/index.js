@@ -158,7 +158,7 @@ Page({
 
         });
 
-        console.log(this.data.currentPlan);
+        console.log("app.currentPlan", this.data.currentPlan);
     }
 
 })

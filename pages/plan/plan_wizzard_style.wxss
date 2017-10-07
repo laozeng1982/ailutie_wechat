@@ -99,7 +99,7 @@
 }
 
 .scrollviewVertical {
-    height: 940rpx;
+    height: 820rpx;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -396,7 +396,7 @@
 
 .dateTopArea {
     width: 100%;
-    height: 1070rpx;
+    height: 1000rpx;
     display: flex;
     flex-direction: column;
     align-content: center;

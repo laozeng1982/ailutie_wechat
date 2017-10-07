@@ -146,7 +146,8 @@ App({
     StorageType: STORAGETYPE,
     Util: util,
 
-    selectedPartInfo: '',
+    planStartDate: '',
+    planEndDate: '',
 
     globalData: {
         // 定义一些全局变量

@@ -151,6 +151,9 @@
     display: inline-block;
     width: 200rpx;
     height: 60rpx;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .part {

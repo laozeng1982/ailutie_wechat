@@ -53,7 +53,7 @@
                     <view class="calendar_panel">
                         <!-- 日历中每天的显示 -->
                         <view class="calendar_box" wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="week">
-                            <view class="weekday_label_days" wx:for="{{week}}" wx:key="{{index}}" data-date="{{item}}" bindtap="onDateSelected">
+                            <view class="weekday_label_days" wx:for="{{week}}" wx:key="{{index}}" data-date="{{item}}" bindtap="onSelectDateItem">
 
                                 <!-- 日历上每天的日期 -->
                                 <view class='date_item'>
@@ -83,7 +83,7 @@
 
             <!-- 日历中每天的显示，只循环当前选中这一周 -->
             <view class="calendar_box">
-                <view class="weekday_label_days" wx:for="{{selectedWeek}}" wx:key="{{index}}" data-date="{{item}}" bindtap="onDateSelected">
+                <view class="weekday_label_days" wx:for="{{selectedWeek}}" wx:key="{{index}}" data-date="{{item}}" bindtap="onSelectDateItem">
 
                     <!-- 日历上每天的日期 -->
                     <view class='date_item'>

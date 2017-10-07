@@ -30,17 +30,17 @@
 
                 <view class='rowContainer'>
                     <view class='text1'>周期天数：</view>
-                    <picker class='picker_row' id='period' value="{{index}}" range="{{dayPickerArray}}" bindchange="onDatePickerChange">
+                    <picker class='picker_row' id='period' value="{{periodIndex}}" range="{{periodPickerArray}}" bindchange="onDatePickerChange">
                         <view style='margin-left:50rpx'>{{period}} 天</view>
                     </picker>
                 </view>
 
-                <view class='rowContainer'>
+                 <!-- <view class='rowContainer'>
                     <view class='text1'>休息天数：</view>
-                    <picker class='picker_row' id='rest' value="{{index}}" range="{{dayPickerArray}}" bindchange="onDatePickerChange">
+                    <picker class='picker_row' id='rest' value="{{restIndex}}" range="{{restPickerArray}}" bindchange="onDatePickerChange">
                         <view style='margin-left:50rpx'>{{restDays}} 天</view>
                     </picker>
-                </view>
+                </view>  -->
 
                 <view class='graySpaceSmall'></view>
 
@@ -59,8 +59,11 @@
                     </view>
                 </view>
 
-                <view wx:if="{{period!='请选择'}}" class='tips_text'>
+                <view wx:if="{{allPickerValidated}}" class='tips_text'>
                     请点选日期（可多选），再左滑去选择该日期的锻炼部位
+                </view>
+                <view wx:if="{{allPickerValidated}}" class='tips_text'>
+                    如果计划中当天准备休息，不选这天即可
                 </view>
 
             </swiper-item>
@@ -68,7 +71,7 @@
             <!-- 部位选择Tab -->
             <swiper-item id="{{tabData[1].type}}">
                 <scroll-view class="scrollview" scroll-y="true">
-                    <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onSelectPart'>
+                    <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onSelectPartItem'>
                         <icon wx:if="{{!item.selected }}" class='icon' type="circle"></icon>
                         <icon wx:else class='icon' type="success_circle"></icon>
 
@@ -84,9 +87,10 @@
 
             <!-- 动作选择Tab -->
             <swiper-item id="{{tabData[2].type}}">
-                <scroll-view class="scroll-view_H" scroll-x="true">
-                    <view id="{{item.partName}}" class="scroll-view-item_H {{item.selected?'textSelected':'textUnselected'}}" wx:for="{{selectedPartList}}" wx:key="{{index}}" bindtap='onPartSelected'>
-                        {{item.partName}}
+                <scroll-view class="scroll-view_H" scroll-into-view="{{toView}}" scroll-x="true">
+                    <view id="{{item.partName}}" class="scroll-view-item_H {{item.selected?'textSelected':'textUnselected'}}" wx:for="{{selectedPartList}}" wx:key="{{index}}" bindtap='onSelectPartTab'>
+                        {{item.partName}}({{item.selectedCount}})
+                        <!-- <icon type="success_no_circle" color="{{item.checked?'#09bb07':'#888'}}"></icon> -->
                     </view>
                 </scroll-view>
 
@@ -132,6 +136,6 @@
     <view class='graySpaceSmall'></view>
 
     <view class='footArea'>
-        <button class='nextBtn' type='primary' disabled='{{!allTabFinished}}' bindtap='onNext'> 预览 </button>
+        <button class='nextBtn' type='primary' disabled='{{!allTabFinished}}' bindtap='onPreview'> 预览 </button>
     </view>
 </view>

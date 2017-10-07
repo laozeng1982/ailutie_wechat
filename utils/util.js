@@ -88,6 +88,18 @@ function log(msg) {
 }
 
 /**
+ * 两个简单数组比较相等
+ * @param array1
+ * @param array2
+ */
+function compare2Array(array1, array2) {
+    return (array1.length === array2.length) &&
+        array1.every(function (element, index) {
+            return element === array2[index];
+        });
+}
+
+/**
  * 检查当前选择日期与今天的关系
  * 过期返回：-1
  * 今天返回：0
@@ -348,6 +360,7 @@ module.exports = {
     getMovedDate: getMovedDate,
     inPeriod: inPeriod,
     makePartString: makePartString,
-    log: log
+    log: log,
+    compare2Array: compare2Array
 
 }

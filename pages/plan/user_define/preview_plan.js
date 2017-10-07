@@ -293,9 +293,8 @@ Page({
      * 响应日历上选中日期
      * @param e
      */
-    onDateSelected: function (e) {
+    onSelectDateItem: function (e) {
         this.selectDate(e);
-
     },
 
     /**
@@ -421,7 +420,7 @@ Page({
                 switch (res.tapIndex) {
                     case 0:
                         wx.navigateBack({
-                            delta: 2,
+                            delta: 1,
                         });
                         break;
                     case 1:
@@ -491,7 +490,7 @@ Page({
             todayYear: parseInt(today.split('-')[0]),
 
         });
-        console.log("Records page onLoad call, this.data.today: ", this.data.today);
+        console.log("Preview page onLoad call, this.data.today: ", this.data.today);
     },
 
     /**
@@ -546,10 +545,10 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-        this.setData({
-            showPlanDetail: false
-        });
-        console.log("onReachBottom called");
+        // this.setData({
+        //     showPlanDetail: false
+        // });
+        // console.log("onReachBottom called");
     },
 
     /**
