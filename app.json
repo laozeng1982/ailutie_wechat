@@ -20,8 +20,6 @@
         "pages/plan/select_goal/select_goal",
         "pages/plan/recommend_planlist/recommend_planlist",
         "pages/plan/user_define/select_part",
-        "pages/plan/user_define/select_date",
-        "pages/plan/user_define/select_actions",
         "pages/plan/user_define/preview_plan",
         "pages/plan/user_define/custom_actions",
         "pages/ui/tabs/tabs"
@@ -29,7 +27,6 @@
     "window": {
         "navigationBarBackgroundColor": "#000000",
         "navigationBarTextStyle": "white",
-        "enablePullDownRefresh": "false",
         "backgroundColor": "#333"
     },
     "tabBar": {

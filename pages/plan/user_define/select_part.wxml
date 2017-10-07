@@ -30,8 +30,8 @@
 
                 <view class='rowContainer'>
                     <view class='text1'>周期天数：</view>
-                    <picker class='picker_row' id='period' value="{{periodIndex}}" range="{{periodPickerArray}}" bindchange="onDatePickerChange">
-                        <view style='margin-left:50rpx'>{{period}} 天</view>
+                    <picker class='picker_row' id='cycle' value="{{cycleLengthIndex}}" range="{{cycleLengthPickerArray}}" bindchange="onDatePickerChange">
+                        <view style='margin-left:50rpx'>{{cycleLength}} 天</view>
                     </picker>
                 </view>
 
@@ -80,7 +80,7 @@
                     </view>
                 </scroll-view>
 
-                <view wx:if="{{period!='请选择'}}" class='tips_text'>
+                <view class='tips_text'>
                     请点选部位（可多选），再左滑去选择该部位的锻炼动作
                 </view>
             </swiper-item>

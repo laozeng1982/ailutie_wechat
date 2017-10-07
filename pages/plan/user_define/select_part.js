@@ -32,11 +32,11 @@ Page({
         firstTimeIn: true,
 
         // 时间tab的数据
-        startDate: "请选择",
-        endDate: "请选择",
-        period: 7,
-        periodIndex: 6,
-        periodPickerArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+        startDate: "",
+        endDate: "",
+        cycleLength: 7,
+        cycleLengthIndex: 6,
+        cycleLengthPickerArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
 
         allPickerSelected: false,
         weekList: [],
@@ -63,18 +63,20 @@ Page({
     },
 
     /**
-     * 设定时间tab，根据选项生成日期列表。
-     * @param period
+     * 设定时间tab
+     * 根据选项生成日期列表。
+     * @param cycleLength
      * @param part
      * @returns {Array}
      */
-    makeWeekList: function (period, part) {
+    makeWeekList: function (cycleLength, part) {
         // 暂时只想到了这个办法，给weekList加标志，好判断是选中了哪个部位的日期，e.target.id不好用了。
 
         let week = [];
         let weekList = [];
 
-        if (period === 7) {
+        // 准备选择列表
+        if (cycleLength === 7) {
             week = [
                 {id: 0, value: '日', currpart: part, hasparts: '', selected: false},
                 {id: 1, value: '一', currpart: part, hasparts: '', selected: false},
@@ -86,9 +88,9 @@ Page({
             ];
             weekList.push(week);
         } else {
-            for (let index = 0; index < Math.ceil(period / 7); index++) {
+            for (let index = 0; index < Math.ceil(cycleLength / 7); index++) {
                 week = [];
-                for (let idx = 0; idx < 7 && (index * 7 + idx) < period; idx++) {
+                for (let idx = 0; idx < 7 && (index * 7 + idx) < cycleLength; idx++) {
                     week.push(
                         {
                             id: index * 7 + idx,
@@ -107,7 +109,7 @@ Page({
 
         // 条件检查
         let allPickerValidated = app.Util.dateDirection(this.data.startDate) >= 0
-            && app.Util.datesDistance(this.data.startDate, this.data.endDate) >= this.data.period;
+            && app.Util.datesDistance(this.data.startDate, this.data.endDate) >= this.data.cycleLength;
 
         if (allPickerValidated) {
             this.setData({
@@ -135,21 +137,22 @@ Page({
                     endDate: e.detail.value
                 });
                 break;
-            case "period":
-                let period = parseInt(e.detail.value) + 1;
+            case "cycle":
+                let cycleLength = parseInt(e.detail.value) + 1;
                 this.setData({
-                    period: period
+                    cycleLength: cycleLength
                 });
                 break;
             default:
                 break;
         }
 
-        this.makeWeekList(this.data.period, "");
+        this.makeWeekList(this.data.cycleLength, "");
     },
 
     /**
      * 设定时间tab
+     * 响应周期列表点击的效果
      * @param e
      */
     onSelectDate: function (e) {
@@ -247,7 +250,8 @@ Page({
     },
 
     /**
-     * 选择动作tab，响应部位导航的选择
+     * 选择动作tab
+     * 响应部位导航的选择
      * @param e
      */
     onSelectPartTab: function (e) {
@@ -270,7 +274,8 @@ Page({
     },
 
     /**
-     * 动作选择tab，响应动作选择
+     * 选择动作tab
+     * 响应动作选择
      * @param e
      */
     onSelectAction: function (e) {
@@ -329,7 +334,47 @@ Page({
     },
 
     /**
-     * 动作选择tab
+     * 选择动作tab
+     * 响应重量选择
+     * @param e
+     */
+    onNumberChange: function (e) {
+        console.log(e);
+
+        let selectedRowArr = e.detail.value;
+
+        // 获取当前页面用户的输入
+        let planGpCount = parseInt(this.data.actionNoMultiArray[0][selectedRowArr[0]]);
+        let planCount = parseInt(this.data.actionNoMultiArray[1][selectedRowArr[1]]);
+        let planWeight = parseInt(this.data.actionNoMultiArray[2][selectedRowArr[2]]);
+        let measurement = this.data.actionNoMultiArray[3][selectedRowArr[3]];
+
+        console.log("in onNumberChange, picker: ", planGpCount + "组, ", planCount + "次, ", +planWeight, measurement);
+
+        let selectedPartList = this.data.selectedPartList;
+
+        let groupSet = [];
+        for (let idx = 0; idx < planGpCount; idx++) {
+            groupSet.push(new Plan.GroupSet(idx + 1, planCount, measurement, planWeight));
+
+        }
+
+        let selectedPartIdx = this.data.selectedPartIdx;
+        let selectedActionIdx = e.currentTarget.id - 1;
+
+        delete selectedPartList[selectedPartIdx].actionList[selectedActionIdx].groupSet;
+        selectedPartList[selectedPartIdx].actionList[selectedActionIdx].groupSet = groupSet;
+
+        // 重新置为选中
+        selectedPartList[selectedPartIdx].actionList[selectedActionIdx].actionSelected = true;
+
+        this.setData({
+            selectedPartList: selectedPartList
+        });
+    },
+
+    /**
+     * 选择动作tab
      * 准备部位的scroll-view，给出默认激活的view
      */
     prepareActionPart: function () {
@@ -384,7 +429,7 @@ Page({
     },
 
     /**
-     * 动作选择tab
+     * 选择动作tab
      * 准备重量选择的picker
      */
     prepareActionPicker: function () {
@@ -424,7 +469,7 @@ Page({
     },
 
     /**
-     * 动作选择tab
+     * 选择动作tab
      * 根据已选择的部位，准备动作列表
      */
     prepareActionData: function () {
@@ -470,49 +515,12 @@ Page({
     },
 
     /**
-     * 动作选择tab，响应重量选择
-     * @param e
-     */
-    onNumberChange: function (e) {
-        console.log(e);
-
-        let selectedRowArr = e.detail.value;
-
-        // 获取当前页面用户的输入
-        let planGpCount = parseInt(this.data.actionNoMultiArray[0][selectedRowArr[0]]);
-        let planCount = parseInt(this.data.actionNoMultiArray[1][selectedRowArr[1]]);
-        let planWeight = parseInt(this.data.actionNoMultiArray[2][selectedRowArr[2]]);
-        let measurement = this.data.actionNoMultiArray[3][selectedRowArr[3]];
-
-        console.log("in onNumberChange, picker: ", planGpCount + "组, ", planCount + "次, ", +planWeight, measurement);
-
-        let selectedPartList = this.data.selectedPartList;
-
-        let groupSet = [];
-        for (let idx = 0; idx < planGpCount; idx++) {
-            groupSet.push(new Plan.GroupSet(idx + 1, planCount, measurement, planWeight));
-
-        }
-
-        delete selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupSet;
-        selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupSet = groupSet;
-
-        // 重新置为选中
-        selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].actionSelected = true;
-
-        this.setData({
-            selectedPartList: this.data.selectedPartList,
-        });
-    },
-
-    /**
      * 页面总体控制
      * 滑动切换tab
      */
     onSwiperChange: function (e) {
         console.log("swipe to tab:", e.detail.current);
         this.switchTab(e.detail.current);
-
     },
 
     /**
@@ -529,9 +537,6 @@ Page({
      * tab切换的具体函数
      */
     switchTab: function (tabIdx) {
-        let tabData = this.data.tabData;
-        let currentTabIdx = tabIdx;
-
         switch (tabIdx) {
             case 0:
                 break;
@@ -557,18 +562,11 @@ Page({
      * @param e
      */
     onPreview: function (e) {
-        let arr1 = [1, 2];
-        let arr2 = [1, 2];
-        let arr3 = [1, 2, 3];
-        let arr4 = [3, 4];
-        console.log("app.Util.compare2Array(arr1,arr2): ", app.Util.compare2Array(arr1, arr2));
-        console.log("app.Util.compare2Array(arr1,arr3): ", app.Util.compare2Array(arr1, arr3));
-        console.log("app.Util.compare2Array(arr1,arr4): ", app.Util.compare2Array(arr1, arr4));
-        console.log("app.Util.compare2Array(arr3,arr4): ", app.Util.compare2Array(arr3, arr4));
 
         // 准备Plan的数据
         app.currentPlan.startDate = this.data.startDate;
         app.currentPlan.endDate = this.data.endDate;
+        app.currentPlan.cycleLength = this.data.cycleLength;
 
         // 必须检查重复，以防用户只是简单的切换了页面，造成重复添加
         for (let part = 0; part < this.data.selectedPartList.length; part++) {
@@ -596,7 +594,6 @@ Page({
             }
 
             // 判断重复
-
             let hasThisPart = false;
             for (let partSetIdx = 0; partSetIdx < app.currentPlan.partSet.length; partSetIdx++) {
                 // 如果有，需要进一步判断，搞清业务逻辑
@@ -604,8 +601,8 @@ Page({
                 // 如果日期列表相同，则只能使用这一个动作计划，直接用最新的替换掉；如果不同，则逻辑上是不同天的计划，直接添加即可
                 if (app.currentPlan.partSet[partSetIdx].name === partSet.name &&
                     app.Util.compare2Array(app.currentPlan.partSet[partSetIdx].trainDate, partSet.trainDate)) {
-
-                    app.currentPlan.partSet.splice(partSetIdx,1,partSet);
+                    // 替换
+                    app.currentPlan.partSet.splice(partSetIdx, 1, partSet);
                     hasThisPart = true;
                 }
             }
@@ -622,19 +619,18 @@ Page({
     },
 
     /**
-     * 生命周期函数--监听页面加载
+     * 初始化设置时间tab
      */
-    onLoad: function (options) {
-        console.log("Select Part Page onLoad");
-        wx.setNavigationBarTitle({
-            title: '定制我的锻炼计划',
-        });
+    initDateTab: function () {
+
         let startDate;
         let endDate;
 
+        // 判断进入的入口，如果是定制新计划，日期用当前日期；如果是修改已有计划，日期则使用计划的日期
         // 如果是现有计划，则显示现有计划的起止日期，否则看是否存有日期，如果没有，则用当前日期
         if (app.currentPlan.startDate !== "") {
             startDate = app.currentPlan.startDate;
+            endDate = app.currentPlan.endDate;
         } else if (app.planStartDate !== "") {
             startDate = app.planStartDate;
             endDate = app.planEndDate;
@@ -643,8 +639,21 @@ Page({
             endDate = app.Util.getMovedDate(startDate, true, 30);
         }
 
-        // TODO 判断入口
-        // 判断进入的入口，如果是定制新计划，日期用当前日期；如果是修改已有计划，日期则使用计划的日期
+        let cycleLength = app.currentPlan.cycleLength === 0 ? 7 : app.currentPlan.cycleLength;
+
+        this.setData({
+            startDate: startDate,
+            endDate: endDate,
+            cycleLength: cycleLength
+        });
+
+        this.makeWeekList(this.data.cycleLength, "");
+    },
+
+    /**
+     * 初始化选择部位tab
+     */
+    initPartTab: function () {
         let systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
         let partList = systemSetting.bodyPartList.partList;
         for (let part of partList) {
@@ -652,12 +661,30 @@ Page({
         }
 
         this.setData({
-            startDate: startDate,
-            endDate: endDate,
             partList: partList
         });
+    },
 
-        this.makeWeekList(this.data.period, "");
+    /**
+     * 初始化选择动作tab
+     */
+    initActionTab: function () {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面加载
+     * 页面进入时，初始化一些数据
+     */
+    onLoad: function (options) {
+        console.log("Select Part Page onLoad");
+        wx.setNavigationBarTitle({
+            title: '定制我的锻炼计划',
+        });
+
+        this.initDateTab();
+        this.initPartTab();
+        this.initActionTab();
 
     },
 

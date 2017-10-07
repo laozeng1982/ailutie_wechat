@@ -20,22 +20,9 @@ Page({
         currentYear: 2017,
         currentMonth: 0,
         currentDate: '',
-        daysCountArr: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-        weekList: [
-            { id: 0, value: '日', checked: false },
-            { id: 1, value: '一', checked: false },
-            { id: 2, value: '二', checked: false },
-            { id: 3, value: '三', checked: false },
-            { id: 4, value: '四', checked: false },
-            { id: 5, value: '五', checked: false },
-            { id: 6, value: '六', checked: false }
-        ],
+        monthDaysCountArr: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
         // 保存当月的日期
         dateList: [],
-        // 保存有计划的日期
-        dateListWithPlan: [],
-        // 保存有锻炼的日期
-        dateListWithTraining: [],
 
         showPlanDetail: false,
 
@@ -56,10 +43,10 @@ Page({
     setDateList: function (year, month) {
         let week;
         // 如果是闰年，则2月有29天
-        this.data.daysCountArr[1] = 28;
+        this.data.monthDaysCountArr[1] = 28;
         if (parseInt(year) % 4 === 0 && parseInt(year) % 100 !== 0) {
             console.log(parseInt(year) % 4, "and ", parseInt(year) % 100);
-            this.data.daysCountArr[1] = 29;
+            this.data.monthDaysCountArr[1] = 29;
         }
 
         //第几个月；下标从0开始，实际月份需要加1
@@ -75,7 +62,7 @@ Page({
         let lastMonth = month - 1 > 0 ? month - 1 : 12;
         let nextYear = month + 1 === 13 ? year + 1 : year;
         let nextMonth = month + 1 === 13 ? 1 : month + 1;
-        for (let idx = 0; idx < this.data.daysCountArr[month - 1]; idx++) {
+        for (let idx = 0; idx < this.data.monthDaysCountArr[month - 1]; idx++) {
             week = new Date(Date.UTC(year, month - 1, idx + 1)).getDay();
             // 补齐每个月前面的日子，计算上个月的尾巴
             if (firstDayOfWeek === 0 && !hasDoneFirstWeek) {
@@ -83,8 +70,8 @@ Page({
                     dateList[weekIndex].push({
                         value: app.Util.formatStringDate(lastYear,
                             lastMonth,
-                            this.data.daysCountArr[lastMonth - 1] + idx - 6),
-                        date: this.data.daysCountArr[lastMonth - 1] + idx - 6,
+                            this.data.monthDaysCountArr[lastMonth - 1] + idx - 6),
+                        date: this.data.monthDaysCountArr[lastMonth - 1] + idx - 6,
                         week: idx,
                         selected: false,
                         hasPlan: false,
@@ -102,8 +89,8 @@ Page({
                     dateList[weekIndex].push({
                         value: app.Util.formatStringDate(lastYear,
                             lastMonth,
-                            this.data.daysCountArr[lastMonth - 1] + blank + 1 - firstDayOfWeek),
-                        date: this.data.daysCountArr[lastMonth - 1] + blank + 1 - firstDayOfWeek,
+                            this.data.monthDaysCountArr[lastMonth - 1] + blank + 1 - firstDayOfWeek),
+                        date: this.data.monthDaysCountArr[lastMonth - 1] + blank + 1 - firstDayOfWeek,
                         week: week + blank - firstDayOfWeek,
                         selected: false,
                         hasPlan: false,
@@ -134,7 +121,7 @@ Page({
             }
 
             // 补齐每个月最后面的日子，计算下个月的头
-            if (idx === this.data.daysCountArr[month - 1] - 1) {
+            if (idx === this.data.monthDaysCountArr[month - 1] - 1) {
                 let rest = 7 - dateList[weekIndex].length;
                 for (let i = 0; i < rest; i++) {
                     dateList[weekIndex].push({
@@ -169,7 +156,7 @@ Page({
         }
 
         // 准备有计划的标注数据
-        console.log(app.currentPlan);
+        // console.log(app.currentPlan);
         for (let week = 0; week < dateList.length; week++) {
             for (let day = 0; day < dateList[week].length; day++) {
                 // 先判断这天是否在周期内
@@ -207,7 +194,7 @@ Page({
     },
 
     /**
-     * 移动月的操作
+     * 移动月的操作，整月移动
      */
     moveMonth: function (isNext) {
         let currentYear = this.data.currentYear;
@@ -227,21 +214,18 @@ Page({
             currentYear = now.getFullYear();
             currentMonth = now.getMonth() + 1;
             currentDate = now.getDate();
-        } else if (isNext === "selected") {
-
         }
 
-        console.log("here: ", currentYear, currentMonth, currentDate);
+        console.log("move to: ", currentYear, "年", currentMonth, "月", currentDate, "日");
         this.setData({
             currentYear: currentYear,
             currentMonth: currentMonth,
             currentDate: currentDate,
-            showPlanDetail: false
+            showPlanDetail: false,
+            selectedDate: app.Util.formatDateToString(new Date())
         });
 
         this.setDateList(currentYear, currentMonth);
-        if (isNext === "now")
-            this.selectDate(app.Util.formatDateToString(new Date()));
 
     },
 

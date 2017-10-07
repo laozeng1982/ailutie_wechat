@@ -27,6 +27,7 @@ class Plan {
 
         this.startDate = '';     // 计划开始的日期，格式：2017-09-25
         this.endDate = '';     // 计划结束的日期，格式：2017-09-25
+        this.cycleLength = 0;   // 每个循环的长度
         this.dateLength = 0;    // 计划的天数
 
         this.description = '';  // 计划描述
