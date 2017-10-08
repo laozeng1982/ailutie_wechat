@@ -105,7 +105,7 @@
         <view class='graySpaceSmall'></view>
 
         <!-- 当点击日历时，这里显示部位和动作信息 -->
-        <scroll-view class="scrollviewVertical" scroll-y="true">
+        <scroll-view class="scrollviewVertical_Preview" scroll-y="true">
             <!--  循环每个部位 -->
             <view id="{{item.name}}" class='partContainerColumn' wx:for="{{selectedDatePlan}}" wx:key="{{index}}">
                 <text class='textBig'>{{item.name}}</text>

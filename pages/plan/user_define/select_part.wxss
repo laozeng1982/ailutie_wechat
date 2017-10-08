@@ -128,7 +128,6 @@
     width: 90%;
 }
 
-
 .scrollviewRow {
     width: 100%;
     padding: 20rpx;
@@ -141,6 +140,22 @@
 .scroll-view_H {
     white-space: nowrap;
     border-bottom: 1rpx solid #eee;
+}
+
+.scroll-view_V_left {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    background-color: #eee;
+}
+
+.scroll-view_V_right {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    height: 100%;
+    /* border-bottom: 1rpx solid #eee; */
 }
 
 .scroll-view-item {
@@ -182,28 +197,39 @@
 }
 
 .textSelected {
-    /* padding: 40rpx; */
-    padding-left: 40rpx;
+     padding: 40rpx; 
+    /* padding-left: 40rpx;
     padding-top: 20rpx;
     padding-bottom: 20rpx;
-    padding-right: 40rpx;
+    padding-right: 40rpx; */
     align-content: center;
     align-items: center;
     font-size: 36rpx;
     font-weight: 600;
+    background-color: #fff;
     /* border-right: 1rpx solid #eee; */
 }
 
 .textUnselected {
-    /* padding: 40rpx; */
+     padding: 40rpx; 
     color: #888;
-    padding-left: 40rpx;
+    /* padding-left: 40rpx;
     padding-top: 20rpx;
     padding-bottom: 20rpx;
-    padding-right: 40rpx;
+    padding-right: 40rpx; */
     align-content: center;
     align-items: center;
     font-size: 36rpx;
     font-weight: 300;
     /* border-right: 1rpx solid #eee; */
+}
+
+.swiper-row-view {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
 }

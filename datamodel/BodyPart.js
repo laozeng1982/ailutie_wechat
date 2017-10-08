@@ -44,7 +44,7 @@ class BodyPartList {
             }
 
             let action = new Action();
-            action.actionId = item.length;
+            action.actionId = bodyPart.subParts.length;
             action.actionName = "自定义动作";
             action.actionPartId = partIndex;
             action.actionPart = partName;

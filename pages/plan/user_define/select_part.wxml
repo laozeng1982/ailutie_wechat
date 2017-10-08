@@ -9,7 +9,7 @@
             </block>
         </scroll-view>
 
-        <view class='graySpaceSmall'></view>
+        <!-- <view class='graySpaceSmall'></view> -->
 
         <swiper current="{{currentTabIdx}}" class="swiper-box" duration="300" bindchange="onSwiperChange">
             <!-- 时间选择Tab -->
@@ -56,22 +56,12 @@
                     <text>1、请选择计划开始和结束的时间</text>
                     <text>2、请选择计划中每个周期的长度</text> 3、如果计划中当天准备休息，不选这天即可 4、再左滑去选择该日期的锻炼部位
                 </view>
-                <!-- <view class='tips_text'>
-                    
-                </view>
-                <view class='tips_text'>
-                    
-                </view>
-
-                <view class='tips_text'>
-                   
-                </view> -->
 
             </swiper-item>
 
             <!-- 部位选择Tab -->
             <swiper-item id="{{tabData[1].type}}">
-                <view class='tips_text'>
+                <view class='textheader'>
                     请点选日期（可多选）
                 </view>
 
@@ -105,42 +95,51 @@
 
             <!-- 动作选择Tab -->
             <swiper-item id="{{tabData[2].type}}">
-                <scroll-view class="scroll-view_H" scroll-into-view="{{toView}}" scroll-x="true">
-                    <view id="{{item.partName}}" class="scroll-view-item_H {{item.selected?'textSelected':'textUnselected'}}" wx:for="{{selectedPartList}}" wx:key="{{index}}" bindtap='onSelectPartTab'>
-                        {{item.partName}}({{item.selectedCount}})
-                        <!-- <icon type="success_no_circle" color="{{item.checked?'#09bb07':'#888'}}"></icon> -->
-                    </view>
-                </scroll-view>
-
-                <view id="{{item.partName}}" wx:if="{{item.selected}}" class='scrollviewVertical' wx:for="{{selectedPartList}}" wx:key="{{index}}">
-                    <scroll-view class="scrollviewVertical" scroll-y="true">
-                        <!--  每个动作 -->
-                        <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" wx:key="{{index}}" bindtap='onSelectAction'>
-                            <!-- 图片占位 -->
-                            <view class='imageBig'></view>
-                            <!-- <image src='../../image/pulse_64px.png'></image> -->
-
-                            <view class='actionItem'>
-                                <view class='header'>
-                                    <view>{{item.actionName}}</view>
-                                </view>
-                                <picker wx:if="{{item.actionMeasurement !== ''}}" id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
-                                    <view class="pickerContainer">
-                                        <view class="pickerItem">{{item.groupSet.length}} </view>
-                                        <view class="pickerItem">组</view>
-                                        <view class="pickerItem">{{item.groupSet[0].quantity}}</view>
-                                        <view class="pickerItem">{{item.actionGpMeasurement}}</view>
-                                        <view class="pickerItem">{{item.groupSet[0].weight}}</view>
-                                        <view class="pickerItem">{{item.groupSet[0].uom}}</view>
-                                    </view>
-                                </picker>
-                            </view>
-
-                            <icon wx:if="{{!item.actionSelected}}" class='icon' type="circle" size="23"></icon>
-                            <icon wx:else class='icon' class='icon' type="success_circle" size="23"></icon>
-
+                <view class='swiper-row-view'>
+                    <!-- 部位列表 -->
+                    <scroll-view class="scroll-view_V_left" scroll-into-view="{{toView}}" scroll-y="true">
+                        <view id="{{item.partName}}" class="scroll-view-item_H {{item.selected?'textSelected':'textUnselected'}}" wx:for="{{selectedPartList}}" wx:key="{{index}}" bindtap='onSelectPartTab'>
+                            {{item.partName}}({{item.selectedCount}})
+                            <!-- <icon type="success_no_circle" color="{{item.checked?'#09bb07':'#888'}}"></icon> -->
                         </view>
                     </scroll-view>
+
+                    <view class='scroll-view_V_right' id="{{item.partName}}" wx:if="{{item.selected}}" wx:for="{{selectedPartList}}" wx:key="{{index}}">
+                        <scroll-view class="scrollviewVertical_Action" scroll-y="true">
+                            <!-- 每个部位细分类 -->
+                            <view id="{{index}}" wx:for="{{item.subParts}}" wx:key="{{index}}">
+                                <view class='textheader'> {{item.name}}</view>
+
+                                <!--  每个动作 -->
+                                <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" data-subpartidx="{{item.actionPartId-1}}"  wx:key="{{index}}" bindtap='onSelectAction'>
+                                    <!-- 图片占位 -->
+                                    <view class='imageBig'></view>
+                                    <!-- <image src='../../image/pulse_64px.png'></image> -->
+
+                                    <view class='actionItem'>
+                                        <view class='header'>
+                                            <view>{{item.actionName}}</view>
+                                        </view>
+                                        <!-- wx:if="{{item.actionMeasurement !== ''}}" -->
+                                        <picker id="{{item.actionId}}" data-subpartidx="{{item.actionPartId-1}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
+                                            <view class="pickerContainer">
+                                                <view class="pickerItem">{{item.groupSet.length}} </view>
+                                                <view class="pickerItem">组</view>
+                                                <view class="pickerItem">{{item.groupSet[0].quantity}}</view>
+                                                <view class="pickerItem">{{item.actionGpMeasurement}}</view>
+                                                <view class="pickerItem">{{item.groupSet[0].weight}}</view>
+                                                <view class="pickerItem">{{item.groupSet[0].uom}}</view>
+                                            </view>
+                                        </picker>
+                                    </view>
+
+                                    <icon wx:if="{{!item.actionSelected}}" class='icon' type="circle" size="23"></icon>
+                                    <icon wx:else class='icon' class='icon' type="success_circle" size="23"></icon>
+                                </view>
+
+                            </view>
+                        </scroll-view>
+                    </view>
                 </view>
 
             </swiper-item>
@@ -151,7 +150,7 @@
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
 
-    <view class='graySpaceSmall'></view>
+    <!-- <view class='graySpaceSmall'></view> -->
 
     <view class='footArea'>
         <button class='nextBtn' type='primary' disabled='{{!allTabFinished}}' bindtap='onPreview'> 预览 </button>
