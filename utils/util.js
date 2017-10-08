@@ -161,12 +161,10 @@ function getMovedDate(startDay, isNext, dayCount) {
     }
     let movedDayDate = new Date();
     movedDayDate.setTime(movedDayTimeMills);
-    console.log("move to ", movedDayDate + ".............");
+    // console.log("move to ", movedDayDate + ".............");
 
     return formatDateToString(movedDayDate);
-
 }
-
 
 /**
  *

@@ -54,7 +54,7 @@ Page({
      * 滑动切换tab
      */
     onSwiperChange: function (e) {
-        console.log("swipe to tab:", e.detail.current);
+        // console.log("swipe to tab:", e.detail.current);
         this.switchTab(e.detail.current);
 
     },
@@ -64,7 +64,6 @@ Page({
      */
     onSwitchNav: function (e) {
         // console.log("clicked tab:", e.target.dataset.current);
-
         this.switchTab(e.target.dataset.current);
     },
 
@@ -174,7 +173,7 @@ Page({
             }
         }
 
-        console.log(app.currentPlan);
+        console.log("leaving goal page, app.currentPlan", app.currentPlan);
     },
 
     /**

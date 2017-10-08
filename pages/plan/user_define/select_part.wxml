@@ -53,8 +53,10 @@
                 </view>
 
                 <view class='tips_text'>
-                    <text>1、请选择计划开始和结束的时间</text>
-                    <text>2、请选择计划中每个周期的长度</text> 3、如果计划中当天准备休息，不选这天即可 4、再左滑去选择该日期的锻炼部位
+                    <view style='margin:20rpx'>1、请选择计划开始和结束的时间</view>
+                    <view style='margin:20rpx'>2、请选择计划中每个周期的长度</view>
+                    <view style='margin:20rpx'>3、如果计划中当天准备休息，不选这天即可</view>
+                    <view style='margin:20rpx'>4、再左滑去选择该日期的锻炼部位</view>
                 </view>
 
             </swiper-item>
@@ -111,7 +113,7 @@
                                 <view class='textheader'> {{item.name}}</view>
 
                                 <!--  每个动作 -->
-                                <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" data-subpartidx="{{item.actionPartId-1}}"  wx:key="{{index}}" bindtap='onSelectAction'>
+                                <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" data-subpartidx="{{item.actionPartId-1}}" wx:key="{{index}}" bindtap='onSelectAction'>
                                     <!-- 图片占位 -->
                                     <view class='imageBig'></view>
                                     <!-- <image src='../../image/pulse_64px.png'></image> -->

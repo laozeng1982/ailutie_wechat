@@ -2,7 +2,7 @@
 @import '../plan_wizzard_style';
 
 .scrollview {
-    height: 640rpx;
+    height: 600rpx;
     display: flex;
     flex-direction: column;
 }
@@ -103,6 +103,9 @@
     align-content: center;
     align-items: center;
     flex-direction: row;
+    border-radius: 50%;
+    border-color: #888;
+    border: 1rpx dashed;
     justify-content: space-around;
 }
 

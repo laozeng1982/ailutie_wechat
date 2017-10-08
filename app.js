@@ -150,6 +150,7 @@ App({
     makingNewPlan: true,
     planStartDate: '',
     planEndDate: '',
+    lastPlanSaved: false,
 
     globalData: {
         // 定义一些全局变量

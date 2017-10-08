@@ -247,10 +247,12 @@
 } */
 
 .tips_text {
-    margin-top: 40rpx;
+    margin: 10rpx;
+    margin-left: 20rpx;
     font-size: 28rpx;
     width: 100%;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
     color: #888;
 }
 

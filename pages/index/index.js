@@ -38,11 +38,11 @@ Page({
         // TODO 这里可以做的更复杂，实现点击进入当天详细内容
         console.log("touchEnd:", e.target.id);
         this.data.currentChart.scrollEnd(e);
-        this.data.currentChart.showToolTip(e, {
-            format: function (item, category) {
-                return category + ', ' + item.name + ': ' + item.data
-            }
-        });
+        // this.data.currentChart.showToolTip(e, {
+        //     format: function (item, category) {
+        //         return category + ', ' + item.name + ': ' + item.data
+        //     }
+        // });
     },
 
     onRadioChange: function (e) {
@@ -121,7 +121,7 @@ Page({
         var that = this;
 
         var notSignUp = app.Util.checkSignUp();
-        console.log("notSignUp is: ", notSignUp);
+        // console.log("notSignUp is: ", notSignUp);
 
         //调用应用实例的方法获取全局数据
         app.getWechatUserInfo(function (wechatUserInfo) {

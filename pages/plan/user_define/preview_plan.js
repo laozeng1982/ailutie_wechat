@@ -403,6 +403,7 @@ Page({
                 console.log(res.tapIndex);
                 switch (res.tapIndex) {
                     case 0:
+                        app.lastPlanSaved = true;
                         wx.navigateBack({
                             delta: 1,
                         });
