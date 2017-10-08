@@ -86,7 +86,8 @@
 .dateSelectorContanier {
     margin-top: 50rpx;
     width: 100%;
-    height: 300rpx;
+    /* height: 300rpx; */
+    padding-bottom:20rpx;
     display: flex;
     flex-direction: column;
 }

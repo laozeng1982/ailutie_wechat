@@ -77,6 +77,7 @@ Page({
 
         // 准备选择列表
         if (cycleLength === 7) {
+
             week = [
                 {id: 0, value: '日', currpart: part, hasparts: '', selected: false},
                 {id: 1, value: '一', currpart: part, hasparts: '', selected: false},
@@ -86,21 +87,40 @@ Page({
                 {id: 5, value: '五', currpart: part, hasparts: '', selected: false},
                 {id: 6, value: '六', currpart: part, hasparts: '', selected: false}
             ];
+
+            for (let idx = 0; idx < 7; idx++) {
+                let partArr = [];
+                for (let partSet of app.currentPlan.partSet) {
+                    if (partSet.trainDate.includes(idx)) {
+                        partArr.push(partSet.name);
+                    }
+                }
+                week[idx].hasparts = app.Util.makePartString(partArr);
+            }
+
             weekList.push(week);
         } else {
             for (let index = 0; index < Math.ceil(cycleLength / 7); index++) {
                 week = [];
                 for (let idx = 0; idx < 7 && (index * 7 + idx) < cycleLength; idx++) {
+                    let partArr = [];
+                    for (let partSet of app.currentPlan.partSet) {
+                        if (partSet.trainDate.includes(index * 7 + idx)) {
+                            partArr.push(partSet.name);
+                        }
+                    }
+
                     week.push(
                         {
                             id: index * 7 + idx,
                             value: index * 7 + idx + 1,
                             currpart: part,
-                            hasparts: '',
+                            hasparts: app.Util.makePartString(partArr),
                             selected: false
                         }
                     );
                 }
+
                 weekList.push(week);
             }
         }
@@ -108,8 +128,7 @@ Page({
         console.log("weekList: ", weekList);
 
         // 条件检查
-        let allPickerValidated = app.Util.dateDirection(this.data.startDate) >= 0
-            && app.Util.datesDistance(this.data.startDate, this.data.endDate) >= this.data.cycleLength;
+        let allPickerValidated = app.Util.datesDistance(this.data.startDate, this.data.endDate) >= this.data.cycleLength;
 
         if (allPickerValidated) {
             this.setData({
@@ -122,6 +141,9 @@ Page({
 
     /**
      * 设定时间tab
+     * 显示更改的日期，日期最早的时间点在Picker中设定了，无需判断过期这种情况。
+     * 当修改了周期的天数，如果周期缩短，涉及到对已选择动作的修改，需要提示用户，是否放弃之前的动作计划。
+     * 如果周期变长，没有变化，重新生成weekList即可。
      * @param e
      */
     onDatePickerChange: function (e) {
@@ -139,15 +161,33 @@ Page({
                 break;
             case "cycle":
                 let cycleLength = parseInt(e.detail.value) + 1;
-                this.setData({
-                    cycleLength: cycleLength
-                });
+                let makeWeekList = true;
+                // if (cycleLength < this.data.cycleLength) {
+                //     wx.showModal({
+                //         title: '确定缩短周期？',
+                //         content: '缩短周期后，原计划超出现有周期的部分将不可用。',
+                //         success: function (res) {
+                //             if (res.confirm) {
+                //                 makeWeekList = true;
+                //             } else if (res.cancel) {
+                //                 makeWeekList = false;
+                //             }
+                //         }
+                //     });
+                // } else {
+                //     makeWeekList = true;
+                // }
+
+                if (makeWeekList) {
+                    this.setData({
+                        cycleLength: cycleLength
+                    });
+                    this.makeWeekList(this.data.cycleLength, "");
+                }
                 break;
             default:
                 break;
         }
-
-        this.makeWeekList(this.data.cycleLength, "");
     },
 
     /**
@@ -543,9 +583,7 @@ Page({
             case 1:
                 break;
             case 2:
-                this.prepareActionPart();
-                this.prepareActionPicker();
-                this.prepareActionData();
+                this.initActionTab();
                 break;
             default:
                 return;
@@ -625,21 +663,31 @@ Page({
 
         let startDate;
         let endDate;
+        let cycleLength;
 
         // 判断进入的入口，如果是定制新计划，日期用当前日期；如果是修改已有计划，日期则使用计划的日期
         // 如果是现有计划，则显示现有计划的起止日期，否则看是否存有日期，如果没有，则用当前日期
-        if (app.currentPlan.startDate !== "") {
-            startDate = app.currentPlan.startDate;
-            endDate = app.currentPlan.endDate;
-        } else if (app.planStartDate !== "") {
-            startDate = app.planStartDate;
-            endDate = app.planEndDate;
-        } else {
-            startDate = app.Util.formatDateToString(new Date());
-            endDate = app.Util.getMovedDate(startDate, true, 30);
-        }
+        if (!app.makingNewPlan) {
+            if (app.currentPlan.startDate !== "") {
+                startDate = app.currentPlan.startDate;
+                endDate = app.currentPlan.endDate;
+            } else {
+                startDate = app.Util.formatDateToString(new Date());
+                endDate = app.Util.getMovedDate(startDate, true, 30);
+            }
 
-        let cycleLength = app.currentPlan.cycleLength === 0 ? 7 : app.currentPlan.cycleLength;
+            cycleLength = app.currentPlan.cycleLength === 0 ? 7 : app.currentPlan.cycleLength;
+        } else {
+            if (app.planStartDate !== "") {
+                startDate = app.planStartDate;
+                endDate = app.planEndDate;
+            } else {
+                startDate = app.Util.formatDateToString(new Date());
+                endDate = app.Util.getMovedDate(startDate, true, 30);
+            }
+
+            cycleLength = 7;
+        }
 
         this.setData({
             startDate: startDate,
@@ -656,12 +704,91 @@ Page({
     initPartTab: function () {
         let systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
         let partList = systemSetting.bodyPartList.partList;
+
         for (let part of partList) {
             part.selectedCount = 0;
         }
 
+        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
+
+        // 进行判断，如果是继续制定计划，那么之前的计划，已经保存了，这里刷新一下数据，如果不是，则不用刷新
+        for (let plan of planSet) {
+            if (plan.currentUse && app.currentPlan.partSet.length > 0) {
+                for (let idx = 0; idx < partList.length; idx++) {
+                    partList[idx].selected = false;
+                }
+
+                // 如果之前的计划有这个部位了，标注出来
+                for (let item of app.currentPlan.partSet) {
+                    for (let partIdx = 0; partIdx < partList.length; partIdx++) {
+                        if (item.name === partList[partIdx].partName) {
+                            if (app.currentPlan.cycleLength === 7) {
+
+                                let trainDate = [];
+                                for (let date of item.trainDate) {
+                                    switch (date) {
+                                        case 0:
+                                            trainDate.push("周日");
+                                            break;
+                                        case 1:
+                                            trainDate.push("周一");
+                                            break;
+                                        case 2:
+                                            trainDate.push("周二");
+                                            break;
+                                        case 3:
+                                            trainDate.push("周三");
+                                            break;
+                                        case 4:
+                                            trainDate.push("周四");
+                                            break;
+                                        case 5:
+                                            trainDate.push("周五");
+                                            break;
+                                        case 6:
+                                            trainDate.push("周六");
+                                            break;
+                                    }
+                                }
+                                partList[partIdx].trainDateArr = item.trainDate;
+                                partList[partIdx].trainDateStr = "( " + trainDate.join("，") + " )";
+                                console.log("item.trainDateStr ", partList[partIdx].trainDateStr);
+                            } else {
+                                // 新建数组，不改变原数组的值
+                                let trainDate = [];
+                                for (let idx = 0; idx < item.trainDate.length; idx++) {
+                                    trainDate.push(item.trainDate[idx] + 1);
+                                }
+                                partList[partIdx].trainDateArr = item.trainDate;
+                                partList[partIdx].trainDateStr = "( " + trainDate.join("，") + " )";
+                            }
+                        }
+                    }
+                }
+
+                break;
+            }
+        }
+
+        // 重新排序
+        let orderPartList = [];
+        // 先排没有计划的，放在前面
+        for (let part of partList) {
+            if (typeof part.trainDateArr === "undefined") {
+                console.log("without plan", part.partName);
+                orderPartList.push(part);
+            }
+        }
+        // 再排有计划的，如果计划有多天，按照第一天谁靠前排序
+        for (let part of partList) {
+            if (typeof part.trainDateArr !== "undefined" && part.trainDateArr.length) {
+                orderPartList.push(part);
+                console.log("with plan", part.partName);
+            }
+        }
+
         this.setData({
-            partList: partList
+            partList: orderPartList
         });
     },
 
@@ -669,7 +796,9 @@ Page({
      * 初始化选择动作tab
      */
     initActionTab: function () {
-
+        this.prepareActionPart();
+        this.prepareActionPicker();
+        this.prepareActionData();
     },
 
     /**
@@ -700,63 +829,9 @@ Page({
      */
     onShow: function () {
         console.log("Select Part Page onShow");
-
-        let partList = this.data.partList;
-
-        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
-
-        // 进行判断，如果是继续制定计划，那么之前的计划，已经保存了，这里刷新一下数据，如果不是，则不用刷新
-        for (let plan of planSet) {
-            if (plan.currentUse && app.currentPlan.partSet.length > 0) {
-                for (let idx = 0; idx < partList.length; idx++) {
-                    partList[idx].selected = false;
-                }
-
-                // 如果之前的计划有这个部位了，标注出来
-                for (let item of app.currentPlan.partSet) {
-                    for (let partIdx = 0; partIdx < partList.length; partIdx++) {
-                        if (item.name === partList[partIdx].partName) {
-                            let trainDate = [];
-                            for (let date of item.trainDate) {
-                                switch (date) {
-                                    case 0:
-                                        trainDate.push("周日");
-                                        break;
-                                    case 1:
-                                        trainDate.push("周一");
-                                        break;
-                                    case 2:
-                                        trainDate.push("周二");
-                                        break;
-                                    case 3:
-                                        trainDate.push("周三");
-                                        break;
-                                    case 4:
-                                        trainDate.push("周四");
-                                        break;
-                                    case 5:
-                                        trainDate.push("周五");
-                                        break;
-                                    case 6:
-                                        trainDate.push("周六");
-                                        break;
-                                }
-                            }
-                            partList[partIdx].trainDate = "( " + trainDate.join("，") + " )";
-                            console.log("item.trainDate ", partList[partIdx].trainDate);
-                        }
-                    }
-
-                }
-
-                this.setData({
-                    partList: partList
-                });
-
-                break;
-            }
-        }
-
+        this.initDateTab();
+        this.initPartTab();
+        this.initActionTab();
     },
 
     /**

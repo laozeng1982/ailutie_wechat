@@ -35,17 +35,44 @@
                     </picker>
                 </view>
 
-                 <!-- <view class='rowContainer'>
-                    <view class='text1'>休息天数：</view>
-                    <picker class='picker_row' id='rest' value="{{restIndex}}" range="{{restPickerArray}}" bindchange="onDatePickerChange">
-                        <view style='margin-left:50rpx'>{{restDays}} 天</view>
-                    </picker>
-                </view>  -->
-
                 <view class='graySpaceSmall'></view>
 
                 <view class='text2'>
-                    请点选日期
+                    周期预览
+                </view>
+
+                <view class='dateSelectorContanier'>
+                    <view class='dateSelectorRow' wx:for="{{weekList}}" wx:key="{{index}}" wx:for-item="week">
+                        <view class='date' wx:for="{{week}}" wx:key="{{index}}" id='{{item.id}}' data-date="{{item}}">
+                            <view class="{{item.selected?'selected_date':'unselected_date'}}">{{item.value}}</view>
+                            <view class='textSmall'>
+                                <text>{{item.hasparts}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class='tips_text'>
+                    <text>1、请选择计划开始和结束的时间</text>
+                    <text>2、请选择计划中每个周期的长度</text> 3、如果计划中当天准备休息，不选这天即可 4、再左滑去选择该日期的锻炼部位
+                </view>
+                <!-- <view class='tips_text'>
+                    
+                </view>
+                <view class='tips_text'>
+                    
+                </view>
+
+                <view class='tips_text'>
+                   
+                </view> -->
+
+            </swiper-item>
+
+            <!-- 部位选择Tab -->
+            <swiper-item id="{{tabData[1].type}}">
+                <view class='tips_text'>
+                    请点选日期（可多选）
                 </view>
 
                 <view class='dateSelectorContanier'>
@@ -59,23 +86,14 @@
                     </view>
                 </view>
 
-                <view wx:if="{{allPickerValidated}}" class='tips_text'>
-                    请点选日期（可多选），再左滑去选择该日期的锻炼部位
-                </view>
-                <view wx:if="{{allPickerValidated}}" class='tips_text'>
-                    如果计划中当天准备休息，不选这天即可
-                </view>
+                <view class='graySpaceSmall'></view>
 
-            </swiper-item>
-
-            <!-- 部位选择Tab -->
-            <swiper-item id="{{tabData[1].type}}">
                 <scroll-view class="scrollview" scroll-y="true">
                     <view id="{{item.partId}}" class='partContainer' wx:for="{{partList}}" wx:key="{{index}}" bindtap='onSelectPartItem'>
                         <icon wx:if="{{!item.selected }}" class='icon' type="circle"></icon>
                         <icon wx:else class='icon' type="success_circle"></icon>
 
-                        <view style='font-size:32rpx'>{{item.trainDate}}</view>
+                        <view style='font-size:32rpx'>{{item.trainDateStr}}</view>
                         <text class='text'>{{item.partName}}</text>
                     </view>
                 </scroll-view>

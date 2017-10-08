@@ -91,13 +91,25 @@ Page({
         // console.log("in onRadioChange:", this.data.currentChart);
     },
 
-    onModifyPlan: function (e) {
+    /**
+     * 修改现有计划
+     * 只有当前有计划是才能有此接口，置app.makingNewPlan为false。
+     *
+     */
+    onModifyPlan: function () {
+        app.makingNewPlan = false;
         wx.navigateTo({
             url: '../plan/user_define/preview_plan?model=modify',
         });
     },
 
+    /**
+     * 定制新计划
+     * 只有当前没有有计划是才能有此接口，置app.makingNewPlan为true。
+     *
+     */
     onMakePlan: function () {
+        app.makingNewPlan = true;
         wx.navigateTo({
             url: '../plan/select_goal/select_goal',
         });

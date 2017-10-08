@@ -2,7 +2,7 @@
 @import '../plan_wizzard_style';
 
 .scrollview {
-    height: 840rpx;
+    height: 640rpx;
     display: flex;
     flex-direction: column;
 }

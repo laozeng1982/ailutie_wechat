@@ -146,6 +146,8 @@ App({
     StorageType: STORAGETYPE,
     Util: util,
 
+    // 操作计划的模式：如制定新计划为真，否则为假，在首页里两个操作互斥
+    makingNewPlan: true,
     planStartDate: '',
     planEndDate: '',
 
