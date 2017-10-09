@@ -282,96 +282,7 @@ function makePartString(partArr) {
     return partString;
 }
 
-/**
- * 根据第一列数据的变化，动态获取第二列的值
- */
-function getMovementNamePickerList(idxOfColumn1) {
-    let app = getApp();
-    let movementNamePickerList;
-    switch (idxOfColumn1) {
-        case 0:
-            //0、胸部
-            movementNamePickerList = app.globalData.movementNameArrayPectorales;
-            break;
-        case 1:
-            //1、肩部
-            movementNamePickerList = app.globalData.movementNameArrayShoulder;
-            break;
-        case 2:
-            //2、背部
-            movementNamePickerList = app.globalData.movementNameArrayDorsal;
-            break;
-        case 3:
-            //3、腰部
-            movementNamePickerList = app.globalData.movementNameArrayWaist;
-            break;
-        case 4:
-            //4、腹部
-            movementNamePickerList = app.globalData.movementNameArrayAbdomen;
-            break;
-        case 5:
-            //5、肱二头
-            movementNamePickerList = app.globalData.movementNameArrayArmBiceps;
-            break;
-        case 6:
-            //6、肱三头
-            movementNamePickerList = app.globalData.movementNameArrayArmTriceps;
-            break;
-        case 7:
-            //7、小臂
-            movementNamePickerList = app.globalData.movementNameArrayForeArm;
-            break;
-        case 8:
-            //8、股二头
-            movementNamePickerList = app.globalData.movementNameArrayFemorisBiceps;
-            break;
-        case 9:
-            //9、股四头
-            movementNamePickerList = app.globalData.movementNameArrayFemorisQuadriceps;
-            break;
-        case 10:
-            //10、小腿
-            movementNamePickerList = app.globalData.movementNameArrayShank;
-            break;
-        default:
-            break;
-    }
 
-    return movementNamePickerList;
-}
-
-
-/**
- *
- * @param arr1
- * @param arr2
- */
-function arr1_IsFront_arr2(arr1, arr2) {
-
-    // 得到一个较小的数组长度，用以循环比较
-    let loopLength = arr1.length <= arr2.length ? arr1.length : arr2.length;
-
-    let front = true;
-    let allSameElement = true;
-
-    for (let idx = 0; idx < loopLength; idx++) {
-        if (arr1[idx] < arr2[idx]) {
-            allSameElement = false;
-            break;
-        } else if (arr1[idx] > arr2[idx]) {
-            allSameElement = false;
-            front = false;
-            break;
-        }
-    }
-
-    if (allSameElement) {
-        console.log("same");
-        front = arr1.length <= arr2.length;
-    }
-
-    return front;
-}
 
 //深度克隆
 function deepClone(obj) {
@@ -400,13 +311,11 @@ module.exports = {
     checkSignUp: checkSignUp,
     showNormalToast: showNormalToast,
     showWarnToast: showWarnToast,
-    getMovementNamePickerList: getMovementNamePickerList,
     getMovedDate: getMovedDate,
     inPeriod: inPeriod,
     makePartString: makePartString,
     log: log,
     compare2Array: compare2Array,
-    arr1_IsFront_arr2: arr1_IsFront_arr2,
     deepClone: deepClone
 
 }

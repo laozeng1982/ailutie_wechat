@@ -23,6 +23,7 @@ class UserInfo {
         this.userSetting = '';
     }
 
+
 }
 
 module.exports = {

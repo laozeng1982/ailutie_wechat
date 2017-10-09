@@ -1,42 +1,42 @@
 /**
- * Bod
+ * Body
  */
 
-class BodyPartList {
+import PlanSet from './PlanSet'
+
+class Body {
     constructor() {
         this.type = "";
-        this.partList = this.createDefaultPartList();
+        this.partList = [];
     }
 
     /**
-     *
+     * 从内置的动作数据文件中，新建一个默认的身体部位列表及对应的动作信息
      */
-    createDefaultPartList() {
+    static createDefaultPartList() {
         let orgType = new OrgType();
-
-        // console.log("in createDefaultPartList, orgType", orgType);
 
         let partList = [];
         let partIndex = 1;
         let partName;
 
-        for (let item of orgType.DefaultActionName) {
+        for (let part of orgType.DefaultActionName) {
             let bodyPart = new BodyPart();
-            partName = item.partName;
+            partName = part.partName;
             bodyPart.partId = partIndex;
             bodyPart.partName = partName;
-            // bodyPart.subParts = item.subParts;
-            for (let subPartIdx = 0; subPartIdx < item.subParts.length; subPartIdx++) {
-                let subPart = {name: item.subParts[subPartIdx].name, actionList: []};
-                for (let actionIdx = 0; actionIdx < item.subParts[subPartIdx].actionArray.length; actionIdx++) {
+            // bodyPart.subParts = part.subParts;
+            for (let subPartIdx = 0; subPartIdx < part.subParts.length; subPartIdx++) {
+                let subPart = {name: part.subParts[subPartIdx].name, actionList: []};
+                for (let actionIdx = 0; actionIdx < part.subParts[subPartIdx].actionArray.length; actionIdx++) {
                     let action = new Action();
                     action.actionId = actionIdx + 1;
-                    action.actionName = item.subParts[subPartIdx].actionArray[actionIdx].name;
-                    action.actionEquipment = item.subParts[subPartIdx].actionArray[actionIdx].equipment;
-                    action.actionGpMeasurement = item.subParts[subPartIdx].actionArray[actionIdx].gpmeasurement;
-                    action.actionMeasurement = item.subParts[subPartIdx].actionArray[actionIdx].measurement;
+                    action.actionName = part.subParts[subPartIdx].actionArray[actionIdx].name;
+                    action.actionEquipment = part.subParts[subPartIdx].actionArray[actionIdx].equipment;
+                    action.actionGpMeasurement = part.subParts[subPartIdx].actionArray[actionIdx].gpmeasurement;
+                    action.actionMeasurement = part.subParts[subPartIdx].actionArray[actionIdx].measurement;
                     action.actionPartId = subPartIdx + 1;
-                    action.actionPartName = item.subParts[subPartIdx].name;
+                    action.actionPartName = part.subParts[subPartIdx].name;
                     subPart.actionList.push(action);
 
                 }
@@ -59,21 +59,390 @@ class BodyPartList {
         return partList;
     }
 
-    fullCopyFrom(bodyPartList) {
-        this.type = bodyPartList.type;
-        this.partList = bodyPartList.partList;
+    makeDefaultDefaultPartList() {
+        this.partList = Body.createDefaultPartList();
     }
 
     /**
-     * 清楚选中项
+     * 深度克隆数据
+     * @param body
+     */
+    cloneDataFrom(body) {
+        this.partList = Body.deepClone(body.partList);
+    }
+
+
+    /**
+     * 深度复制目标
+     * @param obj
+     */
+    static deepClone(obj) {
+
+        let clone = obj.constructor === Array ? [] : {};
+
+        // 递归
+        for (let item in obj) {
+            if (obj.hasOwnProperty(item)) {
+                clone[item] = typeof obj[item] === "object" ? deepClone(obj[item]) : obj[item];
+            }
+        }
+
+        return clone;
+    }
+
+    /**
+     * 初始化
+     * 给每一个动作，增加一个groupSet，方便以后用
+     */
+    initGroupSet() {
+        for (let partIdx = 0; partIdx < this.partList.length; partIdx++) {
+            for (let subPatIdx = 0; subPatIdx < this.partList[partIdx].subParts.length; subPatIdx++) {
+                for (let actionIdx = 0; actionIdx < this.partList[partIdx].subParts[subPatIdx].actionList.length; actionIdx++) {
+                    // 临时增加一个数据项，用以保存数据
+                    this.partList[partIdx].subParts[subPatIdx].actionList[actionIdx].groupSet = [];
+                    for (let idx = 0; idx < 6; idx++) {
+                        let group = new PlanSet.GroupSet(idx + 1, 10,
+                            this.partList[partIdx].subParts[subPatIdx].actionList[actionIdx].actionMeasurement, 30);
+
+                        this.partList[partIdx].subParts[subPatIdx].actionList[actionIdx].groupSet.push(group);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     *
+     * @param partSet
+     */
+    updateGroupSet(partSet) {
+        for (let partIdx = 0; partIdx < this.partList.length; partIdx++) {
+            if (partSet.name === this.partList[partIdx].partName) {
+                for (let actionItem of partSet.actionSet) {
+                    for (let subPartIdx = 0; subPartIdx < this.partList[partIdx].subParts.length; subPartIdx++) {
+                        for (let actionIdx = 0; actionIdx < this.partList[partIdx].subParts[subPartIdx].actionList.length; actionIdx++) {
+                            if (actionItem.name === this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].actionName) {
+                                this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].actionSelected = true;
+
+                                delete this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].groupSet;
+                                this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].groupSet = actionItem.groupSet;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    /**
+     * 清除选中项
      */
     clearSelection() {
         for (let partIdx = 0; partIdx < this.partList.length; partIdx++) {
             this.partList[partIdx].selected = false;
-
-            for (let mvIdx = 0; mvIdx < this.partList[partIdx].actionList.length; mvIdx++)
-                this.partList[partIdx].actionList[mvIdx].actionSelected = false;
+            for (let subPartIdx = 0; subPartIdx < this.partList[partIdx].subParts.length; subPartIdx++) {
+                for (let actionIdx = 0; actionIdx < this.partList[partIdx].subParts[subPartIdx].actionList.length; actionIdx++) {
+                    this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].actionSelected = false;
+                }
+            }
         }
+    }
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    hasSelectedPart() {
+        let hasSelectedPart = false;
+        for (let part of this.partList) {
+            hasSelectedPart = hasSelectedPart || part.selected;
+        }
+
+        return hasSelectedPart;
+    }
+
+    /**
+     * 给定Id，选中目标部位
+     * @param partId
+     */
+    selectPart(partId) {
+        for (let idx = 0; idx < this.partList.length; idx++) {
+            if (parseInt(partId) === parseInt(this.partList[idx].partId)) {
+                this.partList[idx].selected = !this.partList[idx].selected;
+                break;
+            }
+        }
+    }
+
+    /**
+     * 给定Id，高亮激活目标部位
+     * @param partName
+     */
+    activePart(partName) {
+        for (let idx = 0; idx < this.partList.length; idx++) {
+            this.partList[idx].active = partName === this.partList[idx].partName;
+        }
+    }
+
+    /**
+     * 选中一组部位（多个）
+     * @param partsArr
+     */
+    selectParts(partsArr) {
+        for (let part of this.partList) {
+            if (partsArr.length > 0) {
+                part.selected = partsArr.includes(part.partName);
+            }
+        }
+    }
+
+    /**
+     * 取消选中一组部位
+     * @param partsArr
+     */
+    unSelectParts(partsArr) {
+        for (let part of this.partList) {
+            if (partsArr.length > 0) {
+                if (partsArr.includes(part.partName)) {
+                    part.selected = false;
+                }
+            }
+        }
+    }
+
+    /**
+     * 统计已经选择动作的数量
+     */
+    countSelectedAction() {
+        for (let part of this.partList) {
+            let selectedActionCount = 0;
+            for (let subPart of part.subParts) {
+                for (let action of subPart.actionList) {
+                    if (action.actionSelected) {
+                        selectedActionCount++;
+                    }
+                }
+            }
+            part.selectedActionCount = selectedActionCount;
+        }
+    }
+
+    /**
+     * 选中一个动作
+     * @param subPartIdx
+     * @param actionName
+     */
+    selectActions(subPartIdx, actionName) {
+        for (let part of this.partList) {
+            if (part.selected && part.active) {
+                for (let action of part.subParts[subPartIdx].actionList) {
+                    if (actionName === action.actionName) {
+                        action.actionSelected = !action.actionSelected;
+                    }
+                }
+            }
+        }
+
+        this.countSelectedAction();
+    }
+
+    /**
+     *
+     * @param subPartIdx
+     * @param selectedActionIdx
+     * @param groupSet
+     */
+    addGroupSetToAction(subPartIdx, selectedActionIdx, groupSet) {
+        for (let part of this.partList) {
+            if (part.selected && part.active) {
+                delete part.subParts[subPartIdx].actionList[selectedActionIdx].groupSet;
+                part.subParts[subPartIdx].actionList[selectedActionIdx].groupSet = groupSet;
+                // 因为选中picker同时会响应这个外部view的函数，也就是说会响应onSelectAction，所以需要重置一些状态
+                // 重新置为选中，和记数
+                part.subParts[subPartIdx].actionList[selectedActionIdx].actionSelected = true;
+            }
+        }
+
+        this.countSelectedAction();
+    }
+
+
+    getSelectedActionGpMeausement(subPartIdx, actionName) {
+        for (let part of this.partList) {
+            if (part.selected && part.active) {
+                for (let action of part.subParts[subPartIdx].actionList) {
+                    if (actionName === action.actionName) {
+                        return action.actionGpMeasurement;
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    hasSelectAllActions() {
+        let allActionSelected = true;
+
+        for (let part of this.partList) {
+            let thisPartActionSelected = true;
+            if (part.selected) {
+                thisPartActionSelected = false;
+                for (let subPart of part.subParts) {
+                    for (let action of subPart.actionList) {
+                        thisPartActionSelected = thisPartActionSelected || action.actionSelected;
+                    }
+                }
+            }
+
+            allActionSelected = allActionSelected && thisPartActionSelected;
+        }
+
+        return this.hasSelectedPart() && allActionSelected;
+    }
+
+
+    /**
+     * 为每个部位添加选中的日期
+     * @param partSet
+     * @param cycleLength
+     */
+    makeLabel(partSet, cycleLength) {
+        for (let partIdx = 0; partIdx < this.partList.length; partIdx++) {
+            if (partSet.name === this.partList[partIdx].partName) {
+                // 两种显示，如果是七天，则显示“周N”，否则显示“第N天”
+                if (cycleLength === 7) {
+
+                    let trainDate = [];
+                    for (let date of partSet.trainDate) {
+                        switch (date) {
+                            case 0:
+                                trainDate.push("周日");
+                                break;
+                            case 1:
+                                trainDate.push("周一");
+                                break;
+                            case 2:
+                                trainDate.push("周二");
+                                break;
+                            case 3:
+                                trainDate.push("周三");
+                                break;
+                            case 4:
+                                trainDate.push("周四");
+                                break;
+                            case 5:
+                                trainDate.push("周五");
+                                break;
+                            case 6:
+                                trainDate.push("周六");
+                                break;
+                        }
+                    }
+                    this.partList[partIdx].trainDateArr = partSet.trainDate;
+                    this.partList[partIdx].trainDateStr = "( " + trainDate.join("，") + " )";
+                    console.log("partSet.trainDateStr ", this.partList[partIdx].trainDateStr);
+                } else {
+                    // 需要加1，新建数组，不改变原数组的值
+                    let trainDate = [];
+                    for (let idx = 0; idx < partSet.trainDate.length; idx++) {
+                        trainDate.push(partSet.trainDate[idx] + 1);
+                    }
+                    this.partList[partIdx].trainDateArr = partSet.trainDate;
+                    this.partList[partIdx].trainDateStr = "(第 " + trainDate.join("，") + " 天)";
+                }
+            }
+        }
+    }
+
+    /**
+     * 把内容重新排序，以便按时间显示，方便直观
+     */
+    sortListByDate() {
+        let orderPartList = []; // 重排序后存储
+
+        // 先排没有计划的，放在前面
+        for (let part of this.partList) {
+            if (typeof part.trainDateArr === "undefined") {
+                orderPartList.push(part);
+            }
+        }
+
+        let str = [];
+        for (let item of orderPartList) {
+            str.push(item.partName);
+        }
+        console.log(str.toString());
+
+        // 再排有计划的，如果计划有多天，按照第一天谁靠前排序
+        for (let part of this.partList) {
+            if (typeof part.trainDateArr !== "undefined" && part.trainDateArr.length > 0) {
+                // 默认加在最后
+                let insertPos = -1;
+                for (let index = 0; index < orderPartList.length; index++) {
+                    // 当训练日期列表第一个小于body.partList列表中某一个trainDate的第一个时，前插
+
+                    if (typeof  orderPartList[index].trainDateArr !== "undefined"
+                        && orderPartList[index].trainDateArr.length > 0) {
+                        if (Body.arr1_IsFront_arr2(part.trainDateArr, orderPartList[index].trainDateArr)) {
+                            insertPos = index;
+                            break;
+                        }
+                    }
+                }
+                if (insertPos === -1) {
+                    orderPartList.push(part);
+                } else {
+                    orderPartList.splice(insertPos, 0, part);
+                }
+
+                let str2 = [];
+                for (let item of orderPartList) {
+                    str2.push(item.partName);
+                }
+
+                // console.log("insertPos:", insertPos, "orderPartList:", str2.toString());
+                // console.log("with plan", part.partName);
+            }
+        }
+
+        this.partList = orderPartList;
+    }
+
+    /**
+     *
+     * @param arr1
+     * @param arr2
+     */
+    static arr1_IsFront_arr2(arr1, arr2) {
+
+        // 得到一个较小的数组长度，用以循环比较
+        let loopLength = arr1.length <= arr2.length ? arr1.length : arr2.length;
+
+        let front = true;
+        let allSameElement = true;
+
+        for (let idx = 0; idx < loopLength; idx++) {
+            if (arr1[idx] < arr2[idx]) {
+                allSameElement = false;
+                break;
+            } else if (arr1[idx] > arr2[idx]) {
+                allSameElement = false;
+                front = false;
+                break;
+            }
+        }
+
+        if (allSameElement) {
+            console.log("same");
+            front = arr1.length <= arr2.length;
+        }
+
+        return front;
     }
 }
 
@@ -88,9 +457,7 @@ class BodyPart {
         this.partPictureSrc = '';
         this.partDescription = '';
         this.selected = false;
-
     }
-
 }
 
 class Action {
@@ -112,7 +479,7 @@ class OrgType {
     constructor() {
 
         // 0、有氧
-        this.movementAerobic = {
+        this.actionArrOfAerobic = {
             partName: '有氧',
             subParts: [
                 {
@@ -130,7 +497,7 @@ class OrgType {
         };
 
         // 1、胸部
-        this.movementPectorales = {
+        this.actionArrOfPectorales = {
             partName: '胸部',
             subParts: [
                 {
@@ -163,7 +530,7 @@ class OrgType {
         };
 
         //2、肩部
-        this.movementShoulder = {
+        this.actionArrOfShoulder = {
             partName: '肩部',
             subParts: [
                 {
@@ -217,7 +584,7 @@ class OrgType {
         };
 
         //3、背部
-        this.movementDorsal = {
+        this.actionArrOfDorsal = {
             partName: '背部',
             subParts: [
                 {
@@ -239,7 +606,7 @@ class OrgType {
         };
 
         //4、腰部
-        this.movementWaist = {
+        this.actionArrOfWaist = {
             partName: '腰部',
             subParts: [
                 {
@@ -257,7 +624,7 @@ class OrgType {
         };
 
         //5、腹部
-        this.movementAbdomen = {
+        this.actionArrOfAbdomen = {
             partName: '腹部',
             subParts: [
                 {
@@ -279,7 +646,7 @@ class OrgType {
         };
 
         //6、手臂
-        this.movementArms = {
+        this.actionArrOfArms = {
             partName: '手臂',
             subParts: [
                 {
@@ -316,9 +683,8 @@ class OrgType {
             ]
         };
 
-
         //7、腿部
-        this.movementLegs = {
+        this.actionArrOfLegs = {
             partName: '腿部',
             subParts: [
                 {
@@ -358,20 +724,20 @@ class OrgType {
         };
 
         this.DefaultActionName = [
-            this.movementAerobic,
-            this.movementPectorales,
-            this.movementShoulder,
-            this.movementDorsal,
-            this.movementWaist,
-            this.movementAbdomen,
-            this.movementArms,
-            this.movementLegs
+            this.actionArrOfAerobic,
+            this.actionArrOfPectorales,
+            this.actionArrOfShoulder,
+            this.actionArrOfDorsal,
+            this.actionArrOfWaist,
+            this.actionArrOfAbdomen,
+            this.actionArrOfArms,
+            this.actionArrOfLegs
         ];
     }
 }
 
 module.exports = {
-    BodyPartList: BodyPartList,
+    Body: Body,
     BodyPart: BodyPart,
     Action: Action
-}
+};

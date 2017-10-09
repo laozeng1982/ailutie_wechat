@@ -259,7 +259,7 @@ Page({
             }
         }
 
-        console.log("Selected Date's Plan: ", selectedDatePlan);
+        console.log("Selected Date's PlanSet: ", selectedDatePlan);
 
         this.setData({
             selectedDatePlan: selectedDatePlan,

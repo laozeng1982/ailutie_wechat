@@ -1,8 +1,9 @@
-import BodyPartList from './BodyPart.js'
+import Body from './Body.js'
 
 class SystemSetting {
     constructor() {
-        this.bodyPartList = new BodyPartList.BodyPartList();
+        this.body = new Body.Body();
+        this.body.makeDefaultDefaultPartList();
     }
 }
 

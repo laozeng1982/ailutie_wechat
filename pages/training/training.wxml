@@ -8,15 +8,15 @@
     <view class="topPanel">
         <view class="topPanelLeft">
             <view class="topPanelLeft_InnerLeft">
-                <text style="font-size: 50rpx">今天</text>
-                <text style="font-size: 30rpx">{{showDate}}</text>
+                <text style="font-size: 40rpx">今天</text>
+                <text style="font-size: 26rpx">{{showDate}}</text>
             </view>
         </view>
 
         <view class="topPanelRight">
             <view wx:if="{{todayHasPlan}}" class="topPanelLeft_InnerLeft" bindtap="onShowDetails">
-                <text style="font-size: 40rpx">{{todayPlan[curSelectedPartId].name}}</text>
-                <text style="font-size: 60rpx">{{todayPlan[curSelectedPartId].actionSet[curSelectedActionId].name}}</text>
+                <text style="font-size: 30rpx">{{todayPlan[curSelectedPartId].name}}</text>
+                <text style="font-size: 50rpx">{{todayPlan[curSelectedPartId].actionSet[curSelectedActionId].name}}</text>
             </view>
 
             <view wx:else class="topPanelLeft_InnerLeft">
@@ -61,7 +61,7 @@
                 </view>
 
             </scroll-view>
-            <button class='addBtn' type='primary' bindtap='onAdd'>ADD</button>
+            <!-- <button class='addBtn' type='primary' bindtap='onAdd'>ADD</button> -->
         </view>
 
         <view wx:else class="middlePanelLeft_InnerLeft">
@@ -72,7 +72,7 @@
     </view>
 
     <!-- 点击动作详情的时候响应 -->
-    <view class="middlePanelHide" wx:if="{{showDetails}}">
+    <view class="middlePanelHide" wx:else>
         <view class="title">动作详情</view>
         <view class="tmp">
             <text style="font-size: 60rpx">还在抓紧整理中。。。。</text>

@@ -1,5 +1,5 @@
 // actionedit.js
-import BodyPartList from '../../../datamodel/BodyPart.js'
+import BodyPartList from '../../../datamodel/Body.js'
 import util from '../../../utils/Util.js'
 import Controller from '../../../utils/Controller.js'
 import StorageType from '../../../datamodel/StorageType.js'

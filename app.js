@@ -62,7 +62,7 @@ App({
 
         // console.log("SystemSetting: ", systemSetting);
 
-        if (systemSetting.bodyPartList.partList.length > 0) {
+        if (systemSetting.body.partList.length > 0) {
             CONTROLLER.saveData(STORAGETYPE.SystemSetting, systemSetting);
         }
 
