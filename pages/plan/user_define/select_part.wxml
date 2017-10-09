@@ -85,8 +85,8 @@
                         <icon wx:if="{{!item.selected }}" class='icon' type="circle"></icon>
                         <icon wx:else class='icon' type="success_circle"></icon>
 
-                        <view style='font-size:32rpx'>{{item.trainDateStr}}</view>
-                        <text class='text'>{{item.partName}}</text>
+                        <view style='font-size:32rpx;width:100%;margin-left:50rpx;'>{{item.trainDateStr}}</view>
+                        <view class='text'>{{item.partName}}</view> 
                     </view>
                 </scroll-view>
 
@@ -122,8 +122,8 @@
                                         <view class='header'>
                                             <view>{{item.actionName}}</view>
                                         </view>
-                                        <!-- wx:if="{{item.actionMeasurement !== ''}}" -->
-                                        <picker id="{{item.actionId}}" data-subpartidx="{{item.actionPartId-1}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
+                                        <!-- 当动作单位为空的时候，是自定义动作，不显示picker -->
+                                        <picker wx:if="{{item.actionMeasurement !== ''}}" id="{{item.actionId}}" data-subpartidx="{{item.actionPartId-1}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
                                             <view class="pickerContainer">
                                                 <view class="pickerItem">{{item.groupSet.length}} </view>
                                                 <view class="pickerItem">组</view>

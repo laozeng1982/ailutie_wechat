@@ -127,6 +127,8 @@
     padding-right: 40rpx;
     align-content: center;
     align-items: center;
+    width: 30%;
+    text-align: right;
 }
 
 .textBold {

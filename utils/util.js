@@ -265,9 +265,7 @@ function showWarnToast(text, o, count) {
  */
 function makePartString(partArr) {
     // 先替换，换成单字
-    var partArrString = partArr.toString().replace(/部/g, "").replace(/有氧/, "氧")
-        .replace(/肱二头/, "臂").replace(/肱三头/, "臂").replace(/小臂/g, "臂")
-        .replace(/股二头/g, "腿").replace(/股四头/g, "腿").replace(/小腿/g, "腿");
+    var partArrString = partArr.toString().replace(/部/g, "").replace(/有氧/, "氧").replace(/手臂/g, "臂");
 
     let noRepeatStringArr = [];
 
@@ -342,6 +340,54 @@ function getMovementNamePickerList(idxOfColumn1) {
     return movementNamePickerList;
 }
 
+
+/**
+ *
+ * @param arr1
+ * @param arr2
+ */
+function arr1_IsFront_arr2(arr1, arr2) {
+
+    // 得到一个较小的数组长度，用以循环比较
+    let loopLength = arr1.length <= arr2.length ? arr1.length : arr2.length;
+
+    let front = true;
+    let allSameElement = true;
+
+    for (let idx = 0; idx < loopLength; idx++) {
+        if (arr1[idx] < arr2[idx]) {
+            allSameElement = false;
+            break;
+        } else if (arr1[idx] > arr2[idx]) {
+            allSameElement = false;
+            front = false;
+            break;
+        }
+    }
+
+    if (allSameElement) {
+        console.log("same");
+        front = arr1.length <= arr2.length;
+    }
+
+    return front;
+}
+
+//深度克隆
+function deepClone(obj) {
+
+    let clone = obj.constructor === Array ? [] : {};
+
+    // 递归
+    for (let item in obj) {
+        if (obj.hasOwnProperty(item)) {
+            clone[item] = typeof obj[item] === "object" ? deepClone(obj[item]) : obj[item];
+        }
+    }
+
+    return clone;
+}
+
 module.exports = {
     formatTimeToString: formatTimeToString,
     formatDateToString: formatDateToString,
@@ -359,6 +405,8 @@ module.exports = {
     inPeriod: inPeriod,
     makePartString: makePartString,
     log: log,
-    compare2Array: compare2Array
+    compare2Array: compare2Array,
+    arr1_IsFront_arr2: arr1_IsFront_arr2,
+    deepClone: deepClone
 
 }

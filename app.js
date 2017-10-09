@@ -7,19 +7,11 @@ import Controller from './utils/Controller.js'
 import StorageType from './datamodel/StorageType.js'
 import Plan from './datamodel/PlanSet.js'
 
-let Promise = require('./utils/Promise').Promise;
-
 const CONTROLLER = new Controller.Controller();
 const STORAGETYPE = new StorageType.StorageType();
 
 App({
     onLaunch: function () {
-
-        // 屏幕相关
-        this.deviceInfo = this.promise.getDeviceInfo();
-
-        this.pageHeight = this.deviceInfo.windowHeight - 120 - 16;    // 用于跳转页面中间部分
-        this.pageWidth = this.deviceInfo.windowWidth;
 
         // 全局变量
         this.planSet = CONTROLLER.loadData(STORAGETYPE.PlanSet);
@@ -108,22 +100,6 @@ App({
                     typeof cb == "function" && cb(that.globalData.wechatUserInfo)
                 }
             })
-        }
-    },
-
-    promise: {
-        getDeviceInfo: function () {//获取设备信息
-            let promise = new Promise((resolve, reject) => {
-                wx.getSystemInfo({
-                    success: function (res) {
-                        resolve(res);
-                    },
-                    fail: function () {
-                        reject();
-                    }
-                });
-            });
-            return promise;
         }
     },
 

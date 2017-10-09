@@ -197,10 +197,11 @@ Page({
         // 每次改变输入的，进行条件检查
         this.validateTab(0);
 
+
     },
 
     /**
-     * 页面总体控制函数，根据当前的输入，判断该页面是否属于合理输入状态，并且设置状态
+     * 页面总体控制函数，根据当前的输入，判断该页面是否属于合理输入状态，如果是，设置状态
      * @param tabIdx
      */
     validateTab: function (tabIdx) {
@@ -211,11 +212,9 @@ Page({
                     app.Util.datesDistance(this.data.startDate, this.data.endDate) >= this.data.cycleLength;
                 break;
             case 1:
-                let hasSelectedPart = false;
-                for (let part of this.data.partList) {
-                    hasSelectedPart = hasSelectedPart || part.selected;
-                }
-                tabData[1].finished = hasSelectedPart && this.data.selectedDateList.length > 0;
+                tabData[1].finished =
+                    this.data.selectedPartList.length > 0 &&
+                    this.data.selectedDateList.length > 0;
                 break;
             case 2:
                 let selectedPartList = this.data.selectedPartList;
@@ -248,7 +247,7 @@ Page({
     },
 
     /**
-     * 选择动作tab
+     * 设定时间tab
      * 响应周期列表点击的效果
      * @param e
      */
@@ -284,7 +283,7 @@ Page({
             }
         }
 
-        console.log("selectedPartNames:", selectedPartNames);
+        console.log(selectedPartNames);
 
         let partList = this.data.partList;
 
@@ -292,9 +291,9 @@ Page({
             if (selectedPartNames.length > 0) {
                 if (selectedPartNames.includes(part.partName)) {
                     part.selected = true;
-                } else {
-                    part.selected = false;
                 }
+            } else {
+                part.selected = false;
             }
         }
 
@@ -314,8 +313,7 @@ Page({
      */
     onSelectPartItem: function (e) {
         let partList = this.data.partList;
-
-        // 置状态
+        let selectedPartList = this.data.selectedPartList;
         for (let idx = 0; idx < partList.length; idx++) {
             if (parseInt(e.currentTarget.id) === parseInt(partList[idx].partId)) {
                 partList[idx].selected = !partList[idx].selected;
@@ -323,12 +321,44 @@ Page({
             }
         }
 
-        this.setData({
-            partList: partList
+        // 第一次进来，部位选择列表为空，直接根据选中状态获取选择的部位
+        if (selectedPartList.length === 0) {
+            for (let item of partList) {
+                if (item.selected) {
+                    selectedPartList.push(item);
+                }
+            }
+        } else {
+            // 部位选择列表不为空时，需要通过判断，更新选择的部位
+            // 1、准备已经选择的数据
+            let partNameList = [];
+            for (let item of selectedPartList) {
+                partNameList.push(item.partName);
+            }
+            // 2、重新整理，如果已有的被取消，则删除，如果重复的，则不添加
+            for (let item of partList) {
+                if (item.selected) {
+                    if (partNameList.indexOf(item.partName) === -1) {
+                        selectedPartList.push(item);
+                    }
+                } else {
+                    for (let idx = 0; idx < selectedPartList.length; idx++)
+                        if (selectedPartList[idx].partName === item.partName) {
+                            selectedPartList.splice(idx, 1);
+                        }
+                }
+            }
 
+        }
+
+        this.setData({
+            partList: partList,
+            selectedPartList: selectedPartList
         });
 
         this.validateTab(1);
+
+        console.log("selectedPartList:", this.data.selectedPartList);
     },
 
     /**
@@ -353,8 +383,6 @@ Page({
             selectedPartIdx: selectedPartIdx,
             selectedPartList: selectedPartList
         });
-
-        this.validateTab(2);
     },
 
     /**
@@ -480,16 +508,9 @@ Page({
      * 准备部位的scroll-view，给出默认激活的view
      */
     prepareActionPart: function () {
-        let partList = app.Util.deepClone(this.data.partList);
         let selectedPartList = this.data.selectedPartList;
         let activePartIdx = 0;
         let toView = '';
-
-        for (let item of partList) {
-            if (item.selected) {
-                selectedPartList.push(item);
-            }
-        }
 
         // 清除之前的选中状态，方便动作tab里显示
         for (let idx = 0; idx < selectedPartList.length; idx++) {
@@ -742,8 +763,7 @@ Page({
     },
 
     /**
-     * 设置时间tab
-     * 初始化函数，每次进入该tab时，先调用
+     * 初始化设置时间tab
      */
     initDateTab: function () {
 
@@ -788,29 +808,20 @@ Page({
     },
 
     /**
-     * 选择部位tab
-     * 初始化函数，每次进入该tab时，先调用
-     * 选择部位tab，始终只操作partList和weekList，要把逻辑简单化
-     * 选择动作tab，才去从这个tab的输出，收集输入
+     * 初始化选择部位tab
      */
     initPartTab: function () {
-        console.log("initPartTab call");
-        // 这里要分入口，第一次进入，直接调用系统的，否则使用已经保存的
+        // 这里要分入口，在app中写一个标志位
         let partList;
         if (this.data.partList.length === 0) {
             let systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
             partList = systemSetting.bodyPartList.partList;
             for (let part of partList) {
                 part.selectedCount = 0;
-                console.log("partList:", part.partName, part.selected);
             }
         } else {
             partList = this.data.partList;
-            for (let part of partList) {
-                console.log("partList:", part.partName, part.selected);
-            }
         }
-
 
         // 进行标注
         // 进行判断，如果是继续制定计划，那么之前的计划，已经保存了，这里刷新一下数据，如果不是，则不用刷新
@@ -828,16 +839,12 @@ Page({
             }
         }
 
-        // 当有计划内容时，进行标注和重排序
-
-        let orderPartList = []; // 重排序后存储
-
+        // 当有计划内容时，进行标注
         if (typeof currentPlan !== "undefined" && currentPlan.partSet.length > 0) {
 
             if (app.lastPlanSaved) {
                 for (let idx = 0; idx < partList.length; idx++) {
                     partList[idx].selected = false;
-                    console.log("here:", idx);
                 }
             }
 
@@ -845,7 +852,6 @@ Page({
             for (let partSet of currentPlan.partSet) {
                 for (let partIdx = 0; partIdx < partList.length; partIdx++) {
                     if (partSet.name === partList[partIdx].partName) {
-                        // 两种显示，如果是七天，则显示“周N”，否则显示“第N天”
                         if (currentPlan.cycleLength === 7) {
 
                             let trainDate = [];
@@ -878,7 +884,7 @@ Page({
                             partList[partIdx].trainDateStr = "( " + trainDate.join("，") + " )";
                             console.log("partSet.trainDateStr ", partList[partIdx].trainDateStr);
                         } else {
-                            // 需要加1，新建数组，不改变原数组的值
+                            // 新建数组，不改变原数组的值
                             let trainDate = [];
                             for (let idx = 0; idx < partSet.trainDate.length; idx++) {
                                 trainDate.push(partSet.trainDate[idx] + 1);
@@ -889,53 +895,53 @@ Page({
                     }
                 }
             }
+        }
 
-            // 先排没有计划的，放在前面
-            for (let part of partList) {
-                if (typeof part.trainDateArr === "undefined") {
-                    orderPartList.push(part);
-                }
+
+        // 重新排序
+        let orderPartList = [];
+        // 先排没有计划的，放在前面
+        for (let part of partList) {
+            if (typeof part.trainDateArr === "undefined") {
+                // console.log("without plan", part.partName);
+                orderPartList.push(part);
             }
+        }
+        let str = [];
+        for (let item of orderPartList) {
+            str.push(item.partName);
+        }
+        console.log(str.toString());
+        // 再排有计划的，如果计划有多天，按照第一天谁靠前排序
+        for (let part of partList) {
+            if (typeof part.trainDateArr !== "undefined" && part.trainDateArr.length > 0) {
+                // 默认加在最后
+                let insertPos = -1;
+                for (let index = 0; index < orderPartList.length; index++) {
+                    // 当训练日期列表第一个小于partList列表中某一个trainDate的第一个时，前插
 
-            let str = [];
-            for (let item of orderPartList) {
-                str.push(item.partName);
-            }
-            console.log(str.toString());
-
-            // 再排有计划的，如果计划有多天，按照第一天谁靠前排序
-            for (let part of partList) {
-                if (typeof part.trainDateArr !== "undefined" && part.trainDateArr.length > 0) {
-                    // 默认加在最后
-                    let insertPos = -1;
-                    for (let index = 0; index < orderPartList.length; index++) {
-                        // 当训练日期列表第一个小于partList列表中某一个trainDate的第一个时，前插
-
-                        if (typeof  orderPartList[index].trainDateArr !== "undefined"
-                            && orderPartList[index].trainDateArr.length > 0) {
-                            if (app.Util.arr1_IsFront_arr2(part.trainDateArr, orderPartList[index].trainDateArr)) {
-                                insertPos = index;
-                                break;
-                            }
+                    if (typeof  orderPartList[index].trainDateArr !== "undefined"
+                        && orderPartList[index].trainDateArr.length > 0) {
+                        if (app.Util.arr1_IsFront_arr2(part.trainDateArr, orderPartList[index].trainDateArr)) {
+                            insertPos = index;
+                            break;
                         }
                     }
-                    if (insertPos === -1) {
-                        orderPartList.push(part);
-                    } else {
-                        orderPartList.splice(insertPos, 0, part);
-                    }
-
-                    let str2 = [];
-                    for (let item of orderPartList) {
-                        str2.push(item.partName);
-                    }
-
-                    console.log("insertPos:", insertPos, "orderPartList:", str2.toString());
-                    // console.log("with plan", part.partName);
                 }
+                if (insertPos === -1) {
+                    orderPartList.push(part);
+                } else {
+                    orderPartList.splice(insertPos, 0, part);
+                }
+
+                let str2 = [];
+                for (let item of orderPartList) {
+                    str2.push(item.partName);
+                }
+
+                console.log("insertPos:", insertPos, "orderPartList:", str2.toString());
+                // console.log("with plan", part.partName);
             }
-        } else {
-            orderPartList = partList;
         }
 
         this.setData({
@@ -944,8 +950,7 @@ Page({
     },
 
     /**
-     * 选择动作tab
-     * 初始化函数，每次进入该tab时，先调用
+     * 初始化选择动作tab
      */
     initActionTab: function () {
         if (app.lastPlanSaved) {
@@ -956,8 +961,8 @@ Page({
         this.validateTab(1);
         this.validateTab(2);
         this.prepareActionPart();
-        this.prepareActionData();
         this.prepareActionPicker();
+        this.prepareActionData();
     },
 
     /**
@@ -969,6 +974,7 @@ Page({
         wx.setNavigationBarTitle({
             title: '定制我的锻炼计划',
         });
+
     },
 
     /**
