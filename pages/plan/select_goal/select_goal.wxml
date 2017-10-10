@@ -1,11 +1,10 @@
 <!--pages/plan/plan_goal/plan_goal.wxml-->
 
 <view class='thisContainer'>
-    <view class='graySpaceSmall'></view>
     <view class='topArea'>
         <scroll-view class="swiper-tab">
             <block wx:for="{{tabData}}" wx:key="{{index}}">
-                <view class="swiper-tab-list {{item.finished ? 'on' : ''}} {{currentTabIdx===index ? 'current_highlight': ''}}" data-current="{{index}}" bindtap="onSwitchNav">{{item.name}}</view>
+                <view wx:if="{{currentTabIdx===index}}" class="swiper-tab-list" data-current="{{index}}">{{item.name}}</view>
             </block>
         </scroll-view>
 
@@ -26,6 +25,12 @@
 
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
+
+    <scroll-view class="swiper-tab">
+        <block wx:for="{{tabData}}" wx:key="{{index}}">
+            <text wx:if="{{currentTabIdx===index}}" data-current="{{index}}"  class="swiper-tab-list tips">{{item.tips}}</text>
+        </block>
+    </scroll-view>
 
     <view class='graySpaceSmall'></view>
 

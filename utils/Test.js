@@ -8,6 +8,8 @@ let arr4 = [3, 1, 2, 4, 5];
 
 let arr5 = [1, 2, 3, 4, 5, 6];
 
+let arr6 = [3, 1, 2, 4, 5, 15, 23, 33, 5, 4];
+
 /**
  *
  * @param arr1
@@ -34,7 +36,7 @@ function deepClone(obj) {
         return Object.prototype.toString.call(o).slice(8, -1);
     };
 
-    let result= isClass(obj);
+    let result = isClass(obj);
     let oClass = isClass(obj);
 
     //确定result的类型
@@ -90,3 +92,22 @@ console.log(oPerson.ofavorite[1].reading);//history book
 oNew.oAddress.province = "shanghai";
 console.log(oPerson.oAddress.province);//beijing
 console.log(oNew.oAddress.province);//shanghai
+
+/**
+ * @return {number}
+ */
+function NumAscSort(a, b) {
+    return a - b;
+}
+
+function NumDescSort(a, b) {
+    return b - a;
+}
+
+console.log(arr6);
+console.log(arr6.sort(function NumAscSort(a, b) {
+    return a - b;
+}));
+console.log(arr6.sort(NumAscSort));
+console.log(arr6.sort(NumDescSort));
+console.log(arr6.concat(arr6));

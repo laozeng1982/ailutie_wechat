@@ -65,7 +65,7 @@
 
 .whiteBackgroud {
     display: flex;
-    height: 150rpx;
+    height: 160rpx;
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
@@ -81,8 +81,12 @@
 
 .text {
     padding: 40rpx;
-    width: 100%;
+    /* width: 100%; */
     height: 80rpx;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
 }
 
 .radioContainer {
@@ -117,9 +121,9 @@
 }
 
 .imageBig {
-    width: 70rpx;
-    height: 70rpx;
-    padding: 30rpx;
+    width: 80rpx;
+    height: 80rpx;
+    padding: 40rpx;
 }
 
 .roundCornor {

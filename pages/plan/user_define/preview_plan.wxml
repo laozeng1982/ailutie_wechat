@@ -1,7 +1,7 @@
 <!--pages/plan/user_define/preview_plan.wxml-->
 
 <view class='thisContainer'>
-    <view class='graySpaceSmall'></view>
+    <!-- <view class='graySpaceSmall'></view> -->
 
     <!-- 日历控制 -->
     <view class="dateControl" bindtap='onCalendarHeader'>
@@ -73,6 +73,14 @@
                 </swiper-item>
             </block>
         </swiper>
+
+        <view class='tips_text'>
+            <view style='margin:20rpx'>1、点击日历中有计划的天，查看当天详情</view>
+            <view style='margin:20rpx'>2、点击日历头或者没有计划天，回到整月视图</view>
+            <view style='margin:20rpx'>3、上下滑动翻月</view>
+
+        </view>
+
     </view>
 
     <!-- 当选中某一天是显示具体的计划 -->
@@ -110,7 +118,7 @@
             <view id="{{item.name}}" class='partContainerColumn' wx:for="{{selectedDatePlan}}" wx:key="{{index}}">
                 <text class='textBig'>{{item.name}}</text>
                 <!-- 循环每个部位的动作 -->
-                <view id="{{item.name}}" class='actionContainer' wx:for="{{item.actionSet}}" wx:key="{{index}}">
+                <view id="{{item.name}}" class='actionContainer' wx:for="{{item.actionSets}}" wx:key="{{index}}">
                     <!-- 图片占位 -->
                     <view class='imageBig'></view>
                     <!-- <image class='imageBig' src='../../image/pulse_64px.png'></image> -->
@@ -121,12 +129,12 @@
                         </view>
                         <!-- <picker wx:if="{{item.actionMeasurement !== ''}}" id="{{item.actionId}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}"> -->
                         <view class="pickerContainer">
-                            <view class="pickerItem">{{item.groupSet.length}} </view>
+                            <view class="pickerItem">{{item.groupSets.length}} </view>
                             <view class="pickerItem">组</view>
-                            <view class="pickerItem">{{item.groupSet[0].quantity}}</view>
+                            <view class="pickerItem">{{item.groupSets[0].quantity}}</view>
                             <view class="pickerItem">次</view>
-                            <view class="pickerItem">{{item.groupSet[0].weight}}</view>
-                            <view class="pickerItem">{{item.groupSet[0].uom}}</view>
+                            <view class="pickerItem">{{item.groupSets[0].weight}}</view>
+                            <view class="pickerItem">{{item.groupSets[0].uom}}</view>
                         </view>
                         <!-- </picker> -->
                     </view>
@@ -148,7 +156,7 @@
     </view>
 
     <view class='footArea' wx:if="{{options.model=='modify'}}">
-        <button class='cancel_btn'  bindtap='onDeletePlan'> 删除此计划 </button>
+        <button class='cancel_btn' bindtap='onDeletePlan'> 删除此计划 </button>
         <button class='confirm_btn' bindtap='onModifyPlan'> 修改此计划 </button>
     </view>
 

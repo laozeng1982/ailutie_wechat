@@ -181,8 +181,8 @@ Page({
 
         }
 
-        delete selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupSet;
-        selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupSet = groupSet;
+        delete selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupSets;
+        selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].groupSets = groupSet;
 
         // 重新置为选中
         selectedPartList[this.data.selectedPartIdx].actionList[e.currentTarget.id - 1].actionSelected = true;
@@ -228,27 +228,27 @@ Page({
         for (let part = 0; part < selectedPartList.length; part++) {
             for (let action = 0; action < selectedPartList[part].actionList.length; action++) {
                 // 临时增加一个数据项，用以保存数据
-                selectedPartList[part].actionList[action].groupSet = [];
+                selectedPartList[part].actionList[action].groupSets = [];
                 for (let idx = 0; idx < 6; idx++) {
                     var group = new Plan.GroupSet(idx + 1, 10,
                         selectedPartList[part].actionList[action].actionMeasurement, 30);
 
-                    selectedPartList[part].actionList[action].groupSet.push(group);
+                    selectedPartList[part].actionList[action].groupSets.push(group);
                 }
             }
         }
 
         if (app.currentPlan !== '') {
-            for (let partItem of app.currentPlan.partSet) {
+            for (let partItem of app.currentPlan.partSets) {
                 for (let part = 0; part < selectedPartList.length; part++) {
                     if (partItem.name === selectedPartList[part].partName) {
-                        for (let actionItem of partItem.actionSet) {
+                        for (let actionItem of partItem.actionSets) {
                             for (let action = 0; action < selectedPartList[part].actionList.length; action++) {
                                 if (actionItem.name === selectedPartList[part].actionList[action].actionName) {
                                     console.log("match: " + actionItem.name);
                                     selectedPartList[part].actionList[action].actionSelected = true;
-                                    delete  selectedPartList[part].actionList[action].groupSet;
-                                    selectedPartList[part].actionList[action].groupSet = actionItem.groupSet;
+                                    delete  selectedPartList[part].actionList[action].groupSets;
+                                    selectedPartList[part].actionList[action].groupSets = actionItem.groupSets;
                                 }
                             }
                         }
@@ -314,15 +314,15 @@ Page({
                     actionSet.description = this.data.selectedPartList[part].actionList[action].actionDescription;
                     actionSet.imageUrl = this.data.selectedPartList[part].actionList[action].actionPictureSrc;
 
-                    actionSet.groupSet = this.data.selectedPartList[part].actionList[action].groupSet;
-                    partSet.actionSet.push(actionSet);
+                    actionSet.groupSets = this.data.selectedPartList[part].actionList[action].groupSets;
+                    partSet.actionSets.push(actionSet);
                     idx++;
                 }
             }
-            app.currentPlan.partSet.push(partSet);
+            app.currentPlan.partSets.push(partSet);
 
             // 更新选中的数量
-            app.selectedPartInfo[part].actionCount = partSet.actionSet.length;
+            app.selectedPartInfo[part].actionCount = partSet.actionSets.length;
         }
 
         console.log(app.currentPlan);

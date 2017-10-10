@@ -16,24 +16,24 @@
     "reading": 0,
     "comments": [],
     "agree": 0,
-    "partSet": [
+    "partSets": [
       {
         "id": 1,
         "name": "背部",
         "description": "",
         "imageUrl": "",
-        "trainDate": [
+        "trainDates": [
           3
         ],
-        "actionSet": [
+        "actionSets": [
           {
             "id": 1,
             "name": "宽握引体向上",
             "equipment": "",
             "description": "",
             "imageUrl": "",
-            "trainDate": [],
-            "groupSet": [
+            "trainDates": [],
+            "groupSets": [
               {
                 "id": 1,
                 "quantity": 10,
@@ -84,8 +84,8 @@
             "equipment": "",
             "description": "",
             "imageUrl": "",
-            "trainDate": [],
-            "groupSet": [
+            "trainDates": [],
+            "groupSets": [
               {
                 "id": 1,
                 "quantity": 10,
@@ -137,18 +137,18 @@
         "name": "肱二头",
         "description": "",
         "imageUrl": "",
-        "trainDate": [
+        "trainDates": [
           3
         ],
-        "actionSet": [
+        "actionSets": [
           {
             "id": 1,
             "name": "站姿杠铃弯举",
             "equipment": "",
             "description": "",
             "imageUrl": "",
-            "trainDate": [],
-            "groupSet": [
+            "trainDates": [],
+            "groupSets": [
               {
                 "id": 1,
                 "quantity": 10,
@@ -199,8 +199,8 @@
             "equipment": "",
             "description": "",
             "imageUrl": "",
-            "trainDate": [],
-            "groupSet": [
+            "trainDates": [],
+            "groupSets": [
               {
                 "id": 1,
                 "quantity": 10,

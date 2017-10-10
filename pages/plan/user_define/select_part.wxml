@@ -1,17 +1,17 @@
 <!--pages/plan/user_define/select_part.wxml-->
 <view class='thisContainer'>
-    <view class='graySpaceSmall'></view>
+    <!-- <view class='graySpaceSmall'></view> -->
 
     <view class='topArea'>
         <scroll-view class="swiper-tab">
             <block wx:for="{{tabData}}" wx:key="{{index}}">
-                <view class="swiper-tab-list {{item.finished ? 'on' : ''}} {{currentTabIdx===index ? 'current_highlight': ''}}" data-current="{{index}}" bindtap="onSwitchNav">{{item.name}}</view>
+                <view wx:if="{{currentTabIdx===index }}" class="swiper-tab-list" data-current="{{index}}">{{item.name}}</view>
             </block>
         </scroll-view>
 
-        <!-- <view class='graySpaceSmall'></view> -->
+        <view class='graySpaceSmall'></view>
 
-        <swiper current="{{currentTabIdx}}" class="swiper-box" duration="300" bindchange="onSwiperChange">
+        <swiper current="{{currentTabIdx}}" class="swiper-box" bindchange="onSwiperChange">
             <!-- 时间选择Tab -->
             <swiper-item id="{{tabData[0].type}}">
                 <view class='rowContainer'>
@@ -37,13 +37,13 @@
 
                 <view class='graySpaceSmall'></view>
 
-                <view class='text2'>
-                    周期预览
+                <view class='textheader'>
+                    请点选周期中的天次（可多选）
                 </view>
 
                 <view class='dateSelectorContanier'>
                     <view class='dateSelectorRow' wx:for="{{weekList}}" wx:key="{{index}}" wx:for-item="week">
-                        <view class='date' wx:for="{{week}}" wx:key="{{index}}" id='{{item.id}}' data-date="{{item}}">
+                        <view class='date' wx:for="{{week}}" wx:key="{{index}}" id='{{item.id}}' data-date="{{item}}"  bindtap='onSelectDate'>
                             <view class="{{item.selected?'selected_date':'unselected_date'}}">{{item.value}}</view>
                             <view class='textSmall'>
                                 <text>{{item.hasparts}}</text>
@@ -64,7 +64,7 @@
             <!-- 部位选择Tab -->
             <swiper-item id="{{tabData[1].type}}">
                 <view class='textheader'>
-                    请点选日期（可多选）
+                    周期预览
                 </view>
 
                 <view class='dateSelectorContanier'>
@@ -86,7 +86,7 @@
                         <icon wx:else class='icon' type="success_circle"></icon>
 
                         <view style='font-size:32rpx;width:100%;margin-left:50rpx;'>{{item.trainDateStr}}</view>
-                        <view class='text'>{{item.partName}}</view> 
+                        <view class='text'>{{item.partName}}</view>
                     </view>
                 </scroll-view>
 
@@ -110,7 +110,7 @@
                         <scroll-view class="scrollviewVertical_Action" scroll-y="true">
                             <!-- 每个部位细分类 -->
                             <view id="{{index}}" wx:for="{{item.subParts}}" wx:key="{{index}}">
-                                <view class='textheader'> {{item.name}}</view>
+                                <view class='subPart_header'> {{item.name}}</view>
 
                                 <!--  每个动作 -->
                                 <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" data-subpartidx="{{item.actionPartId-1}}" wx:key="{{index}}" bindtap='onSelectAction'>
@@ -125,12 +125,12 @@
                                         <!-- 当动作单位为空的时候，是自定义动作，不显示picker -->
                                         <picker wx:if="{{item.actionMeasurement !== ''}}" id="{{item.actionId}}" data-subpartidx="{{item.actionPartId-1}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
                                             <view class="pickerContainer">
-                                                <view class="pickerItem">{{item.groupSet.length}} </view>
+                                                <view class="pickerItem">{{item.groupSets.length}} </view>
                                                 <view class="pickerItem">组</view>
-                                                <view class="pickerItem">{{item.groupSet[0].quantity}}</view>
+                                                <view class="pickerItem">{{item.groupSets[0].quantity}}</view>
                                                 <view class="pickerItem">{{item.actionGpMeasurement}}</view>
-                                                <view class="pickerItem">{{item.groupSet[0].weight}}</view>
-                                                <view class="pickerItem">{{item.groupSet[0].uom}}</view>
+                                                <view class="pickerItem">{{item.groupSets[0].weight}}</view>
+                                                <view class="pickerItem">{{item.groupSets[0].uom}}</view>
                                             </view>
                                         </picker>
                                     </view>

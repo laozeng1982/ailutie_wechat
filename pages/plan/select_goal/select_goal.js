@@ -11,35 +11,38 @@ Page({
         tabData: [
             {
                 type: "level",
-                name: "1、我的基础",
+                name: "我的基础",
                 data:
                     [
                         {id: 1, text: "零基础小白", selected: false},
                         {id: 2, text: "有一定基础", selected: false},
-                        {id: 3, text: "锻炼达人", selected: false},
+                        {id: 3, text: "健身达人", selected: false},
                     ],
+                tips: "请选择健身基础，右划选择健身目标",
                 finished: false
             },
 
             {
                 type: "target",
-                name: "2、我的目标",
+                name: "我的目标",
                 data:
                     [
                         {id: 1, text: "减脂", selected: false},
                         {id: 2, text: "增肌", selected: false},
                         {id: 3, text: "塑形", selected: false},
                     ],
+                tips: "请选择健身目标，左划选择健身基础，右划选择计划来源",
                 finished: false
             },
             {
                 type: "plan_type",
-                name: "3、计划来源",
+                name: "计划来源",
                 data:
                     [
                         {id: 1, text: "使用推荐计划", selected: false},
                         {id: 2, text: "自己定制计划", selected: false},
                     ],
+                tips: "请选择计划来源，左划选择健身目标",
                 finished: false
             }
         ],
@@ -60,45 +63,9 @@ Page({
     },
 
     /**
-     * 点击切换tab
-     */
-    onSwitchNav: function (e) {
-        // console.log("clicked tab:", e.target.dataset.current);
-        this.switchTab(e.target.dataset.current);
-    },
-
-    /**
      * tab切换的具体函数
      */
     switchTab: function (tabIdx) {
-        let itemSelected = false;
-        switch (tabIdx) {
-            case 0:
-                break;
-            case 1:
-                for (let item of this.data.tabData[0].data) {
-                    itemSelected = itemSelected || item.selected;
-                }
-
-                if (itemSelected) {
-                    break;
-                } else {
-                    return;
-                }
-            case 2:
-                for (let item of this.data.tabData[1].data) {
-                    itemSelected = itemSelected || item.selected;
-                }
-
-                if (itemSelected) {
-                    break;
-                } else {
-                    return;
-                }
-            default:
-                return;
-        }
-
         this.setData({
             currentTabIdx: tabIdx,
         });

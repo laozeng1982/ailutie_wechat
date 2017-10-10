@@ -183,14 +183,26 @@
 }
 
 .textheader {
+    margin: 40rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 36rpx;
+    font-weight: 400;
+}
+
+.subPart_header {
     margin-top: 20rpx;
+    margin-bottom: 20rpx;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     text-align: center;
-    font-size: 40rpx;
-    font-weight: 600;
+    font-size: 36rpx;
+    font-weight: 500;
+
 }
 
 .roundCornor {
@@ -214,16 +226,21 @@
 
 .swiper-tab {
     width: 100%;
-    height: 96rpx;
-    border-bottom: 1rpx solid #888;
+    height: 100rpx;
+    /* border-bottom: 1rpx solid #888; */
     text-align: center;
-    line-height: 80rpx;
+    line-height: 100rpx;
 }
 
 .swiper-tab-list {
-    font-size: 30rpx;
+    font-size: 40rpx;
+    font-weight: 500;
     display: inline-block;
-    width: 33.33%;
+}
+
+.tips {
+    font-size: 24rpx;
+    font-weight: 300;
     color: #888;
 }
 
@@ -261,14 +278,14 @@
 .calendar_panel {
     width: 100%;
     /* height: 100%; */
-    border-bottom: 1rpx solid #ececec;
+    /* border-bottom: 1rpx solid #ececec; */
 }
 
 .calendar_box {
     width: 100%;
     background: #fff;
     overflow: hidden;
-    border-bottom: 1rpx solid #ececec;
+    border-bottom: 1rpx solid #eee;
     display: flex;
     justify-content: space-around;
 }
@@ -297,7 +314,7 @@
 .calendar_box_header {
     width: 100%;
     overflow: hidden;
-    border-bottom: 1rpx solid #ececec;
+    /* border-bottom: 1rpx solid #ececec; */
     display: flex;
 }
 
@@ -414,14 +431,14 @@
 }
 
 .scrollviewVertical_Action {
-     height: 1000rpx; 
+    height: 1000rpx;
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .scrollviewVertical_Preview {
-     height: 800rpx; 
+    height: 800rpx;
     width: 100%;
     display: flex;
     flex-direction: column;

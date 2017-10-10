@@ -521,8 +521,8 @@ Page({
             hasActivePlan = true;
             // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
             if (app.Util.inPeriod(currentPlan.startDate, app.Util.formatDateToString(today), currentPlan.endDate)) {
-                for (let partSet of app.currentPlan.partSet) {
-                    if (partSet.trainDate.includes(today.getDay())) {
+                for (let partSet of app.currentPlan.partSets) {
+                    if (partSet.trainDates.includes(today.getDay())) {
                         todayPlan.push(partSet);
                         todayHasPlan = true;
                     }

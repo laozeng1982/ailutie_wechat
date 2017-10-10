@@ -8,6 +8,7 @@ class Body {
     constructor() {
         this.type = "";
         this.partList = [];
+
     }
 
     /**
@@ -99,12 +100,12 @@ class Body {
             for (let subPatIdx = 0; subPatIdx < this.partList[partIdx].subParts.length; subPatIdx++) {
                 for (let actionIdx = 0; actionIdx < this.partList[partIdx].subParts[subPatIdx].actionList.length; actionIdx++) {
                     // 临时增加一个数据项，用以保存数据
-                    this.partList[partIdx].subParts[subPatIdx].actionList[actionIdx].groupSet = [];
+                    this.partList[partIdx].subParts[subPatIdx].actionList[actionIdx].groupSets = [];
                     for (let idx = 0; idx < 6; idx++) {
                         let group = new PlanSet.GroupSet(idx + 1, 10,
                             this.partList[partIdx].subParts[subPatIdx].actionList[actionIdx].actionMeasurement, 30);
 
-                        this.partList[partIdx].subParts[subPatIdx].actionList[actionIdx].groupSet.push(group);
+                        this.partList[partIdx].subParts[subPatIdx].actionList[actionIdx].groupSets.push(group);
                     }
                 }
             }
@@ -118,14 +119,14 @@ class Body {
     updateGroupSet(partSet) {
         for (let partIdx = 0; partIdx < this.partList.length; partIdx++) {
             if (partSet.name === this.partList[partIdx].partName) {
-                for (let actionItem of partSet.actionSet) {
+                for (let actionItem of partSet.actionSets) {
                     for (let subPartIdx = 0; subPartIdx < this.partList[partIdx].subParts.length; subPartIdx++) {
                         for (let actionIdx = 0; actionIdx < this.partList[partIdx].subParts[subPartIdx].actionList.length; actionIdx++) {
                             if (actionItem.name === this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].actionName) {
                                 this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].actionSelected = true;
 
-                                delete this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].groupSet;
-                                this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].groupSet = actionItem.groupSet;
+                                delete this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].groupSets;
+                                this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].groupSets = actionItem.groupSets;
                             }
                         }
                     }
@@ -136,24 +137,10 @@ class Body {
     }
 
     /**
-     * 清除选中项
-     */
-    clearSelection() {
-        for (let partIdx = 0; partIdx < this.partList.length; partIdx++) {
-            this.partList[partIdx].selected = false;
-            for (let subPartIdx = 0; subPartIdx < this.partList[partIdx].subParts.length; subPartIdx++) {
-                for (let actionIdx = 0; actionIdx < this.partList[partIdx].subParts[subPartIdx].actionList.length; actionIdx++) {
-                    this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].actionSelected = false;
-                }
-            }
-        }
-    }
-
-    /**
      *
      * @returns {boolean}
      */
-    hasSelectedPart() {
+    partSelected() {
         let hasSelectedPart = false;
         for (let part of this.partList) {
             hasSelectedPart = hasSelectedPart || part.selected;
@@ -212,6 +199,16 @@ class Body {
     }
 
     /**
+     * 取消选中一组部位
+     */
+    unSelectAllParts() {
+        for (let part of this.partList) {
+            part.selected = false;
+
+        }
+    }
+
+    /**
      * 统计已经选择动作的数量
      */
     countSelectedAction() {
@@ -233,7 +230,7 @@ class Body {
      * @param subPartIdx
      * @param actionName
      */
-    selectActions(subPartIdx, actionName) {
+    selectAction(subPartIdx, actionName) {
         for (let part of this.partList) {
             if (part.selected && part.active) {
                 for (let action of part.subParts[subPartIdx].actionList) {
@@ -248,6 +245,20 @@ class Body {
     }
 
     /**
+     * 清除动作选中项
+     */
+    unSelectAllActions() {
+        for (let partIdx = 0; partIdx < this.partList.length; partIdx++) {
+            this.partList[partIdx].selected = false;
+            for (let subPartIdx = 0; subPartIdx < this.partList[partIdx].subParts.length; subPartIdx++) {
+                for (let actionIdx = 0; actionIdx < this.partList[partIdx].subParts[subPartIdx].actionList.length; actionIdx++) {
+                    this.partList[partIdx].subParts[subPartIdx].actionList[actionIdx].actionSelected = false;
+                }
+            }
+        }
+    }
+
+    /**
      *
      * @param subPartIdx
      * @param selectedActionIdx
@@ -256,8 +267,8 @@ class Body {
     addGroupSetToAction(subPartIdx, selectedActionIdx, groupSet) {
         for (let part of this.partList) {
             if (part.selected && part.active) {
-                delete part.subParts[subPartIdx].actionList[selectedActionIdx].groupSet;
-                part.subParts[subPartIdx].actionList[selectedActionIdx].groupSet = groupSet;
+                delete part.subParts[subPartIdx].actionList[selectedActionIdx].groupSets;
+                part.subParts[subPartIdx].actionList[selectedActionIdx].groupSets = groupSet;
                 // 因为选中picker同时会响应这个外部view的函数，也就是说会响应onSelectAction，所以需要重置一些状态
                 // 重新置为选中，和记数
                 part.subParts[subPartIdx].actionList[selectedActionIdx].actionSelected = true;
@@ -285,7 +296,7 @@ class Body {
      *
      * @returns {boolean}
      */
-    hasSelectAllActions() {
+    allActionsSelected() {
         let allActionSelected = true;
 
         for (let part of this.partList) {
@@ -302,7 +313,7 @@ class Body {
             allActionSelected = allActionSelected && thisPartActionSelected;
         }
 
-        return this.hasSelectedPart() && allActionSelected;
+        return this.partSelected() && allActionSelected;
     }
 
 
@@ -318,7 +329,7 @@ class Body {
                 if (cycleLength === 7) {
 
                     let trainDate = [];
-                    for (let date of partSet.trainDate) {
+                    for (let date of partSet.trainDates) {
                         switch (date) {
                             case 0:
                                 trainDate.push("周日");
@@ -343,16 +354,16 @@ class Body {
                                 break;
                         }
                     }
-                    this.partList[partIdx].trainDateArr = partSet.trainDate;
+                    this.partList[partIdx].trainDateArr = partSet.trainDates;
                     this.partList[partIdx].trainDateStr = "( " + trainDate.join("，") + " )";
-                    console.log("partSet.trainDateStr ", this.partList[partIdx].trainDateStr);
+                    console.log("partSets.trainDateStr ", this.partList[partIdx].trainDateStr);
                 } else {
                     // 需要加1，新建数组，不改变原数组的值
                     let trainDate = [];
-                    for (let idx = 0; idx < partSet.trainDate.length; idx++) {
-                        trainDate.push(partSet.trainDate[idx] + 1);
+                    for (let idx = 0; idx < partSet.trainDates.length; idx++) {
+                        trainDate.push(partSet.trainDates[idx] + 1);
                     }
-                    this.partList[partIdx].trainDateArr = partSet.trainDate;
+                    this.partList[partIdx].trainDateArr = partSet.trainDates;
                     this.partList[partIdx].trainDateStr = "(第 " + trainDate.join("，") + " 天)";
                 }
             }

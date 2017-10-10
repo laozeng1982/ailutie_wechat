@@ -162,8 +162,8 @@ Page({
                 // 先判断这天是否在周期内
                 if (app.Util.inPeriod(app.currentPlan.startDate, dateList[week][day].value, app.currentPlan.endDate)) {
                     let partArr = [];
-                    for (let partSet of app.currentPlan.partSet) {
-                        if (partSet.trainDate.includes(dateList[week][day].week)) {
+                    for (let partSet of app.currentPlan.partSets) {
+                        if (partSet.trainDates.includes(dateList[week][day].week)) {
                             dateList[week][day].hasPlan = true;
                             dateList[week][day].planPartsArr.push(partSet.name);
                             partArr.push(partSet.name);
@@ -252,8 +252,8 @@ Page({
 
         // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
         if (app.Util.inPeriod(app.currentPlan.startDate, selectedDate.value, app.currentPlan.endDate)) {
-            for (let partSet of app.currentPlan.partSet) {
-                if (partSet.trainDate.includes(selectedDate.week)) {
+            for (let partSet of app.currentPlan.partSets) {
+                if (partSet.trainDates.includes(selectedDate.week)) {
                     selectedDatePlan.push(partSet);
                 }
             }

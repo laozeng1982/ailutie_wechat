@@ -200,7 +200,7 @@
 }
 
 .textSelected {
-     padding: 40rpx; 
+     padding: 30rpx; 
     /* padding-left: 40rpx;
     padding-top: 20rpx;
     padding-bottom: 20rpx;
@@ -208,7 +208,7 @@
     align-content: center;
     align-items: center;
     font-size: 36rpx;
-    font-weight: 600;
+    font-weight: 500;
     background-color: #fff;
     /* border-right: 1rpx solid #eee; */
 }

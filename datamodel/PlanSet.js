@@ -36,7 +36,7 @@ class Plan {
         this.comments = [];  // 评论
         this.agree = 0;     // 点赞数
 
-        this.partSet = [];  // 存放部位信息
+        this.partSets = [];  // 存放部位信息
 
     }
 }
@@ -50,17 +50,17 @@ class PartSet {
         this.name = name;       // 部位名字
         this.description = '';  // 部位描述
         this.imageUrl = '';
-        this.trainDate = [];    // 该部位每周几锻炼，存放数字0,1,2,3,4,5,6代表周日到周六
-        this.actionSet = [];    // 存放动作列表
+        this.trainDates = [];    // 该部位每周几锻炼，存放数字0,1,2,3,4,5,6代表周日到周六
+        this.actionSets = [];    // 存放动作列表
     }
 
     fullCopyFrom(part) {
         this.id = part.id;
         this.name = part.name;
         this.imageUrl = part.imageUrl;
-        this.trainDate = part.trainDate;
+        this.trainDates = part.trainDates;
         this.description = part.description;
-        this.actionSet = part.actionSet;
+        this.actionSets = part.actionSets;
     }
 }
 
@@ -77,8 +77,8 @@ class ActionSet {
         this.equipment = '';
         this.description = '';
         this.imageUrl = '';
-        this.trainDate = [];    // 该动作每周几锻炼，存在不和部位同步的情况，存放数字0,1,2,3,4,5,6代表周日到周六
-        this.groupSet = [];     // 存放每组的计划
+        this.trainDates = [];    // 该动作每周几锻炼，存在不和部位同步的情况，存放数字0,1,2,3,4,5,6代表周日到周六
+        this.groupSets = [];     // 存放每组的计划
 
     }
 }
