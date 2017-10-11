@@ -37,7 +37,15 @@ class Plan {
         this.agree = 0;     // 点赞数
 
         this.partSets = [];  // 存放部位信息
+        this.trainDatas = [];   // 存放计划的具体信息，即TrainData数组
 
+    }
+}
+
+class TrainData {
+    constructor(id) {
+        this.id = id;   // 这个部位锻炼的天次，该部位每周期内锻炼天次，存放数字0,1,2,3等，代表周期内的第N天
+        this.partSets = [];
     }
 }
 
@@ -50,7 +58,6 @@ class PartSet {
         this.name = name;       // 部位名字
         this.description = '';  // 部位描述
         this.imageUrl = '';
-        this.trainDates = [];    // 该部位每周几锻炼，存放数字0,1,2,3,4,5,6代表周日到周六
         this.actionSets = [];    // 存放动作列表
     }
 
@@ -58,7 +65,6 @@ class PartSet {
         this.id = part.id;
         this.name = part.name;
         this.imageUrl = part.imageUrl;
-        this.trainDates = part.trainDates;
         this.description = part.description;
         this.actionSets = part.actionSets;
     }
@@ -96,6 +102,7 @@ class GroupSet {
 module.exports = {
     PlanSet: PlanSet,
     Plan: Plan,
+    TrainData: TrainData,
     PartSet: PartSet,
     ActionSet: ActionSet,
     GroupSet: GroupSet,

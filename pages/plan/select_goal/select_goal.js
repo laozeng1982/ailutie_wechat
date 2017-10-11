@@ -92,7 +92,7 @@ Page({
         });
 
         // 第一次进入页面，自动跳转
-        if (this.data.firstTimeIn) {
+        if (this.data.firstTimeIn && this.data.currentTabIdx + 1 <= 2) {
             this.switchTab(this.data.currentTabIdx + 1);
             if (this.data.currentTabIdx === 2)
                 this.setData({firstTimeIn: false});

@@ -75,9 +75,9 @@
         </swiper>
 
         <view class='tips_text'>
-            <view style='margin:20rpx'>1、点击日历中有计划的天，查看当天详情</view>
-            <view style='margin:20rpx'>2、点击日历头或者没有计划天，回到整月视图</view>
-            <view style='margin:20rpx'>3、上下滑动翻月</view>
+            <view class="swiper-tab-list tips">1、点击日历中有计划的天，查看当天详情</view>
+            <view class="swiper-tab-list tips">2、点击日历头或者没有计划天，回到整月视图</view>
+            <view class="swiper-tab-list tips">3、上下滑动翻月</view>
 
         </view>
 

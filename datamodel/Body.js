@@ -134,6 +134,8 @@ class Body {
                 }
             }
         }
+
+        this.countSelectedAction();
     }
 
     /**
@@ -153,7 +155,7 @@ class Body {
      * 给定Id，选中目标部位
      * @param partId
      */
-    selectPart(partId) {
+    selectPartById(partId) {
         for (let idx = 0; idx < this.partList.length; idx++) {
             if (parseInt(partId) === parseInt(this.partList[idx].partId)) {
                 this.partList[idx].selected = !this.partList[idx].selected;
@@ -163,10 +165,36 @@ class Body {
     }
 
     /**
+     * 给定Id，选中目标部位
+     * @param partId
+     */
+    unSelectPartById(partId) {
+        for (let idx = 0; idx < this.partList.length; idx++) {
+            if (parseInt(partId) === parseInt(this.partList[idx].partId)) {
+                this.partList[idx].selected = false;
+                break;
+            }
+        }
+    }
+
+    /**
+     * 给定Id，选中目标部位
+     * @param partName
+     */
+    selectPartByName(partName) {
+        for (let idx = 0; idx < this.partList.length; idx++) {
+            if (partName === this.partList[idx].partName) {
+                this.partList[idx].selected = true;
+                break;
+            }
+        }
+    }
+
+    /**
      * 给定Id，高亮激活目标部位
      * @param partName
      */
-    activePart(partName) {
+    activePartByName(partName) {
         for (let idx = 0; idx < this.partList.length; idx++) {
             this.partList[idx].active = partName === this.partList[idx].partName;
         }
@@ -176,7 +204,7 @@ class Body {
      * 选中一组部位（多个）
      * @param partsArr
      */
-    selectParts(partsArr) {
+    selectPartsByName(partsArr) {
         for (let part of this.partList) {
             if (partsArr.length > 0) {
                 part.selected = partsArr.includes(part.partName);
@@ -188,7 +216,7 @@ class Body {
      * 取消选中一组部位
      * @param partsArr
      */
-    unSelectParts(partsArr) {
+    unSelectPartsByNames(partsArr) {
         for (let part of this.partList) {
             if (partsArr.length > 0) {
                 if (partsArr.includes(part.partName)) {
@@ -199,7 +227,7 @@ class Body {
     }
 
     /**
-     * 取消选中一组部位
+     * 取消所有选中部位
      */
     unSelectAllParts() {
         for (let part of this.partList) {

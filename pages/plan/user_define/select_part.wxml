@@ -43,7 +43,7 @@
 
                 <view class='dateSelectorContanier'>
                     <view class='dateSelectorRow' wx:for="{{weekList}}" wx:key="{{index}}" wx:for-item="week">
-                        <view class='date' wx:for="{{week}}" wx:key="{{index}}" id='{{item.id}}' data-date="{{item}}"  bindtap='onSelectDate'>
+                        <view class='date' wx:for="{{week}}" wx:key="{{index}}" id='{{item.id}}' data-date="{{item}}" bindtap='onSelectDate'>
                             <view class="{{item.selected?'selected_date':'unselected_date'}}">{{item.value}}</view>
                             <view class='textSmall'>
                                 <text>{{item.hasparts}}</text>
@@ -53,10 +53,10 @@
                 </view>
 
                 <view class='tips_text'>
-                    <view style='margin:20rpx'>1、请选择计划开始和结束的时间</view>
-                    <view style='margin:20rpx'>2、请选择计划中每个周期的长度</view>
-                    <view style='margin:20rpx'>3、如果计划中当天准备休息，不选这天即可</view>
-                    <view style='margin:20rpx'>4、再左滑去选择该日期的锻炼部位</view>
+                    <view class="swiper-tab-list tips">1、请选择计划开始和结束的时间</view>
+                    <view class="swiper-tab-list tips">2、请选择计划中每个周期的长度</view>
+                    <view class="swiper-tab-list tips">3、如果计划中当天准备休息，不选这天即可</view>
+                    <view class="swiper-tab-list tips">4、再左滑去选择该日期的锻炼部位</view>
                 </view>
 
             </swiper-item>
@@ -81,14 +81,20 @@
                 <view class='graySpaceSmall'></view>
 
                 <scroll-view class="scrollview" scroll-y="true">
-                    <view id="{{item.partId}}" class='partContainer' wx:for="{{body.partList}}" wx:key="{{index}}" bindtap='onSelectPartItem'>
-                        <icon wx:if="{{!item.selected }}" class='icon' type="circle"></icon>
-                        <icon wx:else class='icon' type="success_circle"></icon>
+                    <view id="{{item.partId}}" class='partContainer' wx:if="{{item.selected}}" wx:for="{{body.partList}}" wx:key="{{index}}">
 
-                        <view style='font-size:32rpx;width:100%;margin-left:50rpx;'>{{item.trainDateStr}}</view>
+                        <!-- <view style='font-size:32rpx;width:100%;margin-left:50rpx;'>{{item.trainDateStr}}</view> -->
                         <view class='text'>{{item.partName}}</view>
+                        <icon id="{{item.partId}}" wx:if="{{item.selected }}" class='icon' size='30' type="cancel" bindtap='onCancelPart'></icon>
                     </view>
                 </scroll-view>
+
+                <view style='display:flex;justify-content:space-around'>
+                    <picker id="partName" data-partname="{{index}}" range="{{partNameArray}}" bindchange='onAddPart'>
+                        <view class="roundCornorBtn">添加部位</view>
+                    </picker>
+                </view>
+
 
                 <view class='tips_text'>
                     请点选部位（可多选），再左滑去选择该部位的锻炼动作
@@ -135,8 +141,8 @@
                                         </picker>
                                     </view>
 
-                                    <icon wx:if="{{!item.actionSelected}}" class='icon' type="circle" size="23"></icon>
-                                    <icon wx:else class='icon' class='icon' type="success_circle" size="23"></icon>
+                                    <icon wx:if="{{!item.actionSelected}}" class='iconAction' type="circle" size="26"></icon>
+                                    <icon wx:else class='icon' class='iconAction' type="success_circle" size="26"></icon>
                                 </view>
 
                             </view>
@@ -153,8 +159,8 @@
     <include src="../../ui/toast/warn_toast.wxml" />
 
     <!-- <view class='graySpaceSmall'></view> -->
-
+    <!-- disabled='{{!allTabFinished}}' 暂时取消disable-->
     <view class='footArea'>
-        <button class='nextBtn' type='primary' disabled='{{!allTabFinished}}' bindtap='onPreview'> 预览 </button>
+        <button class='nextBtn' disabled='{{currentTabIdx===0}}' type='primary' bindtap='onPreview'> 预览 </button>
     </view>
 </view>

@@ -11,6 +11,7 @@ import DailyRecords from '../datamodel/DailyRecords.js'
 import Movement from '../datamodel/Movement.js'
 import SystemSetting from '../datamodel/SystemSetting.js'
 import StorageType from '../datamodel/StorageType.js'
+import PlanSet from '../datamodel/PlanSet.js'
 
 var DATATYPE = new StorageType.StorageType();
 
@@ -69,7 +70,25 @@ class Controller {
         // console.log("in Controller.loadData, after loadData, requestData: ", requestData);
 
         return requestData;
+    }
 
+    /**
+     *
+     * @returns {*}
+     */
+    loadPlan() {
+        let planSet = this.loadData(this.STORAGETYPE.PlanSet);
+        let currentPlan = '';
+
+        console.log("planSet:", planSet);
+
+        for (let plan of planSet) {
+            if (plan.currentUse) {
+                currentPlan = plan;
+            }
+        }
+
+        return (currentPlan === '') ? new PlanSet.Plan() : currentPlan;
     }
 
     /**
@@ -88,130 +107,6 @@ class Controller {
         wx.setStorageSync(dataType.key, dataToSave);
     }
 
-    /**
-     * 功能：寻找和替换现有记录中的片段
-     * 参数1：selectedDate，选中的日期
-     * 参数2：dataToSave，要存储的数据
-     * 参数3：originData，记录中已经有的数据
-     * 返回：经过修改之后的内容
-     * 调用关系：内部调用，被saveData调用
-     */
-    moveDay(isNext, host) {
-        // 先保存
-        host.collectDataToSave();
-        console.log("in moveDay, host.data.curRecords", host.data.curRecords);
-        this.saveData(host.data.selectedDate, DATATYPE.DailyRecords, host.data.curRecords);
-
-        // 改变日期
-        var dateAfterMove = util.getMoveDays(host.data.selectedDate, isNext, 1);
-        // 需先设置日期
-        host.setData({
-            selectedDate: dateAfterMove,
-
-        });
-
-        var curRecords = this.loadData(DATATYPE.DailyRecords);
-        console.log("in moveDay: host.data.selectedDate", host.data.selectedDate);
-        console.log("in moveDay: DATATYPE.DailyRecords", DATATYPE.DailyRecords);
-        console.log("in moveDay: curRecords", curRecords);
-
-        host.setData({
-            curRecords: curRecords,
-            selectedMovementId: -1
-        });
-
-        host.initRecords();
-
-        if (util.dateDirection(host.data.selectedDate) === -1) {
-            util.showToast("历史数据不能修改哦^_^", host, 2000);
-        }
-    }
-
-    /**
-     * 具体处理添加动作的业务
-     * 参数：movement，在Modal中生成的数据
-     */
-    addMovement(movement, host) {
-        var success = false;
-        // console.log("in addMovement, this.data.curRecords: ", this.data.curRecords);
-
-        var toBeAdd = new Movement.Movement();
-
-        // 必须要使用copyfrom，否则添加的都是一样的。不能使用：toBeAdd = movement
-        toBeAdd.fullCopyFrom(movement);
-
-        // console.log("in addMovement, toBeAdd is: ", toBeAdd);
-
-        toBeAdd.date = host.data.selectedDate;
-
-        // 这样逻辑简单，仅在此一处产生ID，其他地方都不修改ID
-        toBeAdd.mvId = host.data.curRecords.movementList.length + 1;
-        // console.log("in addMovement, this.data.tmpMovement is: ", movement);
-        // console.log("in addMovement, toBeAdd is: ", toBeAdd);
-        if (!host.data.curRecords.add(toBeAdd)) {
-            util.showToast('您已添加该动作。', host, 2000);
-            success = false;
-            return success;
-        } else {
-            console.log("add a new movement: ", toBeAdd);
-        }
-
-        host.setData({
-            curRecords: host.data.curRecords
-        });
-        // console.log("in addMovement, this.data.curRecords.movementList.length",
-        // this.data.curRecords.movementList.length);
-        // console.log("in addMovement, after add: ", this.data.curRecords);
-        success = true;
-        this.saveData(host.data.selectedDate, this.STORAGETYPE.DailyRecords, host.data.curRecords);
-        return success;
-    }
-
-    /**
-     * 具体处理修改动作的业务
-     */
-    modifyMovement(movement, refresh, host) {
-        var success = false;
-
-        //准备修改的数据
-        var toBeModify = new Movement.Movement();
-        toBeModify.fullCopyFrom(movement);
-
-        console.log("in modifyMovement, new modify movement is: ", toBeModify);
-
-        success = host.data.curRecords.modify(host.data.curSelectedMovementId, refresh, toBeModify);
-
-        if (!success) {
-            util.showToast('动作重复了...', host, 2000);
-        } else {
-            host.setData({
-                curRecords: host.data.curRecords
-            });
-            console.log('modify completed!');
-        }
-
-        this.saveData(host.data.selectedDate, this.STORAGETYPE.DailyRecords, host.data.curRecords);
-        return success;
-    }
-
-    /**
-     *
-     */
-    removeMovement(id, host) {
-
-        var curRecords = host.data.curRecords;
-        console.log("in removeMovement, before delele, host.data.curRecords: ", curRecords);
-        curRecords.remove(id);
-
-        host.setData({
-            curRecords: curRecords,
-        });
-
-        this.saveData(host.data.selectedDate, this.STORAGETYPE.DailyRecords, host.data.curRecords);
-
-        console.log("in removeMovement, after delele, host.data.curRecords, ", host.data.curRecords);
-        // console.log('remove', e.detail.value)
-    }
 }
 
 module.exports = {

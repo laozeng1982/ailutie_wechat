@@ -55,6 +55,8 @@ Page({
         },
         searchResult: [],
 
+        partNameArray: [],
+
         actionNoMultiArray: [], // 3D 数组，用来存放动作组数，次数和重量
         multiActionNoIndex: [5, 9, 0, 19, 0],  // 数量选择索引
         plan: '',
@@ -86,14 +88,17 @@ Page({
                 {id: 6, value: '六', currpart: part, hasparts: '', selected: false}
             ];
 
+            // 周期下添加标注
             for (let idx = 0; idx < 7; idx++) {
-                let partArr = [];
-                for (let partSet of app.currentPlan.partSets) {
-                    if (partSet.trainDates.includes(idx)) {
+
+                if (app.currentPlan.trainDatas.length > 0) {
+                    let partArr = [];
+                    for (let partSet of app.currentPlan.trainDatas[idx].partSets) {
                         partArr.push(partSet.name);
+
                     }
+                    week[idx].hasparts = app.Util.makePartString(partArr);
                 }
-                week[idx].hasparts = app.Util.makePartString(partArr);
 
                 // 如果是直接退回来，没有保存的状态，需要标注已经选择的日期
                 if (!app.lastPlanSaved && this.data.selectedDateList.length > 0
@@ -109,8 +114,8 @@ Page({
                 week = [];
                 for (let idx = 0; idx < 7 && (index * 7 + idx) < cycleLength; idx++) {
                     let partArr = [];
-                    for (let partSet of app.currentPlan.partSets) {
-                        if (partSet.trainDates.includes(index * 7 + idx)) {
+                    if (app.currentPlan.trainDatas.length > 0) {
+                        for (let partSet of app.currentPlan.trainDatas[index * 7 + idx].partSets) {
                             partArr.push(partSet.name);
                         }
                     }
@@ -164,31 +169,41 @@ Page({
             case "cycle":
                 let cycleLength = parseInt(e.detail.value) + 1;
                 let makeWeekList = true;
-                // if (cycleLength < this.data.cycleLength) {
-                //     wx.showModal({
-                //         title: '确定缩短周期？',
-                //         content: '缩短周期后，原计划超出现有周期的部分将不可用。',
-                //         success: function (res) {
-                //             if (res.confirm) {
-                //                 makeWeekList = true;
-                //             } else if (res.cancel) {
-                //                 makeWeekList = false;
-                //             }
-                //         }
-                //     });
-                // } else {
-                //     makeWeekList = true;
-                // }
+
+                if (app.currentPlan.trainDatas.length > cycleLength) {
+                    wx.showModal({
+                        title: '确定缩短周期？',
+                        content: '缩短周期后，超出现有周期的部分将丢失！',
+                        success: function (res) {
+                            if (res.confirm) {
+                                makeWeekList = true;
+                            } else if (res.cancel) {
+                                makeWeekList = false;
+                            }
+                        }
+                    });
+                }
 
                 if (makeWeekList) {
+                    if (app.currentPlan.trainDatas.length > cycleLength) {
+                        app.currentPlan.trainDatas.splice(cycleLength, app.currentPlan.trainDatas.length - cycleLength);
+                    } else {
+                        for (let idx = 0; idx < cycleLength - app.currentPlan.trainDatas.length; idx++) {
+                            app.currentPlan.trainDatas.push(new PlanSet.TrainData(idx));
+                        }
+                    }
+
                     this.setData({
                         cycleLength: cycleLength
                     });
+
                 }
                 break;
             default:
                 break;
         }
+
+        console.log(app.currentPlan.trainDatas);
 
         this.makeWeekList(this.data.cycleLength, "");
 
@@ -233,12 +248,38 @@ Page({
     onSelectDate: function (e) {
         let weekList = this.data.weekList;
         let selectedDateList = [];
+        let selectedDateIdx = parseInt(e.currentTarget.id);
+        console.log(selectedDateIdx);
+
+        // 如果多选，判断之前选中的天是否有计划
+        // 如果是同样的计划（之前同批次制定的）则可以选，如果有不让多选，弹出Toast提示
+        console.log(app.currentPlan.trainDatas.length > 0, this.data.selectedDateList.length > 0
+            , this.data.selectedDateList.indexOf(selectedDateIdx) === -1);
+        if (app.currentPlan.trainDatas.length > 0 && this.data.selectedDateList.length > 0
+            && this.data.selectedDateList.indexOf(selectedDateIdx) === -1) {
+            let hasPlanCount = 0;
+            selectedDateList = this.data.selectedDateList.concat([selectedDateIdx]);
+            console.log("list:", selectedDateList);
+            for (let item of selectedDateList) {
+                if (app.currentPlan.trainDatas[item].partSets.length > 0)
+                    hasPlanCount++;
+            }
+
+            // 当有计划数超过一时，即提示
+            if (hasPlanCount > 1) {
+                app.Util.showNormalToast("不可同时修改两天的计划~~", this, 1000);
+                return;
+            }
+        }
+
+        selectedDateList = [];
 
         for (let week = 0; week < weekList.length; week++) {
             for (let day = 0; day < weekList[week].length; day++) {
                 if (parseInt(e.currentTarget.id) === weekList[week][day].id) {
                     weekList[week][day].selected = !weekList[week][day].selected;
                 }
+                // 将选中的加入日期选中列表
                 if (weekList[week][day].selected) {
                     selectedDateList.push(weekList[week][day].id);
                 }
@@ -250,10 +291,10 @@ Page({
         // 如果这天有计划，则只选中这天的部位
         // 先得到这天的部位
         let selectedPartNames = [];
-        if (app.currentPlan.partSets.length > 0) {
+        if (app.currentPlan.trainDatas.length > 0) {
             for (let item of selectedDateList) {
-                for (let partSet of app.currentPlan.partSets) {
-                    if (partSet.trainDates.indexOf(item) !== -1 && selectedPartNames.indexOf(partSet.name) === -1) {
+                for (let partSet of app.currentPlan.trainDatas[item].partSets) {
+                    if (selectedPartNames.indexOf(partSet.name) === -1) {
                         selectedPartNames.push(partSet.name);
                     }
                 }
@@ -264,9 +305,16 @@ Page({
 
         let body = this.data.body;
 
-        body.selectParts(selectedPartNames);
-        if (this.data.selectedPartNames.length > 0)
-            body.unSelectParts(this.data.selectedPartNames);
+        if (selectedPartNames.length === 0) {
+            body.unSelectAllParts();
+
+        } else {
+            body.selectPartsByName(selectedPartNames);
+        }
+
+        // this.initPartTab();
+        // // 刷新其他tab数据，防止用户直接跳转到预览，造成数据未选的假象
+        // this.initActionTab();
 
         this.setData({
             selectedDateList: selectedDateList,
@@ -287,7 +335,46 @@ Page({
         let body = this.data.body;
 
         // 置状态
-        body.selectPart(e.currentTarget.id);
+        body.selectPartById(e.currentTarget.id);
+
+        this.setData({
+            body: body
+
+        });
+
+        this.validateTab(1);
+    },
+
+    onCancelPart: function (e) {
+        console.log(e);
+        let body = this.data.body;
+
+        // 置状态
+        body.unSelectPartById(e.currentTarget.id);
+
+        this.setData({
+            body: body
+
+        });
+
+        this.validateTab(1);
+    },
+
+    onAddPart: function (e) {
+        console.log(e.detail.value);
+        let body = this.data.body;
+        let selectedPartIdx = parseInt(e.detail.value);
+        console.log("Select Part:", e.detail.value, this.data.partNameArray[selectedPartIdx]);
+
+        // for (let part of body.partList) {
+        //     if (this.data.partNameArray[selectedPartIdx] ===part.partName) {
+        //         part.selected = true;
+        //         break;
+        //     }
+        // }
+
+        // 置状态
+        body.selectPartByName(this.data.partNameArray[selectedPartIdx]);
 
         this.setData({
             body: body
@@ -306,7 +393,7 @@ Page({
         console.log("Selected: ", e.currentTarget.id);
         let body = this.data.body;
 
-        body.activePart(e.currentTarget.id);
+        body.activePartByName(e.currentTarget.id);
 
         this.setData({
             body: body
@@ -494,10 +581,12 @@ Page({
         let body = this.data.body;
 
         // 如果已经有计划了，需要根据计划里的内容，给body的数据更新
-        if (app.currentPlan.partSets.length > 0) {
+        if (app.currentPlan.trainDatas.length > 0) {
             console.log("has plan, init with plan data");
-            for (let partSet of app.currentPlan.partSets) {
-                body.updateGroupSet(partSet);
+            for (let dateIdx of this.data.selectedDateList) {
+                for (let partSet of app.currentPlan.trainDatas[dateIdx].partSets) {
+                    body.updateGroupSet(partSet);
+                }
             }
         }
 
@@ -526,6 +615,8 @@ Page({
                 break;
             case 1:
                 this.initPartTab();
+                // 刷新其他tab数据，防止用户直接跳转到预览，造成数据未选的假象
+                this.initActionTab();
                 break;
             case 2:
                 this.initActionTab();
@@ -550,88 +641,62 @@ Page({
         app.currentPlan.endDate = this.data.endDate;
         app.currentPlan.cycleLength = this.data.cycleLength;
 
+        let body = this.data.body;
+
         // 必须检查重复，以防用户只是简单的切换了页面，造成重复添加
         let partId = 1;
 
-        let body = this.data.body;
+        let trainDatas = [];
 
-        for (let part of body.partList) {
-            if (part.selected) {
-                // 生成一个部位
-                let partSet = new PlanSet.PartSet(partId, part.partName);
-                partSet.description = part.partDescription;
-                partSet.imageUrl = part.partPictureSrc;
-                partSet.trainDates = this.data.selectedDateList;
+        // TODO 注意周期改变的情况，将来处理
 
-                // 当点中的时候，就算是计划中的元素
-                // 搜索所有选中的动作，生成actionSet
-                let actionIdx = 1;
-                for (let subPart of part.subParts) {
-                    for (let action of subPart.actionList) {
-                        if (action.actionSelected) {
-                            // 生成一个动作
-                            let actionSet = new PlanSet.ActionSet();
-                            actionSet.id = actionIdx;
-                            actionSet.name = action.actionName;
-                            actionSet.description = action.actionDescription;
-                            actionSet.imageUrl = action.actionPictureSrc;
-                            actionSet.trainDates = this.data.selectedDateList;
+        trainDatas = app.currentPlan.trainDatas;
 
-                            actionSet.groupSets = action.groupSets;
-                            partSet.actionSets.push(actionSet);
-                            actionIdx++;
-                        }
-                    }
-                }
+        console.log("trainDatas:", trainDatas);
 
-                // 判断重复
-                let hasThisPart = false;
-                for (let partSetIdx = 0; partSetIdx < app.currentPlan.partSets.length; partSetIdx++) {
-                    // 如果有，需要进一步判断，搞清业务逻辑
-                    // 比较两个部位的锻炼日期列表是否相同
-                    // 如果日期列表相同，则只能使用这一个动作计划，直接用最新的替换掉；
-                    // 如果不同，则逻辑上是不同天的计划，合并锻炼的天
-                    if (app.currentPlan.partSets[partSetIdx].name === partSet.name) {
-                        hasThisPart = true;
-                        if (app.Util.compare2Array(app.currentPlan.partSets[partSetIdx].trainDates, partSet.trainDates)) {
-                            // 日期相同，直接替换，逻辑没有问题
-                            app.currentPlan.partSets.splice(partSetIdx, 1, partSet);
-                        } else {
-                            // 日期不同，需要合并日期
-                            for (let day of partSet.trainDates) {
-                                // 日期不在范围内，直接合并
-                                if (app.currentPlan.partSets[partSetIdx].trainDates.indexOf(day) === -1) {
-                                    app.currentPlan.partSets[partSetIdx].trainDates.push(day);
-                                    // 重新排序一下
-                                    app.currentPlan.partSets[partSetIdx].trainDates.sort(
-                                        function NumAscSort(a, b) {
-                                            return a - b;
-                                        });
-                                    app.currentPlan.partSets[partSetIdx].actionSets =
-                                        app.currentPlan.partSets[partSetIdx].actionSets.concat(partSet.actionSets);
-                                    console.log("plan partSets:", app.currentPlan.partSets[partSetIdx].actionSets);
+        for (let selectedDate of this.data.selectedDateList) {
+            let partSets = [];
+            for (let part of body.partList) {
+                if (part.selected) {
+                    // 生成一个部位
+                    let partSet = new PlanSet.PartSet(partId, part.partName);
+                    partSet.description = part.partDescription;
+                    partSet.imageUrl = part.partPictureSrc;
+                    partSet.trainDates = this.data.selectedDateList;
 
-                                } else {
-                                    console.log("merge 2");
-                                    app.currentPlan.partSets[partSetIdx].actionSets =
-                                        app.currentPlan.partSets[partSetIdx].actionSets.concat(partSet.actionSets);
-                                    console.log("plan partSets:", app.currentPlan.partSets[partSetIdx].actionSets);
-                                }
+                    // 当点中的时候，就算是计划中的元素
+                    // 搜索所有选中的动作，生成actionSet
+                    let actionIdx = 1;
+                    for (let subPart of part.subParts) {
+                        for (let action of subPart.actionList) {
+                            if (action.actionSelected) {
+                                // 生成一个动作
+                                let actionSet = new PlanSet.ActionSet();
+                                actionSet.id = actionIdx;
+                                actionSet.name = action.actionName;
+                                actionSet.description = action.actionDescription;
+                                actionSet.imageUrl = action.actionPictureSrc;
+                                actionSet.trainDates = this.data.selectedDateList;
 
-
+                                actionSet.groupSets = action.groupSets;
+                                partSet.actionSets.push(actionSet);
+                                actionIdx++;
                             }
-
                         }
                     }
-                }
 
-                if (!hasThisPart) {
-                    app.currentPlan.partSets.push(partSet);
+                    // 如果没选动作，就不加呗
+                    if (partSet.actionSets.length === 0) {
+                        continue;
+                    }
+                    partSets.push(partSet);
                 }
-
-                partId++;
             }
+
+            trainDatas[selectedDate].partSets = partSets;
         }
+
+        app.currentPlan.trainDatas = trainDatas;
 
         console.log("app.currentPlan:", app.currentPlan);
 
@@ -652,17 +717,7 @@ Page({
 
         // 判断进入的入口，如果是定制新计划，日期用当前日期；如果是修改已有计划，日期则使用计划的日期
         // 如果是现有计划，则显示现有计划的起止日期，否则看是否存有日期，如果没有，则用当前日期
-        if (!app.makingNewPlan) {
-            if (app.currentPlan.startDate !== "") {
-                startDate = app.currentPlan.startDate;
-                endDate = app.currentPlan.endDate;
-            } else {
-                startDate = app.Util.formatDateToString(new Date());
-                endDate = app.Util.getMovedDate(startDate, true, 30);
-            }
-
-            cycleLength = app.currentPlan.cycleLength === 0 ? 7 : app.currentPlan.cycleLength;
-        } else {
+        if (app.makingNewPlan) {
             if (app.planStartDate !== "") {
                 startDate = app.planStartDate;
                 endDate = app.planEndDate;
@@ -672,6 +727,22 @@ Page({
             }
 
             cycleLength = 7;
+
+            if (app.currentPlan.trainDatas.length === 0) {
+                for (let idx = 0; idx < cycleLength; idx++) {
+                    trainDatas.push(new PlanSet.TrainData(cycleLength));
+                }
+            }
+        } else {
+            if (app.currentPlan.startDate !== "") {
+                startDate = app.currentPlan.startDate;
+                endDate = app.currentPlan.endDate;
+            } else {
+                startDate = app.Util.formatDateToString(new Date());
+                endDate = app.Util.getMovedDate(startDate, true, 30);
+            }
+
+            cycleLength = app.currentPlan.cycleLength === 0 ? 7 : app.currentPlan.cycleLength;
         }
 
 
@@ -695,24 +766,8 @@ Page({
     initPartTab: function () {
         console.log("initPartTab call");
         // 这里要分入口，第一次进入，直接调用系统的，否则使用已经保存的
-        let body;
+        let body = this.data.body;
 
-        if (this.data.body === '') {
-            body = new Body.Body();
-            let systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
-            body.partList = app.Util.deepClone(systemSetting.body.partList);
-            // 第一次进入，没有选过动作，需要重新构建，先统一赋值
-            body.initGroupSet();
-
-            // 添加两个临时属性
-            for (let part of body.partList) {
-                part.active = false;
-                part.selectedActionCount = 0;
-            }
-
-        } else {
-            body = this.data.body;
-        }
 
         // 进行标注
         // 进行判断，如果是继续制定计划，那么之前的计划，已经保存了，这里刷新一下数据，如果不是，则不用刷新
@@ -731,22 +786,21 @@ Page({
         }
 
         // 当有计划内容时，进行标注和重排序
-
-        if (typeof currentPlan !== "undefined" && currentPlan.partSets.length > 0) {
-
-            // 如果是保存后退到此页面，则清理掉选项
-            if (app.lastPlanSaved) {
-                body.unSelectAllActions();
-            }
-
-            // 如果之前的计划有这个部位了，标注出来
-            for (let partSet of currentPlan.partSets) {
-                body.makeLabel(partSet, currentPlan.cycleLength);
-            }
-
-            body.sortListByDate();
-
-        }
+        // if (typeof currentPlan !== "undefined" && currentPlan.trainDatas.length > 0) {
+        //
+        //     // 如果是保存后退到此页面，则清理掉选项
+        //     if (app.lastPlanSaved) {
+        //         body.unSelectAllActions();
+        //     }
+        //
+        //     // 如果之前的计划有这个部位了，标注出来
+        //     for (let partSet of currentPlan.partSets) {
+        //         body.makeLabel(partSet, currentPlan.cycleLength);
+        //     }
+        //
+        //     body.sortListByDate();
+        //
+        // }
 
         this.setData({
             body: body
@@ -777,9 +831,35 @@ Page({
         console.log("Select Part Page onLoad");
         // 只需要这一次
         this.makeActionPicker();
+
+        let body = new Body.Body();
+        let systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
+        body.partList = app.Util.deepClone(systemSetting.body.partList);
+        // 第一次进入，没有选过动作，需要重新构建，先统一赋值
+        body.initGroupSet();
+
+        // 添加两个临时属性
+        for (let part of body.partList) {
+            part.active = false;
+            part.selectedActionCount = 0;
+        }
+
+        let partNameArray = [];
+
+        for (let part of body.partList) {
+            partNameArray.push(part.partName);
+        }
+
         wx.setNavigationBarTitle({
             title: '定制我的锻炼计划',
         });
+
+        this.setData({
+            body: body,
+            partNameArray: partNameArray
+        });
+
+        console.log("partNameArray:", this.data.partNameArray);
     },
 
     /**
@@ -797,8 +877,8 @@ Page({
 
         this.initDateTab();
         this.initPartTab();
-        this.initActionTab();
         if (app.lastPlanSaved) {
+            this.data.body.unSelectAllParts();
             this.setData({
                 currentTabIdx: 0
             });

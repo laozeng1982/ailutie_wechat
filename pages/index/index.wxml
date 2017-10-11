@@ -49,7 +49,7 @@
     </view>
 
     <view wx:else class="planArea">
-        <view class='roundCornor' type='default' bindtap='onMakePlan'>定制我的锻炼计划</view>
+        <view class='roundCornor' bindtap='onMakePlan'>定制我的锻炼计划</view>
         <text class='smalltext'>您还没有锻炼计划，定制一个吧</text>
     </view>
 

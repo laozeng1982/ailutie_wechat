@@ -442,7 +442,7 @@ Page({
         return feeling;
     },
 
-    onMakePlan:function () {
+    onMakePlan: function () {
         wx.navigateTo({
             url: '../plan/select_goal/select_goal',
         })
@@ -505,19 +505,10 @@ Page({
         let hasActivePlan = false;
         let actionTips;
         // 先读取，如果不存在，则新建一个
-        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
-        let currentPlan;
 
-        for (let plan of planSet) {
-            if (plan.currentUse) {
-                currentPlan = plan;
-            }
-        }
+        let currentPlan = app.Controller.loadPlan();
 
-        if (typeof currentPlan === 'undefined') {
-            hasActivePlan = false;
-            actionTips = "还未创建计划";
-        } else {
+        if (currentPlan.currentUse) {
             hasActivePlan = true;
             // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
             if (app.Util.inPeriod(currentPlan.startDate, app.Util.formatDateToString(today), currentPlan.endDate)) {
@@ -527,15 +518,17 @@ Page({
                         todayHasPlan = true;
                     }
                 }
+            } else {
+                todayHasPlan = false;
+                actionTips = "今天休息";
             }
+        } else {
+            hasActivePlan = false;
+            actionTips = "还未创建计划";
         }
 
-        if (todayPlan.length === 0) {
-            todayHasPlan = false;
-            if (actionTips === "")
-                actionTips = "今天没计划";
-        }
-
+        console.log("hasActivePlan:", hasActivePlan);
+        console.log("todayHasPlan:", todayHasPlan);
         console.log("actionTips: ", actionTips);
 
         this.setData({

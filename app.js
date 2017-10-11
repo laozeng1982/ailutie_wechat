@@ -16,16 +16,7 @@ App({
         // 全局变量
         this.planSet = CONTROLLER.loadData(STORAGETYPE.PlanSet);
 
-        if (this.planSet.length > 0) {
-            for (let plan of this.planSet) {
-                if (plan.currentUse) {
-                    this.currentPlan = plan;
-                }
-            }
-        } else {
-            this.currentPlan = new Plan.Plan();
-
-        }
+        this.currentPlan = CONTROLLER.loadPlan();
 
         console.log("this.planSet: ", this.planSet);
         console.log("app onLoad");

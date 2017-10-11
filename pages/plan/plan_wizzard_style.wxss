@@ -46,8 +46,14 @@
 /* 选中的小图标 */
 
 .icon {
+    margin-right: 80rpx;
+    margin-left: 80rpx;
+    size: 36;
+}
+
+.iconAction {
     margin-right: 40rpx;
-    margin-left: 20rpx;
+    margin-left: 10rpx;
     size: 36;
 }
 
@@ -121,14 +127,15 @@
 }
 
 .text {
-    padding-left: 40rpx;
-    padding-top: 20rpx;
-    padding-bottom: 20rpx;
-    padding-right: 40rpx;
+    margin-left: 80rpx;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+    margin-right: 80rpx;
     align-content: center;
     align-items: center;
-    width: 30%;
-    text-align: right;
+    width: 50%;
+    text-align: left;
+    font-size: 40rpx;
 }
 
 .textBold {
@@ -236,6 +243,7 @@
     font-size: 40rpx;
     font-weight: 500;
     display: inline-block;
+    height: 46rpx;
 }
 
 .tips {

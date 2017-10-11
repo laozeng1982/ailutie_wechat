@@ -88,7 +88,6 @@ Page({
             chartType: chartType
         });
 
-        // console.log("in onRadioChange:", this.data.currentChart);
     },
 
     /**
@@ -127,8 +126,7 @@ Page({
         app.getWechatUserInfo(function (wechatUserInfo) {
             //更新数据
             that.setData({
-                currentPlan: app.currentPlan,
-                wechatUserInfo: wechatUserInfo,
+                 wechatUserInfo: wechatUserInfo,
                 motto: 'Hello ' + wechatUserInfo.nickName,
                 notSignUp: notSignUp
             });
@@ -152,18 +150,7 @@ Page({
     onShow: function () {
         console.log('index page onShow');
 
-        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
-        let currentPlan = '';
-
-        console.log("planSet:", planSet);
-
-        for (let plan of planSet) {
-            if (plan.currentUse) {
-                currentPlan = plan;
-            }
-        }
-
-        app.currentPlan = (currentPlan === '') ? new PlanSet.Plan() : currentPlan;
+        app.currentPlan = app.Controller.loadPlan();
 
         this.setData({
             currentPlan: app.currentPlan,
