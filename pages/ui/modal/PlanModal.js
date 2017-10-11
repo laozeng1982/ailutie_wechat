@@ -172,13 +172,13 @@ class PlanModal {
             }
         }
 
-        this.buffMovement.mvInfo.partName = this.movementMultiArray[0][this.multiMovementIndex[0]];
+        this.buffMovement.mvInfo.name = this.movementMultiArray[0][this.multiMovementIndex[0]];
         this.buffMovement.mvInfo.mvName = this.movementMultiArray[1][this.multiMovementIndex[1]];
 
         // 因为索引改变了，必须要在主控里设置
         this.updateToHost(host);
 
-        // console.log(this.buffMovement.partName, this.buffMovement.movementName);
+        // console.log(this.buffMovement.name, this.buffMovement.movementName);
 
     }
 
@@ -344,7 +344,7 @@ class PlanModal {
      */
     setPickerIndex(movement, host) {
         var partName, movementName, gCount, mCount, mWeight;
-        partName = movement.mvInfo.partName;
+        partName = movement.mvInfo.name;
         movementName = movement.mvInfo.mvName;
         gCount = movement.contents.planGpCount;
         mCount = movement.contents.details[0].planCount;
@@ -357,7 +357,7 @@ class PlanModal {
         //部位搜索
         for (var idx = 0; idx < this.movementMultiArray[0].length; idx++) {
             if (this.movementMultiArray[0][idx] === partName) {
-                console.log("in setPickerIndex, match partName: ", partName);
+                console.log("in setPickerIndex, match name: ", partName);
                 partIdx = idx;
                 break;
             }
@@ -412,7 +412,7 @@ class PlanModal {
      */
     checkParameter(host) {
         // 部位不能为空
-        if (typeof (this.buffMovement.mvInfo.partName) == "undefined" || this.buffMovement.mvInfo.partName == '') {
+        if (typeof (this.buffMovement.mvInfo.name) == "undefined" || this.buffMovement.mvInfo.name == '') {
             util.showToast('请选择部位...', host, 2000);
             return false;
         }

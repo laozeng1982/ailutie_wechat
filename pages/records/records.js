@@ -284,7 +284,7 @@ Page({
                 break;
             case 1:
                 app.globalData.selectedPartNameOnRecordPage =
-                    this.data.curRecords.movementList[e.currentTarget.id - 1].mvInfo.partName;
+                    this.data.curRecords.movementList[e.currentTarget.id - 1].mvInfo.name;
                 app.globalData.selectedMoveNameOnRecordPage =
                     this.data.curRecords.movementList[e.currentTarget.id - 1].mvInfo.mvName;
                 this.setData({
@@ -368,7 +368,7 @@ Page({
             app.globalData.selectedPartNameOnRecordPage = "胸部";
             app.globalData.selectedMoveNameOnRecordPage = -1;
         } else if (this.data.selectedMovementId === -1) {
-            app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[0].mvInfo.partName;
+            app.globalData.selectedPartNameOnRecordPage = this.data.curRecords.movementList[0].mvInfo.name;
             app.globalData.selectedMoveNameOnRecordPage = this.data.curRecords.movementList[0].mvInfo.mvName;
         }
 

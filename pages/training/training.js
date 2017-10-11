@@ -110,7 +110,7 @@ Page({
         this.setPickerIndex();
 
         // 给全局变量设值，方便切换到计划的时候，直接高亮当前计划，方便修改
-        app.globalData.selectedPartNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.partName;
+        app.globalData.selectedPartNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.name;
         app.globalData.selectedMoveNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.mvName;
     },
 
@@ -443,6 +443,7 @@ Page({
     },
 
     onMakePlan: function () {
+        app.makingNewPlan = true;
         wx.navigateTo({
             url: '../plan/select_goal/select_goal',
         })
@@ -512,10 +513,20 @@ Page({
             hasActivePlan = true;
             // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
             if (app.Util.inPeriod(currentPlan.startDate, app.Util.formatDateToString(today), currentPlan.endDate)) {
-                for (let partSet of app.currentPlan.partSets) {
-                    if (partSet.trainDates.includes(today.getDay())) {
-                        todayPlan.push(partSet);
+                if (app.currentPlan.cycleLength === 7) {
+                    if (app.currentPlan.trainDatas[today.getDay()].partSets.length > 0) {
+                        todayPlan = app.currentPlan.trainDatas[today.getDay()].partSets;
                         todayHasPlan = true;
+                    } else {
+                        todayHasPlan = false;
+                        actionTips = "今天休息";
+                    }
+                } else {
+                    for (let partSet of app.currentPlan.partSets) {
+                        if (partSet.trainDates.includes(today.getDay())) {
+                            todayPlan.push(partSet);
+                            todayHasPlan = true;
+                        }
                     }
                 }
             } else {
@@ -537,12 +548,10 @@ Page({
             todayHasPlan: todayHasPlan,
             actionTips: actionTips,
             hasActivePlan: hasActivePlan,
-            curSelectedActionId: 0
         });
 
 
         // 重置全局变量，保证翻回Training页面时，能记住上次的位置
-        app.globalData.selectedMvIdOnRecordPage = -1;
         console.log("Training page onShow call, this.data.todayPlan: ", this.data.todayPlan);
     },
 
@@ -553,10 +562,6 @@ Page({
         app.Controller.saveData(app.StorageType.DailyRecords, this.data.todayPlan);
         // 如果直接由此界面通过Tab跳到了计划界面，那么将选中的动作置为当前动作，方便修改。
         app.globalData.selectedDate = new Date();
-        if (this.data.todayPlan.length > 0) {
-            app.globalData.selectedPartNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.partName;
-            app.globalData.selectedMoveNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.mvName;
-        }
 
         console.log("Training page onHide call: data saved");
     },

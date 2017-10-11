@@ -66,7 +66,7 @@ Page({
         var selectedPartIdx = -1;
         for (let idx = 0; idx < selectedPartList.length; idx++) {
             selectedPartList[idx].selected = false;
-            if (e.currentTarget.id === selectedPartList[idx].partName) {
+            if (e.currentTarget.id === selectedPartList[idx].name) {
                 selectedPartName = e.currentTarget.id;
                 selectedPartIdx = idx;
                 selectedPartList[idx].selected = true;
@@ -212,7 +212,7 @@ Page({
         var selectedPartIdx = 0;
         for (let item of systemSetting.bodyPartList.partList) {
             for (let selectedPart of app.selectedPartInfo) {
-                if (selectedPart.name === item.partName) {
+                if (selectedPart.name === item.name) {
                     // 页面启动参数里带着前一个页面选中的部位，这里默认高亮这个部位
                     if (selectedPart.name === options.selectedPart) {
                         item.selected = true;
@@ -241,7 +241,7 @@ Page({
         if (app.currentPlan !== '') {
             for (let partItem of app.currentPlan.partSets) {
                 for (let part = 0; part < selectedPartList.length; part++) {
-                    if (partItem.name === selectedPartList[part].partName) {
+                    if (partItem.name === selectedPartList[part].name) {
                         for (let actionItem of partItem.actionSets) {
                             for (let action = 0; action < selectedPartList[part].actionList.length; action++) {
                                 if (actionItem.name === selectedPartList[part].actionList[action].actionName) {
@@ -299,9 +299,9 @@ Page({
 
         for (let part = 0; part < this.data.selectedPartList.length; part++) {
             // 生成一个部位
-            var partSet = new Plan.PartSet(part + 1, this.data.selectedPartList[part].partName);
+            var partSet = new Plan.PartSet(part + 1, this.data.selectedPartList[part].name);
             partSet.description = this.data.selectedPartList[part].partDescription;
-            partSet.imageUrl = this.data.selectedPartList[part].partPictureSrc;
+            partSet.imageUrl = this.data.selectedPartList[part].imageUrl;
 
             // 当点中的时候，就算是计划中的元素
             var idx = 1;

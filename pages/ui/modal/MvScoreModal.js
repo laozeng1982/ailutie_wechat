@@ -205,7 +205,7 @@ class MvScoreModal {
      */
     checkParameter(host) {
         // 部位不能为空
-        if (typeof (this.buffMovement.mvInfo.partName) == "undefined" || this.buffMovement.mvInfo.partName == '') {
+        if (typeof (this.buffMovement.mvInfo.name) == "undefined" || this.buffMovement.mvInfo.name == '') {
             util.showToast('请选择部位...', host, 2000);
             return false;
         }

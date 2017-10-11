@@ -130,10 +130,9 @@
     margin-left: 80rpx;
     margin-top: 20rpx;
     margin-bottom: 20rpx;
-    margin-right: 80rpx;
+    margin-right: 20rpx;
     align-content: center;
     align-items: center;
-    width: 50%;
     text-align: left;
     font-size: 40rpx;
 }
@@ -183,8 +182,9 @@
 }
 
 .imageBig {
-    width: 160rpx;
-    height: 160rpx;
+    width: 120rpx;
+    height: 120rpx;
+    margin-left: 60rpx;
     border: 1rpx solid #eee;
     border-radius: 2%;
 }

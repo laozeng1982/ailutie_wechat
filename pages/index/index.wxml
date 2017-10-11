@@ -42,8 +42,8 @@
 
     <!-- 计划部分 -->
     <view class="planArea" wx:if="{{currentPlan.currentUse}}">
-        <view class='whiteBackgroud' >
-            <view class='text' bindtap='onModifyPlan'>我的计划（进行中）</view>
+        <view class='whiteBackgroud' bindtap='onModifyPlan'>
+            <view class='text' >我的计划（进行中）</view>
             <image class='imageBig' src='../image/arrows_square_right_64px.png'></image>
         </view>
     </view>

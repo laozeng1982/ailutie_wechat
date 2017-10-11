@@ -23,9 +23,10 @@ class Body {
 
         for (let part of orgType.DefaultActionName) {
             let bodyPart = new BodyPart();
-            partName = part.partName;
-            bodyPart.partId = partIndex;
-            bodyPart.partName = partName;
+            partName = part.name;
+            bodyPart.id = partIndex;
+            bodyPart.name = partName;
+            bodyPart.imageUrl = part.imageUrl;
             // bodyPart.subParts = part.subParts;
             for (let subPartIdx = 0; subPartIdx < part.subParts.length; subPartIdx++) {
                 let subPart = {name: part.subParts[subPartIdx].name, actionList: []};
@@ -118,7 +119,7 @@ class Body {
      */
     updateGroupSet(partSet) {
         for (let partIdx = 0; partIdx < this.partList.length; partIdx++) {
-            if (partSet.name === this.partList[partIdx].partName) {
+            if (partSet.name === this.partList[partIdx].name) {
                 for (let actionItem of partSet.actionSets) {
                     for (let subPartIdx = 0; subPartIdx < this.partList[partIdx].subParts.length; subPartIdx++) {
                         for (let actionIdx = 0; actionIdx < this.partList[partIdx].subParts[subPartIdx].actionList.length; actionIdx++) {
@@ -157,7 +158,7 @@ class Body {
      */
     selectPartById(partId) {
         for (let idx = 0; idx < this.partList.length; idx++) {
-            if (parseInt(partId) === parseInt(this.partList[idx].partId)) {
+            if (parseInt(partId) === parseInt(this.partList[idx].id)) {
                 this.partList[idx].selected = !this.partList[idx].selected;
                 break;
             }
@@ -170,7 +171,7 @@ class Body {
      */
     unSelectPartById(partId) {
         for (let idx = 0; idx < this.partList.length; idx++) {
-            if (parseInt(partId) === parseInt(this.partList[idx].partId)) {
+            if (parseInt(partId) === parseInt(this.partList[idx].id)) {
                 this.partList[idx].selected = false;
                 break;
             }
@@ -183,7 +184,7 @@ class Body {
      */
     selectPartByName(partName) {
         for (let idx = 0; idx < this.partList.length; idx++) {
-            if (partName === this.partList[idx].partName) {
+            if (partName === this.partList[idx].name) {
                 this.partList[idx].selected = true;
                 break;
             }
@@ -196,7 +197,7 @@ class Body {
      */
     activePartByName(partName) {
         for (let idx = 0; idx < this.partList.length; idx++) {
-            this.partList[idx].active = partName === this.partList[idx].partName;
+            this.partList[idx].active = partName === this.partList[idx].name;
         }
     }
 
@@ -207,7 +208,7 @@ class Body {
     selectPartsByName(partsArr) {
         for (let part of this.partList) {
             if (partsArr.length > 0) {
-                part.selected = partsArr.includes(part.partName);
+                part.selected = partsArr.includes(part.name);
             }
         }
     }
@@ -219,7 +220,7 @@ class Body {
     unSelectPartsByNames(partsArr) {
         for (let part of this.partList) {
             if (partsArr.length > 0) {
-                if (partsArr.includes(part.partName)) {
+                if (partsArr.includes(part.name)) {
                     part.selected = false;
                 }
             }
@@ -352,7 +353,7 @@ class Body {
      */
     makeLabel(partSet, cycleLength) {
         for (let partIdx = 0; partIdx < this.partList.length; partIdx++) {
-            if (partSet.name === this.partList[partIdx].partName) {
+            if (partSet.name === this.partList[partIdx].name) {
                 // 两种显示，如果是七天，则显示“周N”，否则显示“第N天”
                 if (cycleLength === 7) {
 
@@ -413,7 +414,7 @@ class Body {
 
         let str = [];
         for (let item of orderPartList) {
-            str.push(item.partName);
+            str.push(item.name);
         }
         console.log(str.toString());
 
@@ -441,11 +442,11 @@ class Body {
 
                 let str2 = [];
                 for (let item of orderPartList) {
-                    str2.push(item.partName);
+                    str2.push(item.name);
                 }
 
                 // console.log("insertPos:", insertPos, "orderPartList:", str2.toString());
-                // console.log("with plan", part.partName);
+                // console.log("with plan", part.name);
             }
         }
 
@@ -490,10 +491,10 @@ class Body {
  */
 class BodyPart {
     constructor() {
-        this.partId = '';
-        this.partName = '';
+        this.id = '';
+        this.name = '';
         this.subParts = []; //{name: "", actionList: []}
-        this.partPictureSrc = '';
+        this.imageUrl = '';
         this.partDescription = '';
         this.selected = false;
     }
@@ -519,7 +520,8 @@ class OrgType {
 
         // 0、有氧
         this.actionArrOfAerobic = {
-            partName: '有氧',
+            name: '有氧',
+            imageUrl:'../../image/bodyparts/aerobic.png',
             subParts: [
                 {
                     name: '有氧', actionArray: [
@@ -537,7 +539,8 @@ class OrgType {
 
         // 1、胸部
         this.actionArrOfPectorales = {
-            partName: '胸部',
+            name: '胸部',
+            imageUrl:'../../image/bodyparts/chest.png',
             subParts: [
                 {
                     name: '胸上部', actionArray: [
@@ -570,7 +573,8 @@ class OrgType {
 
         //2、肩部
         this.actionArrOfShoulder = {
-            partName: '肩部',
+            name: '肩部',
+            imageUrl:'../../image/bodyparts/shoulder.png',
             subParts: [
                 {
                     name: '前束', actionArray: [
@@ -624,7 +628,8 @@ class OrgType {
 
         //3、背部
         this.actionArrOfDorsal = {
-            partName: '背部',
+            name: '背部',
+            imageUrl:'../../image/bodyparts/back.png',
             subParts: [
                 {
                     name: '背部', actionArray: [
@@ -646,7 +651,8 @@ class OrgType {
 
         //4、腰部
         this.actionArrOfWaist = {
-            partName: '腰部',
+            name: '腰部',
+            imageUrl:'../../image/bodyparts/waist.png',
             subParts: [
                 {
                     name: '腰部', actionArray: [
@@ -664,7 +670,8 @@ class OrgType {
 
         //5、腹部
         this.actionArrOfAbdomen = {
-            partName: '腹部',
+            name: '腹部',
+            imageUrl:'../../image/bodyparts/abs.png',
             subParts: [
                 {
                     name: '腹部', actionArray: [
@@ -686,7 +693,8 @@ class OrgType {
 
         //6、手臂
         this.actionArrOfArms = {
-            partName: '手臂',
+            name: '手臂',
+            imageUrl:'../../image/bodyparts/arm.png',
             subParts: [
                 {
                     name: '肱二头', actionArray: [
@@ -724,7 +732,8 @@ class OrgType {
 
         //7、腿部
         this.actionArrOfLegs = {
-            partName: '腿部',
+            name: '腿部',
+            imageUrl:'../../image/bodyparts/legs.png',
             subParts: [
                 {
                     name: '股二头', actionArray: [

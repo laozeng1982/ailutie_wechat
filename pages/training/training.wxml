@@ -16,7 +16,7 @@
         <view class="topPanelRight">
             <view wx:if="{{todayHasPlan}}" class="topPanelLeft_InnerLeft" bindtap="onShowDetails">
                 <text style="font-size: 30rpx">{{todayPlan[curSelectedPartId].name}}</text>
-                <text style="font-size: 50rpx">{{todayPlan[curSelectedPartId].actionSet[curSelectedActionId].name}}</text>
+                <text style="font-size: 50rpx">{{todayPlan[curSelectedPartId].actionSets[curSelectedActionId].name}}</text>
             </view>
 
             <view wx:else class="topPanelLeft_InnerLeft">
@@ -30,18 +30,30 @@
     <!-- 中间部分具体锻炼记录 -->
     <view class="middlePanel" wx:if="{{!showDetails}}">
 
-        <view class="middlePanelLeft_InnerLeft" wx:if="{{hasActivePlan}}">
+        <image style='width:480rpx;height:360rpx' src='../image/平板卧推.jpg'></image>
+        <!-- <image src='../image/actions/哑铃耸肩2.jpg'></image> -->
+        <!-- <view class="middlePanelLeft_InnerLeft" wx:if="{{hasActivePlan}}">
             <scroll-view class="middleRecorderScrollview" scroll-y="true">
-                <view class='bodypart-item' wx:for="{{curRecords.movementList[curSelectedMovementId-1].contents.details}}" wx:key="{{item.id}}">
-                    <icon type="success" style="padding:20rpx;border-right:1rpx soild #eee" size="20" color="{{item.finished?'green':'gray'}}" />
+                <view class='bodypart-item' wx:for="{{todayPlan[curSelectedPartId].actionSets}}" wx:key="{{item.id}}">
+                    <icon type="cycle" style="padding:20rpx;" size="25" wx:if="{{item.finished}}" />
+                    <icon type="success" style="padding:20rpx;" size="25" wx:esle /> {{item.name}}
+                </view>
+            </scroll-view>
+        </view> -->
+
+        <!-- <view class="middlePanelLeft_InnerRight" wx:if="{{hasActivePlan}}">
+            <scroll-view class="middleRecorderScrollview" scroll-y="true">
+                <view class='bodypart-item' wx:for="{{todayPlan[curSelectedPartId].actionSets[curSelectedActionId].groupSets}}" wx:key="{{item.id}}">
+                    <icon type="cycle" style="padding:20rpx;" size="25" wx:if="{{item.finished}}" />
+                    <icon type="success" style="padding:20rpx;" size="25" wx:esle />
                     <view class="plan-actual">
                         <view id='{{item.id}}' class="detailsItem">
                             <view class="scrollItemContainer">
                                 <view class="scrollItem">计划：</view>
-                                <view class="scrollItem">{{item.planCount}}</view>
+                                <view class="scrollItem">{{item.quantity}}</view>
                                 <view class="scrollItemNarrow">次</view>
-                                <view class="scrollItem">{{item.planWeight}}</view>
-                                <view class="scrollItemNarrow">{{item.measurement}}</view>
+                                <view class="scrollItem">{{item.weight}}</view>
+                                <view class="scrollItemNarrow">{{item.uom}}</view>
                             </view>
                         </view>
 
@@ -61,14 +73,14 @@
                 </view>
 
             </scroll-view>
-            <!-- <button class='addBtn' type='primary' bindtap='onAdd'>ADD</button> -->
-        </view>
+            <!-- <button class='addBtn' type='primary' bindtap='onAdd'>ADD</button>
+        </view> -->
 
-        <view wx:else class="middlePanelLeft_InnerLeft">
+        <!-- <view wx:else class="middlePanelLeft_InnerLeft"> -->
             <!-- <image class='imageBig' src='../image/plus_128px.png' bindtap='onMakePlan'></image> -->
-            <view style='margin-top:280rpx;color:#888'>您还没有计划，创建一个吧</view>
-             <view class='roundCornor' bindtap='onMakePlan'>去定制计划</view> 
-        </view>
+            <!-- <view style='margin-top:280rpx;color:#888'>您还没有计划，创建一个吧</view>
+            <view class='roundCornor' bindtap='onMakePlan'>去定制计划</view>
+        </view> -->
     </view>
 
     <!-- 点击动作详情的时候响应 -->

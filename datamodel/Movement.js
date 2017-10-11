@@ -20,9 +20,9 @@ class Movement {
      */
     equals(movement, fullyEqual) {
         console.log(this.mvId, movement.mvId, String(this.mvId) === String(movement.mvId));
-        console.log(this.mvInfo.partName, movement.mvInfo.partName);
+        console.log(this.mvInfo.name, movement.mvInfo.name);
         console.log(this.mvInfo.mvName, movement.mvInfo.mvName);
-        var isEqual = this.mvInfo.partName === movement.mvInfo.partName &&
+        var isEqual = this.mvInfo.name === movement.mvInfo.name &&
             this.mvInfo.mvName === movement.mvInfo.mvName;
         if (fullyEqual) {
             isEqual = (String(this.mvId) !== String(movement.mvId)) && isEqual;
@@ -67,13 +67,13 @@ class Movement {
  */
 class MvInfo {
     constructor(pName, mName, mvPicSr) {
-        this.partName = pName;
+        this.name = pName;
         this.mvName = mName;
         this.mvPictureSrc = mvPicSr;
     }
 
     fullCopyFrom(mvInfo) {
-        this.partName = mvInfo.partName;
+        this.name = mvInfo.name;
         this.mvName = mvInfo.mvName;
         this.mvPictureSrc = mvInfo.mvPictureSrc;
     }

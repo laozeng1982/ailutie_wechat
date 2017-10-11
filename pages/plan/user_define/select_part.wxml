@@ -81,11 +81,12 @@
                 <view class='graySpaceSmall'></view>
 
                 <scroll-view class="scrollview" scroll-y="true">
-                    <view id="{{item.partId}}" class='partContainer' wx:if="{{item.selected}}" wx:for="{{body.partList}}" wx:key="{{index}}">
+                    <view id="{{item.id}}" class='partContainer' wx:if="{{item.selected}}" wx:for="{{body.partList}}" wx:key="{{index}}">
 
                         <!-- <view style='font-size:32rpx;width:100%;margin-left:50rpx;'>{{item.trainDateStr}}</view> -->
-                        <view class='text'>{{item.partName}}</view>
-                        <icon id="{{item.partId}}" wx:if="{{item.selected }}" class='icon' size='30' type="cancel" bindtap='onCancelPart'></icon>
+                        <image class='imageBig' src="{{item.imageUrl}}"></image> 
+                        <view class='text'>{{item.name}}</view>
+                        <icon id="{{item.id}}" wx:if="{{item.selected }}" class='icon' size='30' type="cancel" bindtap='onCancelPart'></icon>
                     </view>
                 </scroll-view>
 
@@ -95,10 +96,6 @@
                     </picker>
                 </view>
 
-
-                <view class='tips_text'>
-                    请点选部位（可多选），再左滑去选择该部位的锻炼动作
-                </view>
             </swiper-item>
 
             <!-- 动作选择Tab -->
@@ -106,13 +103,13 @@
                 <view class='swiper-row-view'>
                     <!-- 部位列表 -->
                     <scroll-view class="scroll-view_V_left" scroll-into-view="{{toView}}" scroll-y="true">
-                        <view id="{{item.partName}}" class="scroll-view-item_H {{item.active?'textSelected':'textUnselected'}}" wx:if="{{item.selected}}" wx:for="{{body.partList}}" wx:key="{{index}}" bindtap='onSelectPartTab'>
-                            {{item.partName}}({{item.selectedActionCount}})
+                        <view id="{{item.name}}" class="scroll-view-item_H {{item.active?'textSelected':'textUnselected'}}" wx:if="{{item.selected}}" wx:for="{{body.partList}}" wx:key="{{index}}" bindtap='onSelectPartTab'>
+                            {{item.name}}({{item.selectedActionCount}})
                             <!-- <icon type="success_no_circle" color="{{item.checked?'#09bb07':'#888'}}"></icon> -->
                         </view>
                     </scroll-view>
 
-                    <view class='scroll-view_V_right' id="{{item.partName}}" wx:if="{{item.active}}" wx:for="{{body.partList}}" wx:key="{{index}}">
+                    <view class='scroll-view_V_right' id="{{item.name}}" wx:if="{{item.active}}" wx:for="{{body.partList}}" wx:key="{{index}}">
                         <scroll-view class="scrollviewVertical_Action" scroll-y="true">
                             <!-- 每个部位细分类 -->
                             <view id="{{index}}" wx:for="{{item.subParts}}" wx:key="{{index}}">
@@ -122,8 +119,7 @@
                                 <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" data-subpartidx="{{item.actionPartId-1}}" wx:key="{{index}}" bindtap='onSelectAction'>
                                     <!-- 图片占位 -->
                                     <view class='imageBig'></view>
-                                    <!-- <image src='../../image/pulse_64px.png'></image> -->
-
+                                    
                                     <view class='actionItem'>
                                         <view class='header'>
                                             <view>{{item.actionName}}</view>
@@ -161,6 +157,6 @@
     <!-- <view class='graySpaceSmall'></view> -->
     <!-- disabled='{{!allTabFinished}}' 暂时取消disable-->
     <view class='footArea'>
-        <button class='nextBtn' disabled='{{currentTabIdx===0}}' type='primary' bindtap='onPreview'> 预览 </button>
+        <button class='nextBtn' disabled='{{currentTabIdx!==2}}' type='primary' bindtap='onPreview'> 预览 </button>
     </view>
 </view>

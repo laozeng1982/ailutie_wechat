@@ -140,6 +140,7 @@ Page({
 
         this.setData({
             weekList: weekList,
+            selectedDateList: []
 
         });
 
@@ -184,12 +185,14 @@ Page({
                     });
                 }
 
+                let orgLength = app.currentPlan.trainDatas.length;
                 if (makeWeekList) {
-                    if (app.currentPlan.trainDatas.length > cycleLength) {
-                        app.currentPlan.trainDatas.splice(cycleLength, app.currentPlan.trainDatas.length - cycleLength);
+                    if (orgLength > cycleLength) {
+                        app.currentPlan.trainDatas.splice(cycleLength, orgLength - cycleLength);
                     } else {
-                        for (let idx = 0; idx < cycleLength - app.currentPlan.trainDatas.length; idx++) {
-                            app.currentPlan.trainDatas.push(new PlanSet.TrainData(idx));
+
+                        for (let idx = 0; idx < cycleLength - orgLength; idx++) {
+                            app.currentPlan.trainDatas.push(new PlanSet.TrainData(orgLength + idx));
                         }
                     }
 
@@ -367,7 +370,7 @@ Page({
         console.log("Select Part:", e.detail.value, this.data.partNameArray[selectedPartIdx]);
 
         // for (let part of body.partList) {
-        //     if (this.data.partNameArray[selectedPartIdx] ===part.partName) {
+        //     if (this.data.partNameArray[selectedPartIdx] ===part.name) {
         //         part.selected = true;
         //         break;
         //     }
@@ -496,7 +499,7 @@ Page({
                 if (!thisPartSelectAction) {
                     activePartIdx = idx;
                     body.partList[idx].active = true;
-                    console.log("here", idx, body.partList[idx].partName);
+                    console.log("here", idx, body.partList[idx].name);
                     break;
                 }
             }
@@ -513,7 +516,7 @@ Page({
             for (let idx = 0; idx < body.partList.length; idx++) {
                 if (body.partList[idx].selected) {
                     body.partList[idx].active = true;
-                    console.log("here active", idx, body.partList[idx].partName);
+                    console.log("here active", idx, body.partList[idx].name);
                     break;
                 }
             }
@@ -659,9 +662,9 @@ Page({
             for (let part of body.partList) {
                 if (part.selected) {
                     // 生成一个部位
-                    let partSet = new PlanSet.PartSet(partId, part.partName);
+                    let partSet = new PlanSet.PartSet(partId, part.name);
                     partSet.description = part.partDescription;
-                    partSet.imageUrl = part.partPictureSrc;
+                    partSet.imageUrl = part.imageUrl;
                     partSet.trainDates = this.data.selectedDateList;
 
                     // 当点中的时候，就算是计划中的元素
@@ -730,7 +733,7 @@ Page({
 
             if (app.currentPlan.trainDatas.length === 0) {
                 for (let idx = 0; idx < cycleLength; idx++) {
-                    trainDatas.push(new PlanSet.TrainData(cycleLength));
+                    app.currentPlan.trainDatas.push(new PlanSet.TrainData(idx));
                 }
             }
         } else {
@@ -847,7 +850,7 @@ Page({
         let partNameArray = [];
 
         for (let part of body.partList) {
-            partNameArray.push(part.partName);
+            partNameArray.push(part.name);
         }
 
         wx.setNavigationBarTitle({

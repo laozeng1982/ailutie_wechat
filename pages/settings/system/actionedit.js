@@ -183,7 +183,7 @@ Page({
         bodyPartNameArray.push("选择或输入");
 
         for (var item of bodyPartList.partList) {
-            bodyPartNameArray.push(item.partName);
+            bodyPartNameArray.push(item.name);
             var actionNameList = [];
             for (var action of item.actionList) {
 
@@ -368,7 +368,7 @@ Page({
         if (this.data.models[0].checked || this.data.models[1].checked) {
             // 增加
             for (var partIdx = 0; partIdx < bodyPartList.partList.length; partIdx++) {
-                if (bodyPartList.partList[partIdx].partName === partName) {
+                if (bodyPartList.partList[partIdx].name === partName) {
                     // 查重
                     if (!this.data.actionNameArray[partIdx].includes(actionName)) {
                         // 先弹出“用户自定义”这个内置的
@@ -408,7 +408,7 @@ Page({
         } else if (this.data.models[2].checked) {
             // 删除
             for (var partIdx = 0; partIdx < bodyPartList.partList.length; partIdx++) {
-                if (bodyPartList.partList[partIdx].partName === partName) {
+                if (bodyPartList.partList[partIdx].name === partName) {
 
                     for (var actionIdx = 0; actionIdx < bodyPartList.partList[partIdx].actionList.length; actionIdx++) {
                         if (bodyPartList.partList[partIdx].actionList[actionIdx].actionName === actionName &&

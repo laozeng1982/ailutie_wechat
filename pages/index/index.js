@@ -117,9 +117,9 @@ Page({
     onLoad: function () {
 
         console.log('index page onLoad');
-        var that = this;
+        let that = this;
 
-        var notSignUp = app.Util.checkSignUp();
+        let notSignUp = app.Util.checkSignUp();
         // console.log("notSignUp is: ", notSignUp);
 
         //调用应用实例的方法获取全局数据
@@ -138,7 +138,7 @@ Page({
      */
     onReady: function () {
         // 首次进入，渲染第一张，周视图
-        var currentChart = chartMaker.makeChart();
+        let currentChart = chartMaker.makeChart();
 
         this.setData({
             chartTitle: "本周运动量",
