@@ -79,13 +79,13 @@ Page({
         // 七天是比较特殊的天，正好是一周，为了好理解，区分显示
         if (cycleLength === 7) {
             week = [
-                {id: 0, value: '日', currpart: part, hasparts: '', selected: false},
-                {id: 1, value: '一', currpart: part, hasparts: '', selected: false},
-                {id: 2, value: '二', currpart: part, hasparts: '', selected: false},
-                {id: 3, value: '三', currpart: part, hasparts: '', selected: false},
-                {id: 4, value: '四', currpart: part, hasparts: '', selected: false},
-                {id: 5, value: '五', currpart: part, hasparts: '', selected: false},
-                {id: 6, value: '六', currpart: part, hasparts: '', selected: false}
+                { id: 0, value: '日', currpart: part, hasparts: '', selected: false },
+                { id: 1, value: '一', currpart: part, hasparts: '', selected: false },
+                { id: 2, value: '二', currpart: part, hasparts: '', selected: false },
+                { id: 3, value: '三', currpart: part, hasparts: '', selected: false },
+                { id: 4, value: '四', currpart: part, hasparts: '', selected: false },
+                { id: 5, value: '五', currpart: part, hasparts: '', selected: false },
+                { id: 6, value: '六', currpart: part, hasparts: '', selected: false }
             ];
 
             // 周期下添加标注
@@ -239,7 +239,7 @@ Page({
 
         this.setData({
             tabData: tabData,
-            allTabFinished: tabData[0].finished && tabData[1].finished && tabData[2].finished
+            allTabFinished: tabData[0].finished && tabData[1].finished
         });
     },
 
@@ -627,6 +627,10 @@ Page({
             default:
                 return;
         }
+
+        this.setData({
+            currentTabIdx: tabIdx
+        })
     },
 
     /**

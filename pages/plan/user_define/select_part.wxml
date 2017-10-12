@@ -11,7 +11,7 @@
 
         <view class='graySpaceSmall'></view>
 
-        <swiper current="{{currentTabIdx}}" class="swiper-box" bindchange="onSwiperChange">
+        <swiper class="swiper-box" bindchange="onSwiperChange">
             <!-- 时间选择Tab -->
             <swiper-item id="{{tabData[0].type}}">
                 <view class='rowContainer'>
@@ -155,8 +155,8 @@
     <include src="../../ui/toast/warn_toast.wxml" />
 
     <!-- <view class='graySpaceSmall'></view> -->
-    <!-- disabled='{{!allTabFinished}}' 暂时取消disable-->
+    <!-- disabled='{{!allTabFinished}}'   currentTabIdx!==2 暂时取消disable-->
     <view class='footArea'>
-        <button class='nextBtn' disabled='{{currentTabIdx!==2}}' type='primary' bindtap='onPreview'> 预览 </button>
+        <button class='nextBtn' disabled='{{!allTabFinished}}' type='primary' bindtap='onPreview'> 预览 </button>
     </view>
 </view>
