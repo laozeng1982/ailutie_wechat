@@ -118,10 +118,9 @@
             <view id="{{item.name}}" class='partContainerColumn' wx:for="{{selectedDatePlan}}" wx:key="{{index}}">
                 <text class='textBig'>{{item.name}}</text>
                 <!-- 循环每个部位的动作 -->
-                <view id="{{item.name}}" class='actionContainer' wx:for="{{item.actionSets}}" wx:key="{{index}}">
+                <view id="{{item.name}}" class='actionContainer padding' wx:for="{{item.actionSets}}" wx:key="{{index}}">
                     <!-- 图片占位 -->
-                    <view class='imageBig'></view>
-                    <!-- <image class='imageBig' src='../../image/pulse_64px.png'></image> -->
+                    <image class='actionImage' src="{{item.imageUrl}}"></image> 
 
                     <view class='actionItem'>
                         <view class='header'>

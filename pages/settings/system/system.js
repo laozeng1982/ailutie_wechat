@@ -46,24 +46,6 @@ Page({
 
     },
 
-    onCustomAddAction: function (e) {
-        wx.redirectTo({
-            url: './actionedit?model=add&backUrl=./system'
-        });
-    },
-
-    onCustomModifyAction: function (e) {
-        wx.redirectTo({
-            url: './actionedit?model=modify&backUrl=./system'
-        });
-    },
-
-    onCustomRemoveAction: function (e) {
-        wx.redirectTo({
-            url: './actionedit?model=remove&backUrl=./system'
-        });
-    },
-
     /**
      * 生命周期函数--监听页面加载
      */

@@ -3,7 +3,6 @@
  */
 import util from '../../utils/Util.js'
 import DataType from '../../datamodel/StorageType.js'
-import RecordFactory from '../../datamodel/RecordFactory.js'
 
 //获取应用实例
 const app = getApp();
@@ -155,20 +154,6 @@ Page({
         } else {
             util.showToast("帅哥，本动作计划已经完成了哦！", this, 1000);
             todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount++;
-            let record = new RecordFactory.DetailRecord(
-                todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount,
-                0,
-                0,
-                this.data.actualCount,
-                this.data.actualWeight,
-                measurement);
-            record.groupFeeling = this.data.actualGpFeeling;
-            record.finished = true;
-            todayPlan.movementList[curMovementIdx].contents.details.push(record);
-
-            todayPlan.movementList[curMovementIdx].contents.actualGpCount = todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount;
-            todayPlan.movementList[curMovementIdx].contents.finished = true;
-            todayPlan.movementList[curMovementIdx].contents.mvFeeling = this.getMvFeeling();
 
         }
 

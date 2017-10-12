@@ -627,10 +627,6 @@ Page({
             default:
                 return;
         }
-
-        this.setData({
-            currentTabIdx: tabIdx,
-        });
     },
 
     /**
@@ -678,7 +674,7 @@ Page({
                                 actionSet.id = actionIdx;
                                 actionSet.name = action.actionName;
                                 actionSet.description = action.actionDescription;
-                                actionSet.imageUrl = action.actionPictureSrc;
+                                actionSet.imageUrl = action.imageUrl;
                                 actionSet.trainDates = this.data.selectedDateList;
 
                                 actionSet.groupSets = action.groupSets;

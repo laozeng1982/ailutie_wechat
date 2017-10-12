@@ -1,0 +1,575 @@
+{
+  "planSet": [
+    {
+      "id": "",
+      "name": "",
+      "source": "你剑哥",
+      "privacy": "",
+      "currentUse": true,
+      "target": "增肌",
+      "level": "有一定基础",
+      "place": "",
+      "frequence": 0,
+      "startDate": "2017-10-12",
+      "endDate": "2017-11-11",
+      "cycleLength": 7,
+      "dateLength": 0,
+      "description": "",
+      "reading": 0,
+      "comments": [],
+      "agree": 0,
+      "partSets": [],
+      "trainDatas": [
+        {
+          "id": 0,
+          "partSets": []
+        },
+        {
+          "id": 1,
+          "partSets": []
+        },
+        {
+          "id": 2,
+          "partSets": [
+            {
+              "id": 1,
+              "name": "有氧",
+              "description": "",
+              "imageUrl": "../../image/bodyparts/aerobic.png",
+              "actionSets": [
+                {
+                  "id": 1,
+                  "name": "跑步",
+                  "equipment": "",
+                  "description": "",
+                  "imageUrl": "../../image/actions/icon/aerobic/跑步.png",
+                  "trainDates": [
+                    2
+                  ],
+                  "groupSets": [
+                    {
+                      "id": 1,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Km"
+                    },
+                    {
+                      "id": 2,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Km"
+                    },
+                    {
+                      "id": 3,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Km"
+                    },
+                    {
+                      "id": 4,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Km"
+                    },
+                    {
+                      "id": 5,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Km"
+                    },
+                    {
+                      "id": 6,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Km"
+                    }
+                  ]
+                }
+              ],
+              "trainDates": [
+                2
+              ]
+            },
+            {
+              "id": 1,
+              "name": "胸部",
+              "description": "",
+              "imageUrl": "../../image/bodyparts/chest.png",
+              "actionSets": [
+                {
+                  "id": 1,
+                  "name": "平板哑铃飞鸟",
+                  "equipment": "",
+                  "description": "",
+                  "imageUrl": "../../image/actions/icon/chest/平板哑铃飞鸟.png",
+                  "trainDates": [
+                    2
+                  ],
+                  "groupSets": [
+                    {
+                      "id": 1,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 2,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 3,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 4,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 5,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 6,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    }
+                  ]
+                }
+              ],
+              "trainDates": [
+                2
+              ]
+            },
+            {
+              "id": 1,
+              "name": "肩部",
+              "description": "",
+              "imageUrl": "../../image/bodyparts/shoulder.png",
+              "actionSets": [
+                {
+                  "id": 1,
+                  "name": "劲前杠铃推举",
+                  "equipment": "",
+                  "description": "",
+                  "imageUrl": "../../image/actions/icon/shoulder/劲前杠铃推举.png",
+                  "trainDates": [
+                    2
+                  ],
+                  "groupSets": [
+                    {
+                      "id": 1,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 2,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 3,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 4,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 5,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 6,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    }
+                  ]
+                }
+              ],
+              "trainDates": [
+                2
+              ]
+            },
+            {
+              "id": 1,
+              "name": "背部",
+              "description": "",
+              "imageUrl": "../../image/bodyparts/back.png",
+              "actionSets": [
+                {
+                  "id": 1,
+                  "name": "反握宽距引体向上",
+                  "equipment": "",
+                  "description": "",
+                  "imageUrl": "../../image/actions/icon/back/反握宽距引体向上.png",
+                  "trainDates": [
+                    2
+                  ],
+                  "groupSets": [
+                    {
+                      "id": 1,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 2,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 3,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 4,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 5,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 6,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    }
+                  ]
+                }
+              ],
+              "trainDates": [
+                2
+              ]
+            },
+            {
+              "id": 1,
+              "name": "腰部",
+              "description": "",
+              "imageUrl": "../../image/bodyparts/waist.png",
+              "actionSets": [
+                {
+                  "id": 1,
+                  "name": "杠铃罗马尼亚硬拉",
+                  "equipment": "",
+                  "description": "",
+                  "imageUrl": "../../image/actions/icon/waist/杠铃罗马尼亚硬拉.png",
+                  "trainDates": [
+                    2
+                  ],
+                  "groupSets": [
+                    {
+                      "id": 1,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 2,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 3,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 4,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 5,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 6,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    }
+                  ]
+                }
+              ],
+              "trainDates": [
+                2
+              ]
+            },
+            {
+              "id": 1,
+              "name": "腹部",
+              "description": "",
+              "imageUrl": "../../image/bodyparts/abs.png",
+              "actionSets": [
+                {
+                  "id": 1,
+                  "name": "下斜仰卧起坐",
+                  "equipment": "",
+                  "description": "",
+                  "imageUrl": "../../image/actions/icon/abs/下斜仰卧起坐.png",
+                  "trainDates": [
+                    2
+                  ],
+                  "groupSets": [
+                    {
+                      "id": 1,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 2,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 3,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 4,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 5,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 6,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    }
+                  ]
+                }
+              ],
+              "trainDates": [
+                2
+              ]
+            },
+            {
+              "id": 1,
+              "name": "手臂",
+              "description": "",
+              "imageUrl": "../../image/bodyparts/arm.png",
+              "actionSets": [
+                {
+                  "id": 1,
+                  "name": "站姿杠铃弯举",
+                  "equipment": "",
+                  "description": "",
+                  "imageUrl": "../../image/actions/icon/arm/站姿杠铃弯举.png",
+                  "trainDates": [
+                    2
+                  ],
+                  "groupSets": [
+                    {
+                      "id": 1,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 2,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 3,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 4,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 5,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 6,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    }
+                  ]
+                }
+              ],
+              "trainDates": [
+                2
+              ]
+            },
+            {
+              "id": 1,
+              "name": "腿部",
+              "description": "",
+              "imageUrl": "../../image/bodyparts/legs.png",
+              "actionSets": [
+                {
+                  "id": 1,
+                  "name": "俯卧器械腿弯举",
+                  "equipment": "",
+                  "description": "",
+                  "imageUrl": "../../image/actions/icon/legs/俯卧器械腿弯举.png",
+                  "trainDates": [
+                    2
+                  ],
+                  "groupSets": [
+                    {
+                      "id": 1,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 2,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 3,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 4,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 5,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    },
+                    {
+                      "id": 6,
+                      "quantity": 10,
+                      "gpUom": "",
+                      "weight": 30,
+                      "uom": "Kg"
+                    }
+                  ]
+                }
+              ],
+              "trainDates": [
+                2
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "partSets": []
+        },
+        {
+          "id": 4,
+          "partSets": []
+        },
+        {
+          "id": 5,
+          "partSets": []
+        },
+        {
+          "id": 6,
+          "partSets": []
+        }
+      ]
+    }
+  ]
+}

@@ -3,10 +3,6 @@
         "pages/index/index",
         "pages/training/training",
         "pages/settings/settings",
-        "pages/signUp/signUp1st/signUp1st",
-        "pages/signUp/signUp2nd/signUp2nd",
-        "pages/signUp/signUp3rd/signUp3rd",
-        "pages/signUp/signTerms/signTerms",
         "pages/settings/userprofile/userprofile",
         "pages/settings/system/system",
         "pages/settings/about/about",
@@ -16,13 +12,11 @@
         "pages/settings/donation/donation",
         "pages/settings/favorite/favorite",
         "pages/settings/knowledge/knowledge",
-        "pages/settings/system/actionedit",
         "pages/plan/select_goal/select_goal",
         "pages/plan/recommend_planlist/recommend_planlist",
         "pages/plan/user_define/select_part",
         "pages/plan/user_define/preview_plan",
-        "pages/plan/user_define/custom_actions",
-        "pages/ui/tabs/tabs"
+        "pages/plan/user_define/custom_actions"
     ],
     "window": {
         "navigationBarBackgroundColor": "#000000",

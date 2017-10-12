@@ -84,7 +84,7 @@
                     <view id="{{item.id}}" class='partContainer' wx:if="{{item.selected}}" wx:for="{{body.partList}}" wx:key="{{index}}">
 
                         <!-- <view style='font-size:32rpx;width:100%;margin-left:50rpx;'>{{item.trainDateStr}}</view> -->
-                        <image class='imageBig' src="{{item.imageUrl}}"></image> 
+                        <image class='partImage' src="{{item.imageUrl}}"></image> 
                         <view class='text'>{{item.name}}</view>
                         <icon id="{{item.id}}" wx:if="{{item.selected }}" class='icon' size='30' type="cancel" bindtap='onCancelPart'></icon>
                     </view>
@@ -118,7 +118,7 @@
                                 <!--  每个动作 -->
                                 <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" data-subpartidx="{{item.actionPartId-1}}" wx:key="{{index}}" bindtap='onSelectAction'>
                                     <!-- 图片占位 -->
-                                    <view class='imageBig'></view>
+                                    <image class='actionImage' src='{{item.imageUrl}}' ></image>
                                     
                                     <view class='actionItem'>
                                         <view class='header'>
