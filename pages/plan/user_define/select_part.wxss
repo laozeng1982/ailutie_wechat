@@ -165,7 +165,6 @@
 .scroll-view_V_right_item {
     display: flex;
     flex-direction: column;
-    height:100%;
     /* border-bottom: 1rpx solid #eee; */
 }
 

@@ -506,7 +506,6 @@
 }
 
 .scrollviewVertical_Action {
-    height: 850rpx;
     width: 100%;
     display: flex;
     flex-direction: column;

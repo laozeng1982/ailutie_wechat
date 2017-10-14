@@ -162,12 +162,12 @@ Page({
                 // 先判断这天是否在周期内
                 if (app.Util.inPeriod(app.currentPlan.fromDate, dateList[week][day].value, app.currentPlan.toDate)) {
                     let partArr = [];
-                    for (let trainData of app.currentPlan.circleDaySet) {
-                        if (trainData.id === dateList[week][day].week) {
+                    for (let circleDay of app.currentPlan.circleDaySet) {
+                        if (circleDay.id === dateList[week][day].week) {
                             dateList[week][day].hasPlan = true;
-                            dateList[week][day].planPartsArr.push(trainData.name);
-                            for (let partSet of trainData.partSets) {
-                                partArr.push(partSet.name);
+                            dateList[week][day].planPartsArr.push(circleDay.name);
+                            for (let exercise of circleDay.exerciseSet) {
+                                partArr.push(exercise.action.partSet[0]);
                             }
                         }
                     }
@@ -254,8 +254,8 @@ Page({
 
         // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
         if (app.Util.inPeriod(app.currentPlan.fromDate, selectedDate.value, app.currentPlan.toDate)) {
-            for (let partSet of app.currentPlan.circleDaySet[selectedDate.week].partSets) {
-                selectedDatePlan.push(partSet);
+            for (let exercise of app.currentPlan.circleDaySet[selectedDate.week].exerciseSet) {
+                selectedDatePlan.push(exercise);
             }
         }
 

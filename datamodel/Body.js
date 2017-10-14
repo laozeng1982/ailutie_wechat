@@ -3,7 +3,8 @@
  */
 
 import PlanSet from './PlanSet'
-import Bodypart from './Part'
+import Part from './Part'
+import Action from './Action'
 
 class Body {
     constructor() {
@@ -28,7 +29,7 @@ class Body {
 
         for (let part of orgType.partData) {
             // console.log("part:", part);
-            let bodyPart = new Bodypart.BodyPart();
+            let bodyPart = new Part.BodyPart();
             bodyPart.id = partIndex;
             bodyPart.bodyPart = part.bodyPart;
             bodyPart.name = part.name;
@@ -36,30 +37,42 @@ class Body {
 
             for (let actionIdx = 0; actionIdx < part.actionArray.length; actionIdx++) {
 
-                let action = new Bodypart.Action();
+                let action = new Action.Action();
                 action.id = actionIdx + 1;
                 action.name = part.actionArray[actionIdx].name;
                 action.imageUrl = part.actionArray[actionIdx].imageUrl;
                 action.equipment = part.actionArray[actionIdx].equipment;
                 action.gpMeasurement = part.actionArray[actionIdx].gpmeasurement;
                 action.measurement = part.actionArray[actionIdx].measurement;
-                action.partSet.push(part.name);
+                action.partSet.push(part.bodyPart);
 
                 actions.push(action);
                 bodyPart.actionSet.push(action);
             }
 
-            let action = new Bodypart.Action();
-            action.id = bodyPart.actionSet.length + 1;
-            action.name = "自定义动作";
-            action.partSet.push(part.name);
-            action.imageUrl = 'image/plus_128px1.png';
-
-            //最后一个增加一个空的，作为自定义动作
-            bodyPart.actionSet.push(action);
 
             parts.push(bodyPart);
             partIndex++;
+        }
+
+        // 每个大类的最后一个小part增加一个自定义动作
+        let lastIdx = parts.length - 1;
+        for (let idx = 0; idx < parts.length; idx++) {
+            if (idx !== lastIdx && parts[idx].bodyPart !== parts[idx + 1].bodyPart) {
+                let action = new Action.Action();
+                action.id = parts[idx].actionSet.length + 1;
+                action.name = "自定义动作";
+                action.imageUrl = 'image/plus_128px1.png';
+                action.partSet.push(parts[idx].bodyPart);
+                parts[idx].actionSet.push(action);
+            } else {
+                let action = new Action.Action();
+                action.id = parts[lastIdx].actionSet.length + 1;
+                action.name = "自定义动作";
+                action.imageUrl = 'image/plus_128px1.png';
+                action.partSet.push(parts[lastIdx].bodyPart);
+                parts[lastIdx].actionSet.push();
+            }
         }
 
         return {parts, actions};
@@ -108,12 +121,12 @@ class Body {
         for (let partIdx = 0; partIdx < this.parts.length; partIdx++) {
             for (let actionIdx = 0; actionIdx < this.parts[partIdx].actionSet.length; actionIdx++) {
                 // 临时增加一个数据项，用以保存数据
-                this.parts[partIdx].actionSet[actionIdx].groupSets = [];
+                this.parts[partIdx].actionSet[actionIdx].groupSet = [];
                 for (let idx = 0; idx < 6; idx++) {
                     let group = new PlanSet.GroupSet(idx + 1, 10,
                         this.parts[partIdx].actionSet[actionIdx].measurement, 30);
 
-                    this.parts[partIdx].actionSet[actionIdx].groupSets.push(group);
+                    this.parts[partIdx].actionSet[actionIdx].groupSet.push(group);
                 }
             }
 

@@ -3,6 +3,7 @@
  *
  */
 
+
 class PlanSet {
     constructor() {
         this.data = []; // 存放Plan的数组
@@ -37,9 +38,9 @@ class Plan {
 }
 
 class CircleDay {
-    constructor(id) {
+    constructor(id, weekDay) {
         this.id = id;   // 这个部位锻炼的天次，该部位每周期内锻炼天次，存放数字0,1,2,3等，代表周期内的第N天
-        this.weekDay = '';
+        this.weekDay = weekDay;
         this.exerciseSet = [];  // 存放计划的数据，既Exercise数组
     }
 }
@@ -51,7 +52,7 @@ class Exercise {
     constructor(id, name) {
         this.id = id;
         this.forPlan = true;
-        this.action = new Action(name);  // 这个Exercise的动作，Action的对象
+        this.action = '';  // 这个Exercise的动作，Action的对象
         this.groupSet = [];    // 存放该动作每组的具体数据
     }
 
