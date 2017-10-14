@@ -2,10 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43d0bba8-bdcd-471c-9d2f-9c090f19b525" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datamodel/RealitySet.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datamodel/Part.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datamodel/planSet.json" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/datamodel/DailyRecords.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/plus_64px.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/Body.js" afterPath="$PROJECT_DIR$/datamodel/Body.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/PlanSet.js" afterPath="$PROJECT_DIR$/datamodel/PlanSet.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/tsconfig.json" afterPath="$PROJECT_DIR$/datamodel/tsconfig.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/plan_wizzard_style.wxss" afterPath="$PROJECT_DIR$/pages/plan/plan_wizzard_style.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/select_goal/select_goal.js" afterPath="$PROJECT_DIR$/pages/plan/select_goal/select_goal.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/select_goal/select_goal.wxml" afterPath="$PROJECT_DIR$/pages/plan/select_goal/select_goal.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/preview_plan.js" afterPath="$PROJECT_DIR$/pages/plan/user_define/preview_plan.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/select_part.js" afterPath="$PROJECT_DIR$/pages/plan/user_define/select_part.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/select_part.wxml" afterPath="$PROJECT_DIR$/pages/plan/user_define/select_part.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/select_part.wxss" afterPath="$PROJECT_DIR$/pages/plan/user_define/select_part.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.js" afterPath="$PROJECT_DIR$/pages/training/training.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Controller.js" afterPath="$PROJECT_DIR$/utils/Controller.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,19 +32,115 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="PlanSet.js" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/datamodel/PlanSet.js">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="588">
+                    <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+                    <folding>
+                      <element signature="n#PlanSet#0" expanded="false" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="planSet.json" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/datamodel/planSet.json">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="285">
+                    <caret line="31" column="25" lean-forward="true" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+                    <folding>
+                      <element signature="e#1405#1616#0" expanded="false" />
+                      <element signature="e#1688#2685#0" expanded="false" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="Part.js" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/datamodel/Part.js">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="609">
+                    <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="Body.js" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/datamodel/Body.js">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="535">
+                    <caret line="271" column="9" lean-forward="false" selection-start-line="271" selection-start-column="9" selection-end-line="271" selection-end-column="9" />
+                    <folding>
+                      <element signature="n#!!doc" expanded="true" />
+                      <element signature="e#17#48#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="select_part.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="select_part.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="241" column="26" lean-forward="false" selection-start-line="241" selection-start-column="12" selection-end-line="241" selection-end-column="26" />
+            <state relative-caret-position="610">
+              <caret line="486" column="30" lean-forward="false" selection-start-line="486" selection-start-column="30" selection-end-line="486" selection-end-column="30" />
+              <folding>
+                <element signature="e#169#195#0" expanded="false" />
+                <element signature="e#5689#7678#0" expanded="false" />
+                <element signature="e#20377#22111#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="select_goal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="85" column="0" lean-forward="true" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RealitySet.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="440">
+              <caret line="54" column="48" lean-forward="false" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="48" />
+              <folding>
+                <element signature="e#27#61#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/Controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="8" column="53" lean-forward="false" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+              <folding>
+                <marker date="1507967732158" expanded="true" signature="2925:2927" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RealitySet.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datamodel/RealitySet.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="588">
@@ -43,44 +153,8 @@
       <file leaf-file-name="tsconfig.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datamodel/tsconfig.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11697">
+            <state relative-caret-position="1360">
               <caret line="557" column="24" lean-forward="false" selection-start-line="557" selection-start-column="24" selection-end-line="557" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="training.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/training/training.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2709">
-              <caret line="132" column="14" lean-forward="false" selection-start-line="132" selection-start-column="14" selection-end-line="132" selection-end-column="14" />
-              <folding>
-                <element signature="e#20#58#0" expanded="true" />
-                <marker date="1507799916920" expanded="true" signature="1787:3037" ph="{...}" />
-                <marker date="1507799916920" expanded="true" signature="17444:17513" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DailyRecords.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/datamodel/DailyRecords.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="system.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/settings/system/system.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2226">
-              <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -106,21 +180,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/datamodel/package.json">
+      <file leaf-file-name="preview_plan.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/plan/user_define/preview_plan.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlanSet.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/datamodel/PlanSet.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="987">
-              <caret line="47" column="25" lean-forward="false" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
+            <state relative-caret-position="3780">
+              <caret line="180" column="44" lean-forward="false" selection-start-line="180" selection-start-column="43" selection-end-line="180" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -138,44 +202,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>onNumber</find>
-      <find>ActionPicker</find>
-      <find>prepareActionPicker</find>
-      <find>let gpMeasurement = body.getSelectedActionGpMeausement(e.currentTarget.dataset.subpartidx, e.currentTarget.id);</find>
-      <find>makeActionPicker</find>
-      <find>onPrev</find>
-      <find>compare2Array</find>
-      <find>partSets</find>
-      <find>initGroupSet</find>
-      <find>let body;</find>
-      <find>onPr</find>
-      <find>weekList</find>
-      <find>partSet</find>
-      <find>app.currentPlan</find>
-      <find>trainDatas.push(new _PlanSet2.default.TrainData(cycleLength));</find>
-      <find>prepareActionData</find>
-      <find>var</find>
-      <find>curSelectedActionId</find>
-      <find>partNameArray</find>
-      <find>..</find>
-      <find>&quot;次&quot;, measurement</find>
-      <find>imageUri</find>
-      <find>DATATYPE</find>
-      <find>CONTROLLER</find>
-      <find>storageType</find>
-      <find>action</find>
-      <find>aerobic.png</find>
-      <find>RecordFactory</find>
-      <find>allTabFinished</find>
       <find>,</find>
+      <find>endDate</find>
+      <find>actionArr</find>
+      <find>partArray</find>
+      <find>../../</find>
+      <find>initGroupSet</find>
+      <find>Train</find>
+      <find>subParts</find>
+      <find>subPart</find>
+      <find>console.log(&quot;partNameArray:&quot;, this.data.partNameArray);</find>
+      <find>allActionsSelected</find>
+      <find>countSelectedAction</find>
+      <find>onLoad</find>
+      <find>currentTabIdx</find>
+      <find>body.selectAction(subPartIdx, e.currentTarget.id);</find>
+      <find>validateTab</find>
+      <find>selectAction</find>
+      <find>onSel</find>
+      <find>subP</find>
+      <find>partName</find>
+      <find>partList</find>
+      <find>indexOf</find>
+      <find>onAdd</find>
+      <find>console.log(e.currentTarget.id);</find>
+      <find>partList[selectedPartIdx].selected = true;</find>
+      <find>initDatePartList</find>
+      <find>console.log(&quot;Select Part:&quot;, e.detail.value, this.data.partNameArray[selectedPartIdx]);</find>
+      <find>onCancelPart</find>
+      <find>onSelectPart</find>
+      <find>image/actionSet</find>
     </findStrings>
     <replaceStrings>
-      <replace>todayPlan</replace>
-      <replace>curSelectedActionId</replace>
-      <replace>allTabFinished</replace>
-      <replace>finished</replace>
-      <replace>休息</replace>
-      <replace>preparePicker</replace>
       <replace>prepareActionData</replace>
       <replace>monthDaysCountArr</replace>
       <replace>cycleLength</replace>
@@ -200,6 +258,12 @@
       <replace>=</replace>
       <replace>this.</replace>
       <replace>;</replace>
+      <replace>fromDate</replace>
+      <replace>partArr</replace>
+      <replace>actionArray</replace>
+      <replace>equipment: &quot;&quot;,\n description:&quot;&quot;,</replace>
+      <replace>toDate</replace>
+      <replace>image/actions</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -219,21 +283,23 @@
         <option value="$PROJECT_DIR$/datamodel/SystemSetting.js" />
         <option value="$PROJECT_DIR$/utils/Util.js" />
         <option value="$PROJECT_DIR$/utils/Test.js" />
-        <option value="$PROJECT_DIR$/datamodel/PlanSet.js" />
         <option value="$PROJECT_DIR$/pages/plan/user_define/preview_plan.js" />
-        <option value="$PROJECT_DIR$/pages/plan/select_goal/select_goal.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/pages/index/index.js" />
-        <option value="$PROJECT_DIR$/utils/Controller.js" />
         <option value="$PROJECT_DIR$/pages/settings/system/actionedit.js" />
         <option value="$PROJECT_DIR$/datamodel/package.json" />
         <option value="$PROJECT_DIR$/pages/settings/system/system.js" />
         <option value="$PROJECT_DIR$/pages/training/training.js" />
-        <option value="$PROJECT_DIR$/datamodel/Body.js" />
         <option value="$PROJECT_DIR$/datamodel/tsconfig.json" />
         <option value="$PROJECT_DIR$/app.json" />
-        <option value="$PROJECT_DIR$/pages/plan/user_define/select_part.js" />
         <option value="$PROJECT_DIR$/datamodel/RealitySet.js" />
+        <option value="$PROJECT_DIR$/pages/plan/select_goal/select_goal.js" />
+        <option value="$PROJECT_DIR$/datamodel/planSet.json" />
+        <option value="$PROJECT_DIR$/datamodel/PlanSet.js" />
+        <option value="$PROJECT_DIR$/utils/Controller.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/datamodel/Part.js" />
+        <option value="$PROJECT_DIR$/datamodel/Body.js" />
+        <option value="$PROJECT_DIR$/pages/plan/user_define/select_part.js" />
       </list>
     </option>
   </component>
@@ -251,8 +317,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1670" />
-    <option name="y" value="335" />
+    <option name="x" value="-6" />
+    <option name="y" value="318" />
     <option name="width" value="1696" />
     <option name="height" value="1040" />
   </component>
@@ -271,8 +337,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -306,6 +370,26 @@
               <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
               <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="plan" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="plan" type="462c0819:PsiDirectoryNode" />
+              <item name="select_goal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="plan" type="462c0819:PsiDirectoryNode" />
+              <item name="user_define" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ailutie_wechat_final" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ailutie_wechat_final" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -317,6 +401,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -448,6 +534,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -474,24 +563,26 @@
       <workItem from="1507720066936" duration="5770000" />
       <workItem from="1507778793360" duration="14020000" />
       <workItem from="1507811675118" duration="1852000" />
+      <workItem from="1507949865409" duration="34666000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235859000" />
+    <option name="totallyTimeSpent" value="270525000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19620253" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32831" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24734043" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32733408" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19620253" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32620922" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24683544" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39935413" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -500,7 +591,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32723358" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -512,25 +602,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pages/index/index.wxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.wxss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13419">
-          <caret line="639" column="16" lean-forward="false" selection-start-line="639" selection-start-column="16" selection-end-line="639" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/index/index.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -652,22 +728,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1743">
-          <caret line="83" column="34" lean-forward="false" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/preview_plan.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9261">
-          <caret line="441" column="0" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="441" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -675,29 +735,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2415">
-          <caret line="118" column="20" lean-forward="false" selection-start-line="118" selection-start-column="20" selection-end-line="118" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/index/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2268">
           <caret line="110" column="8" lean-forward="false" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/Controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-714">
-          <caret line="24" column="21" lean-forward="false" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
-          <folding>
-            <element signature="e#85#111#0" expanded="true" />
-            <marker date="1507782587430" expanded="true" signature="2981:2983" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -714,7 +755,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -744,24 +784,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/datamodel/PlanSet.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="987">
-          <caret line="47" column="25" lean-forward="false" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datamodel/DailyRecords.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/settings/system/system.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2226">
@@ -776,18 +798,10 @@
         <state relative-caret-position="2709">
           <caret line="132" column="14" lean-forward="false" selection-start-line="132" selection-start-column="14" selection-end-line="132" selection-end-column="14" />
           <folding>
-            <element signature="e#20#58#0" expanded="true" />
-            <marker date="1507799916920" expanded="true" signature="1787:3037" ph="{...}" />
-            <marker date="1507799916920" expanded="true" signature="17444:17513" ph="{...}" />
+            <element signature="e#20#58#0" expanded="false" />
+            <marker date="1507959380399" expanded="true" signature="1787:3037" ph="{...}" />
+            <marker date="1507959380399" expanded="true" signature="17446:17515" ph="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datamodel/tsconfig.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11697">
-          <caret line="557" column="24" lean-forward="false" selection-start-line="557" selection-start-column="24" selection-end-line="557" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -809,22 +823,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/preview_plan.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="241" column="26" lean-forward="false" selection-start-line="241" selection-start-column="12" selection-end-line="241" selection-end-column="26" />
+        <state relative-caret-position="3780">
+          <caret line="180" column="44" lean-forward="false" selection-start-line="180" selection-start-column="43" selection-end-line="180" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/datamodel/Body.js">
+    <entry file="file://$PROJECT_DIR$/datamodel/tsconfig.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="883" column="55" lean-forward="false" selection-start-line="883" selection-start-column="55" selection-end-line="883" selection-end-column="55" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#21472#22422#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="1360">
+          <caret line="557" column="24" lean-forward="false" selection-start-line="557" selection-start-column="24" selection-end-line="557" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/DailyRecords.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -833,6 +852,86 @@
         <state relative-caret-position="588">
           <caret line="28" column="12" lean-forward="false" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/Controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" column="53" lean-forward="false" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+          <folding>
+            <marker date="1507967732158" expanded="true" signature="2925:2927" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="54" column="48" lean-forward="false" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="48" />
+          <folding>
+            <element signature="e#27#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/planSet.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="31" column="25" lean-forward="true" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+          <folding>
+            <element signature="e#1405#1616#0" expanded="false" />
+            <element signature="e#1688#2685#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/PlanSet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+          <folding>
+            <element signature="n#PlanSet#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/select_goal/select_goal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="85" column="0" lean-forward="true" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/Part.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/Body.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="271" column="9" lean-forward="false" selection-start-line="271" selection-start-column="9" selection-end-line="271" selection-end-column="9" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#17#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="486" column="30" lean-forward="false" selection-start-line="486" selection-start-column="30" selection-end-line="486" selection-end-column="30" />
+          <folding>
+            <element signature="e#169#195#0" expanded="false" />
+            <element signature="e#5689#7678#0" expanded="false" />
+            <element signature="e#20377#22111#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

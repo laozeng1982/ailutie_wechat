@@ -6,12 +6,12 @@
       "source": "你剑哥",
       "privacy": "",
       "currentUse": true,
-      "target": "增肌",
+      "purpose": "增肌",
       "level": "有一定基础",
       "place": "",
       "frequence": 0,
-      "startDate": "2017-10-12",
-      "endDate": "2017-11-11",
+      "fromDate": "2017-10-12",
+      "toDate": "2017-11-11",
       "cycleLength": 7,
       "dateLength": 0,
       "description": "",
@@ -19,7 +19,7 @@
       "comments": [],
       "agree": 0,
       "partSets": [],
-      "trainDatas": [
+      "circleDaySet": [
         {
           "id": 0,
           "partSets": []

@@ -57,7 +57,7 @@
     size: 36;
 }
 
-.selectorContainer {
+.selector-container {
     width: 100%;
     height: 200rpx;
     display: flex;
@@ -65,6 +65,46 @@
     justify-content: space-around;
     align-content: center;
     align-items: center;
+}
+
+.ctrlbtn-container {
+    width: 60%;
+    height: 100rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.smallbtn {
+    height: 60rpx;
+    font-size: 26rpx;
+    width: 80%;
+    margin: 20rpx;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+.enable {
+    background-color: #000;
+    color: #fff;
+}
+
+.disable {
+    background-color: #eee;
+    color: #888;
+}
+
+.left-round {
+    border-radius: 30rpx 4rpx 4rpx 30rpx;
+}
+
+.right-round {
+    border-radius: 4rpx 30rpx 30rpx 4rpx;
 }
 
 .radio_group {
@@ -95,8 +135,7 @@
 .dateSelectorContanier {
     margin-top: 20rpx;
     width: 100%;
-    /* height: 300rpx; */
-    padding-bottom: 20rpx;
+    /* height: 300rpx; *//* padding-bottom: 20rpx; */
     display: flex;
     flex-direction: column;
 }
@@ -198,7 +237,7 @@
 }
 
 .textheader {
-    margin: 40rpx;
+    padding: 40rpx;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -217,7 +256,6 @@
     text-align: center;
     font-size: 36rpx;
     font-weight: 500;
-
 }
 
 .roundCornor {
@@ -247,17 +285,38 @@
     line-height: 100rpx;
 }
 
+.inner-top {
+    width: 100%;
+    height: 90%;
+}
+
+.inner-bot {
+    width: 90%;
+    height: 10%;
+    display: flex;
+    justify-content: space-around;
+}
+
 .swiper-tab-list {
     font-size: 40rpx;
     font-weight: 500;
     display: inline-block;
-    height: 46rpx;
+    width: 100%;
+    height: 100rpx;
+    text-align: center;
+    line-height: 100rpx;
 }
 
 .tips {
     font-size: 24rpx;
     font-weight: 300;
     color: #888;
+    display: inline-block;
+    width: 100%;
+    /* height: 46rpx; */
+    line-height: 100rpx;
+    text-align: center;
+    /* margin: 12rpx; */
 }
 
 .on {
@@ -271,10 +330,13 @@
 }
 
 .swiper-box {
-    display: block;
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
 }
 
 /* .swiper-box view {
@@ -282,10 +344,8 @@
 } */
 
 .tips_text {
-    margin: 10rpx;
-    margin-left: 20rpx;
+    margin: 20rpx;
     font-size: 28rpx;
-    width: 100%;
     display: flex;
     flex-direction: column;
     color: #888;
@@ -293,8 +353,7 @@
 
 .calendar_panel {
     width: 100%;
-    /* height: 100%; */
-    /* border-bottom: 1rpx solid #ececec; */
+    /* height: 100%; *//* border-bottom: 1rpx solid #ececec; */
 }
 
 .calendar_box {
@@ -447,7 +506,7 @@
 }
 
 .scrollviewVertical_Action {
-    height: 1000rpx;
+    height: 850rpx;
     width: 100%;
     display: flex;
     flex-direction: column;

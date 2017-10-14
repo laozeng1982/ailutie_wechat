@@ -2,29 +2,26 @@
 <view class='thisContainer'>
     <!-- <view class='graySpaceSmall'></view> -->
 
-    <view class='topArea'>
-        <scroll-view class="swiper-tab">
-            <block wx:for="{{tabData}}" wx:key="{{index}}">
-                <view wx:if="{{currentTabIdx===index }}" class="swiper-tab-list" data-current="{{index}}">{{item.name}}</view>
-            </block>
-        </scroll-view>
+    <view wx:if="{{currentTabIdx===index}}" wx:for="{{tabData}}" wx:key="{{index}}" class='topArea'>
+
+        <view wx:if="{{currentTabIdx===index}}" class="swiper-tab-list" data-current="{{index}}">{{item.name}}</view>
 
         <view class='graySpaceSmall'></view>
 
-        <swiper class="swiper-box" bindchange="onSwiperChange">
-            <!-- 时间选择Tab -->
-            <swiper-item id="{{tabData[0].type}}">
+        <!-- 时间选择Tab -->
+        <view class="swiper-box" wx:if="{{currentTabIdx===0}}" id="{{tabData[0].type}}">
+            <view class='inner-top'>
                 <view class='rowContainer'>
                     <view class='text1'>开始日期：</view>
-                    <picker class='picker_row' id='start' mode="date" value="{{startDate}}" start="{{startDate}}" end="2099-12-31" bindchange="onDatePickerChange">
-                        <view style='margin-left:50rpx'>{{startDate}}</view>
+                    <picker class='picker_row' id='start' mode="date" value="{{fromDate}}" start="{{fromDate}}" end="2099-12-31" bindchange="onDatePickerChange">
+                        <view style='margin-left:50rpx'>{{fromDate}}</view>
                     </picker>
                 </view>
 
                 <view class='rowContainer'>
                     <view class='text1'>结束日期：</view>
-                    <picker class='picker_row' id='end' mode="date" value="{{endDate}}" start="{{endDate}}" end="2099-12-31" bindchange="onDatePickerChange">
-                        <view style='margin-left:50rpx'>{{endDate}}</view>
+                    <picker class='picker_row' id='end' mode="date" value="{{toDate}}" start="{{toDate}}" end="2099-12-31" bindchange="onDatePickerChange">
+                        <view style='margin-left:50rpx'>{{toDate}}</view>
                     </picker>
                 </view>
 
@@ -38,12 +35,12 @@
                 <view class='graySpaceSmall'></view>
 
                 <view class='textheader'>
-                    请点选周期中的天次（可多选）
+                    周期预览
                 </view>
 
                 <view class='dateSelectorContanier'>
                     <view class='dateSelectorRow' wx:for="{{weekList}}" wx:key="{{index}}" wx:for-item="week">
-                        <view class='date' wx:for="{{week}}" wx:key="{{index}}" id='{{item.id}}' data-date="{{item}}" bindtap='onSelectDate'>
+                        <view class='date' wx:for="{{week}}" wx:key="{{index}}" id='{{item.id}}' data-date="{{item}}">
                             <view class="{{item.selected?'selected_date':'unselected_date'}}">{{item.value}}</view>
                             <view class='textSmall'>
                                 <text>{{item.hasparts}}</text>
@@ -53,18 +50,23 @@
                 </view>
 
                 <view class='tips_text'>
-                    <view class="swiper-tab-list tips">1、请选择计划开始和结束的时间</view>
-                    <view class="swiper-tab-list tips">2、请选择计划中每个周期的长度</view>
-                    <view class="swiper-tab-list tips">3、如果计划中当天准备休息，不选这天即可</view>
-                    <view class="swiper-tab-list tips">4、再左滑去选择该日期的锻炼部位</view>
+                    <view class="tips">1、请选择计划开始和结束的时间</view>
+                    <view class="tips">2、如果计划中当天准备休息，不选这天即可</view>
+                    <view class="tips">3、再选择该日期的锻炼部位</view>
                 </view>
+            </view>
 
-            </swiper-item>
+            <view class='inner-bot'>
+                <view class="roundCornorBtn" bindtap='onToPartTab'>选择部位</view>
+            </view>
 
-            <!-- 部位选择Tab -->
-            <swiper-item id="{{tabData[1].type}}">
+        </view>
+
+        <!-- 部位选择Tab -->
+        <view class="swiper-box" wx:if="{{currentTabIdx===1}}" id="{{tabData[1].type}}">
+            <view class='inner-top'>
                 <view class='textheader'>
-                    周期预览
+                    请点选周期中的天次（可多选）
                 </view>
 
                 <view class='dateSelectorContanier'>
@@ -81,81 +83,85 @@
                 <view class='graySpaceSmall'></view>
 
                 <scroll-view class="scrollview" scroll-y="true">
-                    <view id="{{item.id}}" class='partContainer' wx:if="{{item.selected}}" wx:for="{{body.partList}}" wx:key="{{index}}">
+                    <view id="{{item.name}}" class='partContainer' wx:if="{{item.selected}}" wx:for="{{partList}}" wx:key="{{index}}">
 
-                        <!-- <view style='font-size:32rpx;width:100%;margin-left:50rpx;'>{{item.trainDateStr}}</view> -->
-                        <image class='partImage' src="{{item.imageUrl}}"></image> 
+                        <image class='partImage' src="../../{{item.imageUrl}}"></image>
                         <view class='text'>{{item.name}}</view>
-                        <icon id="{{item.id}}" wx:if="{{item.selected }}" class='icon' size='30' type="cancel" bindtap='onCancelPart'></icon>
+                        <icon id="{{item.name}}" wx:if="{{item.selected }}" class='icon' size='30' type="cancel" bindtap='onCancelPart'></icon>
                     </view>
                 </scroll-view>
+            </view>
 
-                <view style='display:flex;justify-content:space-around'>
-                    <picker id="partName" data-partname="{{index}}" range="{{partNameArray}}" bindchange='onAddPart'>
-                        <view class="roundCornorBtn">添加部位</view>
-                    </picker>
-                </view>
+            <view class='inner-bot'>
+                <view class="roundCornorBtn" bindtap='onToDateTab'>选日期</view>
+                <picker id="partName" data-partname="{{index}}" range="{{partNameArray}}" bindchange='onAddPart'>
+                    <view class="roundCornorBtn">添加部位</view>
+                </picker>
+                <view class="roundCornorBtn" bindtap='onToActionTab'>选动作</view>
+            </view>
+        </view>
 
-            </swiper-item>
-
-            <!-- 动作选择Tab -->
-            <swiper-item id="{{tabData[2].type}}">
+        <!-- 动作选择Tab -->
+        <view class="swiper-box" wx:if="{{currentTabIdx===2}}" id="{{tabData[2].type}}">
+            <view class='inner-top'>
                 <view class='swiper-row-view'>
-                    <!-- 部位列表 -->
+                    <!-- 左边部位列表 -->
                     <scroll-view class="scroll-view_V_left" scroll-into-view="{{toView}}" scroll-y="true">
-                        <view id="{{item.name}}" class="scroll-view-item_H {{item.active?'textSelected':'textUnselected'}}" wx:if="{{item.selected}}" wx:for="{{body.partList}}" wx:key="{{index}}" bindtap='onSelectPartTab'>
+                        <view id="{{item.name}}" class="scroll-view-item_H {{item.active?'textSelected':'textUnselected'}}" wx:if="{{item.selected}}" wx:for="{{partList}}" wx:key="{{index}}" bindtap='onSelectPartTab'>
                             {{item.name}}({{item.selectedActionCount}})
-                            <!-- <icon type="success_no_circle" color="{{item.checked?'#09bb07':'#888'}}"></icon> -->
                         </view>
                     </scroll-view>
 
-                    <view class='scroll-view_V_right' id="{{item.name}}" wx:if="{{item.active}}" wx:for="{{body.partList}}" wx:key="{{index}}">
-                        <scroll-view class="scrollviewVertical_Action" scroll-y="true">
-                            <!-- 每个部位细分类 -->
-                            <view id="{{index}}" wx:for="{{item.subParts}}" wx:key="{{index}}">
+                    <!-- 右边动作列表 -->
+                    <scroll-view class="scroll-view_V_right" scroll-y="true">
+                        <view class='scroll-view_V_right_item' id="{{item.name}}" wx:if="{{item.active}}" wx:for="{{body.parts}}" wx:key="{{index}}">
+                            <view class="scrollviewVertical_Action" scroll-y="true">
+                                <!-- 每个部位细分类 -->
                                 <view class='subPart_header'> {{item.name}}</view>
 
                                 <!--  每个动作 -->
-                                <view id="{{item.actionName}}" class='actionContainer' wx:for="{{item.actionList}}" data-subpartidx="{{item.actionPartId-1}}" wx:key="{{index}}" bindtap='onSelectAction'>
+                                <view id="{{item.name}}" class='actionContainer' wx:for="{{item.actionSet}}" wx:key="{{index}}" bindtap='onSelectAction'>
                                     <!-- 图片占位 -->
-                                    <image class='actionImage' src='{{item.imageUrl}}' ></image>
-                                    
+                                    <image class='actionImage' src='../../{{item.imageUrl}}'></image>
+
                                     <view class='actionItem'>
                                         <view class='header'>
-                                            <view>{{item.actionName}}</view>
+                                            <view>{{item.name}}</view>
                                         </view>
                                         <!-- 当动作单位为空的时候，是自定义动作，不显示picker -->
-                                        <picker wx:if="{{item.actionMeasurement !== ''}}" id="{{item.actionId}}" data-subpartidx="{{item.actionPartId-1}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
+                                        <picker wx:if="{{item.measurement !== ''}}" id="{{item.id}}" data-subpartidx="{{item.id-1}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
                                             <view class="pickerContainer">
                                                 <view class="pickerItem">{{item.groupSets.length}} </view>
                                                 <view class="pickerItem">组</view>
                                                 <view class="pickerItem">{{item.groupSets[0].quantity}}</view>
-                                                <view class="pickerItem">{{item.actionGpMeasurement}}</view>
+                                                <view class="pickerItem">{{item.gpMeasurement}}</view>
                                                 <view class="pickerItem">{{item.groupSets[0].weight}}</view>
                                                 <view class="pickerItem">{{item.groupSets[0].uom}}</view>
                                             </view>
                                         </picker>
                                     </view>
 
-                                    <icon wx:if="{{!item.actionSelected}}" class='iconAction' type="circle" size="26"></icon>
+                                    <icon wx:if="{{!item.selected}}" class='iconAction' type="circle" size="26"></icon>
                                     <icon wx:else class='icon' class='iconAction' type="success_circle" size="26"></icon>
                                 </view>
 
                             </view>
-                        </scroll-view>
-                    </view>
+                        </view>
+                    </scroll-view>
                 </view>
+            </view>
 
-            </swiper-item>
+            <view class='inner-bot'>
+                <!-- <view class="roundCornorBtn" bindtap='onToDateTab'>选日期</view> -->
+                <view class="roundCornorBtn" bindtap='onToPartTab'>选择部位</view>
+            </view>
+        </view>
 
-        </swiper>
     </view>
 
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
 
-    <!-- <view class='graySpaceSmall'></view> -->
-    <!-- disabled='{{!allTabFinished}}'   currentTabIdx!==2 暂时取消disable-->
     <view class='footArea'>
         <button class='nextBtn' disabled='{{!allTabFinished}}' type='primary' bindtap='onPreview'> 预览 </button>
     </view>

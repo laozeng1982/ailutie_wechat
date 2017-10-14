@@ -16,19 +16,14 @@ class Plan {
     constructor() {
         this.id = '';
         this.name = '';      // 计划的名字
-        this.source = '';    // 计划来源：爱撸铁推荐，教练推荐，朋友推荐，自定义计划
+        this.predefined = false;
         this.privacy = '';   // 计划权限设置：Public谁都可以看，Protect只给朋友看，Private只能自己看。
-        this.currentUse = false;    // 这个计划是不是当前使用
 
-        this.target = '';   // 计划的类型：减脂，塑性，增肌
+        this.purpose = '';   // 计划的类型：减脂，塑性，增肌
         this.level = '';    // 计划的级别：初级，中级，高级
-        this.place = '';    // 健身地点
-        this.frequence = 0; // 健身频率，一周N次
 
-        this.startDate = '';     // 计划开始的日期，格式：2017-09-25
-        this.endDate = '';     // 计划结束的日期，格式：2017-09-25
-        this.cycleLength = 0;   // 每个循环的长度
-        this.dateLength = 0;    // 计划的天数
+        this.fromDate = '';     // 计划开始的日期，格式：2017-09-25
+        this.toDate = '';     // 计划结束的日期，格式：2017-09-25
 
         this.description = '';  // 计划描述
 
@@ -36,64 +31,36 @@ class Plan {
         this.comments = [];  // 评论
         this.agree = 0;     // 点赞数
 
-        this.partSets = [];  // 存放部位信息
-        this.trainDatas = [];   // 存放计划的具体信息，即TrainData数组
+        this.circleDaySet = [];   // 存放计划的具体信息，即CircleDay数组，只使用固定的7天一周期，即每周一循环
 
     }
 }
 
-class TrainData {
+class CircleDay {
     constructor(id) {
         this.id = id;   // 这个部位锻炼的天次，该部位每周期内锻炼天次，存放数字0,1,2,3等，代表周期内的第N天
-        this.partSets = [];
+        this.weekDay = '';
+        this.exerciseSet = [];  // 存放计划的数据，既Exercise数组
     }
 }
 
 /**
  * 定义计划中的部位列表
  */
-class PartSet {
+class Exercise {
     constructor(id, name) {
         this.id = id;
-        this.name = name;       // 部位名字
-        this.description = '';  // 部位描述
-        this.imageUrl = '';
-        this.actionSets = [];    // 存放动作列表
+        this.forPlan = true;
+        this.action = new Action(name);  // 这个Exercise的动作，Action的对象
+        this.groupSet = [];    // 存放该动作每组的具体数据
     }
 
-    fullCopyFrom(part) {
-        this.id = part.id;
-        this.name = part.name;
-        this.imageUrl = part.imageUrl;
-        this.description = part.description;
-        this.actionSets = part.actionSets;
-    }
-}
-
-/**
- * 每组动作的具体内容，包括：
- * 1.计划组数
- * 4.每组感觉
- * 5.每组的详细信息，见Details
- */
-class ActionSet {
-    constructor() {
-        this.id = '';
-        this.name = '';
-        this.equipment = '';
-        this.description = '';
-        this.imageUrl = '';
-        this.trainDates = [];    // 该动作每周几锻炼，存在不和部位同步的情况，存放数字0,1,2,3,4,5,6代表周日到周六
-        this.groupSets = [];     // 存放每组的计划
-
-    }
 }
 
 class GroupSet {
     constructor(id, quantity, uom, weight) {
         this.id = id;
         this.quantity = quantity;
-        this.gpUom = '';
         this.weight = weight;
         this.uom = uom;
     }
@@ -102,8 +69,7 @@ class GroupSet {
 module.exports = {
     PlanSet: PlanSet,
     Plan: Plan,
-    TrainData: TrainData,
-    PartSet: PartSet,
-    ActionSet: ActionSet,
+    CircleDay: CircleDay,
+    Exercise: Exercise,
     GroupSet: GroupSet,
 };

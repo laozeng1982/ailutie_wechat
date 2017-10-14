@@ -2,39 +2,40 @@
 
 <view class='thisContainer'>
     <view class='topArea'>
-        <scroll-view class="swiper-tab">
-            <block wx:for="{{tabData}}" wx:key="{{index}}">
-                <view wx:if="{{currentTabIdx===index}}" class="swiper-tab-list" data-current="{{index}}">{{item.name}}</view>
+
+        <block class="swiper-box" wx:for="{{tabData}}" wx:key="{{index}}">
+
+            <block wx:if="{{currentTabIdx===index}}" class="swiper-tab">
+                <view class="swiper-tab-list" data-current="{{index}}">{{item.name}}</view>
+                <view class='graySpaceSmall'></view>
             </block>
-        </scroll-view>
 
-        <view class='graySpaceSmall'></view>
-
-        <swiper current="{{currentTabIdx}}" class="swiper-box" duration="300" bindchange="onSwiperChange">
-            <block wx:for="{{tabData}}" wx:key="{{index}}">
-                <swiper-item id="{{item.type}}" style="padding-top:200rpx">
-                    <view class='selectorContainer' wx:for="{{tabData[currentTabIdx].data}}" wx:key="{{index}}">
-                        <view id="{{item.id}}" class="roundCornor {{item.selected?'item_selected':''}}" bindtap='onItemSelected'>
-                            <text>{{item.text}}</text>
-                        </view>
+            <view wx:if="{{currentTabIdx===index}}">
+                <view class='selector-container' wx:for="{{tabData[currentTabIdx].data}}" wx:key="{{index}}">
+                    <view id="{{item.id}}" class="roundCornor {{item.selected?'item_selected':''}}" bindtap='onItemSelected'>
+                        <text>{{item.text}}</text>
                     </view>
-                </swiper-item>
-            </block>
-        </swiper>
+                </view>
+            </view>
+
+            <view wx:if="{{currentTabIdx===index}}" class='ctrlbtn-container'>
+                <view class="smallbtn left-round {{ item.disable_left?'disable':'enable' }}" bindtap="{{item.disable_left?'':'onLastStep'}}">上一步</view>
+                <view class="smallbtn right-round {{ item.disable_right?'disable':'enable' }}" bindtap="{{item.disable_right?'':'onNextStep'}}">下一步</view>
+            </view>
+        </block>
+
     </view>
 
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
 
-    <scroll-view class="swiper-tab">
-        <block wx:for="{{tabData}}" wx:key="{{index}}">
-            <text wx:if="{{currentTabIdx===index}}" data-current="{{index}}"  class="swiper-tab-list tips">{{item.tips}}</text>
-        </block>
-    </scroll-view>
+    <block wx:for="{{tabData}}" wx:key="{{index}}">
+        <view wx:if="{{currentTabIdx===index}}" data-current="{{index}}" class="tips">{{item.tips}}</view>
+    </block>
 
     <view class='graySpaceSmall'></view>
 
     <view class='footArea'>
-        <button class='nextBtn' type='primary' disabled='{{!allTabFinished}}' bindtap='onNext'> 下一步 </button>
+        <button class='nextBtn' type='primary' disabled='{{!tabData[2].finished ||(currentTabIdx!==2) }}' bindtap='onNext'>去选择锻炼计划</button>
     </view>
 </view>

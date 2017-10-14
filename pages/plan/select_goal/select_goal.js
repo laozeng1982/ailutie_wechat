@@ -18,10 +18,11 @@ Page({
                         {id: 2, text: "有一定基础", selected: false},
                         {id: 3, text: "健身达人", selected: false},
                     ],
-                tips: "请选择健身基础，右划选择健身目标",
+                disable_left: true,
+                disable_right: true,
+                tips: "请选择您的健身基础",
                 finished: false
             },
-
             {
                 type: "target",
                 name: "我的目标",
@@ -31,7 +32,9 @@ Page({
                         {id: 2, text: "增肌", selected: false},
                         {id: 3, text: "塑形", selected: false},
                     ],
-                tips: "请选择健身目标，左划选择健身基础，右划选择计划来源",
+                disable_left: false,
+                disable_right: true,
+                tips: "请选择您的健身目标",
                 finished: false
             },
             {
@@ -40,26 +43,34 @@ Page({
                 data:
                     [
                         {id: 1, text: "使用推荐计划", selected: false},
-                        {id: 2, text: "自己定制计划", selected: false},
+                        {id: 2, text: "使用历史计划", selected: false},
+                        {id: 3, text: "自己定制计划", selected: false},
                     ],
-                tips: "请选择计划来源，左划选择健身目标",
+                disable_left: false,
+                disable_right: true,
+                tips: "请选择本次计划来源",
                 finished: false
             }
         ],
 
         currentTabIdx: 0,
-        allTabFinished: false,
         firstTimeIn: true,
 
     },
 
     /**
-     * 滑动切换tab
+     * 点击“上一步”，切换页面
      */
-    onSwiperChange: function (e) {
-        // console.log("swipe to tab:", e.detail.current);
-        this.switchTab(e.detail.current);
+    onLastStep: function () {
+        let currentTabIdx = this.data.currentTabIdx;
+        let tabIdx = currentTabIdx - 1 < 0 ? 0 : currentTabIdx - 1;
+        this.switchTab(tabIdx);
+    },
 
+    onNextStep: function () {
+        let currentTabIdx = this.data.currentTabIdx;
+        let tabIdx = currentTabIdx + 1 > 2 ? 2 : currentTabIdx + 1;
+        this.switchTab(tabIdx);
     },
 
     /**
@@ -72,31 +83,34 @@ Page({
     },
 
     onItemSelected: function (e) {
-        // console.log(e.currentTarget.id);
 
         let tabData = this.data.tabData;
-        for (let idx = 0; idx < tabData[this.data.currentTabIdx].data.length; idx++) {
-            tabData[this.data.currentTabIdx].data[idx].selected =
-                (parseInt(e.currentTarget.id) === tabData[this.data.currentTabIdx].data[idx].id);
-        }
-        tabData[this.data.currentTabIdx].finished = true;
+        let currentTabIdx = this.data.currentTabIdx;
 
-        let allTabFinished = true;
-        for (let item of this.data.tabData) {
-            allTabFinished = allTabFinished && item.finished;
+        for (let idx = 0; idx < tabData[currentTabIdx].data.length; idx++) {
+            tabData[currentTabIdx].data[idx].selected =
+                (parseInt(e.currentTarget.id) === tabData[currentTabIdx].data[idx].id);
+        }
+        tabData[currentTabIdx].finished = true;
+
+        if (currentTabIdx === 0) {
+            tabData[currentTabIdx].disable_right = false;
+        }
+
+        if (currentTabIdx === 1) {
+            tabData[currentTabIdx].disable_right = false;
         }
 
         this.setData({
             tabData: tabData,
-            allTabFinished: allTabFinished
         });
 
         // 第一次进入页面，自动跳转
-        if (this.data.firstTimeIn && this.data.currentTabIdx + 1 <= 2) {
-            this.switchTab(this.data.currentTabIdx + 1);
-            if (this.data.currentTabIdx === 2)
-                this.setData({firstTimeIn: false});
-        }
+        // if (this.data.firstTimeIn && this.data.currentTabIdx + 1 <= 2) {
+        //     this.switchTab(this.data.currentTabIdx + 1);
+        //     if (this.data.currentTabIdx === 2)
+        //         this.setData({firstTimeIn: false});
+        // }
 
     },
 
@@ -110,6 +124,12 @@ Page({
                         });
                         break;
                     case 2:
+                        wx.navigateTo({
+                            url: '../user_define/select_part',
+                        });
+                        this.fillPlan();
+                        break;
+                    case 3:
                         wx.navigateTo({
                             url: '../user_define/select_part',
                         });
@@ -135,7 +155,7 @@ Page({
 
         for (let item of this.data.tabData[1].data) {
             if (item.selected) {
-                app.currentPlan.target = item.text;
+                app.currentPlan.purpose = item.text;
                 break;
             }
         }

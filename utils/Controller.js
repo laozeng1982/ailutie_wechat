@@ -7,7 +7,6 @@
 import util from 'Util.js'
 import UserInfo from '../datamodel/UserInfo.js'
 import UserProfile from '../datamodel/UserProfile.js'
-import DailyRecords from '../datamodel/DailyRecords.js'
 import SystemSetting from '../datamodel/SystemSetting.js'
 import StorageType from '../datamodel/StorageType.js'
 import PlanSet from '../datamodel/PlanSet.js'

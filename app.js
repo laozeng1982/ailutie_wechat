@@ -6,6 +6,7 @@ import util from './utils/Util.js'
 import Controller from './utils/Controller.js'
 import StorageType from './datamodel/StorageType.js'
 import Plan from './datamodel/PlanSet.js'
+import Body from './datamodel/Body'
 
 const CONTROLLER = new Controller.Controller();
 const STORAGETYPE = new StorageType.StorageType();
@@ -49,13 +50,15 @@ App({
         });
 
         // 准备数据：
-        var systemSetting = CONTROLLER.loadData(STORAGETYPE.SystemSetting);
+        var systemSetting = new Body.Body();
 
-        // console.log("SystemSetting: ", systemSetting);
+        systemSetting.makeDefaultDefaultPartList();
 
-        if (systemSetting.body.partList.length > 0) {
-            CONTROLLER.saveData(STORAGETYPE.SystemSetting, systemSetting);
-        }
+        console.log("SystemSetting: ", systemSetting);
+
+        // if (systemSetting.body.parts.length > 0) {
+        //     CONTROLLER.saveData(STORAGETYPE.SystemSetting, systemSetting);
+        // }
 
         // 验证是否是首次登陆，首次登陆，录入用户基本信息
         var userInfo = CONTROLLER.loadData(STORAGETYPE.UserInfo);

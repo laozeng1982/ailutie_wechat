@@ -1,0 +1,107 @@
+{
+  "id": 1,
+  "loginName": "loginName",
+  "wechatUnionId": "wechatUnionId",
+  "wechatMPOpenId": "wechatMPOpenId",
+  "nickName": "nickName",
+  "firstName": "FirstName",
+  "lastName": "LastName",
+  "mobileNumber": "13888888888",
+  "email": "email",
+  "gender": "Male",
+  "dateOfBirth": "2000-01-01",
+  "avatarUrl": "avatarUrl",
+  "grade": "Primary",
+  "planSet": [
+    {
+      "id": 2,
+      "name": "planName",
+      "description": "planDescription",
+      "purpose": "Muscle",
+      "fromDate": "2017-10-01",
+      "toDate": "2017-12-31",
+      "predefined": false,
+      "circleDaySet": [
+        {
+          "id": 3,
+          "weekDay": "Monday",
+          "exerciseSet": [
+            {
+              "id": 4,
+              "forPlan": true,
+              "action": {
+                "id": 5,
+                "name": "actionName",
+                "description": "actionDescription",
+                "imageUrl": "actionImageUrl",
+                "equipment": "actionEquipment",
+                "predefined": false,
+                "partSet": [
+                  {
+                    "id": 6,
+                    "bodyPart": "Chest",
+                    "name": "partName",
+                    "description": "partDescription",
+                    "imageUrl": "partEntityImageUrl",
+                    "predefined": true
+                  }
+                ]
+              },
+              "groupSet": [
+                {
+                  "id": 7,
+                  "forPlan": true,
+                  "uom": "KG",
+                  "quantity": 20,
+                  "weight": 50
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "realitySet": [
+    {
+      "id": 8,
+      "date": "2017-10-14",
+      "exerciseSet": [
+        {
+          "id": 9,
+          "forPlan": false,
+          "action": {
+            "id": 5,
+            "name": "actionName",
+            "description": "actionDescription",
+            "imageUrl": "actionImageUrl",
+            "equipment": "actionEquipment",
+            "predefined": false,
+            "partSet": [
+              {
+                "id": 6,
+                "bodyPart": "Chest",
+                "name": "partName",
+                "description": "partDescription",
+                "imageUrl": "partEntityImageUrl",
+                "predefined": true
+              }
+            ]
+          },
+          "groupSet": [
+            {
+              "id": 10,
+              "forPlan": false,
+              "uom": "KG",
+              "quantity": 20,
+              "weight": 50,
+              "executedQuantity": 30,
+              "executedWeight": 55
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "username": "loginName"
+}
