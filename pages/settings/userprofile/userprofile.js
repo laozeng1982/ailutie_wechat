@@ -1,6 +1,6 @@
 // userprofile.js
 
-import UerProfile from '../../../datamodel/UserProfile.js'
+import User from '../../../datamodel/User'
 
 const app = getApp();
 
@@ -71,7 +71,7 @@ Page({
         console.log(userProfile);
 
         if (typeof (userProfile) === "undefined") {
-            userProfile = new UerProfile.UserProfile().profiles;
+            userProfile = new User.UserProfile().profiles;
         }
 
         console.log(userProfile);

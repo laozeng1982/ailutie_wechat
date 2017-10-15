@@ -253,10 +253,9 @@ Page({
         let selectedDatePlan = [];
 
         // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
+        // 这里需要使用重组后Plan的ExerciseSet
         if (app.Util.inPeriod(app.currentPlan.fromDate, selectedDate.value, app.currentPlan.toDate)) {
-            for (let exercise of app.currentPlan.circleDaySet[selectedDate.week].exerciseSet) {
-                selectedDatePlan.push(exercise);
-            }
+            selectedDatePlan = app.currentPlan.getReGroupExerciseSetByDay(selectedDate.week);
         }
 
         console.log("Selected Date's PlanSet: ", selectedDatePlan);

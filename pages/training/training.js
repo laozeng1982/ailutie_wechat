@@ -18,8 +18,8 @@ Page({
         todayPlan: [],
         curMovementName: '',
         // 当前选中的动作，初始选中第一个
-        curSelectedActionId: 0,
-        curSelectedPartId: 0,
+        currentActionId: 0,
+        currentPartId: 0,
         // 当前锻炼的组数，初始为第一个
         curSelectedRecordId: 0,
 
@@ -36,6 +36,8 @@ Page({
             {id: 4, src: "../image/start_unchecked.png", checked: false},
             {id: 5, src: "../image/start_unchecked.png", checked: false},
         ],
+
+        playSwitch: false,
 
         countSelector: [],
         weightSelector: [],
@@ -64,273 +66,18 @@ Page({
         console.log(this.data.showDetails);
     },
 
-    /**
-     * 功能：响应计划点击事件
-     * 参数：e，点击事件
-     */
-    onMovementSelected: function (e) {
-        this.selectMovement(e);
-    },
-
-    selectMovement: function (e) {
-
-        console.log("in selectMovement, selected id: ", e.currentTarget.id);
-
-        let curSelectedActionId = parseInt(e.currentTarget.id);
-
-        // 重置打分的星
-        // 清零，否则不能由大分数改为小分数
-        let todayPlan = this.data.todayPlan;
-
-        let index = parseInt(todayPlan.movementList[curSelectedActionId - 1].contents.mvFeeling);
-        console.log("stars: ", index);
-        let totalStars = this.data.totalScoreStarArray;
-
-        for (let idx = 0; idx < 5; idx++) {
-            totalStars[idx].src = "../image/start_unchecked.png";
-            totalStars[idx].checked = false;
-        }
-
-        // 点选
-        for (let idx = 0; idx < index; idx++) {
-            totalStars[idx].src = "../image/start_checked.png";
-            totalStars[idx].checked = true;
-        }
-
+    onControl: function (e) {
+        let playSwitch = !this.data.playSwitch;
         this.setData({
-            curSelectedActionId: curSelectedActionId,
-            // 换动作就重置状态
-            curSelectedRecordId: 0,
-            disableModifyBtn: true,
-            disableRemoveBtn: true,
-            totalScoreStarArray: totalStars
+            playSwitch: playSwitch
         });
-
-        this.setPickerIndex();
-
-        // 给全局变量设值，方便切换到计划的时候，直接高亮当前计划，方便修改
-        app.globalData.selectedPartNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.name;
-        app.globalData.selectedMoveNameOnRecordPage = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].mvInfo.mvName;
-    },
-
-    /**
-     * 最重要的，记录函数
-     * @param e
-     */
-    onRecordBtnTap: function (e) {
-
-        // 先判断输入是否为空
-        if (!this.checkInput()) {
-            return;
-        }
-
-        let todayPlan = this.data.todayPlan;
-        let curMovementIdx = this.data.curSelectedActionId - 1;
-        let measurement = todayPlan.movementList[curMovementIdx].contents.details[0].measurement;
-        // console.log(parseInt(todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount));
-        // console.log(parseInt(todayPlan.movementList[curMovementIdx].contents.planGpCount));
-        if (parseInt(todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount)
-            < parseInt(todayPlan.movementList[curMovementIdx].contents.planGpCount)) {
-
-            for (let index = 0; index < todayPlan.movementList[curMovementIdx].contents.details.length; index++) {
-                if (parseInt(todayPlan.movementList[curMovementIdx].contents.details[index].actualCount) <= 0) {
-                    // 为真时，表示没有记录
-                    todayPlan.movementList[curMovementIdx].contents.details[index].actualCount = this.data.actualCount;
-                    todayPlan.movementList[curMovementIdx].contents.details[index].actualWeight = this.data.actualWeight;
-                    todayPlan.movementList[curMovementIdx].contents.details[index].groupFeeling = this.data.actualGpFeeling;
-                    todayPlan.movementList[curMovementIdx].contents.details[index].finished = true;
-
-                    todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount++;
-                    todayPlan.movementList[curMovementIdx].contents.actualGpCount = todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount;
-                    todayPlan.movementList[curMovementIdx].contents.mvFeeling = this.getMvFeeling();
-
-                    break;
-                }
-            }
-            if (parseInt(todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount)
-                === parseInt(todayPlan.movementList[curMovementIdx].contents.planGpCount)) {
-                todayPlan.movementList[curMovementIdx].contents.finished = true;
-            }
-        } else {
-            util.showToast("帅哥，本动作计划已经完成了哦！", this, 1000);
-            todayPlan.movementList[curMovementIdx].contents.curFinishedGpCount++;
-
-        }
-
-        this.setData({
-            todayPlan: todayPlan
-        });
-    },
-
-    /**
-     * 当选中已完成的某一个记录时，
-     * @param e
-     */
-    onModifyBtnTap: function (e) {
-        // 先判断输入是否为空
-        if (!this.checkInput()) {
-            return;
-        }
-
-        let todayPlan = this.data.todayPlan;
-
-        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details[this.data.curSelectedRecordId - 1].actualCount = this.data.actualCount;
-        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details[this.data.curSelectedRecordId - 1].actualWeight = this.data.actualWeight;
-        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details[this.data.curSelectedRecordId - 1].groupFeeling = this.data.actualGpFeeling;
-
-        this.setData({
-            disableRemoveBtn: true,
-            disableModifyBtn: true,
-            curSelectedRecordId: -1,
-            todayPlan: todayPlan
-        });
-
-    },
-
-    /**
-     * 响应删除操作
-     * 判断是否删除的是计划内的内容，如果是，先弹窗询问，然后根据情况是否调用删除函数
-     * @param e
-     */
-    onRemoveBtnTap: function (e) {
-
-        let details = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details;
-
-        // 如果是计划内的
-        let planCount = parseInt(details[this.data.curSelectedRecordId - 1].planCount);
-        let planWeight = parseInt(details[this.data.curSelectedRecordId - 1].planWeight);
-
-        console.log(planWeight, planCount);
-        let host = this;
-        if (planCount > 0 || planWeight > 0) {
-            wx.showModal({
-                title: '提示',
-                content: '这是计划内的，建议修改哦，确定删除？',
-                success: function (res) {
-                    if (res.confirm) {
-                        console.log('用户点击确定');
-                        host.removeItem(true);
-                    } else if (res.cancel) {
-                        console.log('用户点击取消')
-                    }
-                }
-            });
-        } else {
-            this.removeItem(false);
-        }
-    },
-
-    /**
-     * 实现具体删除功能，重置一系列数据
-     * @param removePlanItem，是否删除计划内的内容
-     */
-    removeItem: function (removePlanItem) {
-        let todayPlan = this.data.todayPlan;
-
-        // 先删除，修改对应的数据
-        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.curFinishedGpCount--;
-        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.actualGpCount--;
-
-        // 如果删除的是计划内的，planGpCount也的减去
-        if (removePlanItem) {
-            todayPlan.movementList[this.data.curSelectedActionId - 1].contents.planGpCount--;
-        }
-
-        let details = todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details;
-
-        details.splice(this.data.curSelectedRecordId - 1, 1);
-
-        // 重置序号，然后拷贝回来
-        for (let idx = 0; idx < details.length; idx++) {
-            details[idx].id = idx + 1;
-        }
-
-        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.details = details;
-
-        this.setData({
-            disableRemoveBtn: true,
-            disableModifyBtn: true,
-            curSelectedRecordId: -1,
-            todayPlan: todayPlan
-        });
-    },
-
-    checkInput: function () {
-        // 先判断输入是否为空
-        if (parseInt(this.data.actualCount) <= 0 || isNaN(parseInt(this.data.actualCount))) {
-            util.showToast("次数不能为空！", this, 1000);
-            return false;
-        } else if (parseInt(this.data.actualWeight) <= 0 || isNaN(parseInt(this.data.actualWeight))) {
-            util.showToast("数量不能为空！", this, 1000);
-            return false;
-        } else if (parseInt(this.data.actualGpFeeling) <= 0 || isNaN(parseInt(this.data.actualGpFeeling))) {
-            util.showToast("分数不能为空！", this, 1000);
-            return false;
-        }
-
-        return true;
-    },
-
-    onCountInput: function (e) {
-        this.setData({
-            actualCount: e.detail.value
-        });
-
-    },
-
-    onWeightInput: function (e) {
-        this.setData({
-            actualWeight: e.detail.value
-        });
-
-    },
-
-    onScoreInput: function (e) {
-        let groupFeeling = e.detail.value;
-        if (parseInt(groupFeeling) > 10)
-            groupFeeling = 10;
-        else if (parseInt(groupFeeling) <= 0)
-            groupFeeling = 1;
-        this.setData({
-            actualGpFeeling: groupFeeling
-        });
-
-    },
-
-    onGroupScore: function (e) {
-        console.log('in numberChange, picker发送选择改变，携带值为', e.detail.value);
-        console.log(e);
-
-        // 选中数据的索引
-        let selectedRowArr = e.detail.value;
-        let actualCount = this.data.groupScoreMultiArray[0][selectedRowArr[0]];
-        let actualWeight = this.data.groupScoreMultiArray[1][selectedRowArr[1]];
-        let groupFeeling = this.data.groupScoreMultiArray[2][selectedRowArr[2]];
-
-        this.setData({
-            actualCount: actualCount,
-            actualWeight: actualWeight,
-            actualGpFeeling: groupFeeling
-        });
-
-    },
-
-
-    onSelectFinishedDetails: function (e) {
-        console.log("in onMovementScore, e", e.currentTarget.id, ",  type: ", typeof (e.currentTarget.id));
-        this.setData({
-            disableRemoveBtn: false,
-            disableModifyBtn: false,
-            curSelectedRecordId: e.currentTarget.id + "",
-        });
-        console.log("in onMovementScore, e", this.data.curSelectedRecordId, ",  type: ", typeof (this.data.curSelectedRecordId));
     },
 
     /**
      * 响应用户点击动作评分
      * @param e，点击事件，携带id，即为分数
      */
-    onMovementScore: function (e) {
+    onActionScore: function (e) {
         console.log(e.currentTarget.id);
         // 实际分数
         let index = parseInt(e.currentTarget.id);
@@ -352,9 +99,9 @@ Page({
             totalStars[idx].checked = true;
         }
 
-        console.log("in onMovementScore,e", e);
+        console.log("in onActionScore,e", e);
         let todayPlan = this.data.todayPlan;
-        todayPlan.movementList[this.data.curSelectedActionId - 1].contents.mvFeeling = index;
+        // todayPlan.movementList[this.data.currentActionId - 1].contents.mvFeeling = index;
 
         this.setData({
             todayPlan: todayPlan,
@@ -372,7 +119,7 @@ Page({
             return;
         }
 
-        let selectedMovement = this.data.todayPlan.movementList[this.data.curSelectedActionId - 1];
+        let selectedMovement = this.data.todayPlan.movementList[this.data.currentActionId - 1];
         // 获取当前计划的计划数据
         let planCount = selectedMovement.contents.details[0].planCount;
         let planWeight = selectedMovement.contents.details[0].planWeight;
@@ -427,11 +174,63 @@ Page({
         return feeling;
     },
 
+    /**
+     * 没有计划的情况下，跳转去制定计划
+     */
     onMakePlan: function () {
         app.makingNewPlan = true;
         wx.navigateTo({
             url: '../plan/select_goal/select_goal',
         })
+    },
+
+    /**
+     * 跳转到上一个动作
+     */
+    onLastAction: function () {
+        let currentPartId = this.data.currentPartId;
+        let currentActionId;
+        // let currentActionId = this.data.currentActionId - 1 < 0 ? 0 : this.data.currentActionId - 1;
+
+        if (this.data.currentActionId - 1 < 0) {
+            currentPartId = currentPartId - 1 < 0 ? 0 : currentPartId - 1;
+            currentActionId = currentPartId === 0 ? 0 : this.data.todayPlan[currentPartId].data.length - 1;
+        } else {
+            currentActionId = this.data.currentActionId - 1;
+        }
+
+        console.log("currentPartId:", currentPartId, "currentActionId:", currentActionId);
+
+        this.setData({
+            currentPartId: currentPartId,
+            currentActionId: currentActionId
+        });
+    },
+
+    /**
+     * 跳转到上一个动作
+     */
+    onNextAction: function () {
+        let currentPartId = this.data.currentPartId;
+        let currentActionId;
+        // = this.data.currentActionId + 1 >= this.data.todayPlan[currentPartId].data.length
+        // ? this.data.todayPlan[currentPartId].data.length - 1 : this.data.currentActionId + 1;
+
+        if (this.data.currentActionId + 1 >= this.data.todayPlan[currentPartId].data.length) {
+            currentPartId = currentPartId + 1 >= this.data.todayPlan.length
+                ? this.data.todayPlan.length - 1 : currentPartId + 1;
+            currentActionId = 0;
+
+        } else {
+            currentActionId = this.data.currentActionId + 1;
+        }
+
+        console.log("currentPartId:", currentPartId, "currentActionId:", currentActionId);
+
+        this.setData({
+            currentPartId: currentPartId,
+            currentActionId: currentActionId
+        });
     },
 
     /**
@@ -492,27 +291,24 @@ Page({
         let actionTips;
         // 先读取，如果不存在，则新建一个
 
-        let currentPlan = app.Controller.loadPlan();
+        app.currentPlan.cloneDataFrom(app.Controller.loadPlan());
+        console.log("in Training, app.currentPlan:", app.currentPlan);
+        let currentPlan = app.currentPlan;
 
         if (currentPlan.currentUse) {
             hasActivePlan = true;
             // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
             if (app.Util.inPeriod(currentPlan.fromDate, app.Util.formatDateToString(today), currentPlan.toDate)) {
+                todayPlan = app.currentPlan.getReGroupExerciseSetByDay(today.getDay());
                 if (app.currentPlan.cycleLength === 7) {
-                    if (app.currentPlan.circleDaySet[today.getDay()].partSets.length > 0) {
-                        todayPlan = app.currentPlan.circleDaySet[today.getDay()].partSets;
+                    if (todayPlan.length > 0) {
                         todayHasPlan = true;
                     } else {
                         todayHasPlan = false;
                         actionTips = "今天休息";
                     }
                 } else {
-                    for (let partSet of app.currentPlan.partSets) {
-                        if (partSet.trainDates.includes(today.getDay())) {
-                            todayPlan.push(partSet);
-                            todayHasPlan = true;
-                        }
-                    }
+
                 }
             } else {
                 todayHasPlan = false;
@@ -544,7 +340,7 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        app.Controller.saveData(app.StorageType.DailyRecords, this.data.todayPlan);
+        app.Controller.saveData(app.StorageType.RealitySet, this.data.todayPlan);
         // 如果直接由此界面通过Tab跳到了计划界面，那么将选中的动作置为当前动作，方便修改。
         app.globalData.selectedDate = new Date();
 

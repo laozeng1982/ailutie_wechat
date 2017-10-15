@@ -5,8 +5,7 @@
  */
 
 import util from 'Util.js'
-import UserInfo from '../datamodel/UserInfo.js'
-import UserProfile from '../datamodel/UserProfile.js'
+import User from '../datamodel/User'
 import SystemSetting from '../datamodel/SystemSetting.js'
 import StorageType from '../datamodel/StorageType.js'
 import PlanSet from '../datamodel/PlanSet.js'
@@ -40,11 +39,11 @@ class Controller {
             switch (dataType.id) {
                 case 0:
                     // 0. UserInfo
-                    requestData = new UserInfo.UserInfo();
+                    requestData = new User.UserInfo();
                     break;
                 case 1:
                     // 1. UserProfile
-                    requestData = new UserProfile.UserProfile();
+                    requestData = new User.UserProfile();
                     break;
                 case 2:
                     // 2. DailyRecords

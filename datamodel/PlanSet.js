@@ -19,6 +19,7 @@ class Plan {
         this.name = '';      // 计划的名字
         this.predefined = false;
         this.privacy = '';   // 计划权限设置：Public谁都可以看，Protect只给朋友看，Private只能自己看。
+        this.currentUse = false;
 
         this.purpose = '';   // 计划的类型：减脂，塑性，增肌
         this.level = '';    // 计划的级别：初级，中级，高级
@@ -33,7 +34,77 @@ class Plan {
         this.agree = 0;     // 点赞数
 
         this.circleDaySet = [];   // 存放计划的具体信息，即CircleDay数组，只使用固定的7天一周期，即每周一循环
+    }
 
+    /**
+     * 从一个对象复制数据过来，保留本对象的方法
+     * @param obj
+     */
+    cloneDataFrom(obj) {
+        // 递归
+        for (let item in obj) {
+            if (obj.hasOwnProperty(item)) {
+                this[item] = typeof obj[item] === "object" ? deepClone(obj[item]) : obj[item];
+            }
+        }
+    }
+
+    /**
+     *
+     * @param dayIdx
+     */
+    getPlanPartByDay(dayIdx) {
+        this.setPlanParts();
+        return this.circleDaySet[dayIdx].partString;
+    }
+
+    /**
+     *
+     * @param dayIdx
+     * @returns {Array|*}
+     */
+    getPlanPartArrayByDay(dayIdx) {
+        this.setPlanParts();
+        return this.circleDaySet[dayIdx].partArray;
+    }
+
+    /**
+     * 重组一下Plan的结构，方便显示和逻辑判断
+     * 作为展示用，并不改变Plan的结构
+     * @param dayIdx
+     */
+    getReGroupExerciseSetByDay(dayIdx) {
+        let exerciseSet = [];
+
+        for (let partName of this.getPlanPartArrayByDay(dayIdx)) {
+            let reGroupExercise = {name: partName, data: []};
+            for (let exercise of this.circleDaySet[dayIdx].exerciseSet) {
+                if (exercise.action.partSet[0] === partName) {
+                    reGroupExercise.data.push(exercise);
+                }
+            }
+            exerciseSet.push(reGroupExercise);
+        }
+
+        return exerciseSet;
+    }
+
+    /**
+     * 设置计划的部位信息
+     */
+    setPlanParts() {
+        let app = getApp();
+        for (let circleDay of this.circleDaySet) {
+            let partArray = [];
+            for (let exercise of circleDay.exerciseSet) {
+                if (!partArray.includes(exercise.action.partSet[0])) {
+                    partArray.push(exercise.action.partSet[0]);
+                }
+            }
+            circleDay.partArray = partArray;
+            circleDay.partString = app.Util.makePartString(partArray);
+        }
+        // console.log(this.circleDaySet);
     }
 }
 
@@ -59,12 +130,31 @@ class Exercise {
 }
 
 class GroupSet {
-    constructor(id, quantity, uom, weight) {
+    constructor(id, quantity, weight, uom) {
         this.id = id;
         this.quantity = quantity;
         this.weight = weight;
         this.uom = uom;
     }
+}
+
+/**
+ * 深度克隆数据的方法
+ * @param obj
+ * @returns {*}
+ */
+function deepClone(obj) {
+
+    let clone = obj.constructor === Array ? [] : {};
+
+    // 递归
+    for (let item in obj) {
+        if (obj.hasOwnProperty(item)) {
+            clone[item] = typeof obj[item] === "object" ? deepClone(obj[item]) : obj[item];
+        }
+    }
+
+    return clone;
 }
 
 module.exports = {

@@ -17,10 +17,9 @@ App({
         // 全局变量
         this.planSet = CONTROLLER.loadData(STORAGETYPE.PlanSet);
 
-        this.currentPlan = CONTROLLER.loadPlan();
+        this.currentPlan = new Plan.Plan();
 
-        console.log("this.planSet: ", this.planSet);
-        console.log("app onLoad");
+        console.log("app onLoad, currentPlan", this.currentPlan);
 
         //默认使用登录
         wx.login({

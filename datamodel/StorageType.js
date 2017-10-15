@@ -8,7 +8,7 @@ class StorageType {
         // 用户个人身体测试数据
         this.UserProfile = new Record(1, "UserProfile");
         // 每天记录
-        this.DailyRecords = new Record(2, "DailyRecords");
+        this.RealitySet = new Record(2, "RealitySet");
         // 系统内部信息
         this.SystemSetting = new Record(3, "SystemSetting");
         // 计划

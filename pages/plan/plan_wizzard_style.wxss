@@ -295,6 +295,8 @@
     height: 10%;
     display: flex;
     justify-content: space-around;
+    align-content: center;
+    align-items: center;
 }
 
 .swiper-tab-list {
@@ -313,10 +315,8 @@
     color: #888;
     display: inline-block;
     width: 100%;
-    /* height: 46rpx; */
-    line-height: 100rpx;
-    text-align: center;
-    /* margin: 12rpx; */
+    line-height: 60rpx;
+    padding-left: 40rpx;
 }
 
 .on {
@@ -344,11 +344,12 @@
 } */
 
 .tips_text {
-    margin: 20rpx;
+    padding: 20rpx;
     font-size: 28rpx;
     display: flex;
     flex-direction: column;
     color: #888;
+    width: 100%;
 }
 
 .calendar_panel {

@@ -139,7 +139,7 @@ function datesDistance(start, end) {
 
     distance = endTime - startTime;
 
-    console.log("day distance is: " + distance);
+    // console.log("day distance is: " + distance);
 
     return distance;
 }
@@ -265,7 +265,7 @@ function showWarnToast(text, o, count) {
  */
 function makePartString(partArr) {
     // 先替换，换成单字
-    var partArrString = partArr.toString().replace(/部/g, "").replace(/有氧/, "氧").replace(/手臂/g, "臂");
+    var partArrString = partArr.toString().replace(/部/g, "").replace(/全身/g, "氧").replace(/手臂/g, "臂");
 
     let noRepeatStringArr = [];
 

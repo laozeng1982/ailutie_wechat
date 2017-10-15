@@ -1,5 +1,5 @@
 //index.js
-import User from '../../datamodel/UserInfo.js'
+import User from '../../datamodel/User.js'
 import PlanSet from '../../datamodel/PlanSet'
 import ChartMaker from 'ChartMaker'
 
@@ -150,7 +150,8 @@ Page({
     onShow: function () {
         console.log('index page onShow');
 
-        app.currentPlan = app.Controller.loadPlan();
+        // 这里是预览和修改计划的唯一入口，所以需要在这里更新app.currentPlan
+        app.currentPlan.cloneDataFrom(app.Controller.loadPlan());
 
         this.setData({
             currentPlan: app.currentPlan,

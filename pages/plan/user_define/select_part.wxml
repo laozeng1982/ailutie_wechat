@@ -97,7 +97,7 @@
                 <picker id="partName" data-partname="{{index}}" range="{{partNameArray}}" bindchange='onAddPart'>
                     <view class="roundCornorBtn">添加部位</view>
                 </picker>
-                <view class="roundCornorBtn" bindtap='onToActionTab'>选动作</view>
+                <view class="roundCornorBtn {{allTabFinished?'':'disalbed'}}" bindtap="{{allTabFinished?'onToActionTab':''}}">选动作</view>
             </view>
         </view>
 
@@ -129,14 +129,14 @@
                                             <view>{{item.name}}</view>
                                         </view>
                                         <!-- 当动作单位为空的时候，是自定义动作，不显示picker -->
-                                        <picker wx:if="{{item.measurement !== ''}}" id="{{item.id}}" data-subpartidx="{{item.id-1}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
+                                        <picker wx:if="{{item.gpMeasurement !== ''}}" id="{{item.id}}" data-subpartidx="{{item.id-1}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
                                             <view class="pickerContainer">
-                                                <view class="pickerItem">{{item.groupSets.length}} </view>
+                                                <view class="pickerItem">{{item.groupSet.length}} </view>
                                                 <view class="pickerItem">组</view>
-                                                <view class="pickerItem">{{item.groupSets[0].quantity}}</view>
+                                                <view class="pickerItem">{{item.groupSet[0].quantity}}</view>
                                                 <view class="pickerItem">{{item.gpMeasurement}}</view>
-                                                <view class="pickerItem">{{item.groupSets[0].weight}}</view>
-                                                <view class="pickerItem">{{item.groupSets[0].uom}}</view>
+                                                <view class="pickerItem">{{item.groupSet[0].weight}}</view>
+                                                <view class="pickerItem">{{item.groupSet[0].uom}}</view>
                                             </view>
                                         </picker>
                                     </view>
@@ -153,7 +153,7 @@
 
             <view class='inner-bot'>
                 <!-- <view class="roundCornorBtn" bindtap='onToDateTab'>选日期</view> -->
-                <view class="roundCornorBtn" bindtap='onToPartTab'>选择部位</view>
+                <view class="roundCornorBtn" bindtap='onToPartTab'>选择时间和部位</view>
             </view>
         </view>
 

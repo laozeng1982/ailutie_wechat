@@ -78,10 +78,23 @@ class Body {
         return {parts, actions};
     }
 
+    /**
+     * 从一个对象复制数据过来，保留本对象的方法
+     * @param obj
+     */
+    cloneDataFrom(obj) {
+        // 递归
+        for (let item in obj) {
+            if (obj.hasOwnProperty(item)) {
+                this[item] = typeof obj[item] === "object" ? deepClone(obj[item]) : obj[item];
+            }
+        }
+    }
+
     makeDefaultDefaultPartList() {
         let defaultPart = Body.createDefaultPartList();
         this.parts = defaultPart.parts;
-        this.actionSet = defaultPart.actionSet;
+        this.actionSet = defaultPart.actions;
     }
 
     /**
@@ -124,33 +137,33 @@ class Body {
                 this.parts[partIdx].actionSet[actionIdx].groupSet = [];
                 for (let idx = 0; idx < 6; idx++) {
                     let group = new PlanSet.GroupSet(idx + 1, 10,
-                        this.parts[partIdx].actionSet[actionIdx].measurement, 30);
+                        30, this.parts[partIdx].actionSet[actionIdx].measurement);
 
                     this.parts[partIdx].actionSet[actionIdx].groupSet.push(group);
                 }
             }
-
         }
     }
 
     /**
-     *
-     * @param partSet
+     * 根据计划内容更改
+     * @param exercise
      */
-    updateGroupSet(partSet) {
+    updateGroupSet(exercise) {
         for (let partIdx = 0; partIdx < this.parts.length; partIdx++) {
-            if (partSet.name === this.parts[partIdx].name) {
-                for (let actionItem of partSet.actionSet) {
-                    for (let actionIdx = 0; actionIdx < this.parts[partIdx].actionSet.length; actionIdx++) {
-                        if (actionItem.name === this.parts[partIdx].actionSet.name) {
-                            this.parts[partIdx].actionSet[actionIdx].selected = true;
+            // 先判断大类，即bodyPart是否一样
+            if (exercise.action.partSet[0] === this.parts[partIdx].bodyPart) {
+                for (let actionIdx = 0; actionIdx < this.parts[partIdx].actionSet.length; actionIdx++) {
+                    // 判断具体动作的名字是否一样
+                    if (exercise.action.name === this.parts[partIdx].actionSet[actionIdx].name) {
+                        this.parts[partIdx].actionSet[actionIdx].selected = true;
 
-                            delete this.parts[partIdx].actionSet[actionIdx].groupSets;
-                            this.parts[partIdx].actionSet[actionIdx].groupSets = actionItem.groupSets;
-                        }
+                        delete this.parts[partIdx].actionSet[actionIdx].groupSet;
+                        this.parts[partIdx].actionSet[actionIdx].groupSet = exercise.groupSet;
                     }
                 }
             }
+
         }
 
         this.countSelectedAction();
@@ -212,8 +225,8 @@ class Body {
      * @param partName
      */
     activePartByName(partName) {
-        for (let idx = 0; idx < this.parts.length; idx++) {
-            this.parts[idx].active = (partName === this.parts[idx].bodyPart);
+        for (let part of this.parts) {
+            part.active = (partName === part.bodyPart);
         }
     }
 
@@ -226,7 +239,7 @@ class Body {
             return;
         }
         for (let part of this.parts) {
-            part.selected = partsArr.includes(part.name);
+            part.selected = partsArr.includes(part.bodyPart);
         }
     }
 
@@ -269,6 +282,23 @@ class Body {
     }
 
     /**
+     *
+     * @param partName
+     */
+    getActionSelectedCountByPart(partName) {
+        let selectedActionCount = 0;
+
+        for (let part of this.parts) {
+
+            if (part.bodyPart === partName) {
+                selectedActionCount = selectedActionCount + part.selectedActionCount;
+            }
+        }
+        // console.log(partName, selectedActionCount);
+        return selectedActionCount;
+    }
+
+    /**
      * 统计已经选择动作的数量
      */
     countSelectedAction() {
@@ -289,8 +319,9 @@ class Body {
      * 选中一个动作
      * @param actionName
      */
-    selectAction(actionName) {
+    selectActionByName(actionName) {
         for (let part of this.parts) {
+            // console.log(part.name, part.selected, part.active);
             if (part.selected && part.active) {
                 for (let action of part.actionSet) {
                     if (actionName === action.name) {
@@ -310,7 +341,7 @@ class Body {
         for (let partIdx = 0; partIdx < this.parts.length; partIdx++) {
             this.parts[partIdx].selected = false;
             for (let actionIdx = 0; actionIdx < this.parts[partIdx].actionSet.length; actionIdx++) {
-                this.parts[partIdx].action[actionIdx].selected = false;
+                this.parts[partIdx].actionSet[actionIdx].selected = false;
             }
         }
     }
@@ -318,10 +349,9 @@ class Body {
     /**
      *
      * @param subPartIdx
-     * @param selectedActionIdx
      * @param groupSet
      */
-    addGroupSetToAction(subPartIdx, selectedActionIdx, groupSet) {
+    addGroupSetToAction(subPartIdx, groupSet) {
         for (let part of this.parts) {
             if (part.selected && part.active) {
                 delete part.actionSet[subPartIdx].groupSet;
@@ -1426,6 +1456,25 @@ class OrgType {
         });
 
     }
+}
+
+/**
+ * 深度克隆数据的方法
+ * @param obj
+ * @returns {*}
+ */
+function deepClone(obj) {
+
+    let clone = obj.constructor === Array ? [] : {};
+
+    // 递归
+    for (let item in obj) {
+        if (obj.hasOwnProperty(item)) {
+            clone[item] = typeof obj[item] === "object" ? deepClone(obj[item]) : obj[item];
+        }
+    }
+
+    return clone;
 }
 
 module.exports = {
