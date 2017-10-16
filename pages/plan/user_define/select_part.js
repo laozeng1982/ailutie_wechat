@@ -740,7 +740,8 @@ Page({
                         // 生成一个动作
                         let exercise = new PlanSet.Exercise(exerciseSet.length + 1);
                         if (action.selected) {
-                            exercise.action = action;
+                            exercise.action = app.Util.deepClone(action);
+                            delete exercise.action.groupSet;
                             exercise.groupSet = action.groupSet;
                         }
 

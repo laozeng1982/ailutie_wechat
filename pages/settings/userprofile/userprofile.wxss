@@ -1,5 +1,14 @@
 /* userprofile.wxss */
 
+.header {
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    height: 50rpx;
+    font-size: 40rpx;
+    font-weight: 500;
+}
+
 .section {
     display: flex;
     flex-direction: row;
@@ -11,6 +20,7 @@
 .section_item_name {
     width: 200rpx;
     height: 50rpx;
+    text-align: center;
     align-items: center;
     align-content: center;
 }

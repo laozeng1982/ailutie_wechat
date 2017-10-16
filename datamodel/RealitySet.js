@@ -2,7 +2,7 @@
  * 每天的记录数据
  * 挂接每天执行的部位列表
  */
-class RealitySet {
+class Reality {
     constructor() {
         this.id = '';
         this.date = '';
@@ -41,7 +41,7 @@ class ExecutedGroupSet {
 }
 
 module.exports = {
-    RealitySet: RealitySet,
+    Reality: Reality,
     ExecutedPartSet: ExecutedPartSet,
     ExecutedGroupSet: ExecutedGroupSet
 }

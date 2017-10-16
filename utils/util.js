@@ -78,6 +78,25 @@ function formatNumber(n) {
     return n[1] ? n : '0' + n;
 }
 
+function countTimeDown(that, pause_seconds) {
+    // 渲染倒计时时钟
+    that.setData({
+        clock: pause_seconds + "  秒"
+    });
+
+    if (pause_seconds <= 0) {
+        // timeout则跳出递归
+        return;
+    }
+
+    let timer = setTimeout(function () {
+        // 放在最后--
+        pause_seconds -= 1;
+        countTimeDown(that, pause_seconds);
+    }, 1000);
+
+}
+
 function log(msg) {
     // let time = formatTimeToString(new Date());
     let trace = (new Error()).stack.split("\n")[2].replace(/(^\s*)|(\s*$)/g, "");
@@ -180,18 +199,6 @@ function inPeriod(startDate, checkDate, endDate) {
     return checkDateTimeMills >= startDateTimeMills && checkDateTimeMills <= endDateTimeMills;
 }
 
-function objClone(obj) {
-    if (obj instanceof Object) {
-        let copy = {};
-        for (let attr in obj) {
-            if (obj.hasOwnProperty(attr))
-                copy[attr] = objClone(obj[attr]);
-        }
-        return copy;
-    }
-    throw new Error("Unable to copy obj! Its type isn't supported.");
-}
-
 /**
  * 这个是重量单位选择器的函数，先放着
  */
@@ -227,7 +234,7 @@ function isLogin() {
 function checkSignUp() {
     let userInfo = wx.getStorageSync("UserInfo");
     // console.log(userInfo.length);
-    return (userInfo.length == 0);
+    return (userInfo.length === 0);
 }
 
 function showNormalToast(text, o, count) {
@@ -282,9 +289,11 @@ function makePartString(partArr) {
     return partString;
 }
 
-
-
-//深度克隆
+/**
+ * 深度克隆
+ * @param obj
+ * @returns {*}
+ */
 function deepClone(obj) {
 
     let clone = obj.constructor === Array ? [] : {};
@@ -316,6 +325,7 @@ module.exports = {
     makePartString: makePartString,
     log: log,
     compare2Array: compare2Array,
+    countTimeDown: countTimeDown,
     deepClone: deepClone
 
 }

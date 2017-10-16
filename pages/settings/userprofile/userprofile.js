@@ -12,13 +12,13 @@ Page({
     data: {
         curRecords: '',
         userProfile: '',
-        selectedDate: ''
+        today: ''
     },
 
     onSelectDate: function (e) {
         console.log(e);
-        if (util.dateDirection(e.detail.value) === 1) {
-            util.showToast("小哥，不能记录将来的指标哦！", this, 2000);
+        if (app.Util.dateDirection(e.detail.value) === 1) {
+            app.Util.showToast("小哥，不能记录将来的指标哦！", this, 2000);
             return;
         }
         this.setData({
@@ -62,22 +62,22 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        var selectedDate = util.formatDateToString(new Date());
+        var today = app.Util.formatDateToString(new Date());
 
-        var curRecords = app.Controller.loadData(selectedDate, app.StorageType.DailyRecords);
-        var userProfile = curRecords.profiles;
+        // var curRecords = app.Controller.loadData(app.StorageType.DailyRecords);
+        // var userProfile = curRecords.profiles;
 
-        console.log("in onLoad, ", curRecords);
-        console.log(userProfile);
+        // console.log("in onLoad, ", curRecords);
+        // console.log(userProfile);
 
-        if (typeof (userProfile) === "undefined") {
-            userProfile = new User.UserProfile().profiles;
-        }
+        // if (typeof (userProfile) === "undefined") {
+        //     userProfile = new User.UserProfile().profiles;
+        // }
 
-        console.log(userProfile);
+        // console.log(userProfile);
         this.setData({
-            selectedDate: selectedDate,
-            userProfile: userProfile
+            today: today,
+            // userProfile: userProfile
         });
 
     },

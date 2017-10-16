@@ -69,6 +69,17 @@ class Plan {
     }
 
     /**
+     *
+     * @param dayIdx
+     * @returns {Array|*}
+     */
+    getPlanActionArrayByDay(dayIdx) {
+        this.setPlanParts();
+        // return this.circleDaySet[dayIdx].partArray;
+    }
+
+
+    /**
      * 重组一下Plan的结构，方便显示和逻辑判断
      * 作为展示用，并不改变Plan的结构
      * @param dayIdx
@@ -77,10 +88,10 @@ class Plan {
         let exerciseSet = [];
 
         for (let partName of this.getPlanPartArrayByDay(dayIdx)) {
-            let reGroupExercise = {name: partName, data: []};
+            let reGroupExercise = {name: partName, exerciseSet: []};
             for (let exercise of this.circleDaySet[dayIdx].exerciseSet) {
                 if (exercise.action.partSet[0] === partName) {
-                    reGroupExercise.data.push(exercise);
+                    reGroupExercise.exerciseSet.push(exercise);
                 }
             }
             exerciseSet.push(reGroupExercise);
