@@ -2,125 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43d0bba8-bdcd-471c-9d2f-9c090f19b525" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datamodel/Dictionary.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/负重俄罗斯转体.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/动感单车.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/双杠臂屈伸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/劲后杠铃推举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/坐姿腿弯举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/器械哈克深蹲.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/站姿哑铃侧平举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/站姿重锤弯举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/站姿杠铃弯举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/站姿哑单臂铃前平举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/俯身登山.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/站姿哑铃前平举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/上斜哑铃卧推.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/V型平衡.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/蝴蝶机器械夹胸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/下斜仰卧起坐.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/仰卧杠铃劲后臂屈伸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/反向卷腹.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/下斜拉索夹胸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/站姿耸肩.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/平板哑铃飞鸟.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/拉索夹胸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/原地跑步.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/器械卷腹.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/器械反握下拉.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/哑铃反向飞鸟.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/哑铃深蹲.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/阿诺德哑铃推举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/劲前杠铃推举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/俯身反握哑铃划船.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/站姿单臂劲后臂屈伸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/反握高位下拉.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/双杠臂屈伸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/器械直臂下压.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/坐姿哑铃集中弯举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/拉索交叉夹胸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/站姿哑铃推举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/正握窄距引体向上.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/托板哑铃弯举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/平板杠铃卧推.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/悬垂卷腹.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/waist/杠铃罗马尼亚硬拉.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/平板支撑.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/杠铃罗马尼亚硬拉.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/标准俯卧撑.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/下斜钻石俯卧撑.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/器械臂屈伸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/器械腿举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/器械推举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/杠铃翘臀分腿蹲.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/跳绳.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/钻石俯卧撑.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/悬垂举腿.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/waist/杠铃直腿硬拉.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/waist/平板支撑.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/钻石俯卧撑.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/俯身反握杠铃划船.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/坐姿提踵.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/标准高位下拉.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/反向器械飞鸟.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/正握宽距引体向上.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/坐姿器械对握划船.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/上斜宽距俯卧撑.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/站姿哑铃劲后屈臂伸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/反握宽距引体向上.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/waist/山羊挺身.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/杠铃深蹲.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/上斜器械卧推.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/杠铃直腿硬拉.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/站姿负重提踵.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/靠墙马步蹲.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/劲前杠铃深蹲.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/空中单车.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/俯身拉索侧平举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/平板器械卧推.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/坐姿重锤弯举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/站姿拉索下压.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/俯身单臂哑铃划船.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/上斜拉索夹胸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/标准俯卧撑.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/徒手深蹲跳.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/上斜哑铃飞鸟.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/椭圆机.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/俯卧器械腿弯举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/快走.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/站姿拉索弯举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/坐姿哑铃推举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/登山机.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/坐姿器械腿外展.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/跪姿俯卧撑.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/chest/平板哑铃卧推.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/开合跳.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/坐姿单腿腿举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/器械腿后展.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/waist/十字挺身.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/俯身哑铃侧平举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/legs/坐姿腿屈伸.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/屈膝卷腹.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/abs/自重臀桥.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/shoulder/L侧平举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/跑步.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/aerobic/原地高抬腿.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/arm/坐姿哑铃弯举.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/image/actions/icon/back/反握窄距引体向上.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pages/index/ChartMaker.js" afterPath="$PROJECT_DIR$/pages/ui/canvas/ChartMaker.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.js" afterPath="$PROJECT_DIR$/pages/training/training.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/index/index.js" afterPath="$PROJECT_DIR$/pages/index/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/select_part.js" afterPath="$PROJECT_DIR$/pages/plan/user_define/select_part.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxml" afterPath="$PROJECT_DIR$/pages/training/training.wxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/StorageType.js" afterPath="$PROJECT_DIR$/datamodel/StorageType.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/settings.wxml" afterPath="$PROJECT_DIR$/pages/settings/settings.wxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Controller.js" afterPath="$PROJECT_DIR$/utils/Controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxss" afterPath="$PROJECT_DIR$/pages/training/training.wxss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/Body.js" afterPath="$PROJECT_DIR$/datamodel/Body.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.wxss" afterPath="$PROJECT_DIR$/app.wxss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/system/system.wxml" afterPath="$PROJECT_DIR$/pages/settings/system/system.wxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/index/index.wxml" afterPath="$PROJECT_DIR$/pages/index/index.wxml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -161,8 +43,8 @@
             <file leaf-file-name="Body.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/datamodel/Body.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="344">
-                    <caret line="1391" column="39" lean-forward="true" selection-start-line="1391" selection-start-column="39" selection-end-line="1391" selection-end-column="39" />
+                  <state relative-caret-position="311">
+                    <caret line="1247" column="39" lean-forward="true" selection-start-line="1247" selection-start-column="39" selection-end-line="1247" selection-end-column="39" />
                     <folding>
                       <element signature="n#!!doc" expanded="true" />
                       <element signature="e#17#48#0" expanded="true" />
@@ -180,7 +62,6 @@
                       <element signature="e#33107#34577#0" expanded="false" />
                       <element signature="e#34619#37586#0" expanded="false" />
                       <element signature="e#37628#39650#0" expanded="false" />
-                      <element signature="e#39677#42191#0" expanded="false" />
                       <element signature="e#42218#43637#0" expanded="false" />
                     </folding>
                   </state>
@@ -232,8 +113,8 @@
       <file leaf-file-name="Dictionary.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/datamodel/Dictionary.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="189">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -362,7 +243,6 @@
       <find>legs/</find>
     </findStrings>
     <replaceStrings>
-      <replace>image</replace>
       <replace>imageUri: '../../image/actions/icon/chest/aerobic.png',measurement</replace>
       <replace>&quot;次&quot;, imageUri: '../../image/actions/icon/chest/aerobic.png',measurement</replace>
       <replace>&quot;次&quot;, imageUri: '../../image/actions/icon/shoulder/aerobic.png',measurement</replace>
@@ -392,6 +272,7 @@
       <replace>this.canvasId</replace>
       <replace>actionScore</replace>
       <replace>leg/</replace>
+      <replace>颈</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -707,15 +588,16 @@
       <workItem from="1508034635066" duration="25424000" />
       <workItem from="1508124969789" duration="27400000" />
       <workItem from="1508209127540" duration="35235000" />
-      <workItem from="1508253687210" duration="2000" />
+      <workItem from="1508253687210" duration="62000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="364017000" />
+    <option name="totallyTimeSpent" value="364077000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19725738" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -859,6 +741,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#27#61#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -882,6 +767,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="31" column="25" lean-forward="false" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+          <folding>
+            <element signature="e#1405#1616#0" expanded="false" />
+            <element signature="e#1688#2685#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1032,8 +921,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/datamodel/Body.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="1391" column="39" lean-forward="true" selection-start-line="1391" selection-start-column="39" selection-end-line="1391" selection-end-column="39" />
+        <state relative-caret-position="311">
+          <caret line="1247" column="39" lean-forward="true" selection-start-line="1247" selection-start-column="39" selection-end-line="1247" selection-end-column="39" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#17#48#0" expanded="true" />
@@ -1051,7 +940,6 @@
             <element signature="e#33107#34577#0" expanded="false" />
             <element signature="e#34619#37586#0" expanded="false" />
             <element signature="e#37628#39650#0" expanded="false" />
-            <element signature="e#39677#42191#0" expanded="false" />
             <element signature="e#42218#43637#0" expanded="false" />
           </folding>
         </state>
@@ -1059,8 +947,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/datamodel/Dictionary.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="189">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>

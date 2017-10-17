@@ -803,7 +803,7 @@ class PartDictionary {
             imageUrl: 'image/bodyparts/shoulder.png',
             actionArray: [
                 {
-                    name: '劲前杠铃推举',
+                    name: '颈前杠铃推举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/bar_military_press.png',
@@ -882,7 +882,7 @@ class PartDictionary {
             imageUrl: 'image/bodyparts/shoulder.png',
             actionArray: [
                 {
-                    name: '劲后杠铃推举',
+                    name: '颈后杠铃推举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/overhead_bar_press.png',
@@ -1229,21 +1229,21 @@ class PartDictionary {
             imageUrl: 'image/bodyparts/arm.png',
             actionArray: [
                 {
-                    name: '仰卧杠铃劲后臂屈伸',
+                    name: '仰卧杠铃颈后臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/lying_barbell_dip.png',
                     measurement: "Kg"
                 },
                 {
-                    name: '站姿单臂劲后臂屈伸',
+                    name: '站姿单臂颈后臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/standing_one_arm_dip.png',
                     measurement: "Kg"
                 },
                 {
-                    name: '站姿哑铃劲后屈臂伸',
+                    name: '站姿哑铃颈后屈臂伸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/standing_dumbbell_dip.png',
