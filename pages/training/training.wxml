@@ -1,119 +1,132 @@
 <!-- 今日计划表 -->
 <view class="thiscontainer">
     <!-- 这是Toast -->
-    <include src="../ui/toast/toast.wxml" />
+    <include src="../ui/toast/nomal_toast.wxml" />
 
     <!-- 屏幕分两部分 -->
     <!-- 上半部分计划总览 -->
     <view class="topPanel">
         <view class="topPanelLeft">
-            <view class="topPanelLeft_InnerLeft">
+            <view wx:if="{{todayHasPlan}}" class="topPanelLeft_Inner">
+                <canvas class='canvas' disable-scroll="true" canvas-id="trainingCanvas"></canvas>
+            </view>
+
+            <view wx:if="{{!todayHasPlan}}" class="topPanelLeft_Inner">
                 <text style="font-size: 40rpx">今天</text>
                 <text style="font-size: 26rpx">{{showDate}}</text>
             </view>
         </view>
 
         <view class="topPanelRight">
-            <view wx:if="{{todayHasPlan}}" class="topPanelLeft_InnerLeft" bindtap="onShowDetails">
+            <view wx:if="{{todayHasPlan}}" class="topPanelRight_Inner" bindtap="onShowDetails">
                 <text style="font-size: 30rpx">{{todayPlan[currentPartId].name}}</text>
                 <text style="font-size: 50rpx">{{todayPlan[currentPartId].exerciseSet[currentActionId].action.name}}</text>
             </view>
 
-            <view wx:else class="topPanelLeft_InnerLeft">
+            <view wx:else class="topPanelRight_Inner">
                 <text style="font-size: 50rpx">{{actionTips}}</text>
             </view>
         </view>
     </view>
 
     <view class='graySpace'></view>
-    <!-- 中间部分具体锻炼记录 -->
+    <!-- 中间部分具体锻炼记录，控制条件：是否显示动作详情 -->
     <view class="middlePanel" wx:if="{{!showDetails}}">
 
+        <!-- 控制条件：这个周期内是否有计划，如果有计划，显示今天健身的内容 -->
         <view class="middlePanel_InnerContainer" wx:if="{{hasActivePlan}}">
 
-            <!-- 1、动作展示和切换部分 -->
-            <view class='middlePanelColContainer' style='height:60%'>
-                <!-- 动作显示和浏览 -->
-                <view class='middlePanelRowContainer'>
-                    <view class='image-arrows'>
-                        <image wx:if="{{!firstAction}}" class='image-arrows' src='../image/arrows_square_left_64px.png' bindtap='onLastAction'></image>
+            <!-- 控制条件：今天是否有健身计划 -->
+            <view class="middlePanel_InnerContainer" wx:if="{{todayHasPlan}}">
+                <!-- 1、动作展示和切换部分 -->
+                <view class='middlePanelColContainer' style='height:60%'>
+                    <!-- 动作显示和浏览 -->
+                    <view class='middlePanelRowContainer'>
+                        <view class='image-arrows'>
+                            <image id='last' wx:if="{{!firstAction}}" class='image-arrows' src='../image/arrows_square_left_64px.png' bindtap='onChangeAction'></image>
+                        </view>
+
+                        <image class='image-action' src="../{{todayPlan[currentPartId].exerciseSet[currentActionId].action.imageUrl}}"></image>
+
+                        <view class='image-arrows'>
+                            <image id='next' wx:if="{{!lastAction}}" class='image-arrows' src='../image/arrows_square_right_64px.png' bindtap='onChangeAction'></image>
+                        </view>
+
                     </view>
 
-                    <image class='image-action' src="../{{todayPlan[currentPartId].exerciseSet[currentActionId].action.imageUrl}}"></image>
-                   
-                    <view class='image-arrows'>
-                        <image wx:if="{{!lastAction}}" class='image-arrows' src='../image/arrows_square_right_64px.png' bindtap='onNextAction'></image>
+                    <!-- 切换动作数据 -->
+                    <view class='middlePanelRowContainer' style='height:120rpx'>
+                        <picker mode="multiSelector" bindchange="onActionPickerChange" bindcolumnchange="onPartPickerChange" value="{{multiIndex}}" range="{{partActionArray}}">
+                            <text class="fontset"> {{todayPlan[currentPartId].exerciseSet[currentActionId].action.name}} </text>
+                        </picker>
                     </view>
-
                 </view>
 
-                <!-- 切换动作数据 -->
-                <view class='middlePanelRowContainer' style='height:120rpx'>
-                    <picker mode="multiSelector" bindchange="onActionChange" bindcolumnchange="onPartChange" value="{{multiIndex}}" range="{{partActionArray}}">
-                        <text class="fontset"> {{todayPlan[currentPartId].exerciseSet[currentActionId].action.name}} </text>
-                    </picker>
+                <!-- 2、动作数据记录和休息控制部分 -->
+                <view class='middlePanelColContainer' style='height:30%'>
+                    <view class='middlePanelRowContainer' wx:if="{{!todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished || lastGroup}}">
+                        <view class="pickerItem" style='width:250rpx;font-weight:500'>第 {{todayPlan[currentPartId].exerciseSet[currentActionId].current}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length}} 组</view>
+                        <picker class="pickerItemContainer" mode="multiSelector" bindchange="onChangeRealityData" value="{{realityIndex}}" range="{{realityDataArray}}">
+                            <view class="pickerItemContainer">
+                                <view class="pickerItem">{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantity}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].quantity}} 次</view>
+                                <view class="pickerItem">{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].executedWeight}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].weight}} {{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].uom}}</view>
+                                <image class='image-small' src='../image/pencil_64px.png'></image>
+                            </view>
+                        </picker>
+                    </view>
+
+                    <view class='middlePanelRowContainer' wx:else>
+                        <view class="clock"> 休息 {{clock}} </view>
+                    </view>
+
+                    <!-- 时间倒数器 -->
+                    <view class='middlePanelRowContainer'>
+                        <view class='image-contanier'>
+                            <view wx:if="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}" bindtap='onLastGroup'>
+                                <image class='image-arrows small' src='../image/arrow_left_32px.png'></image>
+                                <view class='tips'>上一组</view>
+                            </view>
+                        </view>
+
+                        <view class='image-contanier'>
+                            <view wx:if="{{!todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}">
+                                <view class='finishBtn' bindtap='onFinishAction'> 完成 </view>
+                            </view>
+
+                            <view wx:else>
+                                <image class='image-arrows' src="{{enablePause?'../image/pause_64px.png':'../image/play_64px.png'}} " bindtap='onControl'></image>
+                            </view>
+                        </view>
+
+                        <view class='image-contanier'>
+                            <view wx:if="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}" bindtap='onNextGroup'>
+                                <image class='image-arrows small' src='../image/arrow_right_32px.png'></image>
+                                <view class='tips'>下一组</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+                <!-- 3、每个动作计分器 -->
+                <view class='middlePanelRowContainer' style='height:10%'>
+                    <view class='middlePanelRowContainer' wx:if="{{todayPlan[currentPartId].exerciseSet[currentActionId].finished}}">
+                        <view>本动作感觉</view>
+                        <view class="imageContainer">
+                            <view wx:for="{{actionScoreStarArray}}" wx:key="{{index}}">
+                                <image value="{{item.id}}" id="{{item.id}}" class="image_star" bindtap="onActionScore" src="{{item.checked?'../image/start_checked.png':'../image/start_unchecked.png'}}"></image>
+                            </view>
+                        </view>
+                    </view>
                 </view>
             </view>
 
-            <!-- 2、动作数据记录和休息控制部分 -->
-            <view class='middlePanelColContainer' style='height:30%'>
-                <view class='middlePanelRowContainer' wx:if="{{!todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished || lastGroup}}">
-                    <view class="pickerItem" style='width:250rpx;font-weight:500'>第 {{todayPlan[currentPartId].exerciseSet[currentActionId].current}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length}} 组</view>
-                    <picker class="pickerItemContainer" mode="multiSelector" bindchange="onRealityChange" value="{{realityIndex}}" range="{{realityDataArray}}">
-                        <view class="pickerItemContainer">
-                            <view class="pickerItem">{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantity}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].quantity}} 次</view>
-                            <view class="pickerItem">{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].executedWeight}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].weight}} {{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].uom}}</view>
-                            <image class='image-small' src='../image/pencil_64px.png'></image>
-                        </view>
-                    </picker>
-                </view>
-
-                <view class='middlePanelRowContainer' wx:else>
-                    <view class="clock"> 休息 {{clock}} </view>
-                </view>
-
-                <!-- 时间倒数器 -->
-                <view class='middlePanelRowContainer'>
-                    <view class='image-contanier'>
-                        <view wx:if="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}" bindtap='onLastGroup'>
-                            <image class='image-arrows small' src='../image/arrow_left_32px.png'></image>
-                            <view class='tips'>上一组</view>
-                        </view>
-                    </view>
-
-                    <view class='image-contanier'>
-                        <view wx:if="{{!todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}">
-                            <view class='finishBtn' bindtap='onFinishAction'> 完成 </view>
-                        </view>
-
-                        <view wx:else>
-                            <image class='image-arrows' src="{{enablePause?'../image/pause_64px.png':'../image/play_64px.png'}} " bindtap='onControl'></image>
-                        </view>
-                    </view>
-
-                    <view class='image-contanier'>
-                        <view wx:if="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}" bindtap='onNextGroup'>
-                            <image class='image-arrows small' src='../image/arrow_right_32px.png'></image>
-                            <view class='tips'>下一组</view>
-                        </view>
-                    </view>
-                </view>
-            </view>
-
-            <!-- 3、每个动作计分器 -->
-            <view class='middlePanelRowContainer' style='height:10%'>
-                <view class='middlePanelRowContainer' wx:if="{{todayPlan[currentPartId].exerciseSet[currentActionId].finished}}">
-                    <view>本动作感觉</view>
-                    <view class="imageContainer">
-                        <view wx:for="{{actionScoreStarArray}}" wx:key="{{index}}">
-                            <image value="{{item.id}}" id="{{item.id}}" class="image_star" bindtap="onActionScore" src="{{item.src}}"></image>
-                        </view>
-                    </view>
-                </view>
+            <view class="middlePanel_InnerContainer" wx:else>
+                <image class='image-coffee' src='../image/coffee.png'>今天没有计划，喝杯咖啡吧~~</image>
+                <view style='padding-top:100rpx'>今天没有计划，喝杯咖啡吧~~</view>
             </view>
         </view>
 
-
+        <!-- 没有计划，提醒去制定计划 -->
         <view wx:else class="middlePanel_InnerContainer">
             <view style='margin-top:280rpx;color:#888'>您还没有计划，创建一个吧</view>
             <view class='roundCornor' bindtap='onMakePlan'>去定制计划</view>

@@ -25,19 +25,8 @@
         <view class="rowContainerBetween" wx:for="{{storageInfo.keys}}" wx:key="{{index}}">
             <view style="width:100rpx">{{index}}</view>
             <view style="width:300rpx">{{item}}</view>
-            <image id="{{index}}" data-key="{{item}}" style="height:40rpx;width:40rpx" bindtap="onDelete" src="../../../pages/image/bin_64px.png"></image>
+            <image id="{{index}}" data-key="{{item}}" style="height:60rpx;width:60rpx" bindtap="onDelete" src="../../../pages/image/bin_64px.png"></image>
         </view>
     </scroll-view>
 
-    <view class="rowContainerStart" style="font-size:50rpx" bindtap="onCustomAddAction">
-        <text>自定义动作</text>
-    </view>
-
-    <view class="rowContainerStart" style="font-size:50rpx" bindtap="onCustomModifyAction">
-        <text>修改自定义动作</text>
-    </view>
-
-    <view class="rowContainerStart" style="font-size:50rpx" bindtap="onCustomRemoveAction">
-        <text>删除自定义动作</text>
-    </view>
 </view>

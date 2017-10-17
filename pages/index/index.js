@@ -1,10 +1,10 @@
 //index.js
 import User from '../../datamodel/User.js'
 import PlanSet from '../../datamodel/PlanSet'
-import ChartMaker from 'ChartMaker'
+import ChartMaker from '../ui/canvas/ChartMaker'
 
 const app = getApp();
-const chartMaker = new ChartMaker.ChartMaker();
+const chartMaker = new ChartMaker.ChartMaker('indexCanvas');
 
 Page({
     data: {
@@ -21,9 +21,6 @@ Page({
             {id: 3 + "", text: "部位", checked: false},
         ],
 
-        indicatorDots: false,
-        autoplay: false,
-        duration: 500
     },
 
     touchHandler: function (e) {
@@ -126,7 +123,7 @@ Page({
         app.getWechatUserInfo(function (wechatUserInfo) {
             //更新数据
             that.setData({
-                 wechatUserInfo: wechatUserInfo,
+                wechatUserInfo: wechatUserInfo,
                 motto: 'Hello ' + wechatUserInfo.nickName,
                 notSignUp: notSignUp
             });

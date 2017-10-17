@@ -1,10 +1,12 @@
-import wxCharts from '../ui/canvas/wxcharts-min'
-
 /**
- *
+ * 生成图表的工具
  */
+
+import wxCharts from './wxcharts-min'
+
 class ChartMaker {
-    constructor() {
+    constructor(canvasId) {
+        this.canvasId = canvasId;
         this.drawType = "line";
         this.seriesName = "Unknown";
         this.scrollable = false;
@@ -69,7 +71,7 @@ class ChartMaker {
         }, {
             name: '臂',
             data: 63,
-        },{
+        }, {
             name: '背',
             data: 63,
         }, {
@@ -130,6 +132,8 @@ class ChartMaker {
                 return this.makePieChart();
             case "bar" :
                 return this.makeColumnChart();
+            case "ring":
+                return this.makeRingChart();
             default:
                 return;
         }
@@ -142,7 +146,7 @@ class ChartMaker {
     makeLineChart() {
         let simulationData = this.createLineData();
         let lineChart = new wxCharts({
-            canvasId: "myCanvas",
+            canvasId: this.canvasId,
             type: "line",
             categories: simulationData.categories,
             animation: true,
@@ -184,7 +188,7 @@ class ChartMaker {
     makeColumnChart() {
         let chartData = this.createColumnData();
         let columnChart = new wxCharts({
-            canvasId: 'myCanvas',
+            canvasId: this.canvasId,
             type: 'column',
             animation: true,
             categories: chartData.main.categories,
@@ -222,13 +226,57 @@ class ChartMaker {
         let pieData = this.createPieData();
         let pieChart = new wxCharts({
             animation: true,
-            canvasId: 'myCanvas',
+            canvasId: this.canvasId,
             type: 'pie',
-            series:pieData,
+            series: pieData,
             width: this.windowWidth,
             height: this.height,
             dataLabel: true,
         });
+    }
+
+    makeRingChart() {
+        let ringChart = new wxCharts({
+            animation: true,
+            canvasId: this.canvasId,
+            type: 'ring',
+            extra: {
+                ringWidth: 18,
+                pie: {
+                    offsetAngle: -45
+                }
+            },
+            title: {
+                name: '0'+'%',
+                color: '#7cb5ec',
+                fontSize: 22
+            },
+            subtitle: {
+                name: '完成',
+                color: '#666666',
+                fontSize: 15
+            },
+            series: [{
+                name: 'finished',
+                data: 0,
+                color: '#7cb5ec',
+                stroke: false
+            }, {
+                name: 'unfinished',
+                data: 100,
+                color: '#888888',
+                stroke: false
+            }],
+            disablePieStroke: true,
+            width: 150,
+            height: 150,
+            dataLabel: false,
+            legend: false,
+            background: '#f5f5f5',
+            padding: 0
+        });
+
+        return ringChart;
     }
 }
 

@@ -3,18 +3,6 @@
 
     <!-- 上半部分显示 -->
     <view class='showArea'>
-        <!-- <view class="userinfo">
-            <image class="userinfo-avatar" src="{{wechatUserInfo.avatarUrl}}" background-size="cover"></image>
-            <text class="userinfo-nickname">{{wechatUserInfo.nickName}}</text>
-        </view> -->
-
-        <!-- <swiper style='width:100%; height:600rpx' indicator-dots="{{true}}" vertical='true' circular="{{true}}" autoplay="{{false}}" duration="{{duration}}" bindchange="onSwiperChange">
-            <block wx:for="{{chartsPool}}" wx:key="{{index}}">
-                <swiper-item id="{{index}}">
-                   <canvas class="canvas" disable-scroll="true" canvas-id="{{item.id}}" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
-                </swiper-item>
-            </block>
-        </swiper>  -->
 
         <view class='chartTitle'>
             {{chartTitle}}
@@ -22,7 +10,7 @@
 
         <!-- 这里的canvas只能用固定字符串，用变量不行，和swiper里原理不一样 -->
         <view style='width:100%; height:440rpx'>
-            <canvas class="canvas" disable-scroll="true" canvas-id="myCanvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
+            <canvas class="canvas" disable-scroll="true" canvas-id="indexCanvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
         </view>
 
 

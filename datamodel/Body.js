@@ -21,14 +21,13 @@ class Body {
      * 从内置的动作数据文件中，新建一个默认的身体部位列表及对应的动作信息
      */
     static createDefaultPartList() {
-        let orgType = new OrgType();
+        let partDictionary = new PartDictionary();
 
         let parts = [];
         let actions = [];
         let partIndex = 1;
 
-        for (let part of orgType.partData) {
-            // console.log("part:", part);
+        for (let part of partDictionary.data) {
             let bodyPart = new Part.BodyPart();
             bodyPart.id = partIndex;
             bodyPart.bodyPart = part.bodyPart;
@@ -62,14 +61,14 @@ class Body {
                 let action = new Action.Action();
                 action.id = parts[idx].actionSet.length + 1;
                 action.name = "自定义动作";
-                action.imageUrl = 'image/plus_128px1.png';
+                action.imageUrl = 'image/plus_64px1.png';
                 action.partSet.push(parts[idx].bodyPart);
                 parts[idx].actionSet.push(action);
             } else {
                 let action = new Action.Action();
                 action.id = parts[lastIdx].actionSet.length + 1;
                 action.name = "自定义动作";
-                action.imageUrl = 'image/plus_128px1.png';
+                action.imageUrl = 'image/plus_64px1.png';
                 action.partSet.push(parts[lastIdx].bodyPart);
                 parts[lastIdx].actionSet.push();
             }
@@ -540,90 +539,90 @@ class Body {
     }
 }
 
-class OrgType {
+class PartDictionary {
     constructor() {
-        this.partData = [];
+        this.data = [];
         // 0、有氧
-        this.partData.push({
+        this.data.push({
             bodyPart: "全身", // 'All',
             name: '有氧',
             imageUrl: 'image/bodyparts/aerobic.png',
             actionArray: [
                 {
-                    name: '跑步',
+                    name: '慢跑',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/跑步.png',
+                    imageUrl: 'image/actions/aerobic/canter.png',
                     measurement: "Km"
                 },
                 {
                     name: '原地跑步',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/原地跑步.png',
+                    imageUrl: 'image/actions/aerobic/running_on_the_spot.png',
                     measurement: "Km"
                 },
                 {
                     name: '原地高抬腿',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/原地高抬腿.png',
+                    imageUrl: 'image/actions/aerobic/place_high_leg_on_the_spot.png',
                     measurement: "Km"
                 },
                 {
                     name: '快走',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/快走.png',
+                    imageUrl: 'image/actions/aerobic/fast_walking.png',
                     measurement: "Km"
                 },
                 {
                     name: '椭圆机',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/椭圆机.png',
+                    imageUrl: 'image/actions/aerobic/elliptical_machine.png',
                     measurement: "次"
                 },
                 {
                     name: '开合跳',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/开合跳.png',
+                    imageUrl: 'image/actions/aerobic/jumping_jacks.png',
                     measurement: "Km"
                 },
                 {
                     name: '动感单车',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/动感单车.png',
+                    imageUrl: 'image/actions/aerobic/spinning.png',
                     measurement: "Km"
                 },
                 {
                     name: '登山机',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/登山机.png',
+                    imageUrl: 'image/actions/aerobic/climbing.png',
                     measurement: "Km"
                 },
                 {
                     name: '跳绳',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/跳绳.png',
+                    imageUrl: 'image/actions/aerobic/rope_skipping.png',
                     measurement: "Km"
                 },
                 {
                     name: '俯身登山',
                     equipment: "",
                     gpmeasurement: "分钟",
-                    imageUrl: 'image/actions/icon/aerobic/俯身登山.png',
+                    imageUrl: 'image/actions/aerobic/bend_over_climbing.png',
                     measurement: "Km"
                 },
             ]
         });
 
         // 1、胸部
-        this.partData.push({
+        this.data.push({
             bodyPart: "胸部", // 'Chest',
             name: '胸上部',
             imageUrl: 'image/bodyparts/chest.png',
@@ -632,57 +631,56 @@ class OrgType {
                     name: '上斜杠铃推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/平板杠铃卧推.png',
+                    imageUrl: 'image/actions/chest/horizontal_barbell_bench_press.png',
                     measurement: "Kg"
                 },
                 {
                     name: '上斜哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/上斜哑铃卧推.png',
+                    imageUrl: 'image/actions/chest/incline_dumbbell_bench_press.png',
                     measurement: "Kg"
                 },
                 {
-                    name: '上斜器械卧推',
+                    name: '上斜器械推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/上斜器械卧推.png',
+                    imageUrl: 'image/actions/chest/incline_machine_press.png',
                     measurement: "Kg"
                 },
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "胸部", // 'Chest',
             name: '胸中部',
             imageUrl: 'image/bodyparts/chest.png',
             actionArray: [
                 {
-                    name: '平卧杠铃推举',
+                    name: '平板杠铃卧推',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/平板杠铃卧推.png',
+                    imageUrl: 'image/actions/chest/horizontal_barbell_bench_press.png',
                     measurement: "Kg"
                 },
                 {
-                    name: '平卧哑铃推举',
+                    name: '平板哑铃卧推',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/平板哑铃卧推.png',
+                    imageUrl: 'image/actions/chest/horizontal_dumbbell_bench_press.png',
                     measurement: "Kg"
                 },
                 {
-                    name: '平板器械卧推',
+                    name: '坐姿器械推胸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/平板器械卧推.png',
+                    imageUrl: 'image/actions/chest/seated_machine_press.png',
                     measurement: "Kg"
                 },
-
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "胸部", // 'Chest',
             name: '胸下部',
             imageUrl: 'image/bodyparts/chest.png',
@@ -691,27 +689,27 @@ class OrgType {
                     name: '下斜杠铃推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/平板杠铃卧推.png',
+                    imageUrl: 'image/actions/chest/horizontal_barbell_bench_press.png',
                     measurement: "Kg"
                 },
                 {
                     name: '下斜哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/平板哑铃卧推.png',
+                    imageUrl: 'image/actions/chest/horizontal_dumbbell_bench_press.png',
                     measurement: "Kg"
                 },
                 {
                     name: '双杠臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/双杠臂屈伸.png',
+                    imageUrl: 'image/actions/chest/dip_on_parallel_bars.png',
                     measurement: "Kg"
                 },
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "胸部", // 'Chest',
             name: '俯卧撑',
             imageUrl: 'image/bodyparts/chest.png',
@@ -720,34 +718,34 @@ class OrgType {
                     name: '上斜宽距俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/上斜宽距俯卧撑.png',
+                    imageUrl: 'image/actions/chest/incline_wide_push_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '标准俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/标准俯卧撑.png',
+                    imageUrl: 'image/actions/chest/stand_push_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '下斜钻石俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/下斜钻石俯卧撑.png',
+                    imageUrl: 'image/actions/chest/down_incline_diamond_push_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '跪姿俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/跪姿俯卧撑.png',
+                    imageUrl: 'image/actions/chest/kneel_push_up.png',
                     measurement: "Kg"
                 },
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "胸部", // 'Chest',
             name: '夹胸',
             imageUrl: 'image/bodyparts/chest.png',
@@ -756,35 +754,42 @@ class OrgType {
                     name: '上斜哑铃飞鸟',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/上斜哑铃飞鸟.png',
+                    imageUrl: 'image/actions/chest/incline_dumbbell_bench_fly.png',
                     measurement: "Kg"
                 },
                 {
                     name: '平板哑铃飞鸟',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/平板哑铃飞鸟.png',
+                    imageUrl: 'image/actions/chest/horizontal_dumbbell_bench_fly.png',
                     measurement: "Kg"
                 },
                 {
                     name: '蝴蝶机器械夹胸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/蝴蝶机器械夹胸.png',
+                    imageUrl: 'image/actions/chest/butterfly_machine_crossover.png',
+                    measurement: "Kg"
+                },
+                {
+                    name: '上斜拉索夹胸',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/chest/incline_able_crossover.png',
                     measurement: "Kg"
                 },
                 {
                     name: '拉力器十字夹胸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/拉索夹胸.png',
+                    imageUrl: 'image/actions/chest/cable_crossover.png',
                     measurement: "Kg"
                 },
                 {
                     name: '下斜拉索夹胸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/chest/下斜拉索夹胸.png',
+                    imageUrl: 'image/actions/chest/decline_cable_crossover.png',
                     measurement: "Kg"
                 },
             ]
@@ -792,7 +797,7 @@ class OrgType {
         });
 
         //2、肩部
-        this.partData.push({
+        this.data.push({
             bodyPart: "肩部", // 'Shoulder',
             name: '前束',
             imageUrl: 'image/bodyparts/shoulder.png',
@@ -801,34 +806,27 @@ class OrgType {
                     name: '劲前杠铃推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/劲前杠铃推举.png',
-                    measurement: "Kg"
-                },
-                {
-                    name: '器械推举',
-                    equipment: "",
-                    gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/器械推举.png',
+                    imageUrl: 'image/actions/shoulder/bar_military_press.png',
                     measurement: "Kg"
                 },
                 {
                     name: '站姿哑单臂铃前平举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/站姿哑单臂铃前平举.png',
+                    imageUrl: 'image/actions/shoulder/standing_one_arm_dumbbell_front_press.png',
                     measurement: "Kg"
                 },
                 {
                     name: '站姿哑铃前平举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/站姿哑铃前平举.png',
+                    imageUrl: 'image/actions/shoulder/standing_dumbbells_front_press.png',
                     measurement: "Kg"
                 },
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "肩部", // 'Shoulder',
             name: '中束',
             imageUrl: 'image/bodyparts/shoulder.png',
@@ -837,48 +835,48 @@ class OrgType {
                     name: '器械推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/器械推举.png',
+                    imageUrl: 'image/actions/shoulder/machine_press.png',
                     measurement: "Kg"
                 },
                 {
                     name: '坐姿哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/坐姿哑铃推举.png',
+                    imageUrl: 'image/actions/shoulder/seated_dumbbell_press.png',
                     measurement: "Kg"
                 },
                 {
                     name: '站姿哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/站姿哑铃推举.png',
+                    imageUrl: 'image/actions/shoulder/standing_dumbbell_press.png',
                     measurement: "Kg"
                 },
                 {
                     name: '站姿哑铃侧平举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/站姿哑铃侧平举.png',
+                    imageUrl: 'image/actions/shoulder/standing_dumbbell_lateral_raise.png',
                     measurement: "Kg"
                 },
                 {
                     name: 'L侧平举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/L侧平举.png',
+                    imageUrl: 'image/actions/shoulder/L_lateral_raise.png',
                     measurement: "Kg"
                 },
                 {
                     name: '阿诺德哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/阿诺德哑铃推举.png',
+                    imageUrl: 'image/actions/shoulder/arnold_press.png',
                     measurement: "Kg"
                 },
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "肩部", // 'Shoulder',
             name: '后束',
             imageUrl: 'image/bodyparts/shoulder.png',
@@ -887,27 +885,34 @@ class OrgType {
                     name: '劲后杠铃推举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/劲后杠铃推举.png',
+                    imageUrl: 'image/actions/shoulder/overhead_bar_press.png',
                     measurement: "Kg"
                 },
                 {
                     name: '俯身拉索侧平举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/俯身拉索侧平举.png',
+                    imageUrl: 'image/actions/shoulder/cable_rear_lateral_raise.png',
                     measurement: "Kg"
                 },
                 {
                     name: '俯身哑铃侧平举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/俯身哑铃侧平举.png',
+                    imageUrl: 'image/actions/shoulder/dumbbell_rear_lateral_raise.png',
+                    measurement: "Kg"
+                },
+                {
+                    name: '哑铃反向飞鸟',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/shoulder/dumbbell_reverse_fly.png',
                     measurement: "Kg"
                 },
             ],
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "肩部", // 'Shoulder',
             name: '斜方肌',
             imageUrl: 'image/bodyparts/shoulder.png',
@@ -916,14 +921,14 @@ class OrgType {
                     name: '站姿耸肩',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/shoulder/站姿耸肩.png',
+                    imageUrl: 'image/actions/shoulder/stand_shrug.png',
                     measurement: "Kg"
                 },
             ],
         });
 
         //3、背部
-        this.partData.push({
+        this.data.push({
             bodyPart: "背部", // 'Back',
             name: '背部',
             imageUrl: 'image/bodyparts/back.png',
@@ -932,105 +937,105 @@ class OrgType {
                     name: '反握宽距引体向上',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/反握宽距引体向上.png',
+                    imageUrl: 'image/actions/back/reverse_neutral_grip_pull_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '反握窄距引体向上',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/反握窄距引体向上.png',
+                    imageUrl: 'image/actions/back/reverse_narrow_pull_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '正握宽距引体向上',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/正握宽距引体向上.png',
+                    imageUrl: 'image/actions/back/neutral_grip_pull_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '正握窄距引体向上',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/正握窄距引体向上.png',
+                    imageUrl: 'image/actions/back/narrow_pull_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '标准高位下拉',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/标准高位下拉.png',
+                    imageUrl: 'image/actions/back/stand_machine_pull_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '反握高位下拉',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/反握高位下拉.png',
+                    imageUrl: 'image/actions/back/reverse_cable_pull_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '器械反握下拉',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/器械反握下拉.png',
+                    imageUrl: 'image/actions/back/reverse_machine_pull_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '反向器械飞鸟',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/反向器械飞鸟.png',
+                    imageUrl: 'image/actions/back/reverse_machine_fly.png',
                     measurement: "Kg"
                 },
                 {
                     name: '俯身单臂哑铃划船',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/俯身单臂哑铃划船.png',
+                    imageUrl: 'image/actions/back/bent_over_one_arm_row.png',
                     measurement: "Kg"
                 },
                 {
                     name: '坐姿器械对握划船',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/坐姿器械对握划船.png',
+                    imageUrl: 'image/actions/back/seated_cable_close_row.png',
                     measurement: "Kg"
                 },
                 {
                     name: '俯身反握杠铃划船',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/俯身反握杠铃划船.png',
+                    imageUrl: 'image/actions/back/bent_over_reverse_barbell_row.png',
                     measurement: "Kg"
                 },
                 {
                     name: '俯身反握哑铃划船',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/俯身反握哑铃划船.png',
+                    imageUrl: 'image/actions/back/bent_over_reverse_dumbbell_row.png',
                     measurement: "Kg"
                 },
                 {
                     name: '杠铃罗马尼亚硬拉',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/杠铃罗马尼亚硬拉.png',
+                    imageUrl: 'image/actions/back/romanian_barbell_deadlift.png',
                     measurement: "Kg"
                 },
                 {
                     name: '杠铃直腿硬拉',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/back/杠铃直腿硬拉.png',
+                    imageUrl: 'image/actions/back/straight_leg_barbell_deadlift.png',
                     measurement: "Kg"
                 },
             ]
         });
 
         //4、腰部
-        this.partData.push({
+        this.data.push({
             bodyPart: "腰部",// 'Waist',
             name: '腰部',
             imageUrl: 'image/bodyparts/waist.png',
@@ -1039,42 +1044,42 @@ class OrgType {
                     name: '杠铃罗马尼亚硬拉',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/waist/杠铃罗马尼亚硬拉.png',
+                    imageUrl: 'image/actions/waist/romanian_barbell_deadlift.png',
                     measurement: "Kg"
                 },
                 {
                     name: '杠铃直腿硬拉',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/waist/杠铃直腿硬拉.png',
+                    imageUrl: 'image/actions/waist/straight_leg_barbell_deadlift.png',
                     measurement: "Kg"
                 },
                 {
                     name: '平板支撑',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/waist/平板支撑.png',
+                    imageUrl: 'image/actions/waist/plank.png',
                     measurement: "Kg"
                 },
                 {
                     name: '山羊挺身',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/waist/山羊挺身.png',
+                    imageUrl: 'image/actions/waist/back_hyperextension.png',
                     measurement: "Kg"
                 },
                 {
                     name: '十字挺身',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/waist/十字挺身.png',
+                    imageUrl: 'image/actions/waist/cross_lift.png',
                     measurement: "Kg"
                 },
             ]
         });
 
         //5、腹部
-        this.partData.push({
+        this.data.push({
             bodyPart: "腹部",// 'Abdomen',
             name: '腹部',
             imageUrl: 'image/bodyparts/abs.png',
@@ -1083,84 +1088,84 @@ class OrgType {
                     name: '下斜仰卧起坐',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/下斜仰卧起坐.png',
+                    imageUrl: 'image/actions/abs/decline_sit_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '屈膝卷腹',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/屈膝卷腹.png',
+                    imageUrl: 'image/actions/abs/bent_leg_crunch.png',
                     measurement: "Kg"
                 },
                 {
                     name: '反向卷腹',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/反向卷腹.png',
+                    imageUrl: 'image/actions/abs/reverse_crunch.png',
                     measurement: "Kg"
                 },
                 {
                     name: '器械卷腹',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/器械卷腹.png',
+                    imageUrl: 'image/actions/abs/machine_crunch.png',
                     measurement: "Kg"
                 },
                 {
                     name: '悬垂卷腹',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/悬垂卷腹.png',
+                    imageUrl: 'image/actions/abs/hanging_crunch.png',
                     measurement: "Kg"
                 },
                 {
                     name: '悬垂举腿',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/悬垂举腿.png',
+                    imageUrl: 'image/actions/abs/hanging_leg_raise.png',
                     measurement: "Kg"
                 },
                 {
                     name: '负重俄罗斯转体',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/负重俄罗斯转体.png',
+                    imageUrl: 'image/actions/abs/weighted_russian_twist.png',
                     measurement: "Kg"
                 },
                 {
                     name: '空中单车',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/空中单车.png',
+                    imageUrl: 'image/actions/abs/sky_bike.png',
                     measurement: "Kg"
                 },
                 {
                     name: '自重臀桥',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/空中单车.png',
+                    imageUrl: 'image/actions/abs/self_weighted_hip_bridge.png',
                     measurement: "Kg"
                 },
                 {
                     name: '平板支撑',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/平板支撑.png',
+                    imageUrl: 'image/actions/abs/plank.png',
                     measurement: "Kg"
                 },
                 {
                     name: 'V型平衡',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/abs/V型平衡.png',
+                    imageUrl: 'image/actions/abs/v_balance.png',
                     measurement: "Kg"
                 },
             ]
         });
 
         //6、手臂
-        this.partData.push({
+        this.data.push({
             bodyPart: "手臂",   // 'Arm',
             name: '肱二头',
             imageUrl: 'image/bodyparts/arm.png',
@@ -1169,56 +1174,56 @@ class OrgType {
                     name: '站姿杠铃弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/站姿杠铃弯举.png',
+                    imageUrl: 'image/actions/arm/standing_barbell_biceps_curl.png',
                     measurement: "Kg"
                 },
                 {
                     name: '站姿重锤弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/站姿重锤弯举.png',
+                    imageUrl: 'image/actions/arm/standing_hammer_curl.png',
                     measurement: "Kg"
                 },
                 {
                     name: '坐姿哑铃集中弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/坐姿哑铃集中弯举.png',
+                    imageUrl: 'image/actions/arm/seated_dumbbell_focus_curl.png',
                     measurement: "Kg"
                 },
                 {
                     name: '坐姿重锤弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/坐姿重锤弯举.png',
+                    imageUrl: 'image/actions/arm/seated_hammer_curl.png',
                     measurement: "Kg"
                 },
                 {
                     name: '坐姿哑铃弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/坐姿哑铃弯举.png',
+                    imageUrl: 'image/actions/arm/seated_dumbbell_biceps_curl.png',
                     measurement: "Kg"
                 },
                 {
                     name: '托板哑铃弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/托板哑铃弯举.png',
+                    imageUrl: 'image/actions/arm/incline_dumbbell_curl.png',
                     measurement: "Kg"
                 },
                 {
                     name: '站姿拉索弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/站姿拉索弯举.png',
+                    imageUrl: 'image/actions/arm/standing_cable_curl.png',
                     measurement: "Kg"
                 },
 
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "手臂",   // 'Arm',
             name: '肱三头',
             imageUrl: 'image/bodyparts/arm.png',
@@ -1227,69 +1232,69 @@ class OrgType {
                     name: '仰卧杠铃劲后臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/仰卧杠铃劲后臂屈伸.png',
+                    imageUrl: 'image/actions/arm/lying_barbell_dip.png',
                     measurement: "Kg"
                 },
                 {
                     name: '站姿单臂劲后臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/站姿单臂劲后臂屈伸.png',
+                    imageUrl: 'image/actions/arm/standing_one_arm_dip.png',
                     measurement: "Kg"
                 },
                 {
                     name: '站姿哑铃劲后屈臂伸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/站姿哑铃劲后屈臂伸.png',
+                    imageUrl: 'image/actions/arm/standing_dumbbell_dip.png',
                     measurement: "Kg"
                 },
                 {
                     name: '站姿拉索下压',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/站姿拉索下压.png',
+                    imageUrl: 'image/actions/arm/standing_cable_triceps_push_down.png',
                     measurement: "Kg"
                 },
                 {
                     name: '双杠臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/双杠臂屈伸.png',
+                    imageUrl: 'image/actions/arm/parallel_bar_dip.png',
                     measurement: "Kg"
                 },
                 {
                     name: '器械直臂下压',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/器械直臂下压.png',
+                    imageUrl: 'image/actions/arm/machine_push_down.png',
                     measurement: "Kg"
                 },
                 {
                     name: '器械臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/器械臂屈伸.png',
+                    imageUrl: 'image/actions/arm/machine_dip.png',
                     measurement: "Kg"
                 },
                 {
                     name: '标准俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/标准俯卧撑.png',
+                    imageUrl: 'image/actions/arm/standard_push_up.png',
                     measurement: "Kg"
                 },
                 {
                     name: '钻石俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/arm/钻石俯卧撑.png',
+                    imageUrl: 'image/actions/arm/diamond_push_up.png',
                     measurement: "Kg"
                 },
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "手臂",   // 'Arm',
             name: '小臂',
             imageUrl: 'image/bodyparts/arm.png',
@@ -1298,42 +1303,42 @@ class OrgType {
                     name: '卷重物',
                     equipment: "",
                     gpmeasurement: "次",
-                    // imageUrl: 'image/actions/icon/arm/aerobic.png',
+                    // imageUrl: 'image/actions/arm/aerobic.png',
                     measurement: "Kg"
                 },
                 {
                     name: '哑铃腕弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    // imageUrl: 'image/actions/icon/arm/aerobic.png',
+                    // imageUrl: 'image/actions/arm/aerobic.png',
                     measurement: "Kg"
                 },
                 {
                     name: '杠铃背后腕腕举',
                     equipment: "",
                     gpmeasurement: "次",
-                    // imageUrl: 'image/actions/icon/arm/aerobic.png',
+                    // imageUrl: 'image/actions/arm/aerobic.png',
                     measurement: "Kg"
                 },
                 {
                     name: '杠铃腕弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    // imageUrl: 'image/actions/icon/arm/aerobic.png',
+                    // imageUrl: 'image/actions/arm/aerobic.png',
                     measurement: "Kg"
                 },
                 {
                     name: '引体悬挂',
                     equipment: "",
                     gpmeasurement: "次",
-                    // imageUrl: 'image/actions/icon/arm/aerobic.png',
+                    // imageUrl: 'image/actions/arm/aerobic.png',
                     measurement: "Kg"
                 },
             ]
         });
 
         //7、腿部
-        this.partData.push({
+        this.data.push({
             bodyPart: "腿部", // 'Leg',
             name: '股二头',
             imageUrl: 'image/bodyparts/legs.png',
@@ -1342,20 +1347,20 @@ class OrgType {
                     name: '俯卧器械腿弯举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/俯卧器械腿弯举.png',
+                    imageUrl: 'image/actions/leg/bent_over_machine_leg_curl.png',
                     measurement: "Kg"
                 },
                 {
                     name: '器械腿后展',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/器械腿后展.png',
+                    imageUrl: 'image/actions/leg/cable_hamstring_curl.png',
                     measurement: "Kg"
                 },
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "腿部", // 'Leg',
             name: '股四头',
             imageUrl: 'image/bodyparts/legs.png',
@@ -1364,76 +1369,83 @@ class OrgType {
                     name: '杠铃深蹲',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/杠铃深蹲.png',
+                    imageUrl: 'image/actions/leg/barbell_overhead_squat.png',
                     measurement: "Kg"
                 },
                 {
-                    name: '劲前杠铃深蹲',
+                    name: '颈前杠铃深蹲',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/劲前杠铃深蹲.png',
+                    imageUrl: 'image/actions/leg/barbell_before_neck_squat.png',
                     measurement: "Kg"
                 },
                 {
                     name: '器械哈克深蹲',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/器械哈克深蹲.png',
+                    imageUrl: 'image/actions/leg/machine_hack_squat.png',
                     measurement: "Kg"
                 },
                 {
                     name: '哑铃深蹲',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/哑铃深蹲.png',
+                    imageUrl: 'image/actions/leg/dumbbell_squat.png',
+                    measurement: "Kg"
+                },
+                {
+                    name: '徒手深蹲',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/leg/none_weighted_squat.png',
                     measurement: "Kg"
                 },
                 {
                     name: '靠墙马步蹲',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/靠墙马步蹲.png',
+                    imageUrl: 'image/actions/leg/firm_stance.png',
                     measurement: "Kg"
                 },
                 {
                     name: '器械腿举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/器械腿举.png',
+                    imageUrl: 'image/actions/leg/machine_leg_lift.png',
                     measurement: "Kg"
                 },
                 {
                     name: '坐姿单腿腿举',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/坐姿单腿腿举.png',
+                    imageUrl: 'image/actions/leg/seated_one_leg_lift.png',
                     measurement: "Kg"
                 },
                 {
                     name: '杠铃翘臀分腿蹲',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/杠铃翘臀分腿蹲.png',
+                    imageUrl: 'image/actions/leg/barbell_one_leg_squat.png',
                     measurement: "Kg"
                 },
                 {
                     name: '坐姿腿屈伸',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/坐姿腿屈伸.png',
+                    imageUrl: 'image/actions/leg/seated_leg_dip.png',
                     measurement: "Kg"
                 },
                 {
                     name: '坐姿器械腿外展',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/坐姿器械腿外展.png',
+                    imageUrl: 'image/actions/leg/seated_machine_leg_split.png',
                     measurement: "Kg"
                 },
             ]
         });
 
-        this.partData.push({
+        this.data.push({
             bodyPart: "腿部", // 'Leg',
             name: '小腿',
             imageUrl: 'image/bodyparts/legs.png',
@@ -1442,14 +1454,14 @@ class OrgType {
                     name: '站姿负重提踵',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/站姿负重提踵.png',
+                    imageUrl: 'image/actions/leg/standing_calf_raise.png',
                     measurement: "Kg"
                 },
                 {
                     name: '坐姿提踵',
                     equipment: "",
                     gpmeasurement: "次",
-                    imageUrl: 'image/actions/icon/legs/坐姿提踵.png',
+                    imageUrl: 'image/actions/leg/seated_calf_raise.png',
                     measurement: "Kg"
                 },
             ]

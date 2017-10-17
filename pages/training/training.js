@@ -5,9 +5,11 @@
 import DataType from '../../datamodel/StorageType'
 import Reality from '../../datamodel/RealitySet'
 import Timer from '../../utils/Timer'
+import ChartMaker from '../ui/canvas/ChartMaker'
 
 //获取应用实例
 const app = getApp();
+const chartMaker = new ChartMaker.ChartMaker('trainingCanvas');
 
 Page({
 
@@ -15,11 +17,12 @@ Page({
      * 页面的初始数据
      */
     data: {
-        selectedDate: '',
         showDate: '',
         todayPlan: [],  // 今天的计划
         todayReality: new Reality.Reality(),    // 今天完成的内容
+        // todayHasPlan: false,
 
+        currentChart: {},
         // 当前选中的部位和动作索引，初始选中第一个
         currentPartId: 0,
         currentActionId: 0,
@@ -33,11 +36,11 @@ Page({
 
         // 只给每个动作最后做完以后打分
         actionScoreStarArray: [
-            {id: 1, src: "../image/start_checked.png", checked: true},
-            {id: 2, src: "../image/start_unchecked.png", checked: false},
-            {id: 3, src: "../image/start_unchecked.png", checked: false},
-            {id: 4, src: "../image/start_unchecked.png", checked: false},
-            {id: 5, src: "../image/start_unchecked.png", checked: false},
+            {id: 1, checked: true},
+            {id: 2, checked: false},
+            {id: 3, checked: false},
+            {id: 4, checked: false},
+            {id: 5, checked: false},
         ],
 
         enablePause: true,
@@ -71,46 +74,11 @@ Page({
     },
 
     /**
-     * 响应动作选择的变化
+     * 响应实际完成数据的改变
+     * 默认就是计划数据
      * @param e
      */
-    onActionChange: function (e) {
-        let currentPartId = e.detail.value[0];
-        let currentActionId = e.detail.value[1];
-        this.setData({
-            multiIndex: e.detail.value,
-            currentPartId: currentPartId,
-            currentActionId: currentActionId
-        });
-    },
-
-    /**
-     * 响应部位列改变，动作列跟着改变
-     * @param e
-     */
-    onPartChange: function (e) {
-        console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
-
-        let partActionArray = this.data.partActionArray;
-        let multiIndex = this.data.multiIndex;
-
-        multiIndex[e.detail.column] = e.detail.value;
-
-        if (e.detail.column === 0)
-            partActionArray[1] = this.data.actionArray[e.detail.value];
-
-        // console.log(partActionArray);
-        this.setData({
-            partActionArray: partActionArray,
-            multiIndex: multiIndex
-        });
-    },
-
-    /**
-     *
-     * @param e
-     */
-    onRealityChange: function (e) {
+    onChangeRealityData: function (e) {
         console.log('picker发送选择改变，携带值为', e.detail.value);
         let todayPlan = this.data.todayPlan;
         let currentPartId = this.data.currentPartId;
@@ -128,18 +96,27 @@ Page({
 
     },
 
+    /**
+     * 响应健身进行中，点击完成按钮，记录相应的数据，并进行组数、动作和部位的跳转
+     * @param e
+     */
     onFinishAction: function (e) {
         let todayPlan = this.data.todayPlan;
         let currentPartId = this.data.currentPartId;
         let currentActionId = this.data.currentActionId;
         let currentGroupId = this.data.currentGroupId;
         todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished = true;
-        todayPlan[currentPartId].exerciseSet[currentActionId].current++;
+
+        if (todayPlan[currentPartId].exerciseSet[currentActionId].current + 1 > todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length)
+            todayPlan[currentPartId].exerciseSet[currentActionId].current = todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length;
+        else
+            todayPlan[currentPartId].exerciseSet[currentActionId].current++;
+
         todayPlan[currentPartId].exerciseSet[currentActionId].finishedCount++;
         todayPlan[currentPartId].exerciseSet[currentActionId].finished =
             todayPlan[currentPartId].exerciseSet[currentActionId].finishedCount >= todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length;
 
-
+        todayPlan.totalFinishedGroups++;
 
         this.setData({
             todayPlan: todayPlan,
@@ -147,11 +124,52 @@ Page({
             lastAction: currentPartId === this.data.todayPlan.length - 1 && currentActionId === this.data.todayPlan[currentPartId].exerciseSet.l
         });
 
-        console.log("Training page onShow call, this.data.todayPlan: ", this.data.todayPlan);
 
+        // 更新完成比例视图
+        this.updateFinishedChart();
+
+        // 启动倒计时
         Timer.setCountDownSeconds(10);
         this.timer = new Timer.Timer(this);
         this.timer.start();
+
+    },
+
+    /**
+     * 根据完成情况，计算完成比例
+     * 计算方法，计算出已经完成的组数，除以总的组数
+     * 两种入口：
+     * 1、健身过程中，点击完成，更新完成比例
+     * 2、初始化健身记录页面时，根据当天已经记录的数据（如果有），更新比例
+     *
+     */
+    updateFinishedChart: function () {
+        let percentFinished = 0;
+        let todayPlan = this.data.todayPlan;
+        let totalGroups = todayPlan.totalGroups;
+        let totalFinishedGroups = todayPlan.totalFinishedGroups;
+
+        if (totalGroups !== 0 && totalFinishedGroups <= totalGroups)
+            percentFinished = Math.ceil(totalFinishedGroups * 100 / totalGroups);
+
+        console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
+
+        this.data.currentChart.updateData({
+            title: {
+                name: percentFinished + "%"
+            },
+            series: [{
+                name: 'finished',
+                data: percentFinished,
+                color: '#7cb5ec',
+                stroke: false
+            }, {
+                name: 'unfinished',
+                data: 100 - percentFinished,
+                color: '#888888',
+                stroke: false
+            }],
+        });
     },
 
     onControl: function (e) {
@@ -166,29 +184,30 @@ Page({
         });
     },
 
+    /**
+     * 向前跳转组，仅用于浏览，不做任何数据操作
+     */
     onLastGroup() {
         this.lastGroup();
     },
 
     /**
-     * 跳到下一组
-     * 两个入口，一个是倒计时结束，自动跳转到这里，一个是用户手动操作略过休息时间
+     * 跳到上一组
+     *
      */
     lastGroup: function () {
-        let todayPlan = this.data.todayPlan;
-        let currentPartId = this.data.currentPartId;
-        let currentActionId = this.data.currentActionId;
-        let currentGroupId = this.data.currentGroupId;
-
-        this.setData({
-            currentGroupId: currentGroupId,
-            currentActionId: currentActionId,
-            currentPartId: currentPartId
-        });
+        this.changeGroup(false);
     },
 
+    /**
+     * 向后跳转组，用于用户取消休息时间
+     * 1、取消倒计时
+     * 2、跳转组，
+     */
     onNextGroup: function () {
-        this.timer.stop();
+        console.log(typeof this.timer );
+        if (typeof this.timer !== "undefined")
+            this.timer.stop();
         this.nextGroup();
     },
 
@@ -197,40 +216,28 @@ Page({
      * 两个入口，一个是倒计时结束，自动跳转到这里，一个是用户手动操作略过休息时间
      */
     nextGroup: function () {
-        let todayPlan = this.data.todayPlan;
-        let currentPartId = this.data.currentPartId;
-        let currentActionId = this.data.currentActionId;
-        let currentGroupId = this.data.currentGroupId;
+        this.changeGroup(true);
+    },
 
-        if (currentGroupId + 1 < todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length) {
-            currentGroupId++;
-        } else {
-            if (currentActionId + 1 < todayPlan[currentPartId].exerciseSet.length) {
-                currentGroupId = 0;
-                currentActionId++;
-            } else {
-                if (currentPartId + 1 < todayPlan.length) {
-                    currentGroupId = 0;
-                    currentActionId = 0;
-                    currentPartId++;
-                } else {
-                    // 这已经到最后了
-                    this.setData({
-                        lastGroup: true
-                    });
-                    console.log("It's the last action~~");
-                }
-            }
+    /**
+     * 更新动作得分的视图
+     * @param score
+     */
+    updateActionScore: function (score) {
+        let actionScoreStarArray = this.data.actionScoreStarArray;
+
+        // 清零，否则不能由大分数改为小分数
+        for (let idx = 0; idx < 5; idx++) {
+            actionScoreStarArray[idx].checked = false;
         }
 
-        console.log("currentGroupId", currentGroupId, "currentActionId", currentActionId, "currentPartId", currentPartId);
+        // 点选
+        for (let idx = 0; idx < score; idx++) {
+            actionScoreStarArray[idx].checked = true;
+        }
 
         this.setData({
-            currentGroupId: currentGroupId,
-            currentActionId: currentActionId,
-            currentPartId: currentPartId,
-            enablePause: true,  //无论是哪里跳转来的，都要把暂停复位
-
+            actionScoreStarArray: actionScoreStarArray
         });
     },
 
@@ -240,33 +247,21 @@ Page({
      */
     onActionScore: function (e) {
         // 实际分数
-        let index = parseInt(e.currentTarget.id);
-        let actionStars = this.data.actionScoreStarArray;
-
-        // 清零，否则不能由大分数改为小分数
-        for (let idx = 0; idx < 5; idx++) {
-            actionStars[idx].src = "../image/start_unchecked.png";
-            actionStars[idx].checked = false;
-        }
-
-        this.setData({
-            totalScoreStarArray: actionStars
-        });
-
-        // 点选
-        for (let idx = 0; idx < index; idx++) {
-            actionStars[idx].src = "../image/start_checked.png";
-            actionStars[idx].checked = true;
-        }
+        let score = parseInt(e.currentTarget.id);
+        let todayPlan = this.data.todayPlan;
+        let currentPartId = this.data.currentPartId;
+        let currentActionId = this.data.currentActionId;
 
         console.log("in onActionScore, score is: ", e.currentTarget.id);
-        let todayPlan = this.data.todayPlan;
+
+        todayPlan[currentPartId].exerciseSet[currentActionId].actionScore = score;
 
         this.setData({
             todayPlan: todayPlan,
-            actualMvFeeling: index,
-            actionScoreStarArray: actionStars
         });
+
+        // 更新视图
+        this.updateActionScore(score);
     },
 
     /**
@@ -344,56 +339,157 @@ Page({
     },
 
     /**
-     * 跳转到上一个动作
+     * 根据选中动作的状态，将组的状态更改到实际的状态，只需要设置currentGroupId
      */
-    onLastAction: function () {
+    changeGroup: function (isNext) {
+        let todayPlan = this.data.todayPlan;
         let currentPartId = this.data.currentPartId;
-        let currentActionId;
+        let currentActionId = this.data.currentActionId;
+        let currentGroupId = this.data.currentGroupId;
 
-        if (this.data.currentActionId - 1 < 0) {
-            currentPartId = currentPartId - 1 < 0 ? 0 : currentPartId - 1;
-            currentActionId = currentPartId === 0 ? 0 : this.data.todayPlan[currentPartId].exerciseSet.length - 1;
+        if (isNext) {
+            if (currentGroupId + 1 < todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length) {
+                currentGroupId++;
+            } else {
+                if (currentActionId + 1 < todayPlan[currentPartId].exerciseSet.length) {
+                    currentGroupId = 0;
+                    currentActionId++;
+                } else {
+                    if (currentPartId + 1 < todayPlan.length) {
+                        currentGroupId = 0;
+                        currentActionId = 0;
+                        currentPartId++;
+                    } else {
+                        // 这已经到最后了
+                        this.setData({
+                            lastGroup: true
+                        });
+                        console.log("It's the last action~~");
+                    }
+                }
+            }
         } else {
-            currentActionId = this.data.currentActionId - 1;
+
         }
 
-        // console.log("currentPartId:", currentPartId, "currentActionId:", currentActionId);
+        console.log("currentGroupId", currentGroupId, "currentActionId", currentActionId, "currentPartId", currentPartId);
+
+        this.setData({
+            currentGroupId: currentGroupId,
+            currentActionId: currentActionId,
+            currentPartId: currentPartId,
+            enablePause: true,  //无论是哪里跳转来的，都要把暂停复位
+
+        });
+
+    },
+
+    /**
+     * 动作跳转具体处理函数
+     * 1、先根据索引跳转动作
+     * 2、设置Picker状态
+     * 3、设置动作导航imageButton的状态
+     * 4、调用changeGroup方法，跳转当前动作对应的组
+     * @param currentPartId
+     * @param currentActionId
+     */
+    changeAction: function (currentPartId, currentActionId) {
+        let todayPlan = this.data.todayPlan;
+        let partActionArray = this.data.partActionArray;
+
+        partActionArray[1] = this.data.actionArray[currentPartId];
+
+        if (todayPlan[currentPartId].exerciseSet[currentActionId].finished) {
+            console.log("score:", todayPlan[currentPartId].exerciseSet[currentActionId].actionScore);
+            this.updateActionScore(todayPlan[currentPartId].exerciseSet[currentActionId].actionScore);
+        }
 
         this.setData({
             currentPartId: currentPartId,
             currentActionId: currentActionId,
+            partActionArray: partActionArray,
             multiIndex: [currentPartId, currentActionId],
             firstAction: currentActionId === 0 && currentPartId === 0,
-            lastAction: currentPartId === this.data.todayPlan.length - 1 && currentActionId === this.data.todayPlan[currentPartId].exerciseSet.length - 1
+            lastAction: currentPartId === todayPlan.length - 1 && currentActionId === todayPlan[currentPartId].exerciseSet.length - 1,
+
+        });
+
+        this.changeGroup();
+    },
+
+    /**
+     * 响应动作选择的变化
+     * 1、先处理所要跳转到的部位和动作索引
+     * 2、调用跳转方法changeAction
+     * @param e
+     */
+    onActionPickerChange: function (e) {
+        let currentPartId = e.detail.value[0];
+        let currentActionId = e.detail.value[1];
+        this.changeAction(currentPartId, currentActionId);
+    },
+
+    /**
+     * 响应部位列改变，动作列跟着改变
+     * @param e
+     */
+    onPartPickerChange: function (e) {
+
+        let partActionArray = this.data.partActionArray;
+        let multiIndex = this.data.multiIndex;
+
+        multiIndex[e.detail.column] = e.detail.value;
+
+        if (e.detail.column === 0)
+            partActionArray[1] = this.data.actionArray[e.detail.value];
+
+        // console.log(partActionArray);
+        this.setData({
+            partActionArray: partActionArray,
+            multiIndex: multiIndex
         });
     },
 
     /**
      * 跳转到上一个动作
+     * 1、判断跳转方向
+     * 2、处理所要跳转到的部位和动作索引
+     * 3、调用跳转方法changeAction
      */
-    onNextAction: function () {
+    onChangeAction: function (e) {
+        let todayPlan = this.data.todayPlan;
         let currentPartId = this.data.currentPartId;
-        let currentActionId;
+        let currentActionId = this.data.currentActionId;
 
-        if (this.data.currentActionId + 1 >= this.data.todayPlan[currentPartId].exerciseSet.length) {
-            currentPartId = currentPartId + 1 >= this.data.todayPlan.length
-                ? this.data.todayPlan.length - 1 : currentPartId + 1;
-            currentActionId = 0;
-
+        if (e.currentTarget.id === "next") {
+            // 向后跳转，如果越界，需要判断部位的状态，否则直接变
+            if (currentActionId + 1 >= todayPlan[currentPartId].exerciseSet.length) {
+                if (currentPartId + 1 >= todayPlan.length) {
+                    currentPartId = todayPlan.length - 1;
+                } else {
+                    currentPartId++;
+                    currentActionId = 0;
+                }
+            } else {
+                currentActionId = currentActionId + 1;
+            }
         } else {
-            currentActionId = this.data.currentActionId + 1;
+            // 向前跳转，如果越界，需要判断部位的状态，否则直接变
+            if (currentActionId - 1 < 0) {
+                if (currentPartId - 1 < 0) {
+                    currentPartId = 0;
+                    currentActionId = 0;
+                } else {
+                    currentPartId--;
+                    currentActionId = todayPlan[currentPartId].exerciseSet.length - 1;
+                }
+            } else {
+                currentActionId = currentActionId - 1;
+            }
         }
 
-        // console.log("currentPartId:", currentPartId, "currentActionId:", currentActionId);
-
-        this.setData({
-            currentPartId: currentPartId,
-            currentActionId: currentActionId,
-            multiIndex: [currentPartId, currentActionId],
-            firstAction: currentActionId === 0 && currentPartId === 0,
-            lastAction: currentPartId === this.data.todayPlan.length - 1 && currentActionId === this.data.todayPlan[currentPartId].exerciseSet.length - 1
-        });
-
+        // console.log("currentPartId:", currentPartId, ", currentActionId:", currentActionId);
+        this.changeAction(currentPartId, currentActionId);
     },
 
     /**
@@ -401,6 +497,8 @@ Page({
      */
     onLoad: function (options) {
         //初始化
+        let today = new Date();
+        let showDate = today.getMonth() + 1 + "月" + app.Util.formatNumber(today.getDate()) + "日";
 
         let countSelector = [];
         let weightSelector = [];
@@ -414,16 +512,16 @@ Page({
 
         let realityDataArray = [countSelector, weightSelector];
 
+        chartMaker.setDrawType("ring");
+        let currentChart = chartMaker.makeChart();
+
         this.setData({
-            selectedDate: app.Util.formatDateToString(new Date()),
+            showDate: showDate,
             countSelector: countSelector,
             weightSelector: weightSelector,
             realityDataArray: realityDataArray,
-            Controller: app.Controller,
-
+            currentChart: currentChart
         });
-
-        console.log("Training page onLoad call, this.data.selectedDate: ", this.data.selectedDate);
 
     },
 
@@ -434,61 +532,142 @@ Page({
 
     },
 
+    /**
+     * 将Plan数据转成Reality数据，方便存储和传输
+     * 需要处理一些事物，如果计划有变，之前保存的数据需要去更新，需要判断todayPlan中完成的数据与现有的冲突关系
+     */
+    planToRealityData: function () {
+        let todayReality = this.data.todayReality;
+        todayReality.date = app.Util.formatDateToString(new Date());
+
+        this.setData({
+            todayReality: todayReality
+        });
+    },
 
     /**
-     * 生命周期函数--监听页面显示
-     * 页面Load以后，动态加载和初始化信息
+     * 根据计划和已经保存的todayPlan数据来初始化当前的todayPlan
      */
-    onShow: function () {
+    initTodayPlan: function () {
         let today = new Date();
-        let showDate = today.getMonth() + 1 + "月" + app.Util.formatNumber(today.getDate()) + "日";
-
         let todayPlan = [];
         let todayHasPlan = false;
         let hasActivePlan = false;
-        let actionTips;
-        // 先读取，如果不存在，则新建一个
-
-        app.currentPlan.cloneDataFrom(app.Controller.loadPlan());
-        console.log("in Training, app.currentPlan:", app.currentPlan);
         let currentPlan = app.currentPlan;
         let partArray = [];
         let actionArray = [];
         let partActionArray = [];
+        let actionTips;
 
+        // 先读取计划，如果不存在，则新建一个
+        app.currentPlan.cloneDataFrom(app.Controller.loadPlan());
+        console.log("in Training, app.currentPlan:", app.currentPlan);
+
+        // 先读取计划，如果有，则创建todayPlan，然后去初始化
+        // 初始化放在另外的代码中，免得这步结构太复杂
         if (currentPlan.currentUse) {
             hasActivePlan = true;
             // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
             if (app.Util.inPeriod(currentPlan.fromDate, app.Util.formatDateToString(today), currentPlan.toDate)) {
                 todayPlan = app.currentPlan.getReGroupExerciseSetByDay(today.getDay());
-                if (app.currentPlan.cycleLength === 7) {
-                    // 今天有计划
-                    if (todayPlan.length > 0) {
-                        todayHasPlan = true;
-                    } else {
-                        todayHasPlan = false;
-                        actionTips = "今天休息";
-                    }
+                // 今天有计划
+                if (todayPlan.length > 0) {
+                    todayHasPlan = true;
                 } else {
-
+                    todayHasPlan = false;
+                    actionTips = "今天休息";
                 }
             } else {
                 todayHasPlan = false;
                 actionTips = "今天休息";
             }
-
         } else {
             hasActivePlan = false;
             actionTips = "还未创建计划";
         }
 
-        // 准备部位列表
+        // 根据初始化的todayPlan，准备执行数据
+        // 先读取一个之前由于切换Tab保存的计划数据，existPlan
+        // 1、如果existPlan为空，则是第一次进入该计划，直接使用默认初始化
+        // 2、如果existPlan不为空，则需要根据保存的数据，初始化todayPlan
+        let existPlan = app.Controller.loadData(app.StorageType.TodayPlan);
+
         if (todayPlan.length > 0) {
+            // 每次进入时，都默认统一初始化，以防保存的数据里没有这些项
+            for (let plan of todayPlan) {
+                for (let exercise of plan.exerciseSet) {
+                    for (let group of exercise.groupSet) {
+                        group.executedQuantity = group.quantity;
+                        group.executedWeight = group.weight;
+                        group.finished = false;
+                    }
+                    exercise.current = 1;
+                    exercise.finishedCount = 0;
+                    exercise.finished = false;
+                    exercise.actionScore = 3;
+                }
+            }
+
+            if (existPlan.length > 0) {
+                // 之前有保存的内容
+                console.log("existPlan is not empty!");
+                for (let plan of todayPlan) {
+                    for (let exist of existPlan) {
+                        // 当部位相同时，搜索动作
+                        if (exist.name === plan.name) {
+                            for (let planExercise of plan.exerciseSet) {
+                                for (let existExercise of exist.exerciseSet) {
+                                    // 当动作相同的时候
+                                    if (existExercise.action.name === planExercise.action.name) {
+                                        let length = existExercise.groupSet.length;
+                                        planExercise.groupSet.splice(0, length);
+                                        planExercise.groupSet = existExercise.groupSet.concat(planExercise.groupSet);
+                                        planExercise.actionScore = existExercise.actionScore;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 再次整理数据，置状态
+            for (let plan of todayPlan) {
+                for (let exercise of plan.exerciseSet) {
+                    for (let group of exercise.groupSet) {
+                        if (group.finished)
+                            exercise.finishedCount++;
+                    }
+                    exercise.current = exercise.finishedCount + 1 > exercise.groupSet.length
+                        ? exercise.groupSet.length : exercise.finishedCount + 1;
+
+                    exercise.finished = (exercise.finishedCount === exercise.groupSet.length);
+                }
+            }
+        }
+
+        console.log("after init, todayPlan:", todayPlan);
+
+        // 根据初始化的todayPlan，准备数据
+        // 1、准备部位列表
+        // 2、初始化总组数和已完成的组数
+        if (todayPlan.length > 0) {
+            todayPlan.totalGroups = 0;
+            todayPlan.totalFinishedGroups = 0;
             for (let plan of todayPlan) {
                 partArray.push(plan.name);
                 let array = [];
-                for (let item of plan.exerciseSet) {
-                    array.push(item.action.name);
+                for (let exercise of plan.exerciseSet) {
+                    array.push(exercise.action.name);
+
+                    todayPlan.totalGroups = todayPlan.totalGroups + exercise.groupSet.length;
+                    console.log(exercise.groupSet);
+                    console.log(exercise.groupSet.length, todayPlan.totalGroups);
+                    for (let group of exercise.groupSet) {
+                        if (group.finished) {
+                            todayPlan.totalFinishedGroups++;
+                        }
+                    }
                 }
                 actionArray.push(array);
             }
@@ -498,43 +677,37 @@ Page({
 
             console.log("partArray:", partArray);
             console.log("actionArray:", actionArray);
-            console.log("actionArray:", partActionArray);
+            console.log("partActionArray:", partActionArray);
         }
-
-        // 准备执行数据
-        if (todayPlan.length > 0) {
-            for (let plan of todayPlan) {
-                for (let item of plan.exerciseSet) {
-                    for (let group of item.groupSet) {
-                        group.executedQuantity = group.quantity;
-                        group.executedWeight = group.weight;
-                        group.finished = false;
-                    }
-                    item.current = 1;
-                    item.finishedCount = 0;
-                    for (let group of item.groupSet) {
-                        if (group.finished)
-                            item.finishedCount++;
-                    }
-                    item.finished = item.groupSet.length === item.finishedCount;
-                }
-            }
-        }
-
-
-        console.log("hasActivePlan:", hasActivePlan);
-        console.log("todayHasPlan:", todayHasPlan);
-        console.log("actionTips: ", actionTips);
 
         this.setData({
-            showDate: showDate,
             todayPlan: todayPlan,
+            hasActivePlan: hasActivePlan,
             todayHasPlan: todayHasPlan,
             partArray: partArray,
             actionArray: actionArray,
             partActionArray: partActionArray,
             actionTips: actionTips,
-            hasActivePlan: hasActivePlan,
+            lastGroup: false
+        });
+
+        console.log("hasActivePlan:", hasActivePlan);
+        console.log("todayHasPlan:", todayHasPlan);
+        console.log("actionTips: ", actionTips);
+    },
+
+    /**
+     * 生命周期函数--监听页面显示
+     * 页面Load以后，动态加载和初始化信息
+     * 每次进入，初始化数据就在这里
+     */
+    onShow: function () {
+        // 初始化数据
+        this.initTodayPlan();
+        // 更新图表
+        this.updateFinishedChart();
+
+        this.setData({
             lastGroup: false
         });
 
@@ -544,11 +717,37 @@ Page({
 
     /**
      * 生命周期函数--监听页面隐藏
+     * 保存两份数据，一份今天的todayPlan，一份用于传输的todayReality
      */
     onHide: function () {
-        app.Controller.saveData(app.StorageType.RealitySet, this.data.todayPlan);
-        // 如果直接由此界面通过Tab跳到了计划界面，那么将选中的动作置为当前动作，方便修改。
-        app.globalData.selectedDate = new Date();
+        app.Controller.saveData(app.StorageType.TodayPlan, this.data.todayPlan);
+
+        this.planToRealityData();
+
+        let todayReality = this.data.todayReality;
+
+        let RealitySet = app.Controller.loadData(app.StorageType.RealitySet);
+
+        let hasThisRealityIndex = -1;
+        if (RealitySet.length > 0) {
+
+            // 先寻找是否有当天Reality，如果有，则记下位置
+            for (let idx = 0; idx < RealitySet.length; idx++) {
+                if (RealitySet[idx].date === todayReality.date) {
+                    hasThisRealityIndex = idx;
+                    break;
+                }
+            }
+        }
+
+        // 如果有这天的记录则替换，否则直接插入
+        if (hasThisRealityIndex !== -1) {
+            RealitySet.splice(hasThisRealityIndex, 1, todayReality);
+        } else {
+            RealitySet.push(todayReality);
+        }
+
+        app.Controller.saveData(app.StorageType.RealitySet, RealitySet);
 
         console.log("Training page onHide call: data saved");
     },

@@ -13,6 +13,7 @@ class StorageType {
         this.SystemSetting = new Record(3, "SystemSetting");
         // 计划
         this.PlanSet = new Record(4, "PlanSet");
+        this.TodayPlan = new Record(5, "TodayPlan");
     }
 
 }

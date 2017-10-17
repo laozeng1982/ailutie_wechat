@@ -591,6 +591,8 @@ page {
     justify-content: flex-start;
     border-bottom: 1rpx solid #bebebe;
     align-content: center;
+    align-items: center;
+    padding: 40rpx;
 }
 
 .rowContainerEnd {
@@ -613,6 +615,10 @@ page {
     height: 100rpx;
     justify-content: space-between;
     border-bottom: 1rpx solid #bebebe;
+    padding-left: 60rpx;
+    padding-right: 60rpx;
+    align-content: center;
+    align-items: center;
 }
 
 .two-button-group {
@@ -637,7 +643,6 @@ page {
 .canvas {
     width: 100%;
     height: 440rpx;
-    /* padding-top:20rpx; */
 }
 
 

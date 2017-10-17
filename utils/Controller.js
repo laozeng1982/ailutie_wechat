@@ -50,7 +50,7 @@ class Controller {
                     if (typeof (requestData.date) !== "undefined" && requestData.date !== "") {
                         console.log("here222222222222222222222222222222");
                     } else {
-                        requestData = new DailyRecords.DailyRecords();
+                        requestData = [];
                     }
                     break;
                 case 3:
@@ -58,6 +58,9 @@ class Controller {
                     break;
                 case 4:
                     requestData = [];
+                    break;
+                case 5:
+                    requestData =[];
                     break;
                 default:
                     break;

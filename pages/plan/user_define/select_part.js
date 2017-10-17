@@ -154,7 +154,7 @@ Page({
 
             this.setData({
                 weekList: weekList,
-                selectedDateList: []
+                // selectedDateList: []
 
             });
 
@@ -285,6 +285,8 @@ Page({
         }
 
         tabData[1].finished = hasSelectedPart && this.data.body.hasSelectedPart() && this.data.selectedDateList.length > 0;
+
+        // console.log("hasSelectedPart:",hasSelectedPart," this.data.body.hasSelectedPart()", this.data.body.hasSelectedPart(), "this.data.selectedDateList.length > 0",this.data.selectedDateList.length > 0);
 
         tabData[2].finished = this.data.body.allActionsSelected();
 
@@ -776,7 +778,6 @@ Page({
         let fromDate;
         let toDate;
         let cycleLength;
-
 
         // 判断进入的入口，如果是定制新计划，日期用当前日期；如果是修改已有计划，日期则使用计划的日期
         // 如果是现有计划，则显示现有计划的起止日期，否则看是否存有日期，如果没有，则用当前日期

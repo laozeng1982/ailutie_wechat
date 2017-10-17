@@ -14,9 +14,9 @@
     </view>
 
     <!-- 具体的每个条目 -->
-    <view wx:for="{{list}}" wx:for-item="item" wx:key="{{index}}">
+    <view wx:for="{{list}}" wx:for-item="item" wx:key="{{index}}" >
         <view class="graySpace"></view>
-        <view class="itemContainer" wx:for="{{item.list_tool}}" wx:key="{{index}}" wx:for-item="i" data-log="{{i.name}}" data-url="{{i.url}}" bindtap="goPage">
+        <view class="itemContainer" wx:for="{{item.list_tool}}" wx:key="{{index}}" wx:for-item="i" data-log="{{i.name}}" data-url="{{i.url}}"bindtap="goPage" >
             <view class="item-avatar-xs">
                 <image src="{{i.img}}" />
                 <view style="padding-left:10px">
@@ -27,7 +27,7 @@
             <view class="item-avatar-xs">
                 <image style="height:40rpx; width:40rpx" src="../../pages/image/arrows_square_right_64px.png"></image>
             </view>
-            <!-- <text class="title">-></text>   -->
+
         </view>
     </view>
 </scroll-view>
