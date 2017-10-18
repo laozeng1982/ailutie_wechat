@@ -13,7 +13,6 @@
             <canvas class="canvas" disable-scroll="true" canvas-id="indexCanvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
         </view>
 
-
         <radio-group class="radioContainer" bindchange="onRadioChange">
             <label id="{{item.id}}" wx:for="{{chartType}}" wx:key="{{index}}">
                 <view class='radioItem' id="{{item.id}}">
@@ -23,7 +22,6 @@
             </label>
         </radio-group>
 
-
     </view>
 
     <view class='graySpace'></view>
@@ -31,14 +29,18 @@
     <!-- 计划部分 -->
     <view class="planArea" wx:if="{{currentPlan.currentUse}}">
         <view class='whiteBackgroud' bindtap='onModifyPlan'>
-            <view class='text' >我的计划（进行中）</view>
+            <view class='text'>我的计划（进行中）</view>
             <image class='imageBig' src='../image/arrows_square_right_64px.png'></image>
         </view>
+
+        <view class='roundCornor' bindtap='onMakePlan'>临时计划</view>
+        <view class='smalltext'>今天换个姿势健身~~</view>
     </view>
 
     <view wx:else class="planArea">
-        <view class='roundCornor' bindtap='onMakePlan'>定制我的锻炼计划</view>
-        <text class='smalltext'>您还没有锻炼计划，定制一个吧</text>
+     <view class='smalltext'>  </view>
+        <view class='roundCornor' bindtap='onMakePlan'>定制我的健身计划</view>
+        <view class='smalltext'>您还没有健身计划，定制一个吧</view>
     </view>
 
 </view>

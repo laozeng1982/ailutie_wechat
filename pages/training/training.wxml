@@ -43,13 +43,13 @@
                     <!-- 动作显示和浏览 -->
                     <view class='middlePanelRowContainer'>
                         <view class='image-arrows'>
-                            <image id='last' wx:if="{{!firstAction}}" class='image-arrows' src='../image/arrows_square_left_64px.png' bindtap='onChangeAction'></image>
+                            <image id='last' wx:if="{{!firstAction}}" class='image-arrows' src='../image/arrows_square_left_64px.png' bindtap='onActionChange'></image>
                         </view>
 
                         <image class='image-action' src="../{{todayPlan[currentPartId].exerciseSet[currentActionId].action.imageUrl}}"></image>
 
                         <view class='image-arrows'>
-                            <image id='next' wx:if="{{!lastAction}}" class='image-arrows' src='../image/arrows_square_right_64px.png' bindtap='onChangeAction'></image>
+                            <image id='next' wx:if="{{!lastAction}}" class='image-arrows' src='../image/arrows_square_right_64px.png' bindtap='onActionChange'></image>
                         </view>
 
                     </view>
@@ -64,8 +64,9 @@
 
                 <!-- 2、动作数据记录和休息控制部分 -->
                 <view class='middlePanelColContainer' style='height:30%'>
-                    <view class='middlePanelRowContainer' wx:if="{{!todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished || lastGroup}}">
-                        <view class="pickerItem" style='width:250rpx;font-weight:500'>第 {{todayPlan[currentPartId].exerciseSet[currentActionId].current}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length}} 组</view>
+                    <!-- 当前组的数据，通过pause和时间倒数显示互斥 -->
+                    <view class='middlePanelRowContainer' style='height:50rpx' wx:if="{{!paused}}">
+                        <view class="pickerItem firstItem">第 {{currentGroupId + 1}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length}} 组</view>
                         <picker class="pickerItemContainer" mode="multiSelector" bindchange="onChangeRealityData" value="{{realityIndex}}" range="{{realityDataArray}}">
                             <view class="pickerItemContainer">
                                 <view class="pickerItem">{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantity}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].quantity}} 次</view>
@@ -75,34 +76,37 @@
                         </picker>
                     </view>
 
-                    <view class='middlePanelRowContainer' wx:else>
+                    <!-- 时间倒数显示，通过pause和当前组的数据互斥 -->
+                    <view class='middlePanelRowContainer' style='height:50rpx' wx:else>
                         <view class="clock"> 休息 {{clock}} </view>
                     </view>
 
-                    <!-- 时间倒数器 -->
-                    <view class='middlePanelRowContainer'>
-                        <view class='image-contanier'>
-                            <view wx:if="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}" bindtap='onLastGroup'>
-                                <image class='image-arrows small' src='../image/arrow_left_32px.png'></image>
-                                <view class='tips'>上一组</view>
-                            </view>
+                    <!-- 中间的倒数计时及组之间浏览控制器 -->
+                    <view class='middlePanelRowContainer' style='height:180rpx'>
+                        <view class='image-contanier' bindtap="{{totalFinishedGroups!==0?'onLastGroup':''}}">
+                            <image class='image-arrows small' src="{{totalFinishedGroups!==0?'../image/arrow_left_32px.png':''}}"></image>
+                            <view class='tips center'>{{totalFinishedGroups!==0?'上一组':''}}</view>
                         </view>
 
-                        <view class='image-contanier'>
+                        <view class='image-contanier' wx:if="{{!paused}}">
                             <view wx:if="{{!todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}">
-                                <view class='finishBtn' bindtap='onFinishAction'> 完成 </view>
+                                <view class='toFinishBtn' bindtap='onFinishAction'> 完成 </view>
                             </view>
 
                             <view wx:else>
+                                <view class='finishedBtn'> 已完成 </view>
+                            </view>
+                        </view>
+
+                        <view class='image-contanier' wx:else>
+                            <view>
                                 <image class='image-arrows' src="{{enablePause?'../image/pause_64px.png':'../image/play_64px.png'}} " bindtap='onControl'></image>
                             </view>
                         </view>
 
-                        <view class='image-contanier'>
-                            <view wx:if="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}" bindtap='onNextGroup'>
-                                <image class='image-arrows small' src='../image/arrow_right_32px.png'></image>
-                                <view class='tips'>下一组</view>
-                            </view>
+                        <view class='image-contanier' bindtap="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished?'onNextGroup':''}}">
+                            <image class='image-arrows small' src="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished?'../image/arrow_right_32px.png':''}}"></image>
+                            <view class='tips center'>{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished?'下一组':''}}</view>
                         </view>
                     </view>
                 </view>

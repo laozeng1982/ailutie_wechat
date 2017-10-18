@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43d0bba8-bdcd-471c-9d2f-9c090f19b525" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/index/index.wxml" afterPath="$PROJECT_DIR$/pages/index/index.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/index/index.wxss" afterPath="$PROJECT_DIR$/pages/index/index.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/user_define/select_part.js" afterPath="$PROJECT_DIR$/pages/plan/user_define/select_part.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.js" afterPath="$PROJECT_DIR$/pages/training/training.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxml" afterPath="$PROJECT_DIR$/pages/training/training.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/training/training.wxss" afterPath="$PROJECT_DIR$/pages/training/training.wxss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,26 +32,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="training.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="training.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pages/training/training.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4326">
-              <caret line="211" column="6" lean-forward="false" selection-start-line="211" selection-start-column="6" selection-end-line="211" selection-end-column="6" />
+            <state relative-caret-position="413">
+              <caret line="690" column="20" lean-forward="false" selection-start-line="690" selection-start-column="20" selection-end-line="690" selection-end-column="20" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#21#71#0" expanded="true" />
-                <element signature="e#12316#12478#0" expanded="false" />
-                <element signature="e#12573#13006#0" expanded="false" />
+                <element signature="e#13401#13834#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dictionary.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Dictionary.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datamodel/Dictionary.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="294">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -89,8 +93,8 @@
       <file leaf-file-name="select_part.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13944">
-              <caret line="667" column="34" lean-forward="false" selection-start-line="667" selection-start-column="34" selection-end-line="667" selection-end-column="34" />
+            <state relative-caret-position="578">
+              <caret line="583" column="21" lean-forward="true" selection-start-line="583" selection-start-column="21" selection-end-line="583" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -143,13 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>console.log(partActionArray);</find>
-      <find>curMovementName</find>
-      <find>curSelectedRecordId</find>
-      <find>console.log(&quot;in onActionScore, score is: &quot;, e.currentTarget.id);</find>
-      <find>finishedCount</find>
-      <find>count_down</find>
-      <find>countTimeDown</find>
       <find>onReali</find>
       <find>Time</find>
       <find>lastAction</find>
@@ -173,10 +170,15 @@
       <find>下斜</find>
       <find>legs/</find>
       <find>劲</find>
+      <find>changeAction</find>
+      <find>current</find>
+      <find>currentGroupId</find>
+      <find>lastGroup</find>
+      <find>Timer</find>
+      <find>totalFinishedGroups</find>
+      <find>console.log(exercise.groupSet);</find>
     </findStrings>
     <replaceStrings>
-      <replace>imageUri: '../../image/actions/icon/chest/aerobic.png',measurement</replace>
-      <replace>&quot;次&quot;, imageUri: '../../image/actions/icon/chest/aerobic.png',measurement</replace>
       <replace>&quot;次&quot;, imageUri: '../../image/actions/icon/shoulder/aerobic.png',measurement</replace>
       <replace>&quot;次&quot;, imageUri: '../../image/actions/icon/back/aerobic.png',measurement</replace>
       <replace>&quot;次&quot;, imageUri: '../../image/actions/icon/waist/aerobic.png',measurement</replace>
@@ -205,6 +207,8 @@
       <replace>actionScore</replace>
       <replace>leg/</replace>
       <replace>颈</replace>
+      <replace>currentGroupId</replace>
+      <replace>paused</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -245,10 +249,10 @@
         <option value="$PROJECT_DIR$/pages/ui/canvas/ChartMaker.js" />
         <option value="$PROJECT_DIR$/datamodel/StorageType.js" />
         <option value="$PROJECT_DIR$/utils/Controller.js" />
-        <option value="$PROJECT_DIR$/pages/plan/user_define/select_part.js" />
-        <option value="$PROJECT_DIR$/pages/training/training.js" />
         <option value="$PROJECT_DIR$/datamodel/Dictionary.js" />
         <option value="$PROJECT_DIR$/datamodel/Body.js" />
+        <option value="$PROJECT_DIR$/pages/plan/user_define/select_part.js" />
+        <option value="$PROJECT_DIR$/pages/training/training.js" />
       </list>
     </option>
   </component>
@@ -520,25 +524,27 @@
       <workItem from="1508034635066" duration="25424000" />
       <workItem from="1508124969789" duration="27400000" />
       <workItem from="1508209127540" duration="35235000" />
-      <workItem from="1508253687210" duration="144000" />
+      <workItem from="1508253687210" duration="11881000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="364159000" />
+    <option name="totallyTimeSpent" value="375896000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19725738" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32723358" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24626069" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32620922" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19725738" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32620922" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24578059" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39935413" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -547,7 +553,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32620922" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -646,6 +651,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2226">
           <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -684,6 +690,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -716,6 +723,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1911">
           <caret line="91" column="7" lean-forward="true" selection-start-line="91" selection-start-column="7" selection-end-line="91" selection-end-column="7" />
+          <folding>
+            <marker date="1508163098823" expanded="true" signature="91:2499" ph="{...}" />
+            <marker date="1508163098823" expanded="true" signature="135:194" ph="{&quot;curRecords&quot;: ''...}" />
+            <marker date="1508163098823" expanded="true" signature="1906:1941" ph="{&quot;selectedDate&quot;: selectedDate...}" />
+            <marker date="1508163098823" expanded="true" signature="1906:1950" ph="{...}" />
+            <marker date="1508163098823" expanded="true" signature="1957:1994" ph="/** 生命周期函数--监听页面初次渲染完成 ...*/" />
+            <marker date="1508163098823" expanded="true" signature="2020:2028" ph="{...}" />
+            <marker date="1508163098823" expanded="true" signature="2035:2068" ph="/** 生命周期函数--监听页面显示 ...*/" />
+            <marker date="1508163098823" expanded="true" signature="2093:2101" ph="{...}" />
+            <marker date="1508163098823" expanded="true" signature="2108:2141" ph="/** 生命周期函数--监听页面隐藏 ...*/" />
+            <marker date="1508163098823" expanded="true" signature="2166:2174" ph="{...}" />
+            <marker date="1508163098823" expanded="true" signature="2181:2214" ph="/** 生命周期函数--监听页面卸载 ...*/" />
+            <marker date="1508163098823" expanded="true" signature="2241:2249" ph="{...}" />
+            <marker date="1508163098823" expanded="true" signature="2256:2295" ph="/** 页面相关事件处理函数--监听用户下拉动作 ...*/" />
+            <marker date="1508163098823" expanded="true" signature="2331:2339" ph="{...}" />
+            <marker date="1508163098823" expanded="true" signature="2346:2378" ph="/** 页面上拉触底事件的处理函数 ...*/" />
+            <marker date="1508163098823" expanded="true" signature="2410:2418" ph="{...}" />
+            <marker date="1508163098823" expanded="true" signature="2425:2453" ph="/** 用户点击右上角分享 ...*/" />
+            <marker date="1508163098823" expanded="true" signature="2489:2497" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -730,6 +757,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="490" column="4" lean-forward="false" selection-start-line="490" selection-start-column="4" selection-end-line="490" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -805,14 +833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13944">
-          <caret line="667" column="34" lean-forward="false" selection-start-line="667" selection-start-column="34" selection-end-line="667" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/datamodel/Action.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -833,27 +853,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1995">
           <caret line="95" column="13" lean-forward="false" selection-start-line="95" selection-start-column="13" selection-end-line="95" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/training/training.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4326">
-          <caret line="211" column="6" lean-forward="false" selection-start-line="211" selection-start-column="6" selection-end-line="211" selection-end-column="6" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#21#71#0" expanded="true" />
-            <element signature="e#12316#12478#0" expanded="false" />
-            <element signature="e#12573#13006#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datamodel/Dictionary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -884,6 +883,34 @@
             <element signature="e#43679#44374#0" expanded="false" />
             <element signature="e#44401#47423#0" expanded="false" />
             <element signature="e#47450#48132#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/Dictionary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/plan/user_define/select_part.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="583" column="21" lean-forward="true" selection-start-line="583" selection-start-column="21" selection-end-line="583" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/training/training.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="690" column="20" lean-forward="false" selection-start-line="690" selection-start-column="20" selection-end-line="690" selection-end-column="20" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#21#71#0" expanded="true" />
+            <element signature="e#13401#13834#0" expanded="false" />
           </folding>
         </state>
       </provider>

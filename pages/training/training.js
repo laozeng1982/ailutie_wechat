@@ -27,12 +27,12 @@ Page({
         currentPartId: 0,
         currentActionId: 0,
         currentGroupId: 0,
+        totalFinishedGroups: 0, // 小程序诡异，通过todayPlan.totalFinishedGroups不能控制控件，不得已，多加这个变量
 
         // 控件关联值，输入框里的次数和重量
         actualCount: '',
         actualWeight: '',
-        actualGpFeeling: '',
-        actualMvFeeling: 3, // 默认给5分，免得用户忘了选
+        actualMvFeeling: 3, // 默认给3分，免得用户忘了选
 
         // 只给每个动作最后做完以后打分
         actionScoreStarArray: [
@@ -46,7 +46,7 @@ Page({
         enablePause: true,
         firstAction: true,
         lastAction: false,
-        lastGroup: false,
+        paused: false,
 
         partArray: [],   // 今天计划的部位列表，一维数组
         actionArray: [], // 今天计划的动作列表，二维数组，序号与partArray对应
@@ -97,7 +97,10 @@ Page({
     },
 
     /**
-     * 响应健身进行中，点击完成按钮，记录相应的数据，并进行组数、动作和部位的跳转
+     * 响应健身进行中，点击完成按钮，记录相应的数据
+     * 组数、动作和部位的跳转分两种情况
+     * 1、倒计时完成，自动跳转
+     * 2、用户手动跳转
      * @param e
      */
     onFinishAction: function (e) {
@@ -107,10 +110,10 @@ Page({
         let currentGroupId = this.data.currentGroupId;
         todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished = true;
 
-        if (todayPlan[currentPartId].exerciseSet[currentActionId].current + 1 > todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length)
-            todayPlan[currentPartId].exerciseSet[currentActionId].current = todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length;
+        if (todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId + 1 >= todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length)
+            todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length - 1;
         else
-            todayPlan[currentPartId].exerciseSet[currentActionId].current++;
+            todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId++;
 
         todayPlan[currentPartId].exerciseSet[currentActionId].finishedCount++;
         todayPlan[currentPartId].exerciseSet[currentActionId].finished =
@@ -120,8 +123,8 @@ Page({
 
         this.setData({
             todayPlan: todayPlan,
-            firstAction: currentActionId === 0 && currentPartId === 0,
-            lastAction: currentPartId === this.data.todayPlan.length - 1 && currentActionId === this.data.todayPlan[currentPartId].exerciseSet.l
+            totalFinishedGroups: todayPlan.totalFinishedGroups,
+            paused: true
         });
 
 
@@ -129,7 +132,7 @@ Page({
         this.updateFinishedChart();
 
         // 启动倒计时
-        Timer.setCountDownSeconds(10);
+        Timer.setCountDownSeconds(30);
         this.timer = new Timer.Timer(this);
         this.timer.start();
 
@@ -205,7 +208,7 @@ Page({
      * 2、跳转组，
      */
     onNextGroup: function () {
-        console.log(typeof this.timer );
+        console.log(typeof this.timer);
         if (typeof this.timer !== "undefined")
             this.timer.stop();
         this.nextGroup();
@@ -340,6 +343,7 @@ Page({
 
     /**
      * 根据选中动作的状态，将组的状态更改到实际的状态，只需要设置currentGroupId
+     * 这里有两种入口
      */
     changeGroup: function (isNext) {
         let todayPlan = this.data.todayPlan;
@@ -348,39 +352,52 @@ Page({
         let currentGroupId = this.data.currentGroupId;
 
         if (isNext) {
+            // 向后翻
             if (currentGroupId + 1 < todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length) {
                 currentGroupId++;
             } else {
                 if (currentActionId + 1 < todayPlan[currentPartId].exerciseSet.length) {
-                    currentGroupId = 0;
                     currentActionId++;
+                    currentGroupId = 0;
                 } else {
                     if (currentPartId + 1 < todayPlan.length) {
-                        currentGroupId = 0;
-                        currentActionId = 0;
                         currentPartId++;
+                        currentActionId = 0;
+                        currentGroupId = 0;
                     } else {
                         // 这已经到最后了
                         this.setData({
-                            lastGroup: true
+                            paused: false
                         });
                         console.log("It's the last action~~");
                     }
                 }
             }
         } else {
-
+            // 向前翻
+            if (currentGroupId - 1 >= 0) {
+                currentGroupId--;
+            } else {
+                if (currentActionId - 1 >= 0) {
+                    currentActionId--;
+                    currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length - 1;
+                } else {
+                    if (currentPartId - 1 >= 0) {
+                        currentPartId--;
+                        currentActionId = todayPlan[currentPartId].exerciseSet.length - 1;
+                        currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length - 1;
+                    } else {
+                        // 这已经到最前面了
+                        this.setData({
+                            paused: false
+                        });
+                        console.log("It's the first action~~");
+                    }
+                }
+            }
         }
 
-        console.log("currentGroupId", currentGroupId, "currentActionId", currentActionId, "currentPartId", currentPartId);
-
-        this.setData({
-            currentGroupId: currentGroupId,
-            currentActionId: currentActionId,
-            currentPartId: currentPartId,
-            enablePause: true,  //无论是哪里跳转来的，都要把暂停复位
-
-        });
+        this.changeAction(currentPartId, currentActionId, currentGroupId);
 
     },
 
@@ -389,11 +406,12 @@ Page({
      * 1、先根据索引跳转动作
      * 2、设置Picker状态
      * 3、设置动作导航imageButton的状态
-     * 4、调用changeGroup方法，跳转当前动作对应的组
+     * 4、设置当前组，跳转当前动作对应的组
      * @param currentPartId
      * @param currentActionId
+     * @param currentGroupId
      */
-    changeAction: function (currentPartId, currentActionId) {
+    changeAction: function (currentPartId, currentActionId, currentGroupId) {
         let todayPlan = this.data.todayPlan;
         let partActionArray = this.data.partActionArray;
 
@@ -404,29 +422,22 @@ Page({
             this.updateActionScore(todayPlan[currentPartId].exerciseSet[currentActionId].actionScore);
         }
 
+        todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId = currentGroupId;
+
         this.setData({
             currentPartId: currentPartId,
             currentActionId: currentActionId,
+            currentGroupId: currentGroupId,
             partActionArray: partActionArray,
             multiIndex: [currentPartId, currentActionId],
             firstAction: currentActionId === 0 && currentPartId === 0,
             lastAction: currentPartId === todayPlan.length - 1 && currentActionId === todayPlan[currentPartId].exerciseSet.length - 1,
-
+            enablePause: true,  //无论是哪里跳转来的，都要把暂停复位
+            paused: false
         });
 
-        this.changeGroup();
-    },
-
-    /**
-     * 响应动作选择的变化
-     * 1、先处理所要跳转到的部位和动作索引
-     * 2、调用跳转方法changeAction
-     * @param e
-     */
-    onActionPickerChange: function (e) {
-        let currentPartId = e.detail.value[0];
-        let currentActionId = e.detail.value[1];
-        this.changeAction(currentPartId, currentActionId);
+        console.log("currentGroupId", currentGroupId, "currentActionId", currentActionId, "currentPartId", currentPartId);
+        console.log("Training page onShow call, this.data.todayPlan: ", this.data.todayPlan);
     },
 
     /**
@@ -451,15 +462,30 @@ Page({
     },
 
     /**
-     * 跳转到上一个动作
+     * 响应动作选择的变化
+     * 1、先处理所要跳转到的部位和动作索引
+     * 2、调用跳转方法changeAction
+     * @param e
+     */
+    onActionPickerChange: function (e) {
+        let todayPlan = this.data.todayPlan;
+        let currentPartId = e.detail.value[0];
+        let currentActionId = e.detail.value[1];
+        let currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId;
+        this.changeAction(currentPartId, currentActionId, currentGroupId);
+    },
+
+    /**
+     * 跳转动作
      * 1、判断跳转方向
      * 2、处理所要跳转到的部位和动作索引
      * 3、调用跳转方法changeAction
      */
-    onChangeAction: function (e) {
+    onActionChange: function (e) {
         let todayPlan = this.data.todayPlan;
         let currentPartId = this.data.currentPartId;
         let currentActionId = this.data.currentActionId;
+
 
         if (e.currentTarget.id === "next") {
             // 向后跳转，如果越界，需要判断部位的状态，否则直接变
@@ -487,9 +513,10 @@ Page({
                 currentActionId = currentActionId - 1;
             }
         }
+        // 将切换后的动作currentGroupId传过来
+        let currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId;
 
-        // console.log("currentPartId:", currentPartId, ", currentActionId:", currentActionId);
-        this.changeAction(currentPartId, currentActionId);
+        this.changeAction(currentPartId, currentActionId, currentGroupId);
     },
 
     /**
@@ -601,7 +628,7 @@ Page({
                         group.executedWeight = group.weight;
                         group.finished = false;
                     }
-                    exercise.current = 1;
+                    exercise.currentGroupId = 0;
                     exercise.finishedCount = 0;
                     exercise.finished = false;
                     exercise.actionScore = 3;
@@ -638,8 +665,8 @@ Page({
                         if (group.finished)
                             exercise.finishedCount++;
                     }
-                    exercise.current = exercise.finishedCount + 1 > exercise.groupSet.length
-                        ? exercise.groupSet.length : exercise.finishedCount + 1;
+                    exercise.currentGroupId = exercise.finishedCount >= exercise.groupSet.length
+                        ? exercise.groupSet.length - 1 : exercise.finishedCount;
 
                     exercise.finished = (exercise.finishedCount === exercise.groupSet.length);
                 }
@@ -661,8 +688,7 @@ Page({
                     array.push(exercise.action.name);
 
                     todayPlan.totalGroups = todayPlan.totalGroups + exercise.groupSet.length;
-                    console.log(exercise.groupSet);
-                    console.log(exercise.groupSet.length, todayPlan.totalGroups);
+                    
                     for (let group of exercise.groupSet) {
                         if (group.finished) {
                             todayPlan.totalFinishedGroups++;
@@ -684,11 +710,11 @@ Page({
             todayPlan: todayPlan,
             hasActivePlan: hasActivePlan,
             todayHasPlan: todayHasPlan,
+            totalFinishedGroups: todayPlan.totalFinishedGroups,
             partArray: partArray,
             actionArray: actionArray,
             partActionArray: partActionArray,
             actionTips: actionTips,
-            lastGroup: false
         });
 
         console.log("hasActivePlan:", hasActivePlan);
@@ -708,7 +734,7 @@ Page({
         this.updateFinishedChart();
 
         this.setData({
-            lastGroup: false
+            paused: false
         });
 
         // 重置全局变量，保证翻回Training页面时，能记住上次的位置

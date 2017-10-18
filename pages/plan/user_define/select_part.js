@@ -567,22 +567,25 @@ Page({
         }
 
         let activePartName = "";
-        for (let idx = 0; idx < body.parts.length; idx++) {
-            if (body.parts[idx].selected) {
-                let thisPartSelectAction = false;
-                for (let action of body.parts[idx].actionSet) {
-                    thisPartSelectAction = thisPartSelectAction || action.selected;
-                }
+        for (let part of partList) {
+            for (let idx = 0; idx < body.parts.length; idx++) {
+                if (body.parts[idx].selected && part.name === body.parts[idx].bodyPart) {
+                    let thisPartSelectAction = false;
+                    for (let action of body.parts[idx].actionSet) {
+                        thisPartSelectAction = thisPartSelectAction || action.selected;
+                    }
 
-                // 第一个没选动作的部位，默认激活
-                if (!thisPartSelectAction) {
-                    activePartName = body.parts[idx].bodyPart;
-                    body.activePartByName(activePartName);
-                    console.log("default select:", idx, body.parts[idx].name);
-                    break;
+                    // 第一个没选动作的部位，默认激活
+                    if (!thisPartSelectAction) {
+                        activePartName = body.parts[idx].bodyPart;
+                        body.activePartByName(activePartName);
+                        console.log("default select:", idx, body.parts[idx].name);
+                        break;
+                    }
                 }
             }
         }
+
 
         // 如果用户都选了，只是简单的切换了页面，那么默认选到第一个动作
         let hasActivePart = false;
@@ -600,6 +603,8 @@ Page({
                 }
             }
         }
+
+        console.log("activePartName",activePartName);
 
         // 激活选中的部位
         // 统计一下各部位已经选择的动作数量，方便观察

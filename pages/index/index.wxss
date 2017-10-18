@@ -49,6 +49,7 @@
     width: 100%;
     height: 35%;
     background: #888;
+    justify-content: space-between;
 }
 
 .grayBackgroud {
@@ -74,8 +75,12 @@
 }
 
 .smalltext {
-    margin-top: 40rpx;
-    font-size: 16rprx;
+    /* margin-top: 40rpx; */
+    font-size: 30rprx;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+     height: 60rpx; 
     color: #fff;
 }
 
@@ -127,7 +132,7 @@
 }
 
 .roundCornor {
-    margin-top: 120rpx;
+    /* margin-top: 120rpx; */
     border: 2px solid;
     border-radius: 75rpx;
     width: 400rpx;
