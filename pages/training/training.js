@@ -553,6 +553,13 @@ Page({
     },
 
     /**
+     * 保存今天临时计划
+     */
+    saveTodayPlan: function () {
+        app.Controller.saveData(app.StorageType.TodayPlan, this.data.todayPlan);
+    },
+
+    /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
@@ -561,19 +568,68 @@ Page({
 
     /**
      * 将Plan数据转成Reality数据，方便存储和传输
-     * 需要处理一些事物，如果计划有变，之前保存的数据需要去更新，需要判断todayPlan中完成的数据与现有的冲突关系
+     * 需要处理一些事务，如果计划有变，之前保存的数据需要去更新，需要判断todayPlan中完成的数据与现有的冲突关系
+     * 1、读取Reality数据
+     * 2、整理Reality数据
+     * 3、存储Reality数据
      */
-    planToRealityData: function () {
-        let todayReality = this.data.todayReality;
-        todayReality.date = app.Util.formatDateToString(new Date());
+    saveReality: function () {
+        let todayPlan = this.data.todayPlan;
+        // 1、读取Reality
+        let RealitySet = app.Controller.loadData(app.StorageType.RealitySet);
 
-        this.setData({
-            todayReality: todayReality
-        });
+        let todayReality;
+        let today = app.Util.formatDateToString(new Date());
+
+        for (let reality of RealitySet) {
+            if (reality.date === today) {
+                todayReality = reality;
+            }
+        }
+
+        if (typeof todayReality === "undefined") {
+            console.log("no previous reality, create a new one!");
+            todayReality = new Reality.Reality(today);
+        }
+
+        // 2、整理Reality
+        if (todayReality.executedSet.length === 0) {
+            for (let plan of todayPlan) {
+                for (let exercise of plan.exerciseSet) {
+
+                }
+            }
+        } else {
+
+        }
+
+
+        // 3、存储Reality
+        let hasThisRealityIndex = -1;
+        if (RealitySet.length > 0) {
+            // 先寻找是否有当天Reality，如果有，则记下位置
+            for (let idx = 0; idx < RealitySet.length; idx++) {
+                if (RealitySet[idx].date === todayReality.date) {
+                    hasThisRealityIndex = idx;
+                    break;
+                }
+            }
+        }
+
+        // 如果有这天的记录则替换，否则直接插入
+        if (hasThisRealityIndex !== -1) {
+            RealitySet.splice(hasThisRealityIndex, 1, todayReality);
+        } else {
+            RealitySet.push(todayReality);
+        }
+
+        app.Controller.saveData(app.StorageType.RealitySet, RealitySet);
+
     },
 
     /**
      * 根据计划和已经保存的todayPlan数据来初始化当前的todayPlan
+     * 这里可能存在用户把之前锻炼过的计划删除了，可能会丢掉部分数据
      */
     initTodayPlan: function () {
         let today = new Date();
@@ -743,37 +799,14 @@ Page({
 
     /**
      * 生命周期函数--监听页面隐藏
-     * 保存两份数据，一份今天的todayPlan，一份用于传输的todayReality
+     * 保存两份数据，
+     * 1、一份今天的todayPlan，相当于缓存数据
+     * 2、一份用于传输的todayReality，最终数据
      */
     onHide: function () {
-        app.Controller.saveData(app.StorageType.TodayPlan, this.data.todayPlan);
 
-        this.planToRealityData();
-
-        let todayReality = this.data.todayReality;
-
-        let RealitySet = app.Controller.loadData(app.StorageType.RealitySet);
-
-        let hasThisRealityIndex = -1;
-        if (RealitySet.length > 0) {
-
-            // 先寻找是否有当天Reality，如果有，则记下位置
-            for (let idx = 0; idx < RealitySet.length; idx++) {
-                if (RealitySet[idx].date === todayReality.date) {
-                    hasThisRealityIndex = idx;
-                    break;
-                }
-            }
-        }
-
-        // 如果有这天的记录则替换，否则直接插入
-        if (hasThisRealityIndex !== -1) {
-            RealitySet.splice(hasThisRealityIndex, 1, todayReality);
-        } else {
-            RealitySet.push(todayReality);
-        }
-
-        app.Controller.saveData(app.StorageType.RealitySet, RealitySet);
+        this.saveTodayPlan();
+        this.saveReality();
 
         console.log("Training page onHide call: data saved");
     },

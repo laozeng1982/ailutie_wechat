@@ -70,12 +70,11 @@ App({
         //     wx.redirectTo({
         //         url: 'pages/settings/userinfo/userinfo?model=newUser',
         //     });
-        // }
+        // };
 
         if (userInfo.defaultWechatLogin) {
             // 使用微信登录
             console.log("user wechat ID");
-
         }
         console.log("app onLoad done");
     },
@@ -101,14 +100,15 @@ App({
     StorageType: STORAGETYPE,
     Util: util,
 
-    // 操作计划的模式：如制定新计划为真，否则为假，在首页里两个操作互斥
-    makingNewPlan: true,
-    planStartDate: '',
+    // 定义一些全局变量
+    
+    makingNewPlan: true,    // 操作计划的模式：如制定新计划为真，否则为假，在首页里两个操作互斥
+    planStartDate: '',      
     planEndDate: '',
     lastPlanSaved: false,
 
     globalData: {
-        // 定义一些全局变量
+
         userInfo: null,
         wechatUserInfo: null,
 
@@ -118,15 +118,6 @@ App({
 
         selectedDateString: util.formatDateToString(new Date()),
         selectedDate: new Date(),
-
-        // Records页面上选中的movement Id，默认给-1
-        selectedMvIdOnRecordPage: -1,
-
-        selectedMoveNameOnRecordPage: -1,
-        selectedPartNameOnRecordPage: -1,
-
-        selectedPartNameOnPlanPage: -1,
-
     },
 
 })

@@ -3,25 +3,25 @@
  * 挂接每天执行的部位列表
  */
 class Reality {
-    constructor() {
+    constructor(date) {
         this.id = '';
-        this.date = '';
-        this.executedPartSets = []; // 存放ExecutedPartSet
+        this.date = date;
+        this.executedSet = []; // 存放ExecutedPartSet
     }
 }
 
 /**
- * 每天执行的部位
- * 挂接每个动作的执行列表
+ * 每天执行的动作，不分部位，直接记
+ * 挂接每个动作的执行组列表
  */
-class ExecutedPartSet {
+class ExecutedSet {
     constructor() {
         this.id = '';
         this.name = '';
         this.imageUrl = '';
         this.description = '';
         this.equipment = '';
-        this.executedGroupSets = [];    // 存放ExecutedGroupSet
+        this.executedGroupSet = [];    // 存放ExecutedGroupSet
     }
 }
 
@@ -42,6 +42,6 @@ class ExecutedGroupSet {
 
 module.exports = {
     Reality: Reality,
-    ExecutedPartSet: ExecutedPartSet,
+    ExecutedSet: ExecutedSet,
     ExecutedGroupSet: ExecutedGroupSet
 }
