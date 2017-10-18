@@ -585,9 +585,8 @@ Page({
                 }
             }
         }
-
-
-        // 如果用户都选了，只是简单的切换了页面，那么默认选到第一个动作
+0152
+0// 如果用户都选了，只是简单的切换了页面，那么默认选到第一个动作
         let hasActivePart = false;
         for (let idx = 0; idx < body.parts.length; idx++) {
             hasActivePart = hasActivePart || body.parts[idx].active;

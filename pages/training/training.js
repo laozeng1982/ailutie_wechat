@@ -688,7 +688,7 @@ Page({
                     array.push(exercise.action.name);
 
                     todayPlan.totalGroups = todayPlan.totalGroups + exercise.groupSet.length;
-                    
+
                     for (let group of exercise.groupSet) {
                         if (group.finished) {
                             todayPlan.totalFinishedGroups++;
