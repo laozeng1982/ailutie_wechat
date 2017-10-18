@@ -64,13 +64,13 @@ App({
         console.log("userInfo: ", userInfo);
         var userHeight = userInfo.height;
 
-        if (typeof (userHeight) === 'undefined' || userHeight === "") {
-            // 去注册
-            console.log("in app, go to User information record page!");
-            wx.redirectTo({
-                url: 'pages/settings/userinfo/userinfo?model=newUser',
-            });
-        }
+        // if (typeof (userHeight) === 'undefined' || userHeight === "") {
+        //     // 去注册
+        //     console.log("in app, go to User information record page!");
+        //     wx.redirectTo({
+        //         url: 'pages/settings/userinfo/userinfo?model=newUser',
+        //     });
+        // }
 
         if (userInfo.defaultWechatLogin) {
             // 使用微信登录
@@ -94,20 +94,6 @@ App({
                 }
             })
         }
-    },
-
-    getGid: (function () {//全局唯一id
-        let id = 0;
-        return function () {
-            id++;
-            return id;
-        }
-    })(),
-
-    system: {
-        userConfig: {
-            measurement: "Kg",
-        },
     },
 
     // 方便别的JS调用
