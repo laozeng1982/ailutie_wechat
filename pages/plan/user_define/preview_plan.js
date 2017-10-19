@@ -160,7 +160,7 @@ Page({
         for (let week = 0; week < dateList.length; week++) {
             for (let day = 0; day < dateList[week].length; day++) {
                 // 先判断这天是否在周期内
-                if (app.Util.inPeriod(app.currentPlan.fromDate, dateList[week][day].value, app.currentPlan.toDate)) {
+                if (app.Util.checkDate(app.currentPlan.fromDate, dateList[week][day].value, app.currentPlan.toDate)) {
                     let partArr = [];
                     for (let circleDay of app.currentPlan.circleDaySet) {
                         if (circleDay.id === dateList[week][day].week) {
@@ -254,7 +254,7 @@ Page({
 
         // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
         // 这里需要使用重组后Plan的ExerciseSet
-        if (app.Util.inPeriod(app.currentPlan.fromDate, selectedDate.value, app.currentPlan.toDate)) {
+        if (app.Util.checkDate(app.currentPlan.fromDate, selectedDate.value, app.currentPlan.toDate)) {
             selectedDatePlan = app.currentPlan.getReGroupExerciseSetByDay(selectedDate.week);
         }
 
@@ -386,7 +386,7 @@ Page({
                 app.planSet.push(app.currentPlan);
             }
         }
-        app.Controller.saveData(app.StorageType.PlanSet, app.planSet);
+        app.Util.saveData(app.StorageType.PlanSet, app.planSet);
         console.log(app.planSet);
     },
 
@@ -434,12 +434,12 @@ Page({
             content: '确定删除？',
             success: function (res) {
                 if (res.confirm) {
-                    let planSet = app.Controller.loadData(app.StorageType.PlanSet);
+                    let planSet = app.Util.loadData(app.StorageType.PlanSet);
                     for (let idx = 0; idx < planSet.length; idx++) {
                         planSet[idx].currentUse = false;
                     }
 
-                    app.Controller.saveData(app.StorageType.PlanSet, planSet);
+                    app.Util.saveData(app.StorageType.PlanSet, planSet);
 
                     wx.switchTab({
                         url: '../../index/index',

@@ -3,21 +3,19 @@
  * 小程序总入口
  */
 import util from './utils/Util'
-import Controller from './utils/Controller'
 import StorageType from './datamodel/SystemSetting'
-import Plan from './datamodel/PlanSet'
+import PlanSet from './datamodel/PlanSet'
 import Body from './datamodel/Body'
 
-const CONTROLLER = new Controller.Controller();
 const STORAGETYPE = new StorageType.StorageType();
 
 App({
     onLaunch: function () {
 
         // 全局变量
-        this.planSet = CONTROLLER.loadData(STORAGETYPE.PlanSet);
+        this.planSet = util.loadData(STORAGETYPE.PlanSet);
 
-        this.currentPlan = new Plan.Plan();
+        this.currentPlan = new PlanSet.Plan();
 
         console.log("app onLoad, currentPlan", this.currentPlan);
 
@@ -49,28 +47,28 @@ App({
         });
 
         // 准备数据：
-        var systemSetting = new Body.Body();
+        var body = new Body.Body();
 
-        systemSetting.makeDefaultDefaultPartList();
+        body.makeDefaultDefaultPartList();
 
-        console.log("SystemSetting: ", systemSetting);
+        console.log("body: ", body);
 
         // if (systemSetting.body.parts.length > 0) {
         //     CONTROLLER.saveData(STORAGETYPE.SystemSetting, systemSetting);
         // }
 
         // 验证是否是首次登陆，首次登陆，录入用户基本信息
-        var userInfo = CONTROLLER.loadData(STORAGETYPE.UserInfo);
+        var userInfo = util.loadData(STORAGETYPE.UserInfo);
         console.log("userInfo: ", userInfo);
         var userHeight = userInfo.height;
 
-        // if (typeof (userHeight) === 'undefined' || userHeight === "") {
-        //     // 去注册
-        //     console.log("in app, go to User information record page!");
-        //     wx.redirectTo({
-        //         url: 'pages/settings/userinfo/userinfo?model=newUser',
-        //     });
-        // };
+        if (typeof (userHeight) === 'undefined' || userHeight === "") {
+            // 去注册
+            console.log("in app, go to User information record page!");
+            wx.redirectTo({
+                url: 'pages/settings/userinfo/userinfo?model=newUser',
+            });
+        };
 
         if (userInfo.defaultWechatLogin) {
             // 使用微信登录
@@ -95,14 +93,14 @@ App({
         }
     },
 
-    // 方便别的JS调用
-    Controller: CONTROLLER,
+    // 提供工具类的统一接口，方便其他的JS通过app调用
     StorageType: STORAGETYPE,
     Util: util,
 
-    // 定义一些全局变量
+    // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
     
     makingNewPlan: true,    // 操作计划的模式：如制定新计划为真，否则为假，在首页里两个操作互斥
+    planMakeModel: 3,  // 用户对计划来源的选择，1代表使用推荐计划，2代表使用历史计划，3代表使用自定义计划，默认是三
     planStartDate: '',      
     planEndDate: '',
     lastPlanSaved: false,
@@ -113,8 +111,6 @@ App({
         wechatUserInfo: null,
 
         isLogin: false,// 登陆状态记录
-
-        planMakeModel: -1,  // 用户对制定计划的选择，1代表使用推荐计划，2代表使用自定义计划，否则是-1
 
         selectedDateString: util.formatDateToString(new Date()),
         selectedDate: new Date(),

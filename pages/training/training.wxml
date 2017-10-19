@@ -83,9 +83,9 @@
 
                     <!-- 中间的倒数计时及组之间浏览控制器 -->
                     <view class='middlePanelRowContainer' style='height:180rpx'>
-                        <view class='image-contanier' bindtap="{{totalFinishedGroups!==0?'onLastGroup':''}}">
-                            <image class='image-arrows small' src="{{totalFinishedGroups!==0?'../image/arrow_left_32px.png':''}}"></image>
-                            <view class='tips center'>{{totalFinishedGroups!==0?'上一组':''}}</view>
+                        <view class='image-contanier' bindtap="{{currentActionId!==0||currentGroupId!==0?'onLastGroup':''}}">
+                            <image class='image-arrows small' src="{{currentActionId!==0||currentGroupId!==0?'../image/left_arrow_100.png':'../image/left_arrow_100_unselected.png'}}"></image>
+                            <view class='tips center'>上一组</view>
                         </view>
 
                         <view class='image-contanier' wx:if="{{!paused}}">
@@ -105,7 +105,7 @@
                         </view>
 
                         <view class='image-contanier' bindtap="{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'onNextGroup':''}}">
-                            <image class='image-arrows small' src="{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'../image/arrow_right_32px.png':''}}"></image>
+                            <image class='image-arrows small' src="{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'../image/right_arrow_100.png':''}}"></image>
                             <view class='tips center'>{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'下一组':''}}</view>
                         </view>
                     </view>
