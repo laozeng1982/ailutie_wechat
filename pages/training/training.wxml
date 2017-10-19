@@ -19,8 +19,8 @@
 
         <view class="topPanelRight">
             <view wx:if="{{todayHasPlan}}" class="topPanelRight_Inner" bindtap="onShowDetails">
-                <text style="font-size: 30rpx">{{todayPlan[currentPartId].name}}</text>
-                <text style="font-size: 50rpx">{{todayPlan[currentPartId].exerciseSet[currentActionId].action.name}}</text>
+                <text style="font-size: 30rpx">{{todayReality.executedSet[currentActionId].action.partSet[0]}}</text>
+                <text style="font-size: 50rpx">{{todayReality.executedSet[currentActionId].action.name}}</text>
             </view>
 
             <view wx:else class="topPanelRight_Inner">
@@ -46,7 +46,7 @@
                             <image id='last' wx:if="{{!firstAction}}" class='image-arrows' src='../image/arrows_square_left_64px.png' bindtap='onActionChange'></image>
                         </view>
 
-                        <image class='image-action' src="../{{todayPlan[currentPartId].exerciseSet[currentActionId].action.imageUrl}}"></image>
+                        <image class='image-action' src="../{{todayReality.executedSet[currentActionId].action.imageUrl}}"></image>
 
                         <view class='image-arrows'>
                             <image id='next' wx:if="{{!lastAction}}" class='image-arrows' src='../image/arrows_square_right_64px.png' bindtap='onActionChange'></image>
@@ -57,7 +57,7 @@
                     <!-- 切换动作数据 -->
                     <view class='middlePanelRowContainer' style='height:120rpx'>
                         <picker mode="multiSelector" bindchange="onActionPickerChange" bindcolumnchange="onPartPickerChange" value="{{multiIndex}}" range="{{partActionArray}}">
-                            <text class="fontset"> {{todayPlan[currentPartId].exerciseSet[currentActionId].action.name}} </text>
+                            <text class="fontset"> {{todayReality.executedSet[currentActionId].action.name}} </text>
                         </picker>
                     </view>
                 </view>
@@ -66,11 +66,11 @@
                 <view class='middlePanelColContainer' style='height:30%'>
                     <!-- 当前组的数据，通过pause和时间倒数显示互斥 -->
                     <view class='middlePanelRowContainer' style='height:50rpx' wx:if="{{!paused}}">
-                        <view class="pickerItem firstItem">第 {{currentGroupId + 1}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length}} 组</view>
+                        <view class="pickerItem firstItem">第 {{currentGroupId + 1}} /{{todayReality.executedSet[currentActionId].groupSet.length}} 组</view>
                         <picker class="pickerItemContainer" mode="multiSelector" bindchange="onChangeRealityData" value="{{realityIndex}}" range="{{realityDataArray}}">
                             <view class="pickerItemContainer">
-                                <view class="pickerItem">{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantity}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].quantity}} 次</view>
-                                <view class="pickerItem">{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].executedWeight}} /{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].weight}} {{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].uom}}</view>
+                                <view class="pickerItem">{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedQuantity}} /{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].quantity}} 次</view>
+                                <view class="pickerItem">{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedWeight}} /{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].weight}} {{todayReality.executedSet[currentActionId].groupSet[currentGroupId].uom}}</view>
                                 <image class='image-small' src='../image/pencil_64px.png'></image>
                             </view>
                         </picker>
@@ -89,7 +89,7 @@
                         </view>
 
                         <view class='image-contanier' wx:if="{{!paused}}">
-                            <view wx:if="{{!todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished}}">
+                            <view wx:if="{{!todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished}}">
                                 <view class='toFinishBtn' bindtap='onFinishAction'> 完成 </view>
                             </view>
 
@@ -104,16 +104,16 @@
                             </view>
                         </view>
 
-                        <view class='image-contanier' bindtap="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished?'onNextGroup':''}}">
-                            <image class='image-arrows small' src="{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished?'../image/arrow_right_32px.png':''}}"></image>
-                            <view class='tips center'>{{todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished?'下一组':''}}</view>
+                        <view class='image-contanier' bindtap="{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'onNextGroup':''}}">
+                            <image class='image-arrows small' src="{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'../image/arrow_right_32px.png':''}}"></image>
+                            <view class='tips center'>{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'下一组':''}}</view>
                         </view>
                     </view>
                 </view>
 
                 <!-- 3、每个动作计分器 -->
                 <view class='middlePanelRowContainer' style='height:10%'>
-                    <view class='middlePanelRowContainer' wx:if="{{todayPlan[currentPartId].exerciseSet[currentActionId].finished}}">
+                    <view class='middlePanelRowContainer' wx:if="{{todayReality.executedSet[currentActionId].finished}}">
                         <view>本动作感觉</view>
                         <view class="imageContainer">
                             <view wx:for="{{actionScoreStarArray}}" wx:key="{{index}}">

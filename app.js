@@ -2,10 +2,10 @@
 /**
  * 小程序总入口
  */
-import util from './utils/Util.js'
-import Controller from './utils/Controller.js'
-import StorageType from './datamodel/StorageType.js'
-import Plan from './datamodel/PlanSet.js'
+import util from './utils/Util'
+import Controller from './utils/Controller'
+import StorageType from './datamodel/SystemSetting'
+import Plan from './datamodel/PlanSet'
 import Body from './datamodel/Body'
 
 const CONTROLLER = new Controller.Controller();

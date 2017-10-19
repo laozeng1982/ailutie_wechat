@@ -1,8 +1,7 @@
 class Timer {
-    constructor(host, pause_seconds) {
+    constructor(host) {
         this.timerRunning = false;
         this.host = host;
-        this.pause_seconds = pause_seconds;
     }
 
     start() {
@@ -16,7 +15,6 @@ class Timer {
     stop() {
         stopTimer();
         this.timerRunning = false;
-
         // console.log("Timer Stopped!");
     }
 }
@@ -31,7 +29,7 @@ function countTimeDown(that) {
 
     if (countDownSeconds <= 0) {
         // timeout则跳出递归
-        console.log("to Next");
+        // console.log("to Next");
         that.nextGroup();
         return;
     }
@@ -59,5 +57,5 @@ function setCountDownSeconds(seconds) {
 module.exports = {
     Timer: Timer,
     setCountDownSeconds: setCountDownSeconds,
-    pause_seconds: countDownSeconds
+
 }

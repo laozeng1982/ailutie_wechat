@@ -522,7 +522,7 @@ Page({
      * @param e
      */
     onNumberChange: function (e) {
-        console.log("subPartIdx:", e.currentTarget.dataset.subpartidx, "action is:", e.currentTarget.id);
+        console.log("action:", e.currentTarget.dataset.action);
 
         let body = this.data.body;
 
@@ -541,9 +541,9 @@ Page({
             groupSet.push(new PlanSet.GroupSet(idx + 1, planCount, planWeight, measurement));
         }
 
-        let subPartIdx = e.currentTarget.dataset.subpartidx;
+        let selectedAction = e.currentTarget.dataset.action;
 
-        body.addGroupSetToAction(subPartIdx, groupSet);
+        body.addGroupSetToAction(selectedAction, groupSet);
 
         this.setData({
             body: body

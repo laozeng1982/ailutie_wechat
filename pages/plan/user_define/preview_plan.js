@@ -462,9 +462,16 @@ Page({
      * 每次进入，必然加载
      */
     onLoad: function (options) {
-        wx.setNavigationBarTitle({
-            title: '计划预览',
-        });
+        if (options.model==="modify") {
+            wx.setNavigationBarTitle({
+                title: '浏览计划',
+            });
+        } else {
+            wx.setNavigationBarTitle({
+                title: '预览计划',
+            });
+        }
+
         let today = app.Util.formatDateToString(new Date());
 
         this.setData({

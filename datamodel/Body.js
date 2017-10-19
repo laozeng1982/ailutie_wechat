@@ -347,17 +347,22 @@ class Body {
 
     /**
      *
-     * @param subPartIdx
+     * @param action，当前选中的动作
      * @param groupSet
      */
-    addGroupSetToAction(subPartIdx, groupSet) {
+    addGroupSetToAction(selectedAction, groupSet) {
         for (let part of this.parts) {
             if (part.selected && part.active) {
-                delete part.actionSet[subPartIdx].groupSet;
-                part.actionSet[subPartIdx].groupSet = groupSet;
-                // 因为选中picker同时会响应这个外部view的函数，也就是说会响应onSelectAction，所以需要重置一些状态
-                // 重新置为选中，和记数
-                part.actionSet[subPartIdx].selected = true;
+                for (let action of part.actionSet) {
+                    if (selectedAction.partSet[0] ===action.partSet[0] && selectedAction.name === action.name) {
+                        delete action.groupSet;
+                        action.groupSet = groupSet;
+                        // 因为选中picker同时会响应这个外部view的函数，也就是说会响应onSelectAction，所以需要重置一些状态
+                        // 重新置为选中，和记数
+                        action.selected = true;
+                    }
+                }
+
             }
         }
 

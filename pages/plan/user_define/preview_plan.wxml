@@ -5,7 +5,7 @@
 
     <!-- 日历控制 -->
     <view class="dateControl" bindtap='onCalendarHeader'>
-        <view class="header">
+        <view class="calender-header">
             <picker mode="date" value="{{selectedDate}}" start="2015-09-01" end="2099-12-31" bindchange="onSelectMonthYear">
                 <view class="picker">
 
@@ -20,7 +20,7 @@
                 </view>
             </picker>
             <view class='thisMounthContanier' bindtap="onToThisMounth">
-                <view class="{{currentMonth!==todayMonth || currentYear!==todayYear?'thisMounth':'not_thisMounth'}}">本月</view>
+                <view class="{{currentMonth!==todayMonth || currentYear!==todayYear?'thisMounth':'not_thisMounth'}} round">本月</view>
             </view>
         </view>
     </view>

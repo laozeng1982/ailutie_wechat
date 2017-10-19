@@ -7,15 +7,12 @@
 import util from 'Util.js'
 import User from '../datamodel/User'
 import SystemSetting from '../datamodel/SystemSetting.js'
-import StorageType from '../datamodel/StorageType.js'
 import PlanSet from '../datamodel/PlanSet.js'
-
-var DATATYPE = new StorageType.StorageType();
 
 class Controller {
     //获取一个StrorageType作为全局变量用
     constructor() {
-        this.STORAGETYPE = new StorageType.StorageType();
+        this.STORAGETYPE = new SystemSetting.StorageType();
     }
 
     /**
@@ -93,20 +90,15 @@ class Controller {
 
     /**
      * 功能：存储数据
-     * 参数1：key，保存的数据key
-     * 参数2：dataType，数据类型（StrorageType）
-     * 参数3：dataToSave，要存储的数据
-     * 当存储的数据，为DailyRecords的时候，需要更新记录表
+     * 参数1：dataType，数据类型（StrorageType）
+     * 参数2：dataToSave，要存储的数据
      * 调用关系：外部函数，开放接口
      */
     saveData(dataType, dataToSave) {
-
         // 根据类型来判断是否需要替换其中的数据，还是直接覆盖
         console.log("in saveData, targetToSave: ", dataToSave);
-
         wx.setStorageSync(dataType.key, dataToSave);
     }
-
 }
 
 module.exports = {

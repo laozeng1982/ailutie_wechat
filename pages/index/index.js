@@ -1,5 +1,5 @@
 //index.js
-import User from '../../datamodel/User.js'
+import User from '../../datamodel/User'
 import PlanSet from '../../datamodel/PlanSet'
 import ChartMaker from '../ui/canvas/ChartMaker'
 
@@ -11,8 +11,6 @@ Page({
         currentPlan: '',
         currentChart: '',
         chartTitle: '',
-        motto: 'Hello',
-        wechatUserInfo: {},
         notSignUp: true,
 
         chartType: [
@@ -90,7 +88,6 @@ Page({
     /**
      * 修改现有计划
      * 只有当前有计划是才能有此接口，置app.makingNewPlan为false。
-     *
      */
     onModifyPlan: function () {
         app.makingNewPlan = false;
@@ -102,7 +99,6 @@ Page({
     /**
      * 定制新计划
      * 只有当前没有有计划是才能有此接口，置app.makingNewPlan为true。
-     *
      */
     onMakePlan: function () {
         app.makingNewPlan = true;
@@ -112,28 +108,25 @@ Page({
     },
 
     onLoad: function () {
-
         console.log('index page onLoad');
-        let that = this;
 
         let notSignUp = app.Util.checkSignUp();
-        // console.log("notSignUp is: ", notSignUp);
 
-        //调用应用实例的方法获取全局数据
-        app.getWechatUserInfo(function (wechatUserInfo) {
-            //更新数据
-            that.setData({
-                wechatUserInfo: wechatUserInfo,
-                motto: 'Hello ' + wechatUserInfo.nickName,
-                notSignUp: notSignUp
-            });
+        //更新数据
+        this.setData({
+            notSignUp: notSignUp
         });
+
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
+
+    },
+
+    onShow: function () {
         // 首次进入，渲染第一张，周视图
         let currentChart = chartMaker.makeChart();
 
@@ -141,10 +134,7 @@ Page({
             chartTitle: "本周运动量",
             currentChart: currentChart
         });
-        // console.log("in onReady:", this.data.currentChart);
-    },
 
-    onShow: function () {
         console.log('index page onShow');
 
         // 这里是预览和修改计划的唯一入口，所以需要在这里更新app.currentPlan

@@ -1,6 +1,5 @@
 <!--pages/plan/user_define/select_part.wxml-->
 <view class='thisContainer'>
-    <!-- <view class='graySpaceSmall'></view> -->
 
     <view wx:if="{{currentTabIdx===index}}" wx:for="{{tabData}}" wx:key="{{index}}" class='topArea'>
 
@@ -8,20 +7,27 @@
 
         <view class='graySpaceSmall'></view>
 
-        <!-- 时间选择Tab -->
+        <!-- 时间选择Ta -->
         <view class="swiper-box" wx:if="{{currentTabIdx===0}}" id="{{tabData[0].type}}">
             <view class='inner-top'>
                 <view class='rowContainer'>
                     <view class='text1'>开始日期：</view>
                     <picker class='picker_row' id='start' mode="date" value="{{fromDate}}" start="{{fromDate}}" end="2099-12-31" bindchange="onDatePickerChange">
-                        <view style='margin-left:50rpx'>{{fromDate}}</view>
+                        <view class='picker_row'>
+                            <view style='margin-left:50rpx'>{{fromDate}}</view>
+                            <image class='image' src='../../image/calender_64px.png'></image>
+                        </view>
                     </picker>
+
                 </view>
 
                 <view class='rowContainer'>
                     <view class='text1'>结束日期：</view>
                     <picker class='picker_row' id='end' mode="date" value="{{toDate}}" start="{{toDate}}" end="2099-12-31" bindchange="onDatePickerChange">
-                        <view style='margin-left:50rpx'>{{toDate}}</view>
+                        <view class='picker_row'>
+                            <view style='margin-left:50rpx'>{{toDate}}</view>
+                            <image class='image' src='../../image/calender_64px.png'></image>
+                        </view>
                     </picker>
                 </view>
 
@@ -125,11 +131,11 @@
                                     <image class='actionImage' src='../../{{item.imageUrl}}'></image>
 
                                     <view class='actionItem'>
-                                        <view class='header'>
+                                        <view class='action-header'>
                                             <view>{{item.name}}</view>
                                         </view>
                                         <!-- 当动作单位为空的时候，是自定义动作，不显示picker -->
-                                        <picker wx:if="{{item.gpMeasurement !== ''}}" id="{{item.id}}" data-subpartidx="{{item.id-1}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
+                                        <picker wx:if="{{item.gpMeasurement !== ''}}" data-action="{{item}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
                                             <view class="pickerContainer">
                                                 <view class="pickerItem">{{item.groupSet.length}} </view>
                                                 <view class="pickerItem">组</view>

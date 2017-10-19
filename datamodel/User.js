@@ -6,7 +6,7 @@ class UserInfo {
 
     constructor() {
         //以下数据，一旦建立，不可修改
-        this.userUID = ''; //系统分配，所有数据的唯一识别号，系统验证使用，
+        this.userUID = ''; //系统分配，所有数据的唯一识别号，系统验证使用
         this.gender = ''; //就俩，男或者女
         this.birthday = ''; //格式：1990-08-10
 
@@ -26,12 +26,12 @@ class UserInfo {
 
 class UserProfile {
     constructor() {
+        this.date = '';
+        this.height = new UserProfileItem(1, "General", "身高", "", "cm");
+        this.weight = new UserProfileItem(2, "General", "体重", "", "Kg");
+        this.bmi = new UserProfileItem(3, "General", "BMI", "", "");
+        this.bodyFatRate = new UserProfileItem(4, "General", "体脂率", "", "%");
         this.profiles = [
-
-            new UserProfileItem(1, "General", "身高", "", "cm"),
-            new UserProfileItem(2, "General", "体重", "", "Kg"),
-            new UserProfileItem(3, "General", "BMI", "", ""),
-            new UserProfileItem(4, "General", "体脂率", "", "%"),
 
             new UserProfileItem(1, "Circumference", "肩宽", "", "cm"),
             new UserProfileItem(2, "Circumference", "胸围", "", "cm"),

@@ -4,9 +4,6 @@
  *
  */
 
-import StorageType from '../datamodel/StorageType.js'
-
-const STORAGETYPE = new StorageType.StorageType();
 
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
@@ -43,7 +40,6 @@ function formatDateToString(date) {
  * 参数day：当月第day日
  */
 function getDateFromString(year, month, day) {
-
     return new Date(Date.UTC(year, month - 1, day));
 }
 
@@ -71,39 +67,12 @@ function formatStringDate(year, month, day) {
 }
 
 /**
- *
+ * 格式化输出数字，固定位数
+ * @param n，位数
  */
 function formatNumber(n) {
     n = n.toString();
     return n[1] ? n : '0' + n;
-}
-
-function countTimeDown(that, pause_seconds) {
-    // 渲染倒计时时钟
-    that.setData({
-        clock: pause_seconds + "  秒"
-    });
-
-    if (pause_seconds <= 0) {
-        // timeout则跳出递归
-        return;
-    }
-
-    let timer = setTimeout(function () {
-        // 放在最后--
-        pause_seconds -= 1;
-        countTimeDown(that, pause_seconds);
-    }, 1000);
-
-}
-
-function log(msg) {
-    // let time = formatTimeToString(new Date());
-    let trace = (new Error()).stack.split("\n")[2].replace(/(^\s*)|(\s*$)/g, "");
-    console.log(trace);
-    // console.error(trace);
-    let name = trace.toString().split(" ")[0] + " " + trace.split(" ")[1] + ":";
-    console.log(name, msg);
 }
 
 /**
@@ -120,19 +89,12 @@ function compare2Array(array1, array2) {
 
 /**
  * 检查当前选择日期与今天的关系
- * 过期返回：-1
- * 今天返回：0
- * 将来返回：1
+ * 过期，则返回：-1
+ * 今天，则返回：0
+ * 将来，则返回：1
  */
 function dateDirection(selectedDate) {
     let direction = -1;
-
-    let nowString = formatDateToString(new Date());
-    let now = getDateFromString(nowString, '-').getTime() / (3600 * 24 * 1000);
-    let selected = getDateFromString(selectedDate, '-').getTime() / (3600 * 24 * 1000);
-
-    // console.log("now: ", now);
-    // console.log("selected: ", selected);
 
     let distance = datesDistance(selectedDate, formatDateToString(new Date()));
     if (distance > 0) {
@@ -157,8 +119,6 @@ function datesDistance(start, end) {
     let endTime = getDateFromString(end, '-').getTime() / (3600 * 24 * 1000);
 
     distance = endTime - startTime;
-
-    // console.log("day distance is: " + distance);
 
     return distance;
 }
@@ -196,36 +156,7 @@ function inPeriod(startDate, checkDate, endDate) {
     let checkDateTimeMills = getDateFromString(checkDate, '-').getTime();
     let endDateTimeMills = getDateFromString(endDate, '-').getTime();
 
-    return checkDateTimeMills >= startDateTimeMills && checkDateTimeMills <= endDateTimeMills;
-}
-
-/**
- * 这个是重量单位选择器的函数，先放着
- */
-function onChangeMeasure(e) {
-    let measurement;
-    if (e.detail.value) {
-        measurement = 'Kg';
-    } else {
-        measurement = 'Lb';
-    }
-    that.setData({
-        curMeasurement: measurement
-    });
-
-    console.log(e.detail.value);
-    console.log(that.data.curMeasurement);
-}
-
-function isLogin() {
-    let app = getApp();
-    if (!app.globalData.isLogin) {
-        console.log("No user login...");
-        return false;
-    } else {
-        console.log(app.globalData.userInfo.aa, "login");
-        return true;
-    }
+    return startDateTimeMills <= checkDateTimeMills && checkDateTimeMills <= endDateTimeMills;
 }
 
 /**
@@ -237,8 +168,14 @@ function checkSignUp() {
     return (userInfo.length === 0);
 }
 
-function showNormalToast(text, o, count) {
-    let that = o;
+/**
+ * 显示正常提示
+ * @param text
+ * @param host
+ * @param count
+ */
+function showNormalToast(text, host, count) {
+    let that = host;
     count = parseInt(count) ? parseInt(count) : 3000;
     that.setData({
         toastText: text,
@@ -251,8 +188,14 @@ function showNormalToast(text, o, count) {
     }, count);
 }
 
-function showWarnToast(text, o, count) {
-    let that = o;
+/**
+ * 显示警告提示
+ * @param text
+ * @param host
+ * @param count
+ */
+function showWarnToast(text, host, count) {
+    let that = host;
     count = parseInt(count) ? parseInt(count) : 3000;
     that.setData({
         toastText: text,
@@ -316,16 +259,13 @@ module.exports = {
     formatNumber: formatNumber,
     dateDirection: dateDirection,
     datesDistance: datesDistance,
-    isLogin: isLogin,
     checkSignUp: checkSignUp,
     showNormalToast: showNormalToast,
     showWarnToast: showWarnToast,
     getMovedDate: getMovedDate,
     inPeriod: inPeriod,
     makePartString: makePartString,
-    log: log,
     compare2Array: compare2Array,
-    countTimeDown: countTimeDown,
     deepClone: deepClone
 
 }

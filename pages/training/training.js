@@ -2,7 +2,6 @@
  * 锻炼计划记录页面
  */
 
-import DataType from '../../datamodel/StorageType'
 import Reality from '../../datamodel/RealitySet'
 import Timer from '../../utils/Timer'
 import ChartMaker from '../ui/canvas/ChartMaker'
@@ -18,21 +17,14 @@ Page({
      */
     data: {
         showDate: '',
-        todayPlan: [],  // 今天的计划
-        todayReality: new Reality.Reality(),    // 今天完成的内容
+        todayReality: {},    // 今天完成的内容
         // todayHasPlan: false,
 
         currentChart: {},
         // 当前选中的部位和动作索引，初始选中第一个
-        currentPartId: 0,
         currentActionId: 0,
         currentGroupId: 0,
-        totalFinishedGroups: 0, // 小程序诡异，通过todayPlan.totalFinishedGroups不能控制控件，不得已，多加这个变量
-
-        // 控件关联值，输入框里的次数和重量
-        actualCount: '',
-        actualWeight: '',
-        actualMvFeeling: 3, // 默认给3分，免得用户忘了选
+        totalFinishedGroups: 0, // 小程序诡异，通过todayReality.totalFinishedGroups不能控制控件，不得已，多加这个变量
 
         // 只给每个动作最后做完以后打分
         actionScoreStarArray: [
@@ -53,10 +45,7 @@ Page({
         partActionArray: [], // 动作选择Picker的数据池，二维数组，第一列始终是partArray，第二列是actionArray中的一个元素
         multiIndex: [0, 0], // 动作选择Picker的索引
 
-        countSelector: [],
-        weightSelector: [],
-
-        // 3D 数组，用来存放动作次数、重量和评分
+        // 二维数组，用来存放动作次数、重量
         realityDataArray: [],
         // 数量选择索引
         realityIndex: [7, 15],
@@ -80,18 +69,17 @@ Page({
      */
     onChangeRealityData: function (e) {
         console.log('picker发送选择改变，携带值为', e.detail.value);
-        let todayPlan = this.data.todayPlan;
-        let currentPartId = this.data.currentPartId;
+        let todayReality = this.data.todayReality;
         let currentActionId = this.data.currentActionId;
         let currentGroupId = this.data.currentGroupId;
 
-        todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantity =
+        todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedQuantity =
             parseInt(this.data.realityDataArray[0][e.detail.value[0]]);
-        todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].executedWeight =
+        todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedWeight =
             parseInt(this.data.realityDataArray[1][e.detail.value[1]]);
 
         this.setData({
-            todayPlan
+            todayReality
         });
 
     },
@@ -104,29 +92,27 @@ Page({
      * @param e
      */
     onFinishAction: function (e) {
-        let todayPlan = this.data.todayPlan;
-        let currentPartId = this.data.currentPartId;
+        let todayReality = this.data.todayReality;
         let currentActionId = this.data.currentActionId;
         let currentGroupId = this.data.currentGroupId;
-        todayPlan[currentPartId].exerciseSet[currentActionId].groupSet[currentGroupId].finished = true;
+        todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished = true;
 
-        if (todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId + 1 >= todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length)
-            todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length - 1;
+        if (todayReality.executedSet[currentActionId].currentGroupId + 1 >= todayReality.executedSet[currentActionId].groupSet.length)
+            todayReality.executedSet[currentActionId].currentGroupId = todayReality.executedSet[currentActionId].groupSet.length - 1;
         else
-            todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId++;
+            todayReality.executedSet[currentActionId].currentGroupId++;
 
-        todayPlan[currentPartId].exerciseSet[currentActionId].finishedCount++;
-        todayPlan[currentPartId].exerciseSet[currentActionId].finished =
-            todayPlan[currentPartId].exerciseSet[currentActionId].finishedCount >= todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length;
+        todayReality.executedSet[currentActionId].finishedCount++;
+        todayReality.executedSet[currentActionId].finished =
+            todayReality.executedSet[currentActionId].finishedCount >= todayReality.executedSet[currentActionId].groupSet.length;
 
-        todayPlan.totalFinishedGroups++;
+        todayReality.totalFinishedGroups++;
 
         this.setData({
-            todayPlan: todayPlan,
-            totalFinishedGroups: todayPlan.totalFinishedGroups,
+            todayReality: todayReality,
+            totalFinishedGroups: todayReality.totalFinishedGroups,
             paused: true
         });
-
 
         // 更新完成比例视图
         this.updateFinishedChart();
@@ -148,14 +134,15 @@ Page({
      */
     updateFinishedChart: function () {
         let percentFinished = 0;
-        let todayPlan = this.data.todayPlan;
-        let totalGroups = todayPlan.totalGroups;
-        let totalFinishedGroups = todayPlan.totalFinishedGroups;
+        let todayReality = this.data.todayReality;
+        let totalGroups = todayReality.totalGroups;
+        let totalFinishedGroups = todayReality.totalFinishedGroups;
 
-        if (totalGroups !== 0 && totalFinishedGroups <= totalGroups)
+        if (totalGroups !== 0 && totalFinishedGroups <= totalGroups) {
             percentFinished = Math.ceil(totalFinishedGroups * 100 / totalGroups);
+        }
 
-        console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
+        // console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
 
         this.data.currentChart.updateData({
             title: {
@@ -208,7 +195,7 @@ Page({
      * 2、跳转组，
      */
     onNextGroup: function () {
-        console.log(typeof this.timer);
+        // console.log(typeof this.timer);
         if (typeof this.timer !== "undefined")
             this.timer.stop();
         this.nextGroup();
@@ -251,16 +238,15 @@ Page({
     onActionScore: function (e) {
         // 实际分数
         let score = parseInt(e.currentTarget.id);
-        let todayPlan = this.data.todayPlan;
-        let currentPartId = this.data.currentPartId;
+        let todayReality = this.data.todayReality;
         let currentActionId = this.data.currentActionId;
 
         console.log("in onActionScore, score is: ", e.currentTarget.id);
 
-        todayPlan[currentPartId].exerciseSet[currentActionId].actionScore = score;
+        todayReality.executedSet[currentActionId].actionScore = score;
 
         this.setData({
-            todayPlan: todayPlan,
+            todayReality: todayReality,
         });
 
         // 更新视图
@@ -270,13 +256,13 @@ Page({
     /**
      * 将动作评分的初始值设为计划的值，方便用户选取
      */
-    setPickerIndex: function () {
-        if (this.data.todayPlan.movementList.length === 0) {
-            console.log("in setPickerIndex, today has no currentPlan");
+    initQuantityPickerIndex: function () {
+        if (this.data.todayReality.movementList.length === 0) {
+            console.log("in initQuantityPickerIndex, today has no currentPlan");
             return;
         }
 
-        let selectedMovement = this.data.todayPlan.movementList[this.data.currentActionId - 1];
+        let selectedMovement = this.data.todayReality.movementList[this.data.currentActionId - 1];
         // 获取当前计划的计划数据
         let planCount = selectedMovement.contents.details[0].planCount;
         let planWeight = selectedMovement.contents.details[0].planWeight;
@@ -286,7 +272,7 @@ Page({
             this.getArrayIndex(planWeight, this.data.realityDataArray[1]),
             2
         ];
-        // console.log("in setPickerIndex, ", planCount, planWeight);
+        // console.log("in initQuantityPickerIndex, ", planCount, planWeight);
         // 重置索引
         this.setData({
             actualCount: planCount,
@@ -294,41 +280,6 @@ Page({
             actualGpFeeling: 3,
             RealityIndex: RealityIndex
         })
-    },
-
-    /**
-     *
-     * @param element
-     * @param array，单调递增的数组
-     * @returns {number}
-     */
-    getArrayIndex: function (element, array) {
-        let indexOfElement = -1;
-        if (element <= array[0]) {
-            indexOfElement = 0;
-        } else if (element >= array[array.length - 1]) {
-            indexOfElement = array.length - 1;
-        } else {
-            for (let idx = 1; idx < array.length - 1; idx++) {
-                if (element >= array[idx] && element <= array[idx + 1])
-                    indexOfElement = idx;
-            }
-        }
-
-        return indexOfElement;
-    },
-
-    /**
-     * 根据选择的星数，获取动作感觉评分
-     * @returns {number}
-     */
-    getMvFeeling: function () {
-        let feeling = 0;
-        for (let item of this.data.actionScoreStarArray) {
-            if (item.checked)
-                feeling++;
-        }
-        return feeling;
     },
 
     /**
@@ -346,31 +297,23 @@ Page({
      * 这里有两种入口
      */
     changeGroup: function (isNext) {
-        let todayPlan = this.data.todayPlan;
-        let currentPartId = this.data.currentPartId;
+        let todayReality = this.data.todayReality;
         let currentActionId = this.data.currentActionId;
         let currentGroupId = this.data.currentGroupId;
 
         if (isNext) {
             // 向后翻
-            if (currentGroupId + 1 < todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length) {
+            if (currentGroupId + 1 < todayReality.executedSet[currentActionId].groupSet.length) {
                 currentGroupId++;
             } else {
-                if (currentActionId + 1 < todayPlan[currentPartId].exerciseSet.length) {
+                if (currentActionId + 1 < todayReality.executedSet.length) {
                     currentActionId++;
                     currentGroupId = 0;
-                } else {
-                    if (currentPartId + 1 < todayPlan.length) {
-                        currentPartId++;
-                        currentActionId = 0;
-                        currentGroupId = 0;
-                    } else {
-                        // 这已经到最后了
-                        this.setData({
-                            paused: false
-                        });
-                        console.log("It's the last action~~");
-                    }
+                    // 这已经到最后了
+                    this.setData({
+                        paused: false
+                    });
+                    console.log("It's the last action~~");
                 }
             }
         } else {
@@ -380,24 +323,20 @@ Page({
             } else {
                 if (currentActionId - 1 >= 0) {
                     currentActionId--;
-                    currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length - 1;
+                    currentGroupId = todayReality.executedSet[currentActionId].groupSet.length - 1;
                 } else {
-                    if (currentPartId - 1 >= 0) {
-                        currentPartId--;
-                        currentActionId = todayPlan[currentPartId].exerciseSet.length - 1;
-                        currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].groupSet.length - 1;
-                    } else {
-                        // 这已经到最前面了
-                        this.setData({
-                            paused: false
-                        });
-                        console.log("It's the first action~~");
-                    }
+                    currentActionId = 0;
+                    currentGroupId = 0;
+                    // 这已经到最前面了
+                    this.setData({
+                        paused: false
+                    });
+                    console.log("It's the first action~~");
                 }
             }
         }
 
-        this.changeAction(currentPartId, currentActionId, currentGroupId);
+        this.changeAction(currentActionId, currentGroupId);
 
     },
 
@@ -407,37 +346,43 @@ Page({
      * 2、设置Picker状态
      * 3、设置动作导航imageButton的状态
      * 4、设置当前组，跳转当前动作对应的组
-     * @param currentPartId
      * @param currentActionId
      * @param currentGroupId
      */
-    changeAction: function (currentPartId, currentActionId, currentGroupId) {
-        let todayPlan = this.data.todayPlan;
+    changeAction: function (currentActionId, currentGroupId) {
+        let todayReality = this.data.todayReality;
         let partActionArray = this.data.partActionArray;
 
+        // 同时更新动作选择列表
+        let currentPartId = 0;
+        for (let idx = 0; idx < partActionArray[0].length; idx++) {
+            if (partActionArray[idx] === todayReality.executedSet[currentActionId].action.partSet[0]) {
+                console.log("match:  ", partActionArray[idx]);
+                currentPartId = idx;
+            }
+        }
         partActionArray[1] = this.data.actionArray[currentPartId];
 
-        if (todayPlan[currentPartId].exerciseSet[currentActionId].finished) {
-            console.log("score:", todayPlan[currentPartId].exerciseSet[currentActionId].actionScore);
-            this.updateActionScore(todayPlan[currentPartId].exerciseSet[currentActionId].actionScore);
+        if (todayReality.executedSet[currentActionId].finished) {
+            console.log("score:", todayReality.executedSet[currentActionId].actionScore);
+            this.updateActionScore(todayReality.executedSet[currentActionId].actionScore);
         }
 
-        todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId = currentGroupId;
+        todayReality.executedSet[currentActionId].currentGroupId = currentGroupId;
 
         this.setData({
-            currentPartId: currentPartId,
             currentActionId: currentActionId,
             currentGroupId: currentGroupId,
             partActionArray: partActionArray,
             multiIndex: [currentPartId, currentActionId],
-            firstAction: currentActionId === 0 && currentPartId === 0,
-            lastAction: currentPartId === todayPlan.length - 1 && currentActionId === todayPlan[currentPartId].exerciseSet.length - 1,
+            firstAction: currentActionId === 0,
+            lastAction: currentActionId === todayReality.executedSet.length - 1,
             enablePause: true,  //无论是哪里跳转来的，都要把暂停复位
             paused: false
         });
 
-        console.log("currentGroupId", currentGroupId, "currentActionId", currentActionId, "currentPartId", currentPartId);
-        console.log("Training page onShow call, this.data.todayPlan: ", this.data.todayPlan);
+        // console.log("currentActionId:", currentActionId, "currentGroupId:", currentGroupId);
+        // console.log("Training page onShow call, this.data.todayReality: ", this.data.todayReality);
     },
 
     /**
@@ -468,11 +413,22 @@ Page({
      * @param e
      */
     onActionPickerChange: function (e) {
-        let todayPlan = this.data.todayPlan;
-        let currentPartId = e.detail.value[0];
-        let currentActionId = e.detail.value[1];
-        let currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId;
-        this.changeAction(currentPartId, currentActionId, currentGroupId);
+        let todayReality = this.data.todayReality;
+        let partIdx = e.detail.value[0];
+        let actionIdx = e.detail.value[1];
+        let currentActionId = 0;
+
+        for (let idx = 0; idx < this.data.todayReality.executedSet.length; idx++) {
+            // 注意这里要判断两个，一个是动作名，一个是对应的主部位名，同时相等才行
+            if (this.data.todayReality.executedSet[idx].action.partSet[0] === this.data.partActionArray[0][partIdx] &&
+                this.data.todayReality.executedSet[idx].action.name === this.data.partActionArray[1][actionIdx]) {
+                currentActionId = idx;
+                break;
+            }
+        }
+
+        let currentGroupId = todayReality.executedSet[currentActionId].currentGroupId;
+        this.changeAction(currentActionId, currentGroupId);
     },
 
     /**
@@ -482,41 +438,22 @@ Page({
      * 3、调用跳转方法changeAction
      */
     onActionChange: function (e) {
-        let todayPlan = this.data.todayPlan;
-        let currentPartId = this.data.currentPartId;
+        let todayReality = this.data.todayReality;
         let currentActionId = this.data.currentActionId;
 
-
         if (e.currentTarget.id === "next") {
-            // 向后跳转，如果越界，需要判断部位的状态，否则直接变
-            if (currentActionId + 1 >= todayPlan[currentPartId].exerciseSet.length) {
-                if (currentPartId + 1 >= todayPlan.length) {
-                    currentPartId = todayPlan.length - 1;
-                } else {
-                    currentPartId++;
-                    currentActionId = 0;
-                }
-            } else {
-                currentActionId = currentActionId + 1;
-            }
+            // 向后跳转，如果越界，直接跳到最后一个
+            currentActionId = (currentActionId + 1 >= todayReality.executedSet.length) ?
+                todayReality.executedSet.length - 1 : (currentActionId + 1);
         } else {
-            // 向前跳转，如果越界，需要判断部位的状态，否则直接变
-            if (currentActionId - 1 < 0) {
-                if (currentPartId - 1 < 0) {
-                    currentPartId = 0;
-                    currentActionId = 0;
-                } else {
-                    currentPartId--;
-                    currentActionId = todayPlan[currentPartId].exerciseSet.length - 1;
-                }
-            } else {
-                currentActionId = currentActionId - 1;
-            }
+            // 向前跳转，如果越界，直接跳到第一个
+            currentActionId = (currentActionId - 1 < 0) ? 0 : (currentActionId - 1);
         }
-        // 将切换后的动作currentGroupId传过来
-        let currentGroupId = todayPlan[currentPartId].exerciseSet[currentActionId].currentGroupId;
 
-        this.changeAction(currentPartId, currentActionId, currentGroupId);
+        // 将切换后的动作currentGroupId传过来
+        let currentGroupId = todayReality.executedSet[currentActionId].currentGroupId;
+
+        this.changeAction(currentActionId, currentGroupId);
     },
 
     /**
@@ -544,19 +481,10 @@ Page({
 
         this.setData({
             showDate: showDate,
-            countSelector: countSelector,
-            weightSelector: weightSelector,
             realityDataArray: realityDataArray,
             currentChart: currentChart
         });
 
-    },
-
-    /**
-     * 保存今天临时计划
-     */
-    saveTodayPlan: function () {
-        app.Controller.saveData(app.StorageType.TodayPlan, this.data.todayPlan);
     },
 
     /**
@@ -568,48 +496,81 @@ Page({
 
     /**
      * 将Plan数据转成Reality数据，方便存储和传输
-     * 需要处理一些事务，如果计划有变，之前保存的数据需要去更新，需要判断todayPlan中完成的数据与现有的冲突关系
+     * 需要处理一些事务，如果计划有变，之前保存的数据需要去更新，需要判断todayReality中完成的数据与现有的冲突关系
      * 1、读取Reality数据
-     * 2、整理Reality数据
+     * 2、整理Reality数据，只记录已经锻炼的部分，没有锻炼的不记录
      * 3、存储Reality数据
      */
     saveReality: function () {
-        let todayPlan = this.data.todayPlan;
+        let todayReality = this.data.todayReality;
+        let existReality = null;
         // 1、读取Reality
         let RealitySet = app.Controller.loadData(app.StorageType.RealitySet);
 
-        let todayReality;
         let today = app.Util.formatDateToString(new Date());
 
         for (let reality of RealitySet) {
             if (reality.date === today) {
-                todayReality = reality;
+                existReality = reality;
             }
         }
 
-        if (typeof todayReality === "undefined") {
-            console.log("no previous reality, create a new one!");
-            todayReality = new Reality.Reality(today);
-        }
+        console.log("existReality:", existReality);
+        console.log("todayReality:", todayReality);
 
         // 2、整理Reality
-        if (todayReality.executedSet.length === 0) {
-            for (let plan of todayPlan) {
-                for (let exercise of plan.exerciseSet) {
+        // 2.1、如果已经存在的记录本次存储没有（由于计划有变，进入页面初始化时，丢掉了），需要加上；反之，已本次页面产生的最新数据为准，这里没有替换地方
+        // 2.2、只记录已经锻炼的部分，没有锻炼的不记录
+        if (existReality !== null && existReality.executedSet.length > 0) {
+            // 先搜索
+            for (let existExercise of existReality.executedSet) {
+                let hasThisExercise = false;
 
+                for (let currentExercise of todayReality.executedSet) {
+                    if (existExercise.action.partSet[0] === currentExercise.action.partSet[0] &&
+                        existExercise.action.name === currentExercise.action.name) {
+                        hasThisExercise = true;
+                    }
+                }
+
+                if (!hasThisExercise) {
+                    todayReality.executedSet.push(existExercise);
                 }
             }
-        } else {
-
         }
 
+        let realityToSave = new Reality.Reality(today);
 
-        // 3、存储Reality
+        for (let exercise of todayReality.executedSet) {
+            let exerciseToBeAdd = null;
+            if (exercise.finishedCount > 0 && exercise.finishedCount < exercise.groupSet.length) {
+                // 未全部完成
+                exerciseToBeAdd = app.Util.deepClone(exercise);
+                exerciseToBeAdd.groupSet = [];
+                for (let group of exercise.groupSet) {
+                    if (group.finished) {
+                        exerciseToBeAdd.groupSet.push(group);
+                    }
+                }
+
+            } else if (exercise.finishedCount === exercise.groupSet.length) {
+                // 全部完成，直接添加
+                exerciseToBeAdd = exercise;
+            }
+
+            if (exerciseToBeAdd !== null) {
+                realityToSave.executedSet.push(exerciseToBeAdd);
+            }
+        }
+
+        // console.log("realityToSave:", realityToSave);
+
+        // 3、存储整理好的Reality，即最终实际的Reality
         let hasThisRealityIndex = -1;
         if (RealitySet.length > 0) {
             // 先寻找是否有当天Reality，如果有，则记下位置
             for (let idx = 0; idx < RealitySet.length; idx++) {
-                if (RealitySet[idx].date === todayReality.date) {
+                if (RealitySet[idx].date === realityToSave.date) {
                     hasThisRealityIndex = idx;
                     break;
                 }
@@ -618,9 +579,9 @@ Page({
 
         // 如果有这天的记录则替换，否则直接插入
         if (hasThisRealityIndex !== -1) {
-            RealitySet.splice(hasThisRealityIndex, 1, todayReality);
+            RealitySet.splice(hasThisRealityIndex, 1, realityToSave);
         } else {
-            RealitySet.push(todayReality);
+            RealitySet.push(realityToSave);
         }
 
         app.Controller.saveData(app.StorageType.RealitySet, RealitySet);
@@ -628,33 +589,38 @@ Page({
     },
 
     /**
-     * 根据计划和已经保存的todayPlan数据来初始化当前的todayPlan
-     * 这里可能存在用户把之前锻炼过的计划删除了，可能会丢掉部分数据
+     * 根据计划和已经保存的Reality数据来初始化当前的Reality
+     * 这里可能存在用户把之前锻炼过的计划删除了，这里为了保持和计划一直可能会丢掉部分数据
+     * 但实际存储的锻炼数据在保存的时候才处理，那里不丢失即可
      */
-    initTodayPlan: function () {
-        let today = new Date();
-        let todayPlan = [];
+    initTodayReality: function () {
+        let today = app.Util.formatDateToString(new Date());
+        let dayIdx = (new Date()).getDay();     // 周几，索引
+
+        let todayReality = new Reality.Reality(today);
         let todayHasPlan = false;
         let hasActivePlan = false;
         let currentPlan = app.currentPlan;
+        let currentActionId = 0;
+        let currentGroupId = 0;
         let partArray = [];
         let actionArray = [];
         let partActionArray = [];
         let actionTips;
 
-        // 先读取计划，如果不存在，则新建一个
+        // 1、先读取计划，如果不存在，则新建一个
         app.currentPlan.cloneDataFrom(app.Controller.loadPlan());
-        console.log("in Training, app.currentPlan:", app.currentPlan);
+        // console.log("in Training, app.currentPlan:", app.currentPlan);
 
-        // 先读取计划，如果有，则创建todayPlan，然后去初始化
+        // 先读取计划，如果有，则创建todayReality，然后去初始化
         // 初始化放在另外的代码中，免得这步结构太复杂
         if (currentPlan.currentUse) {
             hasActivePlan = true;
             // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
-            if (app.Util.inPeriod(currentPlan.fromDate, app.Util.formatDateToString(today), currentPlan.toDate)) {
-                todayPlan = app.currentPlan.getReGroupExerciseSetByDay(today.getDay());
+            if (app.Util.inPeriod(currentPlan.fromDate, today, currentPlan.toDate)) {
+                todayReality.executedSet = app.currentPlan.circleDaySet[dayIdx].exerciseSet;
                 // 今天有计划
-                if (todayPlan.length > 0) {
+                if (todayReality.executedSet.length > 0) {
                     todayHasPlan = true;
                 } else {
                     todayHasPlan = false;
@@ -669,85 +635,104 @@ Page({
             actionTips = "还未创建计划";
         }
 
-        // 根据初始化的todayPlan，准备执行数据
-        // 先读取一个之前由于切换Tab保存的计划数据，existPlan
-        // 1、如果existPlan为空，则是第一次进入该计划，直接使用默认初始化
-        // 2、如果existPlan不为空，则需要根据保存的数据，初始化todayPlan
-        let existPlan = app.Controller.loadData(app.StorageType.TodayPlan);
+        // 2、根据初始化的todayReality，准备执行数据
+        // 先读取一个之前由于切换Tab保存的计划数据，existReality
+        // 2.1、如果existReality.executedSet为空，则是第一次进入该计划，直接使用默认初始化
+        // 2.2、如果existReality.executedSet不为空，则需要根据保存的数据，初始化todayReality
 
-        if (todayPlan.length > 0) {
+        let realitySet = app.Controller.loadData(app.StorageType.RealitySet);
+        let existReality = null;
+
+        for (let reality of realitySet) {
+            if (reality.date === today) {
+                existReality = reality;
+            }
+        }
+
+        // console.log("existReality:", existReality);
+
+        // 3、根据已经保存的数据整理
+        if (todayReality.executedSet.length > 0) {
             // 每次进入时，都默认统一初始化，以防保存的数据里没有这些项
-            for (let plan of todayPlan) {
-                for (let exercise of plan.exerciseSet) {
-                    for (let group of exercise.groupSet) {
-                        group.executedQuantity = group.quantity;
-                        group.executedWeight = group.weight;
-                        group.finished = false;
-                    }
-                    exercise.currentGroupId = 0;
-                    exercise.finishedCount = 0;
-                    exercise.finished = false;
-                    exercise.actionScore = 3;
+
+            for (let exercise of todayReality.executedSet) {
+                for (let group of exercise.groupSet) {
+                    group.executedQuantity = group.quantity;
+                    group.executedWeight = group.weight;
+                    group.finished = false;
                 }
+                exercise.currentGroupId = 0;
+                exercise.finishedCount = 0;
+                exercise.finished = false;
+                exercise.actionScore = 3;
             }
 
-            if (existPlan.length > 0) {
+            if (existReality !== null && existReality.executedSet.length > 0) {
                 // 之前有保存的内容
-                console.log("existPlan is not empty!");
-                for (let plan of todayPlan) {
-                    for (let exist of existPlan) {
-                        // 当部位相同时，搜索动作
-                        if (exist.name === plan.name) {
-                            for (let planExercise of plan.exerciseSet) {
-                                for (let existExercise of exist.exerciseSet) {
-                                    // 当动作相同的时候
-                                    if (existExercise.action.name === planExercise.action.name) {
-                                        let length = existExercise.groupSet.length;
-                                        planExercise.groupSet.splice(0, length);
-                                        planExercise.groupSet = existExercise.groupSet.concat(planExercise.groupSet);
-                                        planExercise.actionScore = existExercise.actionScore;
-                                    }
-                                }
-                            }
+                console.log("existReality is not empty!");
+                for (let plan of todayReality.executedSet) {
+                    for (let exist of existReality.executedSet) {
+                        // 注意，这里需要判断两个，当部位和动作同时相同，方可认为他们是一个动作
+                        if (exist.action.partSet[0] === plan.action.partSet[0] && exist.action.name === plan.action.name) {
+                            let length = exist.groupSet.length;
+                            // 将plan中前半截去掉，然后加上实际的数据
+                            plan.groupSet.splice(0, length);
+                            plan.groupSet = exist.groupSet.concat(plan.groupSet);
+                            plan.actionScore = exist.actionScore;
                         }
                     }
                 }
             }
 
             // 再次整理数据，置状态
-            for (let plan of todayPlan) {
-                for (let exercise of plan.exerciseSet) {
-                    for (let group of exercise.groupSet) {
-                        if (group.finished)
-                            exercise.finishedCount++;
-                    }
-                    exercise.currentGroupId = exercise.finishedCount >= exercise.groupSet.length
-                        ? exercise.groupSet.length - 1 : exercise.finishedCount;
+            for (let exercise of todayReality.executedSet) {
+                for (let group of exercise.groupSet) {
+                    if (group.finished)
+                        exercise.finishedCount++;
+                }
+                exercise.currentGroupId = exercise.finishedCount >= exercise.groupSet.length
+                    ? exercise.groupSet.length - 1 : exercise.finishedCount;
 
-                    exercise.finished = (exercise.finishedCount === exercise.groupSet.length);
+                exercise.finished = (exercise.finishedCount === exercise.groupSet.length);
+            }
+
+            // 设置进入页面激活的动作及组，激活未完成的第一个动作和第一组
+            for (let idx = 0; idx < todayReality.executedSet.length; idx++) {
+                if (!todayReality.executedSet[idx].finished) {
+                    currentActionId = idx;
+                    currentGroupId = todayReality.executedSet[idx].currentGroupId;
+                    break;
                 }
             }
         }
 
-        console.log("after init, todayPlan:", todayPlan);
+        console.log("after init, todayReality:", todayReality);
 
-        // 根据初始化的todayPlan，准备数据
-        // 1、准备部位列表
-        // 2、初始化总组数和已完成的组数
-        if (todayPlan.length > 0) {
-            todayPlan.totalGroups = 0;
-            todayPlan.totalFinishedGroups = 0;
-            for (let plan of todayPlan) {
-                partArray.push(plan.name);
+        // 4、根据初始化的todayReality，准备数据
+        // 4.1、准备部位列表
+        // 4.2、初始化总组数和已完成的组数
+        if (todayReality.executedSet.length > 0) {
+            todayReality.totalGroups = 0;
+            todayReality.totalFinishedGroups = 0;
+            // 先获得所有的一级部位名称
+            for (let exercise of todayReality.executedSet) {
+                if (!partArray.includes(exercise.action.partSet[0])) {
+                    partArray.push(exercise.action.partSet[0]);
+                }
+            }
+
+            for (let part of partArray) {
                 let array = [];
-                for (let exercise of plan.exerciseSet) {
-                    array.push(exercise.action.name);
+                for (let exercise of todayReality.executedSet) {
+                    if (part === exercise.action.partSet[0]) {
+                        array.push(exercise.action.name);
+                    }
 
-                    todayPlan.totalGroups = todayPlan.totalGroups + exercise.groupSet.length;
+                    todayReality.totalGroups = todayReality.totalGroups + exercise.groupSet.length;
 
                     for (let group of exercise.groupSet) {
                         if (group.finished) {
-                            todayPlan.totalFinishedGroups++;
+                            todayReality.totalFinishedGroups++;
                         }
                     }
                 }
@@ -757,25 +742,21 @@ Page({
             partActionArray.push(partArray);
             partActionArray.push(actionArray[0]);
 
-            console.log("partArray:", partArray);
-            console.log("actionArray:", actionArray);
-            console.log("partActionArray:", partActionArray);
         }
 
         this.setData({
-            todayPlan: todayPlan,
+            todayReality: todayReality,
             hasActivePlan: hasActivePlan,
             todayHasPlan: todayHasPlan,
-            totalFinishedGroups: todayPlan.totalFinishedGroups,
+            totalFinishedGroups: todayReality.totalFinishedGroups,
             partArray: partArray,
             actionArray: actionArray,
             partActionArray: partActionArray,
+            currentActionId: currentActionId,
+            currentGroupId: currentGroupId,
             actionTips: actionTips,
+            paused: false
         });
-
-        console.log("hasActivePlan:", hasActivePlan);
-        console.log("todayHasPlan:", todayHasPlan);
-        console.log("actionTips: ", actionTips);
     },
 
     /**
@@ -785,30 +766,21 @@ Page({
      */
     onShow: function () {
         // 初始化数据
-        this.initTodayPlan();
+        this.initTodayReality();
         // 更新图表
         this.updateFinishedChart();
 
-        this.setData({
-            paused: false
-        });
-
-        // 重置全局变量，保证翻回Training页面时，能记住上次的位置
-        console.log("Training page onShow call, this.data.todayPlan: ", this.data.todayPlan);
     },
 
     /**
      * 生命周期函数--监听页面隐藏
-     * 保存两份数据，
-     * 1、一份今天的todayPlan，相当于缓存数据
-     * 2、一份用于传输的todayReality，最终数据
+     * 保存数据
+     * 一份用于传输的todayReality，最终数据
      */
     onHide: function () {
-
-        this.saveTodayPlan();
+        //
         this.saveReality();
 
-        console.log("Training page onHide call: data saved");
     },
 
     /**
