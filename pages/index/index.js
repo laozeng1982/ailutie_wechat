@@ -138,7 +138,7 @@ Page({
         console.log('index page onShow');
 
         // 这里是预览和修改计划的唯一入口，所以需要在这里更新app.currentPlan
-        app.currentPlan.cloneDataFrom(app.Controller.loadPlan());
+        app.currentPlan.cloneDataFrom(app.Util.loadPlan());
 
         this.setData({
             currentPlan: app.currentPlan,

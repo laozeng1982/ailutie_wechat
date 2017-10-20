@@ -841,7 +841,7 @@ Page({
         // 这个地方应该根据已经保存的plan来显示
 
         // 获取当前已保存已经保存的计划
-        let planSet = app.Controller.loadData(app.StorageType.PlanSet);
+        let planSet = app.Util.loadData(app.StorageType.PlanSet);
         let currentPlan;
 
         // 寻找激活的计划
@@ -899,7 +899,7 @@ Page({
         this.makeActionPicker();
 
         let body = new Body.Body();
-        let systemSetting = app.Controller.loadData(app.StorageType.SystemSetting);
+        let systemSetting = app.Util.loadData(app.StorageType.SystemSetting);
         body.cloneDataFrom(systemSetting.body);
         // 第一次进入，没有选过动作，需要重新构建，先统一赋值
         body.initGroupSet();

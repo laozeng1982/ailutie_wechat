@@ -41,7 +41,7 @@ Page({
 
     onOK: function () {
         // 根据入口不同，选择切换不同的Tab
-        app.Controller.saveData(app.StorageType.UserInfo, this.data.userInfo);
+        app.Util.saveData(app.StorageType.UserInfo, this.data.userInfo);
         if (this.data.option === "newUser") {
             wx.switchTab({
                 url: '../../index/index',
@@ -61,7 +61,7 @@ Page({
     onLoad: function (options) {
         // 初始化入口参数，以备离开页面的时候正确切换,请选择
         this.data.option = options.model;
-        var userInfo = app.Controller.loadData(app.StorageType.UserInfo);
+        var userInfo = app.Util.loadData(app.StorageType.UserInfo);
         // var
 
         if (userInfo.birthday === "") {

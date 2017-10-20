@@ -237,7 +237,7 @@ class ChartMaker {
 
     makeRingChart() {
         let ringChart = new wxCharts({
-            animation: true,
+            animation: false,
             canvasId: this.canvasId,
             type: 'ring',
             extra: {

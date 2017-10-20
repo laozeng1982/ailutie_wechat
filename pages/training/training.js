@@ -142,7 +142,7 @@ Page({
             percentFinished = Math.ceil(totalFinishedGroups * 100 / totalGroups);
         }
 
-        // console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
+        console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
 
         this.data.currentChart.updateData({
             title: {
@@ -313,7 +313,7 @@ Page({
                     this.setData({
                         paused: false
                     });
-                    console.log("It's the last action~~");
+                    console.log("It's the last group~~");
                 }
             }
         } else {
@@ -331,7 +331,7 @@ Page({
                     this.setData({
                         paused: false
                     });
-                    console.log("It's the first action~~");
+                    console.log("It's the first group~~");
                 }
             }
         }
@@ -382,7 +382,9 @@ Page({
         });
 
         // console.log("currentActionId:", currentActionId, "currentGroupId:", currentGroupId);
-        // console.log("Training page onShow call, this.data.todayReality: ", this.data.todayReality);
+        // console.log("Training page onShow call, this.data.todayReality: ",
+        //     this.data.todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished);
+
     },
 
     /**
@@ -505,7 +507,7 @@ Page({
         let todayReality = this.data.todayReality;
         let existReality = null;
         // 1、读取Reality
-        let RealitySet = app.Controller.loadData(app.StorageType.RealitySet);
+        let RealitySet = app.Util.loadData(app.StorageType.RealitySet);
 
         let today = app.Util.formatDateToString(new Date());
 
@@ -584,7 +586,7 @@ Page({
             RealitySet.push(realityToSave);
         }
 
-        app.Controller.saveData(app.StorageType.RealitySet, RealitySet);
+        app.Util.saveData(app.StorageType.RealitySet, RealitySet);
 
     },
 
@@ -609,7 +611,7 @@ Page({
         let actionTips;
 
         // 1、先读取计划，如果不存在，则新建一个
-        app.currentPlan.cloneDataFrom(app.Controller.loadPlan());
+        app.currentPlan.cloneDataFrom(app.Util.loadPlan());
         // console.log("in Training, app.currentPlan:", app.currentPlan);
 
         // 先读取计划，如果有，则创建todayReality，然后去初始化
@@ -617,7 +619,7 @@ Page({
         if (currentPlan.currentUse) {
             hasActivePlan = true;
             // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
-            if (app.Util.inPeriod(currentPlan.fromDate, today, currentPlan.toDate)) {
+            if (app.Util.checkDate(currentPlan.fromDate, today, currentPlan.toDate)) {
                 todayReality.executedSet = app.currentPlan.circleDaySet[dayIdx].exerciseSet;
                 // 今天有计划
                 if (todayReality.executedSet.length > 0) {
@@ -640,7 +642,7 @@ Page({
         // 2.1、如果existReality.executedSet为空，则是第一次进入该计划，直接使用默认初始化
         // 2.2、如果existReality.executedSet不为空，则需要根据保存的数据，初始化todayReality
 
-        let realitySet = app.Controller.loadData(app.StorageType.RealitySet);
+        let realitySet = app.Util.loadData(app.StorageType.RealitySet);
         let existReality = null;
 
         for (let reality of realitySet) {

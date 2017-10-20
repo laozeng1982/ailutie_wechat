@@ -3,7 +3,9 @@
  * 1、日期之间的转换，日期和字符串的转换
  *
  */
-
+import User from '../datamodel/User'
+import PlanSet from '../datamodel/PlanSet'
+import SystemSetting from '../datamodel/SystemSetting'
 
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
@@ -39,14 +41,14 @@ function formatDateToString(date) {
  * 参数month：月，自然月
  * 参数day：当月第day日
  */
-function getDateFromString(year, month, day) {
+function getDateFromNumbers(year, month, day) {
     return new Date(Date.UTC(year, month - 1, day));
 }
 
 /**
  * 将字符串日期转换为日期类，得到对应的日期对象
  * 参数date：字符串表示的日期，比如 '2016-9-01'或者'2016/9/01'
- * 参数spliter：字符串中的分隔符
+ * 参数splicer：字符串中的分隔符
  */
 function getDateFromString(date, splicer) {
     let year = date.split(splicer)[0];
@@ -151,7 +153,7 @@ function getMovedDate(startDay, isNext, dayCount) {
  * @param checkDate
  * @param endDate
  */
-function inPeriod(startDate, checkDate, endDate) {
+function checkDate(startDate, checkDate, endDate) {
     let startDateTimeMills = getDateFromString(startDate, '-').getTime();
     let checkDateTimeMills = getDateFromString(checkDate, '-').getTime();
     let endDateTimeMills = getDateFromString(endDate, '-').getTime();
@@ -251,6 +253,92 @@ function deepClone(obj) {
     return clone;
 }
 
+/**
+ * 功能：从选中的日期读取指定内容
+ * 参数1：key，要读取的数据
+ * 参数2：dataType，数据类型（StrorageType）
+ * 返回：请求类型的数据
+ * 调用关系：外部函数，开放接口
+ */
+function loadData(dataType) {
+    // 读取该类型数据已存储的内容
+    var readInData = wx.getStorageSync(dataType.key);
+    // 当天请求的数据
+    var requestData = '';
+
+    // 根据类型来抽取需要的数据
+    // 如果没有这个记录，取的会是空值，则新建一个对应的项
+    if (readInData !== "") {
+        requestData = readInData;
+    } else {
+        switch (dataType.id) {
+            case 0:
+                // 0. UserInfo
+                requestData = new User.UserInfo();
+                break;
+            case 1:
+                // 1. UserProfile
+                requestData = new User.UserProfile();
+                break;
+            case 2:
+                // 2. DailyRecords
+                if (typeof (requestData.date) !== "undefined" && requestData.date !== "") {
+                    console.log("here222222222222222222222222222222");
+                } else {
+                    requestData = [];
+                }
+                break;
+            case 3:
+                requestData = new SystemSetting.SystemSetting();
+                break;
+            case 4:
+                requestData = [];
+                break;
+            case 5:
+                requestData = [];
+                break;
+            default:
+                break;
+        }
+    }
+
+    // console.log("in Controller.loadData, after loadData, requestData: ", requestData);
+
+    return requestData;
+}
+
+/**
+ *
+ * @returns {*}
+ */
+function loadPlan() {
+    let storageType = new SystemSetting.StorageType();
+    let planSet = this.loadData(storageType.PlanSet);
+    let currentPlan = '';
+
+    console.log("planSet:", planSet);
+
+    for (let plan of planSet) {
+        if (plan.currentUse) {
+            currentPlan = plan;
+        }
+    }
+
+    return (currentPlan === '') ? new PlanSet.Plan() : currentPlan;
+}
+
+/**
+ * 功能：存储数据
+ * 参数1：dataType，数据类型（StrorageType）
+ * 参数2：dataToSave，要存储的数据
+ * 调用关系：外部函数，开放接口
+ */
+function saveData(dataType, dataToSave) {
+    // 根据类型来判断是否需要替换其中的数据，还是直接覆盖
+    console.log("in saveData, targetToSave: ", dataToSave);
+    wx.setStorageSync(dataType.key, dataToSave);
+}
+
 module.exports = {
     formatTimeToString: formatTimeToString,
     formatDateToString: formatDateToString,
@@ -263,9 +351,12 @@ module.exports = {
     showNormalToast: showNormalToast,
     showWarnToast: showWarnToast,
     getMovedDate: getMovedDate,
-    inPeriod: inPeriod,
+    checkDate: checkDate,
     makePartString: makePartString,
     compare2Array: compare2Array,
-    deepClone: deepClone
+    deepClone: deepClone,
+    loadData: loadData,
+    loadPlan: loadPlan,
+    saveData: saveData
 
 }
