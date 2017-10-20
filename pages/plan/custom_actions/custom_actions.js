@@ -1,4 +1,4 @@
-// pages/plan/user_define/custom_actions.js
+// pages/plan/custom_actions/custom_actions.js
 Page({
 
   /**
@@ -12,7 +12,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    wx.setNavigationBarTitle({
+        title: '自定义动作',
+    })
   },
 
   /**

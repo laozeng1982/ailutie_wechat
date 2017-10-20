@@ -142,7 +142,7 @@ Page({
             percentFinished = Math.ceil(totalFinishedGroups * 100 / totalGroups);
         }
 
-        console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
+        // console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
 
         this.data.currentChart.updateData({
             title: {

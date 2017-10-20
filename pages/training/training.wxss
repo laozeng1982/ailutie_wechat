@@ -190,8 +190,8 @@
     align-items: center;
     text-align: center;
     justify-content: space-around;
-    background-color: #888;
-    color: #000;
+    background-color: #eee;
+    color: #888;
     border-radius: 50%;
 }
 
@@ -201,7 +201,13 @@
     color: #888;
     display: inline-block;
     width: 100%;
-    /* line-height: 60rpx; */
+}
+
+.tips-btn {
+    font-size: 24rpx;
+    font-weight: 300;
+    display: inline-block;
+    width: 100%;
 }
 
 .center {

@@ -12,11 +12,13 @@
         "pages/settings/donation/donation",
         "pages/settings/favorite/favorite",
         "pages/settings/knowledge/knowledge",
-        "pages/plan/select_goal/select_goal",
-        "pages/plan/recommend_planlist/recommend_planlist",
-        "pages/plan/user_define/select_part",
-        "pages/plan/user_define/preview_plan",
-        "pages/plan/user_define/custom_actions"
+        "pages/plan/plan_list/plan_list",
+        "pages/plan/plan_source/plan_source",
+        "pages/plan/plan_type/plan_type",
+        "pages/plan/plan_details/plan_details",
+        "pages/plan/define_plan/define_plan",
+        "pages/plan/preview_plan/preview_plan",
+        "pages/plan/custom_actions/custom_actions"
     ],
     "window": {
         "navigationBarBackgroundColor": "#000000",

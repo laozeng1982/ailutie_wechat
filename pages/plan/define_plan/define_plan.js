@@ -1,4 +1,4 @@
-// pages/plan/user_define/select_part.js
+// pages/plan/define_plan/define_plan.js
 import PlanSet from '../../../datamodel/PlanSet'
 import Body from '../../../datamodel/Body'
 import Part from '../../../datamodel/Part'
@@ -496,7 +496,7 @@ Page({
         if (e.currentTarget.id === "自定义动作") {
             console.log("go to custom");
             wx.navigateTo({
-                url: './custom_actions',
+                url: '../custom_actions/custom_actions',
             });
             return;
         }
@@ -769,7 +769,7 @@ Page({
         console.log("app.currentPlan:", app.currentPlan);
 
         wx.navigateTo({
-            url: './preview_plan',
+            url: '../preview_plan/preview_plan',
         });
     },
 
@@ -892,11 +892,19 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      * 页面进入时，初始化一些数据
+     * 本页面为复用页面，入口分为：
+     * 1、全新制定长期计划
+     * 2、临时改变当天计划
+     * 3、判别条件是options携带的model
+     * 4、根据入口选择初始化内容
      */
     onLoad: function (options) {
         console.log("Select Part Page onLoad");
+        console.log("options.model:",options.mode);
         // 只需要这一次
         this.makeActionPicker();
+
+        // if ()
 
         let body = new Body.Body();
         let systemSetting = app.Util.loadData(app.StorageType.SystemSetting);
@@ -955,9 +963,7 @@ Page({
             // 重置为没保存的状态
             app.lastPlanSaved = false;
         }
-
         console.log("weekList:", this.data.weekList);
-
     },
 
     /**
@@ -970,7 +976,8 @@ Page({
 
     /**
      * 生命周期函数--监听页面隐藏
-     *
+     * 暂时离开页面，跳转下一个页面
+     * 保存当前选择的一些
      */
     onHide: function () {
         console.log("this page onHide");

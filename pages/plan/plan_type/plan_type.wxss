@@ -1,6 +1,6 @@
-/* pages/plan/plan_goal/plan_goal.wxss */
+/* pages/plan/plan_type/plan_type.wxss */
 
-@import '../plan_wizzard_style.wxss';
+@import '../plan_style.wxss';
 
 
 .textLabel {

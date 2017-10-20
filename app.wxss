@@ -95,22 +95,6 @@ page {
     align-self: stretch;
 }
 
-.box-wrap {
-    flex-wrap: wrap;
-}
-
-.box-nowrap {
-    flex-wrap: nowrap;
-}
-
-.flex {
-    flex-grow: 1;
-}
-
-.shrink {
-    flex-shrink: 1;
-}
-
 .bg {
     background-image: linear-gradient(to bottom, #faefe7, #ffcbd7);
     overflow: hidden;
@@ -166,17 +150,6 @@ form {
 .tc {
     text-align: center;
 }
-
-/* page */
-
-/* .container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  justify-content: space-between;
-  font-size: 32rpx;
-  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
-} */
 
 .page-head {
     padding: 60rpx 50rpx 80rpx;
@@ -341,66 +314,10 @@ form {
     height: 4rpx;
     transform: translate(-50%, -50%);
 }
-
-.demo-text-1 {
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    background-color: #1aad19;
-    color: #fff;
-    font-size: 36rpx;
-}
-
-.demo-text-1:before {
-    content: 'A';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.demo-text-2 {
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    background-color: #2782d7;
-    color: #fff;
-    font-size: 36rpx;
-}
-
-.demo-text-2:before {
-    content: 'B';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.demo-text-3 {
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    background-color: #f1f1f1;
-    color: #353535;
-    font-size: 36rpx;
-}
-
-.demo-text-3:before {
-    content: 'C';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 /**app.wxss**/
 
 page {
     height: 100%;
-}
-
-.padding {
-    padding: 20rpx;
 }
 
 .padding_half {
@@ -420,20 +337,6 @@ page {
     background: #eee;
     font-size: 10px;
     min-height: 16rpx;
-}
-
-.whiteSpace {
-    padding-left: 40rpx;
-    background: #fff;
-    font-size: 12px;
-    min-height: 30rpx;
-}
-
-.whiteSpace {
-    padding-left: 40rpx;
-    background: #fff;
-    font-size: 12px;
-    min-height: 30rpx;
 }
 
 .item-avatar .text_box, .item-avatar-lg .text_box {
@@ -472,7 +375,6 @@ page {
 .item-avatar-lg, .item-avatar-md, .item-avatar-sm, .item-avatar-xs {
     display: flex;
     padding: 20rpx 30rpx;
-    /* border-bottom: 1rpx solid #eee; */
     cursor: pointer;
     position: relative;
 }

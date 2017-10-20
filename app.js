@@ -46,37 +46,36 @@ App({
             }
         });
 
+        this.getWechatUserInfo();
+
         // 准备数据：
-        var body = new Body.Body();
+        // var body = new Body.Body();
 
-        body.makeDefaultDefaultPartList();
+        // body.makeDefaultDefaultPartList();
 
-        console.log("body: ", body);
-
-        // if (systemSetting.body.parts.length > 0) {
-        //     CONTROLLER.saveData(STORAGETYPE.SystemSetting, systemSetting);
-        // }
+        // console.log("body: ", body);
 
         // 验证是否是首次登陆，首次登陆，录入用户基本信息
-        var userInfo = util.loadData(STORAGETYPE.UserInfo);
-        console.log("userInfo: ", userInfo);
-        var userHeight = userInfo.height;
+        // this.userInfo = util.loadData(STORAGETYPE.UserInfo);
+        // console.log("userInfo: ", this.userInfo);
+        // var userHeight = this.userInfo.height;
 
-        if (typeof (userHeight) === 'undefined' || userHeight === "") {
-            // 去注册
-            console.log("in app, go to User information record page!");
-            wx.redirectTo({
-                url: 'pages/settings/userinfo/userinfo?model=newUser',
-            });
-        };
+        // if (typeof (userHeight) === 'undefined' || userHeight === "") {
+        //     // 去注册
+        //     console.log("in app, go to User information record page!");
+        //     wx.redirectTo({
+        //         url: 'pages/settings/userinfo/userinfo?model=newUser',
+        //     });
+        // }
 
-        if (userInfo.defaultWechatLogin) {
-            // 使用微信登录
-            console.log("user wechat ID");
-        }
-        console.log("app onLoad done");
+        // if (this.userInfo.defaultWechatLogin) {
+        //     // 使用微信登录
+        //     console.log("user wechat ID");
+        // }
+        // console.log("app onLoad done");
     },
 
+    // 提供获取微信信息的结构
     getWechatUserInfo: function (cb) {
         var that = this;
         if (this.globalData.wechatUserInfo) {
@@ -98,10 +97,10 @@ App({
     Util: util,
 
     // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
-    
+
     makingNewPlan: true,    // 操作计划的模式：如制定新计划为真，否则为假，在首页里两个操作互斥
     planMakeModel: 3,  // 用户对计划来源的选择，1代表使用推荐计划，2代表使用历史计划，3代表使用自定义计划，默认是三
-    planStartDate: '',      
+    planStartDate: '',
     planEndDate: '',
     lastPlanSaved: false,
 

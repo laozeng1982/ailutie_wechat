@@ -1,0 +1,25 @@
+<!--pages/plan/plan_details/plan_details.wxml-->
+
+<!-- plan的图片 -->
+<view class='plan-item-container ' style='justify-content: center; margin: 0;'>
+    <image class='image' src='../../image/jianshen002.jpg'></image>
+</view>
+
+<!-- plan底部的阅读数、评论数和点赞数 -->
+<view class='plan-item-container bottom'>
+    <view class='bottom-item-container'>
+        <image class='bottom-image-eye' src='../../image/eye_46x32.png'></image>
+        <view>{{plan.comments.length}}</view>
+    </view>
+    <view class='bottom-item-container'>
+        <image class='bottom-image-comments' src='../../image/comments_32px.png'></image>
+        <view>{{plan.comments.length}}</view>
+    </view>
+    <view class='bottom-item-container'>
+        <image class='bottom-image-like' src='../../image/like_69x64.png'></image>
+        <view>{{plan.comments.length}}</view>
+    </view>
+</view>
+
+<!-- 每个plan分割 -->
+<view class='graySpaceSmall'></view>

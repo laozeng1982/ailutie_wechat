@@ -1,0 +1,3 @@
+/* pages/plan/plan_details/plan_details.wxss */
+
+@import '../plan_style.wxss';

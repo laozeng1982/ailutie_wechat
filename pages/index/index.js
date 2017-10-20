@@ -1,6 +1,4 @@
 //index.js
-import User from '../../datamodel/User'
-import PlanSet from '../../datamodel/PlanSet'
 import ChartMaker from '../ui/canvas/ChartMaker'
 
 const app = getApp();
@@ -92,23 +90,35 @@ Page({
     onModifyPlan: function () {
         app.makingNewPlan = false;
         wx.navigateTo({
-            url: '../plan/user_define/preview_plan?model=modify',
+            url: '../plan/preview_plan/preview_plan?mode=modify',
         });
     },
 
     /**
      * 定制新计划
-     * 只有当前没有有计划是才能有此接口，置app.makingNewPlan为true。
+     * 置app.makingNewPlan为true。
+     * 增加可以制定临时计划的功能
      */
-    onMakePlan: function () {
+    onMakePlan: function (e) {
+        // console.log(e.currentTarget);
         app.makingNewPlan = true;
-        wx.navigateTo({
-            url: '../plan/select_goal/select_goal',
-        });
+        if (e.currentTarget.id === "tempPlan") {
+            wx.navigateTo({
+                url: '../plan/define_plan/define_plan?mode=tempPlan',
+            });
+        } else if (e.currentTarget.id === "longPlan") {
+            wx.navigateTo({
+                url: '../plan/plan_source/plan_source',
+            });
+        }
     },
 
     onLoad: function () {
         console.log('index page onLoad');
+
+        app.getWechatUserInfo();
+
+        console.log(app.globalData.wechatUserInfo);
 
         let notSignUp = app.Util.checkSignUp();
 

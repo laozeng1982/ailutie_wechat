@@ -1,4 +1,4 @@
-/* pages/plan/user_define/custom_actions.wxss */
+/* pages/plan/custom_actions/custom_actions.wxss */
 
 .itemHolder {
     height: 100rpx;

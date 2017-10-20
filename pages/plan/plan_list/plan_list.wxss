@@ -1,0 +1,6 @@
+/* pages/plan/plan_list/plan_list.wxss */
+
+@import '../plan_style.wxss';
+
+
+

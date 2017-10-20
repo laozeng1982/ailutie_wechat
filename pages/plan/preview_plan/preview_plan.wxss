@@ -1,7 +1,5 @@
-/* pages/plan/user_define/preview_plan.wxss */
-@import '../plan_wizzard_style';
-
-
+/* pages/plan/preview_plan/preview_plan.wxss */
+@import '../plan_style';
 
 .scrollview {
     height: 800rpx;

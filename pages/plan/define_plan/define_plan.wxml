@@ -1,4 +1,4 @@
-<!--pages/plan/user_define/select_part.wxml-->
+<!--pages/plan/define_plan/define_plan.wxml-->
 <view class='thisContainer'>
 
     <view wx:if="{{currentTabIdx===index}}" wx:for="{{tabData}}" wx:key="{{index}}" class='topArea'>

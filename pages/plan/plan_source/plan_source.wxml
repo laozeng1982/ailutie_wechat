@@ -1,0 +1,38 @@
+<!--pages/plan/plan_source/plan_source.wxml-->
+
+<view class='thisContainer'>
+    <view class='topArea'>
+        <view class="swiper-tab">
+            <block wx:for="{{tabData}}" wx:key="{{index}}">
+                <view wx:if="{{currentTabIdx===index}}" class="swiper-tab-list" data-current="{{index}}">{{item.name}}</view>
+                <view class='graySpaceSmall'></view>
+            </block>
+        </view>
+        
+        <view class="swiper-box">
+            <block wx:for="{{tabData}}" wx:key="{{index}}">
+                <view wx:if="{{currentTabIdx===index}}">
+                    <view class='selector-container' wx:for="{{tabData[currentTabIdx].data}}" wx:key="{{index}}">
+                        <view id="{{item.id}}" class="roundCornor {{item.selected?'item_selected':''}}" bindtap='onItemSelected'>
+                            <text>{{item.text}}</text>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+
+    </view>
+
+    <!-- 这是Toast -->
+    <include src="../../ui/toast/warn_toast.wxml" />
+
+    <block wx:for="{{tabData}}" wx:key="{{index}}">
+        <view wx:if="{{currentTabIdx===index}}" data-current="{{index}}" class="tips" style='text-align:center'>{{item.tips}}</view>
+    </block>
+
+    <view class='graySpaceSmall'></view>
+
+    <view class='footArea'>
+        <button class='nextBtn' type='primary' disabled="{{disableNextBtn}}" bindtap='onNext'>{{nextBtnText}}</button>
+    </view>
+</view>

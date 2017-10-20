@@ -1,4 +1,4 @@
-<!--pages/plan/user_define/custom_actions.wxml-->
+<!--pages/plan/custom_actions/custom_actions.wxml-->
 
 <view class="generalContainer" style='justify-content:space-between'>
 

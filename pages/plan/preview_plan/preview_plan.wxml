@@ -1,4 +1,4 @@
-<!--pages/plan/user_define/preview_plan.wxml-->
+<!--pages/plan/preview_plan/preview_plan.wxml-->
 
 <view class='thisContainer'>
     <!-- <view class='graySpaceSmall'></view> -->
@@ -150,11 +150,11 @@
 
     <!-- <view class='graySpaceSmall'></view> -->
 
-    <view class='footArea' wx:if="{{options.model!='modify'}}">
+    <view class='footArea' wx:if="{{options.mode!='modify'}}">
         <button class='nextBtn' type='primary' bindtap='onConfirmSave'> 确定并保存 </button>
     </view>
 
-    <view class='footArea' wx:if="{{options.model=='modify'}}">
+    <view class='footArea' wx:if="{{options.mode=='modify'}}">
         <button class='cancel_btn' bindtap='onDeletePlan'> 删除此计划 </button>
         <button class='confirm_btn' bindtap='onModifyPlan'> 修改此计划 </button>
     </view>

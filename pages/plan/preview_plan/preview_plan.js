@@ -1,4 +1,4 @@
-// pages/plan/user_define/preview_plan.js
+// pages/plan/preview_plan/preview_plan.js
 
 //全局变量
 const app = getApp();
@@ -31,7 +31,7 @@ Page({
         lastCalendarId: 0,
         duration: 1000,
 
-        options: '',
+        options: {},
 
     },
 
@@ -462,7 +462,7 @@ Page({
      * 每次进入，必然加载
      */
     onLoad: function (options) {
-        if (options.model==="modify") {
+        if (options.mode === "modify") {
             wx.setNavigationBarTitle({
                 title: '浏览计划',
             });
