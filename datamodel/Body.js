@@ -330,7 +330,7 @@ class Body {
                 }
             }
         }
-        console.log(this.parts);
+
         this.countSelectedAction();
     }
 
