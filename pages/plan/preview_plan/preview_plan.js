@@ -453,7 +453,7 @@ Page({
 
     onModifyPlan: function () {
         wx.navigateTo({
-            url: './select_part',
+            url: '../define_plan/define_plan',
         });
     },
 

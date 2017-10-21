@@ -10,7 +10,7 @@
 
     <view class='graySpace'></view>
 
-    <swiper current="{{currentTabIdx}}" class="swiper-box" indicator-dots="{{true}}" duration="300" bindchange="onSwiperChange">
+    <swiper current="{{currentTabIdx}}" class="swiper-box row" indicator-dots="{{true}}" duration="300" bindchange="onSwiperChange">
         <block wx:for="{{tabData}}" wx:key="{{index}}">
             <swiper-item id="{{item.type}}">
                 <!-- 用scroll-view循环该类别的所有plan -->

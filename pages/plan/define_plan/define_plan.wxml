@@ -8,7 +8,7 @@
         <view class='graySpaceSmall'></view>
 
         <!-- 时间选择Ta -->
-        <view class="swiper-box" wx:if="{{currentTabIdx===0}}" id="{{tabData[0].type}}">
+        <view class="swiper-box column" wx:if="{{currentTabIdx===0}}" id="{{tabData[0].type}}">
             <view class='inner-top'>
                 <view class='rowContainer'>
                     <view class='text1'>开始日期：</view>
@@ -69,7 +69,7 @@
         </view>
 
         <!-- 部位选择Tab -->
-        <view class="swiper-box" wx:if="{{currentTabIdx===1}}" id="{{tabData[1].type}}">
+        <view class="swiper-box column" wx:if="{{currentTabIdx===1}}" id="{{tabData[1].type}}">
             <view class='inner-top'>
                 <view class='textheader'>
                     请点选周期中的天次（可多选）
@@ -108,7 +108,7 @@
         </view>
 
         <!-- 动作选择Tab -->
-        <view class="swiper-box" wx:if="{{currentTabIdx===2}}" id="{{tabData[2].type}}">
+        <view class="swiper-box column" wx:if="{{currentTabIdx===2}}" id="{{tabData[2].type}}">
             <view class='inner-top'>
                 <view class='swiper-row-view'>
                     <!-- 左边部位列表 -->

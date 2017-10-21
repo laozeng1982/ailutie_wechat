@@ -11,7 +11,7 @@
 
         <view class='graySpaceSmall'></view>
 
-        <view class="swiper-box">
+        <view class="swiper-box column">
             <block wx:for="{{tabData}}" wx:key="{{index}}">
                 <view wx:if="{{currentTabIdx===index}}">
                     <view class='selector-container' wx:for="{{tabData[currentTabIdx].data}}" wx:key="{{index}}">

@@ -350,16 +350,6 @@
     border-bottom: 10rpx solid #888;
 }
 
-.swiper-box {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
-}
-
 .tips_text {
     padding: 20rpx;
     font-size: 28rpx;
@@ -558,10 +548,17 @@
     height: 90%;
     width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-around;
     align-content: center;
     align-items: center;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
 }
 
 .plan-scroll {
