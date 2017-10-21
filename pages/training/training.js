@@ -288,7 +288,7 @@ Page({
     onMakePlan: function () {
         app.makingNewPlan = true;
         wx.navigateTo({
-            url: '../plan/select_goal/select_goal',
+            url: '../plan/define_plan/define_plan',
         })
     },
 

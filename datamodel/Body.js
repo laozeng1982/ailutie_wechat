@@ -226,6 +226,7 @@ class Body {
     activePartByName(partName) {
         for (let part of this.parts) {
             part.active = (partName === part.bodyPart);
+            part.selected = (partName === part.bodyPart);
         }
     }
 
@@ -329,7 +330,7 @@ class Body {
                 }
             }
         }
-
+        console.log(this.parts);
         this.countSelectedAction();
     }
 
@@ -354,7 +355,7 @@ class Body {
         for (let part of this.parts) {
             if (part.selected && part.active) {
                 for (let action of part.actionSet) {
-                    if (selectedAction.partSet[0] ===action.partSet[0] && selectedAction.name === action.name) {
+                    if (selectedAction.partSet[0] === action.partSet[0] && selectedAction.name === action.name) {
                         delete action.groupSet;
                         action.groupSet = groupSet;
                         // 因为选中picker同时会响应这个外部view的函数，也就是说会响应onSelectAction，所以需要重置一些状态

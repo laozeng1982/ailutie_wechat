@@ -12,27 +12,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        tabData: [
-            {
-                type: "date",
-                name: "设定时间",
-                finished: false
-            },
-
-            {
-                type: "bodypart",
-                name: "选择部位",
-                finished: false
-            },
-            {
-                type: "actionSet",
-                name: "选择动作",
-                finished: false
-            }
-        ],
-        currentTabIdx: 0,
-        allTabFinished: false,
-        firstTimeIn: true,
 
         // 时间tab的数据
         fromDate: "",
@@ -41,9 +20,7 @@ Page({
         cycleLengthIndex: 6,
         cycleLengthPickerArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
 
-        // 部位tab的数据
-        body: '',
-        selectedPartNames: '',
+        // 周期
         week: [
             { id: 0, value: '日', name: "Sunday", hasparts: '', selected: false },
             { id: 1, value: '一', name: "Monday", hasparts: '', selected: false },
@@ -54,6 +31,10 @@ Page({
             { id: 6, value: '六', name: "Saturday", hasparts: '', selected: false }
         ],
         weekList: '',
+
+        // 部位tab的数据
+        body: '',
+        selectedPartNames: '',
 
         selectedDateList: [],
 
@@ -82,9 +63,7 @@ Page({
      * @param part
      * @returns {Array}
      */
-    makeWeekList:
-
-    function (cycleLength, part) {
+    makeWeekList:    function (cycleLength, part) {
         // 暂时只想到了这个办法，给weekList加标志，好判断是选中了哪个部位的日期，e.target.id不好用了。
 
         let week = [];
@@ -157,7 +136,6 @@ Page({
             // selectedDateList: []
 
         });
-
 
     },
 
@@ -265,48 +243,7 @@ Page({
 
         this.makeWeekList(this.data.cycleLength, "");
 
-        // 每次改变输入的，进行条件检查
-        this.validateTab();
 
-    },
-
-    /**
-     * 页面总体控制函数，根据当前的输入，判断该页面是否属于合理输入状态，并且设置状态
-     */
-    validateTab: function () {
-        let tabData = this.data.tabData;
-
-        tabData[0].finished =
-            app.Util.datesDistance(this.data.fromDate, this.data.toDate) >= this.data.cycleLength;
-
-        let hasSelectedPart = false;
-        for (let part of this.data.partList) {
-            hasSelectedPart = hasSelectedPart || part.selected;
-        }
-
-        tabData[1].finished = hasSelectedPart && this.data.body.hasSelectedPart() && this.data.selectedDateList.length > 0;
-
-        // console.log("hasSelectedPart:",hasSelectedPart," this.data.body.hasSelectedPart()", this.data.body.hasSelectedPart(), "this.data.selectedDateList.length > 0",this.data.selectedDateList.length > 0);
-
-        tabData[2].finished = this.data.body.allActionsSelected();
-
-
-        this.setData({
-            tabData: tabData,
-            allTabFinished: tabData[0].finished && tabData[1].finished
-        });
-    },
-
-    onToDateTab: function () {
-        this.switchTab(0);
-    },
-
-    onToPartTab: function () {
-        this.switchTab(1);
-    },
-
-    onToActionTab: function () {
-        this.switchTab(2);
     },
 
     /**
@@ -403,7 +340,6 @@ Page({
         });
 
         this.updatePartNameArray();
-        this.validateTab();
     },
 
     onCancelPart: function (e) {
@@ -426,7 +362,6 @@ Page({
         });
 
         this.updatePartNameArray();
-        this.validateTab();
     },
 
     onAddPart: function (e) {
@@ -452,7 +387,7 @@ Page({
         });
 
         this.updatePartNameArray();
-        this.validateTab();
+
     },
 
     /**
@@ -478,7 +413,6 @@ Page({
             partList: partList
         });
 
-        this.validateTab();
     },
 
     /**
@@ -513,7 +447,6 @@ Page({
             partList: partList
         });
 
-        this.validateTab();
     },
 
     /**
@@ -549,7 +482,6 @@ Page({
             body: body
         });
 
-        this.validateTab();
     },
 
     /**
@@ -696,31 +628,6 @@ Page({
 
     /**
      * 页面总体控制
-     * tab切换的具体函数
-     */
-    switchTab: function (tabIdx) {
-        switch (tabIdx) {
-            case 0:
-                break;
-            case 1:
-                this.initPartTab();
-                // 刷新其他tab数据，防止用户直接跳转到预览，造成数据未选的假象
-                this.initActionTab();
-                break;
-            case 2:
-                this.initActionTab();
-                break;
-            default:
-                return;
-        }
-
-        this.setData({
-            currentTabIdx: tabIdx
-        })
-    },
-
-    /**
-     * 页面总体控制
      * 所有选项都已选择，进入下一步预览计划
      * @param e
      */
@@ -829,7 +736,7 @@ Page({
         });
 
         this.makeWeekList(this.data.cycleLength, '');
-        this.validateTab();
+
     },
 
     /**
@@ -891,7 +798,7 @@ Page({
             this.data.selectedDateList = [];
             this.data.body.unSelectAllActions();
         }
-        this.validateTab();
+
         this.prepareActionData();
         this.prepareActionPart();
 
@@ -965,7 +872,6 @@ Page({
                 part.active = false;
             }
             this.setData({
-                currentTabIdx: 1,
                 partList: partList
             });
             // 重置为没保存的状态

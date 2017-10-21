@@ -1,14 +1,9 @@
 <!--pages/plan/define_plan/define_plan.wxml-->
 <view class="container">
 
-    <view class="head-box" wx:if="{{currentTabIdx===index}}" wx:for="{{tabData}}" wx:key="{{index}}">
-
-        <view wx:if="{{currentTabIdx===index}}" class="tab-item" data-current="{{index}}">{{item.name}}</view>
-
-        <view class="gray-space-small"></view>
-
-        <!-- 时间选择Ta -->
-        <view class="swiper-box column" wx:if="{{currentTabIdx===0}}" id="{{tabData[0].type}}">
+    <view class="head-box">
+        <!-- 时间选择 -->
+        <view class="swiper-box column">
             <view class="head-body-top">
                 <view class="date-selector-box">
                     <view class="date-type-text">开始日期：</view>
@@ -30,45 +25,12 @@
                     </picker>
                 </view>
 
-                <view class="date-selector-box">
-                    <view class="date-type-text">周期天数：</view>
-                    <picker class="date-picker-box" id="cycle" value="{{cycleLengthIndex}}" range="{{cycleLengthPickerArray}}" bindchange="onDatePickerChange">
-                        <view style="margin-left:50rpx">{{cycleLength}} 天</view>
-                    </picker>
-                </view>
-
                 <view class="gray-space-small"></view>
-
-                <view class="title-text">
-                    周期预览
-                </view>
-
-                <view class="day-selector-box">
-                    <view class="day-selector" wx:for="{{weekList}}" wx:key="{{index}}" wx:for-item="week">
-                        <view class="day-box" wx:for="{{week}}" wx:key="{{index}}" id="{{item.id}}" data-date="{{item}}">
-                            <view class="day-item {{item.selected?'day-item-selected':''}}">{{item.value}}</view>
-                            <view class="day-item-tips">
-                                <text>{{item.hasparts}}</text>
-                            </view>
-                        </view>
-                    </view>
-                </view>
-
-                <view class="tips-text-box">
-                    <view class="tips-item">1、请选择计划开始和结束的时间</view>
-                    <view class="tips-item">2、如果计划中当天准备休息，不选这天即可</view>
-                    <view class="tips-item">3、再选择该日期的锻炼部位</view>
-                </view>
             </view>
-
-            <view class="head-body-bot">
-                <view class="round-corner-btn enable" bindtap="onToPartTab">选择部位</view>
-            </view>
-
         </view>
 
-        <!-- 部位选择Tab -->
-        <view class="swiper-box column" wx:if="{{currentTabIdx===1}}" id="{{tabData[1].type}}">
+        <!-- 周期选择 -->
+        <view class="swiper-box column">
             <view class="head-body-top">
                 <view class="title-text">
                     请点选周期中的天次（可多选）
@@ -86,32 +48,17 @@
                 </view>
 
                 <view class="gray-space-small"></view>
-
-                <scroll-view class="part-scrollview" scroll-y="true">
-                    <view id="{{item.name}}" class="part-selector-box" wx:if="{{item.selected}}" wx:for="{{partList}}" wx:key="{{index}}">
-                        <image class="part-selector-item-img" src="../../{{item.imageUrl}}"></image>
-                        <view class="part-selector-item-text">{{item.name}}</view>
-                        <icon id="{{item.name}}" class="part-selector-item-icon" wx:if="{{item.selected }}" size="30" type="cancel" bindtap="onCancelPart"></icon>
-                    </view>
-                </scroll-view>
             </view>
 
-            <view class="head-body-bot">
-                <view class="round-corner-btn enable" bindtap="onToDateTab">选日期</view>
-                <picker id="partName" data-partname="{{index}}" range="{{partNameArray}}" bindchange="onAddPart">
-                    <view class="round-corner-btn enable">添加部位</view>
-                </picker>
-                <view class="round-corner-btn {{allTabFinished?'enable':'disable'}}" bindtap="{{allTabFinished?'onToActionTab':''}}">选动作</view>
-            </view>
         </view>
 
-        <!-- 动作选择Tab -->
-        <view class="swiper-box column" wx:if="{{currentTabIdx===2}}" id="{{tabData[2].type}}">
+        <!-- 动作选择 -->
+        <view class="swiper-box column">
             <view class="head-body-top">
                 <view class="swiper-item">
                     <!-- 左边部位列表 -->
                     <scroll-view class="partlist-scrollview" scroll-y="true">
-                        <view id="{{item.name}}" class="partlist-item {{item.active?'partlist-item-active':''}}" wx:if="{{item.selected}}" wx:for="{{partList}}" wx:key="{{index}}" bindtap="onSelectPartTab">
+                        <view id="{{item.name}}" class="partlist-item {{item.active?'partlist-item-active':''}}" wx:for="{{partList}}" wx:key="{{index}}" bindtap="onSelectPartTab">
                             {{item.name}}({{item.selectedActionCount}})
                         </view>
                     </scroll-view>
@@ -125,10 +72,11 @@
 
                                 <!--  每个动作 -->
                                 <view id="{{item.name}}" class="action-box" wx:for="{{item.actionSet}}" wx:key="{{index}}" bindtap="onSelectAction">
-                                    <!-- 图片占位 -->
+                                    <!-- 动作图片 -->
                                     <image class="action-item-image" src="../../{{item.imageUrl}}"></image>
 
-                                    <view class="action-item-box">
+                                    <!-- 动作信息 -->
+                                    <view class="action-item-text-box">
                                         <view class="action-item-head">
                                             <view>{{item.name}}</view>
                                         </view>
@@ -145,6 +93,7 @@
                                         </picker>
                                     </view>
 
+                                    <!-- 选择状态icon -->
                                     <icon class="action-item-icon" type="{{item.selected?'success_circle':'circle'}}" size="26"></icon>
                                 </view>
 
@@ -152,19 +101,16 @@
                         </view>
                     </scroll-view>
                 </view>
-            </view>
 
-            <view class="head-body-bot">
-                <view class="round-corner-btn enable" bindtap="onToPartTab">选择时间和部位</view>
             </view>
         </view>
-
     </view>
 
     <!-- 这是Toast -->
     <include src="../../ui/toast/warn_toast.wxml" />
 
     <view class="foot-box">
-        <button class="next-btn" disabled="{{!allTabFinished}}" type="primary" bindtap="onPreview"> 预览 </button>
+        <button class="next-btn" type="primary" bindtap="onPreview"> 预览 </button>
     </view>
+
 </view>

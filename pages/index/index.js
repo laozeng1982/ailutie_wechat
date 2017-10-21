@@ -12,9 +12,9 @@ Page({
         notSignUp: true,
 
         chartType: [
-            {id: 1 + "", text: "本周", checked: true},
-            {id: 2 + "", text: "本月", checked: false},
-            {id: 3 + "", text: "部位", checked: false},
+            { id: 1 + "", text: "本周", checked: true },
+            { id: 2 + "", text: "本月", checked: false },
+            { id: 3 + "", text: "部位", checked: false },
         ],
 
     },
@@ -102,15 +102,12 @@ Page({
     onMakePlan: function (e) {
         // console.log(e.currentTarget);
         app.makingNewPlan = true;
-        if (e.currentTarget.id === "tempPlan") {
-            wx.navigateTo({
-                url: '../plan/define_plan/define_plan?mode=tempPlan',
-            });
-        } else if (e.currentTarget.id === "longPlan") {
-            wx.navigateTo({
-                url: '../plan/plan_source/plan_source',
-            });
-        }
+        let url = (e.currentTarget.id === "tempPlan") ?
+            "../plan/define_plan/define_plan?mode=tempPlan" : "../plan/define_plan/define_plan";
+
+        wx.navigateTo({
+            url: url,
+        });
     },
 
     onLoad: function () {

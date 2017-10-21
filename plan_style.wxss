@@ -5,7 +5,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-content: center;
     align-items: center;
     background: #fff;
@@ -49,10 +48,8 @@
 }
 
 .swiper-box {
-    height: 90%;
     width: 100%;
     display: flex;
-    justify-content: space-around;
     align-content: center;
     align-items: center;
 }
@@ -171,6 +168,7 @@
 
 .calender-text {
     padding-left: 40rpx;
+    width: 210rpx;
 }
 
 .calender-image {
@@ -183,7 +181,7 @@
 }
 
 .title-text {
-    padding: 40rpx;
+    padding: 20rpx;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -193,7 +191,6 @@
 }
 
 .day-selector-box {
-    margin-top: 20rpx;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -323,14 +320,15 @@
     display: flex;
     flex-direction: column;
     width: 25%;
-    height: 100%;
+    height: 670rpx;
     background-color: #eee;
 }
 
 .partlist-item {
     width: 200rpx;
     height: 60rpx;
-    padding: 40rpx;
+    padding: 20rpx;
+    padding-left: 40rpx;
     display: inline-block;
     align-content: center;
     align-items: center;
@@ -350,7 +348,7 @@
     display: flex;
     flex-direction: column;
     width: 75%;
-    height: 100%;
+    height: 650rpx;
 }
 
 .sub-part-actions-item {
@@ -365,8 +363,8 @@
 }
 
 .sub-part-head-text {
-    margin-top: 20rpx;
-    margin-bottom: 20rpx;
+    /* margin-top: 20rpx;
+    margin-bottom: 20rpx; */
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -378,25 +376,26 @@
 
 .action-box {
     /* width: 100%; */
-    height: 200rpx;
+    height: 150rpx;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
     align-items: center;
     border-bottom: 1rpx solid #eee;
+    padding-left: 16rpx;
 }
 
 .action-item-image {
-    width: 150rpx;
-    height: 150rpx;
+    width: 120rpx;
+    height: 120rpx;
     border: 1rpx solid #888;
     border-radius: 50%;
 }
 
-.action-item-box {
+.action-item-text-box {
     /* width: 60%; */
-    height: 200rpx;
+    height: 140rpx;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -409,8 +408,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 36rpx;
-    margin-top: 20rpx;
+    font-size: 30rpx;
+    margin-top: 10rpx;
 }
 
 .action-number-picker-box {
@@ -734,15 +733,6 @@ height:670rpx;
     font-weight: 400;
     color: #000;
     border-bottom: 10rpx solid #000;
-}
-
-.swiper-box {
-    height: 90%;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
 }
 
 .flex-center {

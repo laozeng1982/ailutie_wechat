@@ -13,8 +13,6 @@
         "pages/settings/favorite/favorite",
         "pages/settings/knowledge/knowledge",
         "pages/plan/plan_list/plan_list",
-        "pages/plan/plan_source/plan_source",
-        "pages/plan/plan_type/plan_type",
         "pages/plan/plan_details/plan_details",
         "pages/plan/define_plan/define_plan",
         "pages/plan/preview_plan/preview_plan",
