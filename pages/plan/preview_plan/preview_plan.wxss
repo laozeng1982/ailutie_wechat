@@ -1,5 +1,4 @@
 /* pages/plan/preview_plan/preview_plan.wxss */
-@import '../plan_style';
 
 .scrollview {
     height: 800rpx;
@@ -119,18 +118,7 @@
     width: 340rpx;
 }
 
-.cancel_btn {
-    width: 340rpx;
-    color: #666;
-    text-align: center;
-}
 
-.confirm_btn {
-    width: 340rpx;
-    color: #353535;
-    background: #09bb07;
-    text-align: center;
-}
 
 .container1 {
     display: flex inline-flex;
@@ -152,15 +140,7 @@
     /* height: 100%; *//* border-bottom: 1rpx solid #eee; */
 }
 
-.picker {
-    display: flex;
-    flex-direction: row;
-}
 
-.picker-text {
-    display: flex;
-    justify-content: center;
-}
 
 .scrollview {
     height: 100%;
@@ -174,14 +154,7 @@
     color: transparent;
 }
 
-.dateControl {
-    display: flex;
-    width: 100%;
-    justify-content: flex-start space-between;
-    height: 120rpx;
-    align-items: center;
-    align-content: center;
-}
+
 
 .dateButton {
     /* background: #888; */

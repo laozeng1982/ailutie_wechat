@@ -69,8 +69,8 @@ Page({
     },
 
     onPlanSelected: function (e) {
-        console.log(e.currentTarget.dataset);
-        app.currentViewPlan = e.currentTarget.dataset;
+        console.log(e.currentTarget.dataset.plan);
+        app.currentViewPlan = e.currentTarget.dataset.plan;
         wx.navigateTo({
             url: '../plan_details/plan_details?mode=' + this.data.tabData[this.data.currentTabIdx].name,
         });

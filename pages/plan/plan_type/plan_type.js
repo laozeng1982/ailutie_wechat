@@ -14,9 +14,9 @@ Page({
                 name: "我的基础",
                 data:
                     [
-                        {id: 1, text: "零基础小白", value: "初级", selected: false},
-                        {id: 2, text: "有一定基础", value: "中级", selected: false},
-                        {id: 3, text: "健身达人", value: "高级", selected: false},
+                        {id: 1, text: "零基础小白", value: "初级", checked: false},
+                        {id: 2, text: "有一定基础", value: "中级", checked: false},
+                        {id: 3, text: "健身达人", value: "高级", checked: false},
                     ],
                 tips: "请选择您的健身基础",
                 finished: false
@@ -26,9 +26,9 @@ Page({
                 name: "我的目标",
                 data:
                     [
-                        {id: 1, text: "减脂", selected: false},
-                        {id: 2, text: "增肌", selected: false},
-                        {id: 3, text: "塑形", selected: false},
+                        {id: 1, text: "减脂", checked: false},
+                        {id: 2, text: "增肌", checked: false},
+                        {id: 3, text: "塑形", checked: false},
                     ],
                 tips: "请选择您的健身目标",
                 finished: false
@@ -54,16 +54,16 @@ Page({
         });
     },
 
-    onItemSelected: function (e) {
+    onItemChecked: function (e) {
 
         let tabData = this.data.tabData;
         let currentTabIdx = this.data.currentTabIdx;
-        let selectedItemIdx = parseInt(e.currentTarget.id);
+        let checkedItemIdx = parseInt(e.currentTarget.id);
         let disableNextBtn;
 
         for (let idx = 0; idx < tabData[currentTabIdx].data.length; idx++) {
-            tabData[currentTabIdx].data[idx].selected =
-                selectedItemIdx === tabData[currentTabIdx].data[idx].id;
+            tabData[currentTabIdx].data[idx].checked =
+                checkedItemIdx === tabData[currentTabIdx].data[idx].id;
         }
         tabData[currentTabIdx].finished = true;
 
@@ -89,14 +89,14 @@ Page({
         app.currentPlan.source = app.globalData.wechatUserInfo.nickName;
 
         for (let item of this.data.tabData[0].data) {
-            if (item.selected) {
+            if (item.checked) {
                 app.currentPlan.level = item.value;
                 break;
             }
         }
 
         for (let item of this.data.tabData[1].data) {
-            if (item.selected) {
+            if (item.checked) {
                 app.currentPlan.purpose = item.text;
                 break;
             }

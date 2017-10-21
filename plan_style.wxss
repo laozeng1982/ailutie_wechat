@@ -1,0 +1,882 @@
+/* 上面部分 */
+
+.head-box {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    background: #fff;
+}
+
+/* 下面部分 */
+
+.foot-box {
+    width: 100%;
+    height: 120rpx;
+    justify-content: space-around;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* 底部按钮 */
+
+.next-btn {
+    width: 90%;
+}
+
+/* plan_source 和plan_details 页面，部分共用 */
+
+.tab-head-box {
+    width: 100%;
+    height: 100rpx;
+    text-align: center;
+    line-height: 100rpx;
+}
+
+.tab-item {
+    font-size: 40rpx;
+    font-weight: 500;
+    display: inline-block;
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    line-height: 100rpx;
+}
+
+.swiper-box {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.swiper-item {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.selector-box {
+    width: 100%;
+    height: 200rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.round-corner-box {
+    border: 1px solid;
+    border-radius: 75rpx;
+    border-color: #888;
+    width: 500rpx;
+    height: 100rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.item-checked {
+    border-color: #888;
+    background-color: #888;
+    color: #fff;
+}
+
+.control-btn-box {
+    width: 60%;
+    height: 100rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.round-corner-btn {
+    height: 60rpx;
+    font-size: 26rpx;
+    width: 200rpx;
+    margin: 20rpx;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    border-radius: 30rpx;
+}
+
+.enable {
+    background-color: #000;
+    color: #fff;
+}
+
+.disable {
+    background-color: #eee;
+    color: #888;
+}
+
+/* define_plan 页面 */
+
+.head-body-top {
+    width: 100%;
+    height: 90%;
+}
+
+.head-body-bot {
+    width: 90%;
+    height: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.date-selector-box {
+    width: 100%;
+    height: 100rpx;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    border-bottom: 1rpx solid #eee;
+}
+
+.date-type-text {
+    margin-left: 40rpx;
+    width: 360 rpx;
+}
+
+.date-picker-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    /* width: 500rpx; */
+    height: 100rpx;
+}
+
+.calender-text {
+    padding-left: 40rpx;
+}
+
+.calender-image {
+    width: 50rpx;
+    height: 50rpx;
+    padding-top: 40rpx;
+    padding-bottom: 40rpx;
+    padding-left: 40rpx;
+    padding-right: 150rpx;
+}
+
+.title-text {
+    padding: 40rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 36rpx;
+    font-weight: 400;
+}
+
+.day-selector-box {
+    margin-top: 20rpx;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.day-selector {
+    width: 100%;
+    height: 100rpx;
+    display: flex;
+    flex-direction: row;
+}
+
+.day-box {
+    width: 14.28%;
+    height: 100rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.day-item {
+    width: 60rpx;
+    height: 60rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    border-radius: 50%;
+    border: 1rpx dashed #888;
+}
+
+.day-item-selected {
+    border: 1rpx solid #888;
+    background: #888;
+    color: #fff;
+}
+
+.day-item-tips {
+    width: 100%;
+    height: 30rpx;
+    font-size: 24rpx;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+}
+
+.tips-text-box {
+    padding: 20rpx;
+    font-size: 28rpx;
+    display: flex;
+    flex-direction: column;
+    color: #888;
+    width: 100%;
+}
+
+.tips-item {
+    font-size: 24rpx;
+    font-weight: 300;
+    color: #888;
+    display: inline-block;
+    width: 100%;
+    line-height: 60rpx;
+    padding-left: 40rpx;
+}
+
+/* 主要是部位选择Tab */
+
+.part-scrollview {
+    height: 600rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.part-selector-box {
+    width: 100%;
+    height: 150rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    border-bottom: 1rpx solid #eee;
+}
+
+.part-selector-item-img {
+    width: 120rpx;
+    height: 120rpx;
+    margin-left: 60rpx;
+    border: 1rpx solid #888;
+    border-radius: 50%;
+}
+
+.part-selector-item-text {
+    margin-left: 80rpx;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+    margin-right: 20rpx;
+    align-content: center;
+    align-items: center;
+    text-align: left;
+    font-size: 40rpx;
+}
+
+.part-selector-item-icon {
+    margin-right: 80rpx;
+    margin-left: 80rpx;
+    size: 36;
+}
+
+.part {
+    width: 80%;
+    height: 100rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+/* 动作选择Tab */
+
+.partlist-scrollview {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    background-color: #eee;
+}
+
+.partlist-item {
+    width: 200rpx;
+    height: 60rpx;
+    padding: 40rpx;
+    display: inline-block;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 36rpx;
+    color: #888;
+    font-weight: 300;
+}
+
+.partlist-item-active {
+    color: #000;
+    font-weight: 500;
+    background-color: #fff;
+}
+
+.parts-actions-scrollview {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    height: 100%;
+}
+
+.sub-part-actions-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-part-actions-scrollview {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-part-head-text {
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 36rpx;
+    font-weight: 500;
+}
+
+.action-box {
+    /* width: 100%; */
+    height: 200rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    border-bottom: 1rpx solid #eee;
+}
+
+.action-item-image {
+    width: 150rpx;
+    height: 150rpx;
+    border: 1rpx solid #888;
+    border-radius: 50%;
+}
+
+.action-item-box {
+    /* width: 60%; */
+    height: 200rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: flex-start;
+    align-items: center;
+}
+
+.action-item-head {
+    height: 60rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 36rpx;
+    margin-top: 20rpx;
+}
+
+.action-number-picker-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.action-number-picker-item {
+    width: 50rpx;
+    font-size: 30rpx;
+}
+
+.action-item-icon {
+    margin-right: 20rpx;
+    margin-left: 10rpx;
+    size: 36;
+}
+
+/* preview_plan 页面 */
+
+.date-control-box {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start space-between;
+    height: 120rpx;
+    align-items: center;
+    align-content: center;
+}
+
+.date-head {
+    width: 100%;
+    height: 60rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 36rpx;
+    margin-top: 20rpx;
+}
+
+.date-picker-item-text {
+    display: flex;
+    width: 150rpx;
+    justify-content: center;
+}
+
+.month-box {
+    display: flex;
+    justify-content: space-around;
+    width: 100rpx;
+    height: 50rpx;
+    z-index: 100;
+    border-radius: 5%;
+    padding-right: 40rpx;
+}
+
+.month-item {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    height: 50rpx;
+    width: 200rpx;
+    border-radius: 25rpx;
+    border: 1rpx solid #888;
+    z-index: 100;
+}
+
+.this-month {
+    background: #e64340;
+    color: #fff;
+}
+
+.calendar-panel {
+    width: 100%;
+}
+
+.calendar-box {
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1rpx solid #eee;
+    display: flex;
+    justify-content: space-around;
+}
+
+.calendar-weekday-head {
+    width: 14.28%;
+    float: left;
+    text-align: center;
+    font-size: 24rpx;
+    padding: 10rpx 0;
+}
+
+.calendar-weekday-normal {
+    width: 14.28%;
+    float: left;
+    text-align: center;
+    font-weight: 300;
+    font-size: 36rpx;
+    padding-top: 10rpx;
+    padding-bottom: 30rpx;
+    height: 56rpx;
+}
+
+.rest-day {
+    font-weight: 900;
+    color: red;
+}
+
+.plan-view-box {
+    width: 100%;
+    height: 1000rpx;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    background: #fff;
+}
+
+.calender-swiper {
+width:100%;
+height:670rpx;
+}
+
+.calender-date-item {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.calender-date-marker {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 20rpx;
+}
+
+.smallbtn {
+    height: 60rpx;
+    font-size: 26rpx;
+    width: 80%;
+    margin: 20rpx;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+.radio_group {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80rpx;
+    align-content: center;
+    align-items: center;
+}
+
+.radio {
+    padding: 40rpx;
+    align-content: center;
+    align-items: center;
+}
+
+.round {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    height: 50rpx;
+    width: 200rpx;
+    border-radius: 25rpx;
+    border: 1rpx solid #888;
+    z-index: 100;
+}
+
+.textBig {
+    padding-left: 40rpx;
+    padding-top: 20rpx;
+    font-size: 40 rpx;
+    font-weight: 600;
+    align-content: center;
+    align-items: center;
+}
+
+.textBold {
+    padding-left: 40rpx;
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+    padding-right: 40rpx;
+    font-weight: 500;
+    align-content: center;
+    align-items: center;
+}
+
+.swiper-tab {
+    width: 100%;
+    height: 100rpx;
+    /* border-bottom: 1rpx solid #888; */
+    text-align: center;
+    line-height: 100rpx;
+}
+
+.swiper-tab-list {
+    font-size: 40rpx;
+    font-weight: 500;
+    display: inline-block;
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    line-height: 100rpx;
+}
+
+.on {
+    color: #000;
+    border-bottom: 10rpx solid #888;
+}
+
+
+
+.calendar_month_box {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1rpx solid #ececec;
+    display: flex;
+    justify-content: space-around;
+    height: 120rpx;
+}
+
+.month_label {
+    float: left;
+    text-align: center;
+    font-size: 40rpx;
+    display: flex;
+    justify-content: space-around;
+    height: 50rpx;
+    width: 120rpx;
+    padding: 30rpx;
+}
+
+
+
+
+
+
+
+
+
+.not_in_this_month_date {
+    color: #888;
+}
+
+.active_date {
+    align-items: center;
+    width: 60rpx;
+    height: 60rpx;
+    z-index: 100;
+    background: #888;
+    color: #fff;
+    border-radius: 20%;
+}
+
+.nomal_date {
+    align-items: center;
+    width: 60rpx;
+    height: 60rpx;
+    z-index: 100;
+}
+
+.show_box {
+    display: flex;
+    justify-content: center;
+    padding: 20rpx;
+    font-size: 35rpx;
+    align-items: center;
+}
+
+
+
+
+.scrollviewVertical_Preview {
+    height: 800rpx;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.padding {
+    padding-left: 70rpx;
+    padding-right: 70rpx;
+}
+
+.tab {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.tab-list {
+    font-size: 36rpx;
+    font-weight: 300;
+    color: #888;
+    display: inline-block;
+    width: 100%;
+    height: 100rpx;
+    text-align: center;
+    line-height: 100rpx;
+    border-bottom: 10rpx solid #fff;
+}
+
+.current-highlight {
+    font-weight: 400;
+    color: #000;
+    border-bottom: 10rpx solid #000;
+}
+
+.swiper-box {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.flex-center {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.flex-between-center {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.flex-around-center {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.pad-left40 {
+    padding-left: 40rpx;
+}
+
+.pad-right40 {
+    padding-right: 40rpx;
+}
+
+.padding40 {
+    padding: 40rpx;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.plan-scroll {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.plan-container {
+    display: flex;
+    flex-direction: column;
+    /* align-content: center;
+    align-items: center; */
+    justify-content: space-around;
+    width: 100%;
+}
+
+.plan-item-container {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-left: 40rpx;
+    margin-right: 40rpx;
+}
+
+.header-image-author {
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 50%;
+}
+
+.header-text-author {
+    padding-left: 40rpx;
+    font-size: 36rpx;
+}
+
+.header {
+    text-align: center;
+    height: 120rpx;
+    justify-content: space-around;
+}
+
+.purpose {
+    height: 80rpx;
+}
+
+.image {
+    width: 720rpx;
+    height: 480rpx;
+}
+
+.bottom {
+    height: 100rpx;
+}
+
+.bottom-item-container {
+    width: 200rpx;
+    height: 100rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.bottom-image-eye {
+    width: 46rpx;
+    height: 32rpx;
+}
+
+.bottom-image-comments {
+    width: 32rpx;
+    height: 32rpx;
+}
+
+.bottom-image-like {
+    width: 35rpx;
+    height: 32rpx;
+}
+
+.cancel-btn {
+    width: 340rpx;
+    color: #666;
+    text-align: center;
+}
+
+.confirm-btn {
+    width: 340rpx;
+    color: #353535;
+    background: #09bb07;
+    text-align: center;
+}

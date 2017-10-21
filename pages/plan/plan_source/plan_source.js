@@ -14,9 +14,9 @@ Page({
                 name: "计划来源",
                 data:
                     [
-                        {id: 1, text: "使用推荐计划", selected: false},
-                        {id: 2, text: "使用历史计划", selected: false},
-                        {id: 3, text: "自己定制计划", selected: false},
+                        {id: 1, text: "使用推荐计划", checked: false},
+                        {id: 2, text: "使用历史计划", checked: false},
+                        {id: 3, text: "自己定制计划", checked: false},
                     ],
                 tips: "请选择本次计划来源",
                 finished: false
@@ -29,21 +29,21 @@ Page({
 
     },
 
-    onItemSelected: function (e) {
+    onItemChecked: function (e) {
 
         let tabData = this.data.tabData;
         let currentTabIdx = this.data.currentTabIdx;
-        let selectedItemIdx = parseInt(e.currentTarget.id);
+        let checkedItemIdx = parseInt(e.currentTarget.id);
         let nextBtnText = '';
 
         for (let idx = 0; idx < tabData[currentTabIdx].data.length; idx++) {
-            tabData[currentTabIdx].data[idx].selected =
-                selectedItemIdx === tabData[currentTabIdx].data[idx].id;
+            tabData[currentTabIdx].data[idx].checked =
+                checkedItemIdx === tabData[currentTabIdx].data[idx].id;
         }
         tabData[currentTabIdx].finished = true;
 
         if (currentTabIdx === 0) {
-            if (selectedItemIdx !== 3) {
+            if (checkedItemIdx !== 3) {
                 nextBtnText = "去选择健身计划";
             } else {
                 nextBtnText = "去定制健身计划";
@@ -60,7 +60,7 @@ Page({
 
     onNext: function () {
         for (let item of this.data.tabData[0].data) {
-            if (item.selected) {
+            if (item.checked) {
                 let url = '';
                 switch (item.id) {
                     case 1:

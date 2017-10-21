@@ -8,7 +8,16 @@ Page({
      * 页面的初始数据
      */
     data: {
-        plan: {},
+        // plan: {},
+    },
+
+
+    onComments: function () {
+
+    },
+
+    onFavorite: function (e) {
+
     },
 
     /**
@@ -31,8 +40,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        let plan = app.Util.deepClone(app.currentViewPlan);
         this.setData({
-            plan: app.currentViewPlan
+            plan: plan
         });
 
         console.log(this.data.plan);

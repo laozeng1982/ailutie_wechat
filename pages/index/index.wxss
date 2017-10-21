@@ -1,36 +1,8 @@
 /**index.wxss**/
 
-.userinfo {
-    display: flex;
-    height: 120rpx;
-    width: 100%;
-    flex-direction: row;
-    /* justify-content: space-around; */
-    align-content: center;
-    align-items: center;
-}
+/* 上半部分，图像显示 */
 
-.userinfo-avatar {
-    width: 80rpx;
-    height: 80rpx;
-    margin: 20rpx;
-    border-radius: 50%;
-}
-
-.userinfo-nickname {
-    color: #aaa;
-}
-
-.chartTitle {
-    width: 100%;
-    height: 40rpx;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.showArea {
+.show-box {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
@@ -41,7 +13,49 @@
     height: 65%;
 }
 
-.planArea {
+.chart-title {
+    width: 100%;
+    height: 40rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.type-radio-box {
+    display: flex;
+    flex-direction: row;
+    width: 400rpx;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.type-radio-item-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.type-radio-text-unchecked {
+    font-size: 24rpx;
+    color: #888;
+}
+
+.type-radio-text-checked {
+    font-size: 24rpx;
+}
+
+.type-radio {
+    padding-left: 10rpx;
+    margin-right: 0;
+}
+
+/* 下半部分，计划控制 */
+
+.plan-box {
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -52,19 +66,7 @@
     justify-content: space-between;
 }
 
-.grayBackgroud {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    flex-direction: column;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
-    background: #888;
-    border-bottom: 1rpx solid #eee;
-}
-
-.whiteBackgroud {
+.plan-white-bg {
     display: flex;
     height: 160rpx;
     width: 100%;
@@ -74,19 +76,17 @@
     background: #fff;
 }
 
-.smalltext {
-    /* margin-top: 40rpx; */
-    font-size: 30rprx;
+.tips-text {
+    font-size: 30rpx;
     align-content: center;
     align-items: center;
     text-align: center;
-     height: 60rpx; 
+    height: 60rpx;
     color: #fff;
 }
 
-.text {
+.plan-name-text {
     padding: 40rpx;
-    /* width: 100%; */
     height: 80rpx;
     display: flex;
     justify-content: space-around;
@@ -94,45 +94,13 @@
     align-items: center;
 }
 
-.radioContainer {
-    display: flex;
-    flex-direction: row;
-    width: 400rpx;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
-}
-
-.radioItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
-}
-
-.radio {
-    padding-left: 10rpx;
-    margin-right: 0;
-}
-
-.textUnSelected {
-    font-size: 24rpx;
-    color: #888;
-}
-
-.textSelected {
-    font-size: 24rpx;
-}
-
-.imageBig {
+.next-image {
     width: 80rpx;
     height: 80rpx;
     padding: 40rpx;
 }
 
-.roundCornor {
-    /* margin-top: 120rpx; */
+.round-corner-btn {
     border: 2px solid;
     border-radius: 75rpx;
     width: 400rpx;
@@ -143,4 +111,3 @@
     justify-content: space-around;
     color: #fff;
 }
-

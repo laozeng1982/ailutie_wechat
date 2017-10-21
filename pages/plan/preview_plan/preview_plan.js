@@ -301,7 +301,7 @@ Page({
     /**
      * 响应到今天按钮
      */
-    onToThisMounth: function (e) {
+    onToThisMonth: function (e) {
         this.moveMonth("now");
 
     },
@@ -310,7 +310,7 @@ Page({
      * 响应日历头部点击，重新显示日历
      * @param e
      */
-    onCalendarHeader: function (e) {
+    onCalendarHead: function (e) {
         this.setData({
             showPlanDetail: false
         });
