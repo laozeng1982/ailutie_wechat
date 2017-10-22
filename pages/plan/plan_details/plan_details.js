@@ -25,7 +25,7 @@ Page({
      */
     onLoad: function (options) {
         wx.setNavigationBarTitle({
-            title: options.mode,
+            title: "预览计划",
         });
     },
 

@@ -103,7 +103,7 @@ Page({
         // console.log(e.currentTarget);
         app.makingNewPlan = true;
         let url = (e.currentTarget.id === "tempPlan") ?
-            "../plan/define_plan/define_plan?mode=tempPlan" : "../plan/define_plan/define_plan";
+            "../plan/define_plan/define_plan?mode=tempPlan" : "../plan/define_plan/define_plan?mode=longPlan";
 
         wx.navigateTo({
             url: url,

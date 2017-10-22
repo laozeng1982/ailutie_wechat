@@ -36,13 +36,11 @@
                     请点选周期中的天次（可多选）
                 </view>
 
-                <view class="day-selector-box">
-                    <view class="day-selector" wx:for="{{weekList}}" wx:key="{{index}}" wx:for-item="week">
-                        <view class="day-box" wx:for="{{week}}" wx:key="{{index}}" id="{{item.id}}" data-date="{{item}}" bindtap="onSelectDay">
-                            <view class="day-item {{item.selected?'day-item-selected':''}}">{{item.value}}</view>
-                            <view class="day-item-tips">
-                                <text>{{item.hasparts}}</text>
-                            </view>
+                <view class="day-selector" >
+                    <view class="day-box" wx:for="{{weekData}}" wx:key="{{index}}" id="{{item.id}}" data-date="{{item}}" bindtap="onSelectDay">
+                        <view class="day-item {{item.selected?'day-item-selected':''}}">{{item.value}}</view>
+                        <view class="day-item-tips">
+                            <text>{{item.hasparts}}</text>
                         </view>
                     </view>
                 </view>
@@ -54,8 +52,8 @@
 
         <!-- 动作选择 -->
         <view class="swiper-box column">
-            <view class="head-body-top">
-                <view class="swiper-item">
+            <view class="head-body-top" wx:for="{{weekData}}" wx:key="{{index}}">
+                <view id="{{item.id}}" class="swiper-item" wx:if="{{item.selected}}">
                     <!-- 左边部位列表 -->
                     <scroll-view class="partlist-scrollview" scroll-y="true">
                         <view id="{{item.name}}" class="partlist-item {{item.active?'partlist-item-active':''}}" wx:for="{{partList}}" wx:key="{{index}}" bindtap="onSelectPartTab">
@@ -81,7 +79,7 @@
                                             <view>{{item.name}}</view>
                                         </view>
                                         <!-- 当动作单位为空的时候，是自定义动作，不显示picker -->
-                                        <picker wx:if="{{item.gpMeasurement !== ''}}" data-action="{{item}}" mode="multiSelector" bindchange="onNumberChange" value="{{multiActionNoIndex}}" range="{{actionNoMultiArray}}">
+                                        <picker wx:if="{{item.gpMeasurement !== ''}}" data-action="{{item}}" mode="multiSelector" bindchange="onNumberChange" value="{{actionQuantityIndex}}" range="{{actionQuantityArray}}">
                                             <view class="action-number-picker-box">
                                                 <view class="action-number-picker-item">{{item.groupSet.length}} </view>
                                                 <view class="action-number-picker-item">组</view>
