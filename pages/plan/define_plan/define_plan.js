@@ -22,13 +22,13 @@ Page({
 
         // 周期
         week: [
-            { id: 0, value: '日', name: "Sunday", hasparts: '', selected: false },
-            { id: 1, value: '一', name: "Monday", hasparts: '', selected: false },
-            { id: 2, value: '二', name: "Tuesday", hasparts: '', selected: false },
-            { id: 3, value: '三', name: "Wednesday", hasparts: '', selected: false },
-            { id: 4, value: '四', name: "Thursday", hasparts: '', selected: false },
-            { id: 5, value: '五', name: "Friday", hasparts: '', selected: false },
-            { id: 6, value: '六', name: "Saturday", hasparts: '', selected: false }
+            {id: 0, value: '日', name: "Sunday", hasparts: '', selected: false},
+            {id: 1, value: '一', name: "Monday", hasparts: '', selected: false},
+            {id: 2, value: '二', name: "Tuesday", hasparts: '', selected: false},
+            {id: 3, value: '三', name: "Wednesday", hasparts: '', selected: false},
+            {id: 4, value: '四', name: "Thursday", hasparts: '', selected: false},
+            {id: 5, value: '五', name: "Friday", hasparts: '', selected: false},
+            {id: 6, value: '六', name: "Saturday", hasparts: '', selected: false}
         ],
         weekList: '',
 
@@ -63,7 +63,7 @@ Page({
      * @param part
      * @returns {Array}
      */
-    makeWeekList:    function (cycleLength, part) {
+    makeWeekList: function (cycleLength, part) {
         // 暂时只想到了这个办法，给weekList加标志，好判断是选中了哪个部位的日期，e.target.id不好用了。
 
         let week = [];
@@ -73,13 +73,13 @@ Page({
         // 七天是比较特殊的天，正好是一周，为了好理解，区分显示
         if (cycleLength === 7) {
             week = [
-                { id: 0, value: '日', name: "Sunday", currpart: part, hasparts: '', selected: false },
-                { id: 1, value: '一', name: "Monday", currpart: part, hasparts: '', selected: false },
-                { id: 2, value: '二', name: "Tuesday", currpart: part, hasparts: '', selected: false },
-                { id: 3, value: '三', name: "Wednesday", currpart: part, hasparts: '', selected: false },
-                { id: 4, value: '四', name: "Thursday", currpart: part, hasparts: '', selected: false },
-                { id: 5, value: '五', name: "Friday", currpart: part, hasparts: '', selected: false },
-                { id: 6, value: '六', name: "Saturday", currpart: part, hasparts: '', selected: false }
+                {id: 0, value: '日', name: "Sunday", currpart: part, hasparts: '', selected: false},
+                {id: 1, value: '一', name: "Monday", currpart: part, hasparts: '', selected: false},
+                {id: 2, value: '二', name: "Tuesday", currpart: part, hasparts: '', selected: false},
+                {id: 3, value: '三', name: "Wednesday", currpart: part, hasparts: '', selected: false},
+                {id: 4, value: '四', name: "Thursday", currpart: part, hasparts: '', selected: false},
+                {id: 5, value: '五', name: "Friday", currpart: part, hasparts: '', selected: false},
+                {id: 6, value: '六', name: "Saturday", currpart: part, hasparts: '', selected: false}
             ];
 
             // 周期下添加标注
@@ -167,27 +167,12 @@ Page({
         console.log("partList", partList);
     },
 
-    updatePartNameArray: function () {
-        let partNameArray = [];
-        for (let part of this.data.partList) {
-            if (!part.selected) {
-                partNameArray.push(part.name);
-            }
-        }
-
-        this.setData({
-            partNameArray: partNameArray
-        });
-    },
-
     /**
      * 设定时间tab
      * 显示更改的日期，日期最早的时间点在Picker中设定了，无需判断过期这种情况。
-     * 当修改了周期的天数，如果周期缩短，涉及到对已选择动作的修改，需要提示用户，是否放弃之前的动作计划。
-     * 如果周期变长，没有变化，重新生成weekList即可。
      * @param e
      */
-    onDatePickerChange: function (e) {
+    onChangeDatePicker: function (e) {
         switch (e.currentTarget.id) {
             case "start":
                 this.setData({
@@ -200,49 +185,9 @@ Page({
                     toDate: e.detail.value
                 });
                 break;
-            case "cycle":
-                let cycleLength = parseInt(e.detail.value) + 1;
-                let makeWeekList = true;
-
-                if (app.currentPlan.circleDaySet.length > cycleLength) {
-                    wx.showModal({
-                        title: '确定缩短周期？',
-                        content: '缩短周期后，超出现有周期的部分将丢失！',
-                        success: function (res) {
-                            if (res.confirm) {
-                                makeWeekList = true;
-                            } else if (res.cancel) {
-                                makeWeekList = false;
-                            }
-                        }
-                    });
-                }
-
-                let orgLength = app.currentPlan.circleDaySet.length;
-                if (makeWeekList) {
-                    if (orgLength > cycleLength) {
-                        app.currentPlan.circleDaySet.splice(cycleLength, orgLength - cycleLength);
-                    } else {
-
-                        for (let idx = 0; idx < cycleLength - orgLength; idx++) {
-                            app.currentPlan.circleDaySet.push(new PlanSet.TrainData(orgLength + idx));
-                        }
-                    }
-
-                    this.setData({
-                        cycleLength: cycleLength
-                    });
-
-                }
-                break;
             default:
                 break;
         }
-
-        console.log(app.currentPlan.circleDaySet);
-
-        this.makeWeekList(this.data.cycleLength, "");
-
 
     },
 
@@ -251,7 +196,7 @@ Page({
      * 响应周期列表点击的效果
      * @param e
      */
-    onSelectDate: function (e) {
+    onSelectDay: function (e) {
         let weekList = this.data.weekList;
         let selectedDateList = [];
         let selectedDateIdx = parseInt(e.currentTarget.id);
@@ -338,56 +283,6 @@ Page({
             partList: partList,
             body: body
         });
-
-        this.updatePartNameArray();
-    },
-
-    onCancelPart: function (e) {
-        console.log(e);
-        let body = this.data.body;
-        let partList = this.data.partList;
-
-        for (let part of partList) {
-            if (part.name === e.target.id) {
-                part.selected = false;
-            }
-        }
-
-        // 置状态
-        body.unSelectPartByName(e.target.id);
-
-        this.setData({
-            body: body,
-            partList: partList
-        });
-
-        this.updatePartNameArray();
-    },
-
-    onAddPart: function (e) {
-        // console.log(e.detail.value);
-        let body = this.data.body;
-        let selectedPartIdx = parseInt(e.detail.value);
-        console.log("Select Part:", e.detail.value, this.data.partNameArray[selectedPartIdx]);
-
-        // 置状态
-        body.selectPartByName(this.data.partNameArray[selectedPartIdx]);
-
-        let partList = this.data.partList;
-
-        for (let part of partList) {
-            if (this.data.partNameArray[selectedPartIdx] === part.name) {
-                part.selected = true;
-            }
-        }
-
-        this.setData({
-            body: body,
-            partList: partList
-        });
-
-        this.updatePartNameArray();
-
     },
 
     /**
@@ -454,7 +349,7 @@ Page({
      * 响应重量选择
      * @param e
      */
-    onNumberChange: function (e) {
+    onChangeQuantity: function (e) {
         console.log("action:", e.currentTarget.dataset.action);
 
         let body = this.data.body;
@@ -627,7 +522,7 @@ Page({
     },
 
     /**
-     * 页面总体控制
+     * 预览功能入口，跳转到预览页面
      * 所有选项都已选择，进入下一步预览计划
      * @param e
      */
@@ -666,7 +561,7 @@ Page({
                             exercise.groupSet = action.groupSet;
                         }
 
-                        // 如果没选动作，就不加呗
+                        // 如果没选动作，就不加
                         if (exercise.groupSet.length === 0) {
                             continue;
                         }
@@ -684,7 +579,7 @@ Page({
         console.log("app.currentPlan:", app.currentPlan);
 
         wx.navigateTo({
-            url: '../preview_plan/preview_plan',
+            url: '../plan_details/plan_details',
         });
     },
 
@@ -750,7 +645,6 @@ Page({
         // 这里要分入口，第一次进入，直接调用系统的，否则使用已经保存的
         let body = this.data.body;
 
-
         // 进行标注
         // 进行判断，如果是继续制定计划，那么之前的计划，已经保存了，这里刷新一下数据，如果不是，则不用刷新
         // 这个地方应该根据已经保存的plan来显示
@@ -766,23 +660,6 @@ Page({
                 break;
             }
         }
-
-        // 当有计划内容时，进行标注和重排序
-        // if (typeof currentPlan !== "undefined" && currentPlan.circleDaySet.length > 0) {
-        //
-        //     // 如果是保存后退到此页面，则清理掉选项
-        //     if (app.lastPlanSaved) {
-        //         body.unSelectAllActions();
-        //     }
-        //
-        //     // 如果之前的计划有这个部位了，标注出来
-        //     for (let partSet of currentPlan.partSets) {
-        //         body.makeLabel(partSet, currentPlan.cycleLength);
-        //     }
-        //
-        //     body.sortListByDate();
-        //
-        // }
 
         this.setData({
             body: body

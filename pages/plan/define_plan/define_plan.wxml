@@ -7,7 +7,7 @@
             <view class="head-body-top">
                 <view class="date-selector-box">
                     <view class="date-type-text">开始日期：</view>
-                    <picker id="start" mode="date" value="{{fromDate}}" start="{{fromDate}}" end="2099-12-31" bindchange="onDatePickerChange">
+                    <picker id="start" mode="date" value="{{fromDate}}" start="{{fromDate}}" end="2099-12-31" bindchange="onChangeDatePicker">
                         <view class="date-picker-box">
                             <view class="calender-text">{{fromDate}}</view>
                             <image class="calender-image" src="../../image/calender_64px.png"></image>
@@ -17,7 +17,7 @@
 
                 <view class="date-selector-box">
                     <view class="date-type-text">结束日期：</view>
-                    <picker id="end" mode="date" value="{{toDate}}" start="{{toDate}}" end="2099-12-31" bindchange="onDatePickerChange">
+                    <picker id="end" mode="date" value="{{toDate}}" start="{{toDate}}" end="2099-12-31" bindchange="onChangeDatePicker">
                         <view class="date-picker-box">
                             <view class="calender-text">{{toDate}}</view>
                             <image class="calender-image" src="../../image/calender_64px.png"></image>
@@ -38,7 +38,7 @@
 
                 <view class="day-selector-box">
                     <view class="day-selector" wx:for="{{weekList}}" wx:key="{{index}}" wx:for-item="week">
-                        <view class="day-box" wx:for="{{week}}" wx:key="{{index}}" id="{{item.id}}" data-date="{{item}}" bindtap="onSelectDate">
+                        <view class="day-box" wx:for="{{week}}" wx:key="{{index}}" id="{{item.id}}" data-date="{{item}}" bindtap="onSelectDay">
                             <view class="day-item {{item.selected?'day-item-selected':''}}">{{item.value}}</view>
                             <view class="day-item-tips">
                                 <text>{{item.hasparts}}</text>

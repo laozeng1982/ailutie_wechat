@@ -90,7 +90,7 @@ Page({
     onModifyPlan: function () {
         app.makingNewPlan = false;
         wx.navigateTo({
-            url: '../plan/preview_plan/preview_plan?mode=modify',
+            url: '../plan/plan_details/plan_details?mode=modify',
         });
     },
 

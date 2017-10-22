@@ -8,6 +8,7 @@
         "pages/settings/about/about",
         "pages/settings/friends/friends",
         "pages/settings/userinfo/userinfo",
+        "pages/plan/history_records/history_records",
         "pages/settings/food/food",
         "pages/settings/donation/donation",
         "pages/settings/favorite/favorite",
@@ -15,7 +16,6 @@
         "pages/plan/plan_list/plan_list",
         "pages/plan/plan_details/plan_details",
         "pages/plan/define_plan/define_plan",
-        "pages/plan/preview_plan/preview_plan",
         "pages/plan/custom_actions/custom_actions"
     ],
     "window": {

@@ -15,7 +15,7 @@ Page({
         today: ''
     },
 
-    onSelectDate: function (e) {
+    onSelectDay: function (e) {
         console.log(e);
         if (app.Util.dateDirection(e.detail.value) === 1) {
             app.Util.showToast("小哥，不能记录将来的指标哦！", this, 2000);
