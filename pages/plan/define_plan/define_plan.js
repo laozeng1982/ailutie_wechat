@@ -46,8 +46,6 @@ Page({
 
         // 部位tab的数据
         currentDay: {}, // weekData数组中的一个，用单数据来提高渲染速度，否则用weekDta直接渲染，速度太慢
-        body: {},
-        selectedPartNames: '',
 
         selectedDateList: [],
 
@@ -60,8 +58,6 @@ Page({
             showClearBtn: false
         },
         searchResult: [],
-
-        partList: [],
 
         actionQuantityArray: [], // 3D 数组，用来存放动作组数，次数，重量和单位
         actionQuantityIndex: [5, 9, 19, 0],  // 数量选择索引
@@ -161,11 +157,7 @@ Page({
                             selectedDateList.push(selectedDateIdx);
                     } else {
                         // 这两天中有一天为空，也可以同时选中，否则就是选中的动作不同，不是同一天的计划，清空之前选中的天
-                        if (!weekData[selectedDateIdx].body.hasSelectedAction() || !weekData[dayIdx].body.hasSelectedAction()) {
-                            console.log("one day don't have action selection!");
-                            if (!selectedDateList.includes(selectedDateIdx))
-                                selectedDateList.push(selectedDateIdx);
-                        } else if (app.Util.isEqual(weekData[selectedDateIdx].body.getSelectedAction(), weekData[dayIdx].body.getSelectedAction())) {
+                        if (app.Util.isEqual(weekData[selectedDateIdx].body.getSelectedAction(), weekData[dayIdx].body.getSelectedAction())) {
                             // 如果选中的动作相同，仅仅是激活的部位不同而已，也算相同计划
                             console.log("those days have same action selection!");
                             if (!selectedDateList.includes(selectedDateIdx))
@@ -205,21 +197,19 @@ Page({
 
         // 3、更新面板中的部位与动作的信息
         // 3.1、先得到这天的部位
-        let selectedPartNames = [];
-        let partList = this.data.partList;
 
         app.currentPlan.setPlanParts();
-        if (app.currentPlan.circleDaySet.length > 0) {
-            for (let day of selectedDateList) {
-                for (let partName of app.currentPlan.getPlanPartArrayByDay(day)) {
-                    for (let part of partList) {
-                        if (part.name === partName) {
-                            part.selected = true;
-                        }
-                    }
-                }
-            }
-        }
+        // if (app.currentPlan.circleDaySet.length > 0) {
+        //     for (let day of selectedDateList) {
+        //         for (let partName of app.currentPlan.getPlanPartArrayByDay(day)) {
+        //             for (let part of partList) {
+        //                 if (part.name === partName) {
+        //                     part.selected = true;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         for (let day of this.data.weekData) {
             if (day.selected) {
@@ -246,7 +236,6 @@ Page({
 
         this.setData({
             selectedDateList: selectedDateList,
-            selectedPartNames: selectedPartNames,
             weekVisual: weekVisual, // 这里用weekData来渲染，速度实在太慢，而且会出现exceed max size错误，超出setData的数据容量范围
             currentDay: currentDay,
         });
