@@ -20,6 +20,35 @@ Page({
 
     },
 
+    onDeletePlan: function () {
+        wx.showModal({
+            title: '提醒',
+            content: '确定删除？',
+            success: function (res) {
+                if (res.confirm) {
+                    let planSet = app.Util.loadData(app.StorageType.PlanSet);
+                    for (let idx = 0; idx < planSet.length; idx++) {
+                        planSet[idx].currentUse = false;
+                    }
+
+                    app.Util.saveData(app.StorageType.PlanSet, planSet);
+
+                    wx.switchTab({
+                        url: '../../index/index',
+                    });
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
+        });
+    },
+
+    onModifyPlan: function () {
+        wx.navigateTo({
+            url: '../define_plan/define_plan',
+        });
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */
@@ -40,7 +69,10 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        let plan = app.Util.deepClone(app.currentViewPlan);
+
+        let plan = app.currentPlan;
+
+
         this.setData({
             plan: plan
         });

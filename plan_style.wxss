@@ -104,7 +104,6 @@
 
 .round-corner-btn {
     height: 60rpx;
-    font-size: 26rpx;
     width: 200rpx;
     margin: 20rpx;
     display: flex;
@@ -531,8 +530,8 @@
 }
 
 .calender-swiper {
-width:100%;
-height:670rpx;
+    width: 100%;
+    height: 670rpx;
 }
 
 .calender-date-item {
@@ -632,8 +631,6 @@ height:670rpx;
     border-bottom: 10rpx solid #888;
 }
 
-
-
 .calendar_month_box {
     width: 100%;
     background: #fff;
@@ -654,14 +651,6 @@ height:670rpx;
     width: 120rpx;
     padding: 30rpx;
 }
-
-
-
-
-
-
-
-
 
 .not_in_this_month_date {
     color: #888;
@@ -691,9 +680,6 @@ height:670rpx;
     font-size: 35rpx;
     align-items: center;
 }
-
-
-
 
 .scrollviewVertical_Preview {
     height: 800rpx;
@@ -789,8 +775,6 @@ height:670rpx;
 .plan-container {
     display: flex;
     flex-direction: column;
-    /* align-content: center;
-    align-items: center; */
     justify-content: space-around;
     width: 100%;
 }
@@ -798,9 +782,10 @@ height:670rpx;
 .plan-item-container {
     display: flex;
     align-items: center;
+    width: 100%;
     align-content: center;
-    margin-left: 40rpx;
-    margin-right: 40rpx;
+    justify-content: space-around;
+
 }
 
 .header-image-author {
@@ -815,9 +800,14 @@ height:670rpx;
 }
 
 .header {
+    height: 80rpx;
+    width: 100%;
+    display: flex;
+    align-content: center;
+    align-items: center;
     text-align: center;
-    height: 120rpx;
-    justify-content: space-around;
+    justify-content: space-around;   
+    font-weight: 500;
 }
 
 .purpose {

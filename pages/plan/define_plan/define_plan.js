@@ -15,15 +15,13 @@ Page({
      */
     data: {
 
-        // 时间tab的数据
+        // 起止时间控制数据
         fromDate: "",
         toDate: "",
-        cycleLength: 7,
-        cycleLengthIndex: 6,
-        cycleLengthPickerArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
 
         // 全页面控制的数据结构，按一周七天，每天都有partList，代表大的激活部位，仅仅作为页面控制用，
         // body，每个部位的动作及信息，存储每天选中的具体内容，最后离开页面时，收集每天每个部位的动作及信息
+        // 这里用weekData来渲染，速度实在太慢，而且会出现exceed max size错误，超出setData的数据容量范围
         weekData: [
             {id: 0, value: '日', name: "Sunday", partList: [], body: {}, selected: false},
             {id: 1, value: '一', name: "Monday", partList: [], body: {}, selected: false},
@@ -44,7 +42,6 @@ Page({
             {id: 6, value: '六', name: "Saturday", selected: false}
         ],
 
-        // 部位tab的数据
         currentDay: {}, // weekData数组中的一个，用单数据来提高渲染速度，否则用weekDta直接渲染，速度太慢
 
         selectedDateList: [],
@@ -62,41 +59,6 @@ Page({
         actionQuantityArray: [], // 3D 数组，用来存放动作组数，次数，重量和单位
         actionQuantityIndex: [5, 9, 19, 0],  // 数量选择索引
         plan: '',
-    },
-
-    /**
-     * 设定时间tab
-     * 根据选项生成日期列表。
-     * @returns {Array}
-     */
-    makeWeekList: function () {
-        // 暂时只想到了这个办法，给weekData加标志，好判断是选中了哪个部位的日期，e.target.id不好用了。
-
-        let weekData = this.data.weekData;
-
-        // 准备选择列表，周期下添加标注
-        if (app.currentPlan.circleDaySet.length > 0) {
-            app.currentPlan.setPlanParts();
-        }
-
-        for (let idx = 0; idx < 7; idx++) {
-
-            if (app.currentPlan.circleDaySet.length > 0) {
-                weekData[idx].hasparts = app.currentPlan.getPlanPartByDay(idx);
-            }
-
-            // 如果是直接退回来，没有保存的状态，需要标注已经选择的日期
-            if (!app.lastPlanSaved && this.data.selectedDateList.length > 0
-                && this.data.selectedDateList.includes(idx)) {
-                weekData[idx].selected = true;
-            }
-        }
-
-        console.log("weekData: ", weekData);
-
-        this.setData({
-            weekData: weekData,
-        });
     },
 
     /**
@@ -199,17 +161,6 @@ Page({
         // 3.1、先得到这天的部位
 
         app.currentPlan.setPlanParts();
-        // if (app.currentPlan.circleDaySet.length > 0) {
-        //     for (let day of selectedDateList) {
-        //         for (let partName of app.currentPlan.getPlanPartArrayByDay(day)) {
-        //             for (let part of partList) {
-        //                 if (part.name === partName) {
-        //                     part.selected = true;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
 
         for (let day of this.data.weekData) {
             if (day.selected) {
@@ -236,11 +187,10 @@ Page({
 
         this.setData({
             selectedDateList: selectedDateList,
-            weekVisual: weekVisual, // 这里用weekData来渲染，速度实在太慢，而且会出现exceed max size错误，超出setData的数据容量范围
+            weekVisual: weekVisual,
             currentDay: currentDay,
         });
 
-        console.log("selectedPartNames: fuck!!!!");
     },
 
     /**
@@ -319,7 +269,6 @@ Page({
             currentDay: currentDay
         });
 
-
     },
 
     /**
@@ -363,89 +312,6 @@ Page({
 
     /**
      * 选择动作tab
-     * 准备部位的scroll-view，给出默认激活的view
-     */
-    prepareActionPart: function () {
-        let body = this.data.body;
-        let partList = this.data.partList;
-        let activePartIdx = 0;
-
-        // 清除之前的选中状态，方便动作tab里显示
-        for (let idx = 0; idx < body.parts.length; idx++) {
-            body.parts[idx].active = false;
-        }
-
-        let activePartName = "";
-        let hasActivePart = false;
-        for (let part of partList) {
-            if (!hasActivePart) {
-                for (let idx = 0; idx < body.parts.length; idx++) {
-                    let thisPartSelectAction = false;
-                    let areadlyHadSelection = '';
-                    if (body.parts[idx].selected && part.name === body.parts[idx].bodyPart) {
-                        for (let action of body.parts[idx].actionSet) {
-                            thisPartSelectAction = thisPartSelectAction || action.selected;
-                        }
-
-                        // 第一个没选动作的部位，默认激活
-                        if (!thisPartSelectAction && part.name !== areadlyHadSelection) {
-                            activePartName = body.parts[idx].bodyPart;
-                            body.activePartByName(activePartName);
-                            console.log("default select:", idx, body.parts[idx].name);
-                            hasActivePart = true;
-                            break;
-                        } else {
-                            // 记下这个大的部位，后面比较
-                            areadlyHadSelection = part.name;
-                        }
-                    }
-                }
-            }
-        }
-
-        // // 如果用户都选了，只是简单的切换了页面，那么默认选到第一个动作
-        // let hasActivePart = false;
-        // for (let idx = 0; idx < body.parts.length; idx++) {
-        //     hasActivePart = hasActivePart || body.parts[idx].active;
-        // }
-
-        if (!hasActivePart) {
-            for (let idx = 0; idx < body.parts.length; idx++) {
-                if (body.parts[idx].selected) {
-                    activePartName = body.parts[idx].bodyPart;
-                    body.activePartByName(activePartName);
-                    console.log("here active", idx, body.parts[idx].name);
-                    break;
-                }
-            }
-        }
-
-        console.log("activePartName", activePartName);
-
-        // 激活选中的部位
-        // 统计一下各部位已经选择的动作数量，方便观察
-        body.countSelectedAction();
-        for (let part of partList) {
-            part.active = (activePartName === part.name);
-            part.selectedActionCount = body.getActionSelectedCountByPart(part.name);
-
-        }
-
-        // 准备数量选择的Picker
-        // let gpMeasurement = body.getSelectedActionGpMeausement(e.currentTarget.dataset.subpartidx, e.currentTarget.id);
-        //
-        // this.makeActionPicker(gpMeasurement);
-
-        this.setData({
-            selectedPartIdx: activePartIdx,
-            partList: partList,
-            body: body
-        });
-
-    },
-
-    /**
-     * 选择动作tab
      * 准备重量选择的picker，每次选动作的时候生成
      */
     makeActionPicker: function (gpMeasurement) {
@@ -474,99 +340,12 @@ Page({
     },
 
     /**
-     * 选择动作tab
-     * 根据已选择的部位，准备动作列表
+     * 初始化函数，每次进入该页面时，先调用
      */
-    prepareActionData: function () {
-
-        let body = this.data.body;
-
-        // 如果已经有计划了，需要根据计划里的内容，给body的数据更新
-        if (app.currentPlan.circleDaySet.length > 0) {
-            for (let dateIdx of this.data.selectedDateList) {
-                for (let exercise of app.currentPlan.circleDaySet[dateIdx].exerciseSet) {
-                    body.updateGroupSet(exercise);
-                }
-            }
-        }
-
-        this.setData({
-            body: body
-        });
-
-    },
-
-    /**
-     * 预览功能入口，跳转到预览页面
-     * 所有选项都已选择，进入下一步预览计划
-     * @param e
-     */
-    onPreview: function (e) {
-        // 准备Plan的数据
-        app.currentPlan.fromDate = this.data.fromDate;
-        app.currentPlan.toDate = this.data.toDate;
-        app.currentPlan.cycleLength = this.data.cycleLength;
-
-        let body = this.data.body;
-
-        // 必须检查重复，以防用户只是简单的切换了页面，造成重复添加
-        let partId = 1;
-
-        // TODO 注意周期改变的情况，将来处理
-
-        let circleDaySet = app.currentPlan.circleDaySet;
-
-        console.log("circleDaySet:", circleDaySet);
-
-        for (let selectedDate of this.data.selectedDateList) {
-            let exerciseSet = [];
-            for (let part of body.parts) {
-                if (part.selected) {
-                    // 生成一个部位
-                    // 当点中的时候，就算是计划中的元素
-                    // 搜索所有选中的动作，生成actionSet
-                    let actionIdx = 1;
-
-                    for (let action of part.actionSet) {
-                        // 生成一个动作
-                        let exercise = new PlanSet.Exercise(exerciseSet.length + 1);
-                        if (action.selected) {
-                            exercise.action = app.Util.deepClone(action);
-                            delete exercise.action.groupSet;
-                            exercise.groupSet = action.groupSet;
-                        }
-
-                        // 如果没选动作，就不加
-                        if (exercise.groupSet.length === 0) {
-                            continue;
-                        }
-                        exerciseSet.push(exercise);
-                        actionIdx++;
-                    }
-                }
-            }
-
-            circleDaySet[selectedDate].exerciseSet = exerciseSet;
-        }
-
-        app.currentPlan.circleDaySet = circleDaySet;
-
-        console.log("app.currentPlan:", app.currentPlan);
-
-        wx.navigateTo({
-            url: '../plan_details/plan_details',
-        });
-    },
-
-    /**
-     * 设置时间tab
-     * 初始化函数，每次进入该tab时，先调用
-     */
-    initDateTab: function () {
+    initDate: function () {
 
         let fromDate;
         let toDate;
-        let cycleLength;
 
         // 判断进入的入口，如果是定制新计划，日期用当前日期；如果是修改已有计划，日期则使用计划的日期
         // 如果是现有计划，则显示现有计划的起止日期，否则看是否存有日期，如果没有，则用当前日期
@@ -579,10 +358,8 @@ Page({
                 toDate = app.Util.getMovedDate(fromDate, true, 30);
             }
 
-            cycleLength = 7;
-
             if (app.currentPlan.circleDaySet.length === 0) {
-                for (let idx = 0; idx < cycleLength; idx++) {
+                for (let idx = 0; idx < 7; idx++) {
                     app.currentPlan.circleDaySet.push(new PlanSet.CircleDay(idx, this.data.weekData[idx].name));
                 }
             }
@@ -590,58 +367,8 @@ Page({
 
         this.setData({
             fromDate: fromDate,
-            toDate: toDate,
-            cycleLength: cycleLength,
+            toDate: toDate
         });
-
-        this.makeWeekList();
-
-    },
-
-    /**
-     * 选择部位tab
-     * 初始化函数，每次进入该tab时，先调用
-     * 选择部位tab，始终只操作body.partList和weekData，要把逻辑简单化
-     * 选择动作tab，才去从这个tab的输出，收集输入
-     */
-    initPartTab: function () {
-        console.log("initPartTab call");
-        // 这里要分入口，第一次进入，直接调用系统的，否则使用已经保存的
-        let body = this.data.body;
-
-        // 进行标注
-        // 进行判断，如果是继续制定计划，那么之前的计划，已经保存了，这里刷新一下数据，如果不是，则不用刷新
-        // 这个地方应该根据已经保存的plan来显示
-
-        // 获取当前已保存已经保存的计划
-        let planSet = app.Util.loadData(app.StorageType.PlanSet);
-        let currentPlan;
-
-        // 寻找激活的计划
-        for (let plan of planSet) {
-            if (plan.currentUse) {
-                currentPlan = plan;
-                break;
-            }
-        }
-
-        this.setData({
-            body: body
-        });
-    },
-
-    /**
-     * 选择动作tab
-     * 初始化函数，每次进入该tab时，先调用
-     */
-    initActionTab: function () {
-        if (app.lastPlanSaved) {
-            this.data.selectedDateList = [];
-            this.data.body.unSelectAllActions();
-        }
-
-        this.prepareActionData();
-        this.prepareActionPart();
 
     },
 
@@ -681,13 +408,10 @@ Page({
             day.body.initGroupSet();
         }
 
-        console.log(weekData);
-
         // 进行标注
         // 进行判断，如果是继续制定计划，那么之前的计划，已经保存了，这里刷新一下数据，如果不是，则不用刷新
-        // 这个地方应该根据已经保存的plan来显示
+        // 这个地方应该根据已经保存的plan来显示，获取当前已经保存的计划
 
-        // 获取当前已保存已经保存的计划
         let planSet = app.Util.loadData(app.StorageType.PlanSet);
         let currentPlan;
 
@@ -699,10 +423,99 @@ Page({
             }
         }
 
-        console.log("after initGroupSet:", body);
+        console.log(currentPlan);
+
+        let fromDate = "";
+        let toDate = "";
+        let weekVisual = this.data.weekVisual;
+
+        // 如果已经有计划了，需要根据计划里的内容，给body的数据更新
+        if (typeof currentPlan !== "undefined" && currentPlan.circleDaySet.length > 0) {
+            // 读取日期
+            fromDate = currentPlan.fromDate;
+            toDate = currentPlan.toDate;
+            for (let day of this.data.weekData) {
+                // 更新重量数据，同时获取部位列表
+                let partNameArray = [];
+                for (let exercise of currentPlan.circleDaySet[day.id].exerciseSet) {
+                    if (!partNameArray.includes(exercise.action.partSet[0])) {
+                        partNameArray.push(exercise.action.partSet[0]);
+                    }
+                    day.body.updateGroupSet(exercise);
+                }
+                day.body.selectPartsByName(partNameArray);
+                day.body.countSelectedAction();
+
+                // 更新视图部分
+                // 1、更新周期视图
+                weekVisual[day.id].hasparts = app.Util.makePartString(day.body.getSelectedPartNames());
+                // 2、更新部位选中状态和计数
+                for (let part of day.partList) {
+                    part.selected = partNameArray.includes(part.name);
+                    part.selectedActionCount = day.body.getSelectedActionByPartName(part.name).length;
+                }
+            }
+        }
 
         this.setData({
-            body: body
+            fromDate: fromDate,
+            toDate: toDate,
+            weekVisual: weekVisual
+        });
+
+    },
+
+    /**
+     * 预览功能入口，跳转到预览页面
+     * 所有选项都已选择，进入下一步预览计划
+     * @param e
+     */
+    onPreview: function (e) {
+        // 准备Plan的数据
+        app.currentPlan.fromDate = this.data.fromDate;
+        app.currentPlan.toDate = this.data.toDate;
+        app.currentPlan.name = "我的计划";
+
+        let circleDaySet = app.currentPlan.circleDaySet;
+
+        for (let day of this.data.weekData) {
+            let exerciseSet = [];
+            for (let part of day.body.parts) {
+                if (part.selected) {
+                    // 生成一个部位
+                    // 当点中的时候，就算是计划中的元素
+                    // 搜索所有选中的动作，生成actionSet
+                    let actionIdx = 1;
+
+                    for (let action of part.actionSet) {
+                        // 生成一个动作
+                        let exercise = new PlanSet.Exercise(exerciseSet.length + 1);
+                        if (action.selected) {
+                            exercise.action = app.Util.deepClone(action);
+                            delete exercise.action.groupSet;
+                            exercise.groupSet = action.groupSet;
+                        }
+
+                        // 如果没选动作，就不加
+                        if (exercise.groupSet.length === 0) {
+                            continue;
+                        }
+                        exerciseSet.push(exercise);
+                        actionIdx++;
+                    }
+                }
+            }
+
+            circleDaySet[day.id].exerciseSet = exerciseSet;
+        }
+
+        app.currentPlan.circleDaySet = circleDaySet;
+
+        console.log("app.currentPlan:", app.currentPlan);
+
+        wx.navigateTo({
+            url: '../../settings/history_records/history_records',
+            // url: '../plan_details/plan_details',
         });
     },
 
@@ -720,7 +533,6 @@ Page({
         console.log("options.model:", options.mode);
         // 只需要这一次
         this.makeActionPicker();
-
 
         wx.setNavigationBarTitle({
             title: '定制我的锻炼计划',
@@ -741,10 +553,9 @@ Page({
     onShow: function () {
         console.log("Select Part Page onShow");
 
-
-        this.initDateTab();
+        this.initDate();
         this.initPartAction();
-        this.initPartTab();
+
         if (app.lastPlanSaved) {
             this.data.body.unSelectAllParts();
             let partList = this.data.partList;
@@ -760,6 +571,7 @@ Page({
             // 重置为没保存的状态
             app.lastPlanSaved = false;
         }
+
         console.log("weekData:", this.data.weekData);
     },
 

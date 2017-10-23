@@ -11,9 +11,6 @@ class Body {
         this.type = "";
         this.parts = [];
 
-        // just for UI control
-        this.partsNameArr = [];
-
     }
 
     /**
@@ -218,6 +215,22 @@ class Body {
         return selectedAction;
     }
 
+    getSelectedActionByPartName(partName) {
+        let selectedAction = [];
+
+        for (let part of this.parts) {
+            if (part.bodyPart=== partName) {
+                for (let action of part.actionSet) {
+                    if (action.selected) {
+                        selectedAction.push(action);
+                    }
+                }
+            }
+        }
+
+        return selectedAction;
+    }
+
     /**
      * 给定Id，选中目标部位
      * @param partId
@@ -371,7 +384,7 @@ class Body {
 
     /**
      *
-     * @param action，当前选中的动作
+     * @param selectedAction
      * @param groupSet
      */
     addGroupSetToAction(selectedAction, groupSet) {
@@ -386,7 +399,6 @@ class Body {
                         action.selected = true;
                     }
                 }
-
             }
         }
 

@@ -12,9 +12,9 @@ Page({
         notSignUp: true,
 
         chartType: [
-            { id: 1 + "", text: "本周", checked: true },
-            { id: 2 + "", text: "本月", checked: false },
-            { id: 3 + "", text: "部位", checked: false },
+            {id: 1 + "", text: "本周", checked: true},
+            {id: 2 + "", text: "本月", checked: false},
+            {id: 3 + "", text: "部位", checked: false},
         ],
 
     },
@@ -87,7 +87,7 @@ Page({
      * 修改现有计划
      * 只有当前有计划是才能有此接口，置app.makingNewPlan为false。
      */
-    onModifyPlan: function () {
+    onViewPlan: function () {
         app.makingNewPlan = false;
         wx.navigateTo({
             url: '../plan/plan_details/plan_details?mode=modify',
@@ -104,6 +104,8 @@ Page({
         app.makingNewPlan = true;
         let url = (e.currentTarget.id === "tempPlan") ?
             "../plan/define_plan/define_plan?mode=tempPlan" : "../plan/define_plan/define_plan?mode=longPlan";
+
+        console.log("url:", url);
 
         wx.navigateTo({
             url: url,

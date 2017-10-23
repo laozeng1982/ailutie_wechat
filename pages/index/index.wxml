@@ -27,7 +27,7 @@
 
     <!-- 计划部分 -->
     <view class="plan-box" wx:if="{{currentPlan.currentUse}}">
-        <view class='plan-white-bg' bindtap='onModifyPlan'>
+        <view class='plan-white-bg' bindtap='onViewPlan'>
             <view class='plan-name-text'>我的计划（进行中）</view>
             <image class='next-image' src='../image/arrows_square_right_64px.png'></image>
         </view>

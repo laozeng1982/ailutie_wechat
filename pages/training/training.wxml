@@ -1,43 +1,43 @@
 <!-- 今日计划表 -->
-<view class="thiscontainer">
+<view class="container">
     <!-- 这是Toast -->
     <include src="../ui/toast/nomal_toast.wxml" />
 
     <!-- 屏幕分两部分 -->
     <!-- 上半部分计划总览 -->
-    <view class="topPanel">
-        <view class="topPanelLeft">
-            <view wx:if="{{todayHasPlan}}" class="topPanelLeft_Inner">
+    <view class="top-panel">
+        <view class="top-panel-left-box">
+            <view wx:if="{{todayHasPlan}}" class="top-panel-left-item">
                 <canvas class='canvas' disable-scroll="true" canvas-id="trainingCanvas"></canvas>
             </view>
 
-            <view wx:if="{{!todayHasPlan}}" class="topPanelLeft_Inner">
+            <view wx:if="{{!todayHasPlan}}" class="top-panel-left-item">
                 <text style="font-size: 40rpx">今天</text>
                 <text style="font-size: 26rpx">{{showDate}}</text>
             </view>
         </view>
 
-        <view class="topPanelRight">
-            <view wx:if="{{todayHasPlan}}" class="topPanelRight_Inner" bindtap="onShowDetails">
+        <view class="top-panel-right-box">
+            <view wx:if="{{todayHasPlan}}" class="top-panel-right-item" bindtap="onShowDetails">
                 <text style="font-size: 30rpx">{{todayReality.executedSet[currentActionId].action.partSet[0]}}</text>
                 <text style="font-size: 50rpx">{{todayReality.executedSet[currentActionId].action.name}}</text>
             </view>
 
-            <view wx:else class="topPanelRight_Inner">
+            <view wx:else class="top-panel-right-item">
                 <text style="font-size: 50rpx">{{actionTips}}</text>
             </view>
         </view>
     </view>
 
-    <view class='graySpace'></view>
+    <view class='gray-space-small'></view>
     <!-- 中间部分具体锻炼记录，控制条件：是否显示动作详情 -->
-    <view class="middlePanel" wx:if="{{!showDetails}}">
+    <view class="middle-panel" wx:if="{{!showDetails}}">
 
         <!-- 控制条件：这个周期内是否有计划，如果有计划，显示今天健身的内容 -->
-        <view class="middlePanel_InnerContainer" wx:if="{{hasActivePlan}}">
+        <view class="middle-panel-item-container" wx:if="{{hasActivePlan}}">
 
             <!-- 控制条件：今天是否有健身计划 -->
-            <view class="middlePanel_InnerContainer" wx:if="{{todayHasPlan}}">
+            <view class="middle-panel-item-box" wx:if="{{todayHasPlan}}">
                 <!-- 1、动作展示和切换部分 -->
                 <view class='middlePanelColContainer' style='height:60%'>
                     <!-- 动作显示和浏览 -->
@@ -83,12 +83,12 @@
 
                     <!-- 中间的倒数计时及组之间浏览控制器 -->
                     <view class='middlePanelRowContainer' style='height:180rpx'>
-                        <view class='image-contanier' bindtap="{{currentActionId!==0||currentGroupId!==0?'onLastGroup':''}}">
+                        <view class='image-container' bindtap="{{currentActionId!==0||currentGroupId!==0?'onLastGroup':''}}">
                             <image class='image-arrows small' src="{{currentActionId!==0||currentGroupId!==0?'../image/left_arrow_100.png':''}}"></image>
                             <view class='tips-btn center'>{{currentActionId!==0||currentGroupId!==0?'上一组':''}}</view>
                         </view>
 
-                        <view class='image-contanier' wx:if="{{!paused}}">
+                        <view class='image-container' wx:if="{{!paused}}">
                             <view wx:if="{{!todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished}}">
                                 <view class='toFinishBtn' bindtap='onFinishAction'> 完成 </view>
                             </view>
@@ -98,13 +98,13 @@
                             </view>
                         </view>
 
-                        <view class='image-contanier' wx:else>
+                        <view class='image-container' wx:else>
                             <view>
                                 <image class='image-arrows' src="{{enablePause?'../image/pause_64px.png':'../image/play_64px.png'}} " bindtap='onControl'></image>
                             </view>
                         </view>
 
-                        <view class='image-contanier' bindtap="{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'onNextGroup':''}}">
+                        <view class='image-container' bindtap="{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'onNextGroup':''}}">
                             <image class='image-arrows small' src="{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'../image/right_arrow_100.png':''}}"></image>
                             <view class='tips-btn center'>{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished?'下一组':''}}</view>
                         </view>
@@ -124,14 +124,14 @@
                 </view>
             </view>
 
-            <view class="middlePanel_InnerContainer" wx:else>
+            <view class="middle-panel-item-box" wx:else>
                 <image class='image-coffee' src='../image/coffee.png'>今天没有计划，喝杯咖啡吧~~</image>
                 <view style='padding-top:100rpx'>今天没有计划，喝杯咖啡吧~~</view>
             </view>
         </view>
 
         <!-- 没有计划，提醒去制定计划 -->
-        <view wx:else class="middlePanel_InnerContainer">
+        <view wx:else class="middle-panel-item-container">
             <view style='margin-top:280rpx;color:#888'>您还没有计划，创建一个吧</view>
             <view class='roundCornor' bindtap='onMakePlan'>去定制计划</view>
         </view>
