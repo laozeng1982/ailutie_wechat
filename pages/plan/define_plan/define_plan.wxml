@@ -36,8 +36,8 @@
                     请点选周期中的天次（可多选）
                 </view>
 
-                <view class="day-selector" >
-                    <view class="day-box" wx:for="{{weekData}}" wx:key="{{index}}" id="{{item.id}}" data-date="{{item}}" bindtap="onSelectDay">
+                <view class="day-selector">
+                    <view class="day-box" wx:for="{{weekVisual}}" wx:key="{{index}}" id="{{item.id}}" data-date="{{item}}" bindtap="onSelectDay">
                         <view class="day-item {{item.selected?'day-item-selected':''}}">{{item.value}}</view>
                         <view class="day-item-tips">
                             <text>{{item.hasparts}}</text>
@@ -52,55 +52,53 @@
 
         <!-- 动作选择 -->
         <view class="swiper-box column">
-            <view class="head-body-top" wx:for="{{weekData}}" wx:key="{{index}}">
-                <view id="{{item.id}}" class="swiper-item" wx:if="{{item.selected}}">
-                    <!-- 左边部位列表 -->
-                    <scroll-view class="partlist-scrollview" scroll-y="true">
-                        <view id="{{item.name}}" class="partlist-item {{item.active?'partlist-item-active':''}}" wx:for="{{partList}}" wx:key="{{index}}" bindtap="onSelectPartTab">
-                            {{item.name}}({{item.selectedActionCount}})
-                        </view>
-                    </scroll-view>
+            <view class="swiper-item">
+                <!-- 左边部位列表 -->
+                <scroll-view class="partlist-scrollview" scroll-y="true">
+                    <view id="{{item.name}}" class="partlist-item {{item.selected?'partlist-item-active':''}}" wx:for="{{currentDay.partList}}" wx:key="{{index}}" bindtap="onSelectPartTab">
+                        {{item.name}}({{item.selectedActionCount}})
+                    </view>
+                </scroll-view>
 
-                    <!-- 右边动作列表 -->
-                    <scroll-view class="parts-actions-scrollview" scroll-y="true">
-                        <view id="{{item.name}}" class="sub-part-actions-item" wx:if="{{item.active}}" wx:for="{{body.parts}}" wx:key="{{index}}">
-                            <view class="sub-part-actions-scrollview" scroll-y="true">
-                                <!-- 每个部位细分类 -->
-                                <view class="sub-part-head-text"> {{item.name}}</view>
+                <!-- 右边动作列表 -->
+                <scroll-view class="parts-actions-scrollview" scroll-y="true">
+                    <view id="{{item.name}}" class="sub-part-actions-item" wx:if="{{item.selected}}" wx:for="{{currentDay.body.parts}}" wx:key="{{index}}">
+                        <view class="sub-part-actions-scrollview" scroll-y="true">
+                            <!-- 每个部位细分类 -->
+                            <view class="sub-part-head-text"> {{item.name}}</view>
 
-                                <!--  每个动作 -->
-                                <view id="{{item.name}}" class="action-box" wx:for="{{item.actionSet}}" wx:key="{{index}}" bindtap="onSelectAction">
-                                    <!-- 动作图片 -->
-                                    <image class="action-item-image" src="../../{{item.imageUrl}}"></image>
+                            <!--  每个动作 -->
+                            <view id="{{item.name}}" class="action-box" wx:for="{{item.actionSet}}" wx:key="{{index}}" bindtap="onSelectAction">
+                                <!-- 动作图片 -->
+                                <image class="action-item-image" src="../../{{item.imageUrl}}"></image>
 
-                                    <!-- 动作信息 -->
-                                    <view class="action-item-text-box">
-                                        <view class="action-item-head">
-                                            <view>{{item.name}}</view>
-                                        </view>
-                                        <!-- 当动作单位为空的时候，是自定义动作，不显示picker -->
-                                        <picker wx:if="{{item.gpMeasurement !== ''}}" data-action="{{item}}" mode="multiSelector" bindchange="onNumberChange" value="{{actionQuantityIndex}}" range="{{actionQuantityArray}}">
-                                            <view class="action-number-picker-box">
-                                                <view class="action-number-picker-item">{{item.groupSet.length}} </view>
-                                                <view class="action-number-picker-item">组</view>
-                                                <view class="action-number-picker-item">{{item.groupSet[0].quantity}}</view>
-                                                <view class="action-number-picker-item">{{item.gpMeasurement}}</view>
-                                                <view class="action-number-picker-item">{{item.groupSet[0].weight}}</view>
-                                                <view class="action-number-picker-item">{{item.groupSet[0].uom}}</view>
-                                            </view>
-                                        </picker>
+                                <!-- 动作信息 -->
+                                <view class="action-item-text-box">
+                                    <view class="action-item-head">
+                                        <view>{{item.name}}</view>
                                     </view>
-
-                                    <!-- 选择状态icon -->
-                                    <icon class="action-item-icon" type="{{item.selected?'success_circle':'circle'}}" size="26"></icon>
+                                    <!-- 当动作单位为空的时候，是自定义动作，不显示picker -->
+                                    <picker wx:if="{{item.gpMeasurement !== ''}}" data-action="{{item}}" mode="multiSelector" bindchange="onChangeQuantity" value="{{actionQuantityIndex}}" range="{{actionQuantityArray}}">
+                                        <view class="action-number-picker-box">
+                                            <view class="action-number-picker-item">{{item.groupSet.length}} </view>
+                                            <view class="action-number-picker-item">组</view>
+                                            <view class="action-number-picker-item">{{item.groupSet[0].quantity}}</view>
+                                            <view class="action-number-picker-item">{{item.gpMeasurement}}</view>
+                                            <view class="action-number-picker-item">{{item.groupSet[0].weight}}</view>
+                                            <view class="action-number-picker-item">{{item.groupSet[0].uom}}</view>
+                                        </view>
+                                    </picker>
                                 </view>
 
+                                <!-- 选择状态icon -->
+                                <icon class="action-item-icon" type="{{item.selected?'success_circle':'circle'}}" size="26"></icon>
                             </view>
-                        </view>
-                    </scroll-view>
-                </view>
 
+                        </view>
+                    </view>
+                </scroll-view>
             </view>
+
         </view>
     </view>
 

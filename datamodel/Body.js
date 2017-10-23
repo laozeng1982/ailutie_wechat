@@ -10,7 +10,6 @@ class Body {
     constructor() {
         this.type = "";
         this.parts = [];
-        this.actionSet = [];
 
         // just for UI control
         this.partsNameArr = [];
@@ -93,7 +92,7 @@ class Body {
     makeDefaultDefaultPartList() {
         let defaultPart = Body.createDefaultPartList();
         this.parts = defaultPart.parts;
-        this.actionSet = defaultPart.actions;
+
     }
 
     /**
@@ -212,20 +211,7 @@ class Body {
      * @param partName
      */
     selectPartByName(partName) {
-        for (let idx = 0; idx < this.parts.length; idx++) {
-            if (partName === this.parts[idx].bodyPart) {
-                this.parts[idx].selected = true;
-            }
-        }
-    }
-
-    /**
-     * 给定Id，高亮激活目标部位
-     * @param partName
-     */
-    activePartByName(partName) {
         for (let part of this.parts) {
-            part.active = (partName === part.bodyPart);
             part.selected = (partName === part.bodyPart);
         }
     }
@@ -321,8 +307,7 @@ class Body {
      */
     selectActionByName(actionName) {
         for (let part of this.parts) {
-            // console.log(part.name, part.selected, part.active);
-            if (part.selected && part.active) {
+            if (part.selected) {
                 for (let action of part.actionSet) {
                     if (actionName === action.name) {
                         action.selected = !action.selected;
@@ -353,7 +338,7 @@ class Body {
      */
     addGroupSetToAction(selectedAction, groupSet) {
         for (let part of this.parts) {
-            if (part.selected && part.active) {
+            if (part.selected ) {
                 for (let action of part.actionSet) {
                     if (selectedAction.partSet[0] === action.partSet[0] && selectedAction.name === action.name) {
                         delete action.groupSet;
@@ -373,7 +358,7 @@ class Body {
 
     getSelectedActionGpMeausement(subPartIdx, actionName) {
         for (let part of this.parts) {
-            if (part.selected && part.active) {
+            if (part.selected) {
                 for (let action of part.actionSet) {
                     if (actionName === action.name) {
                         return action.gpMeasurement;
