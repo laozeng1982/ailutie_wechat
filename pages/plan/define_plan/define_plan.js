@@ -4,6 +4,8 @@ import Body from '../../../datamodel/Body'
 import Part from '../../../datamodel/Part'
 import Action from '../../../datamodel/Action'
 
+// var _ = require('../../../utils/underscore.modified');
+
 const app = getApp();
 
 Page({
@@ -126,59 +128,83 @@ Page({
     },
 
     /**
-     * 选择动作tab
-     * 响应周期列表点击的效果
+     * 核心函数
+     * 响应周期列表点击，依次完成以下工作
+     * 1、设置周期选中状态，需有判断该周期是否有动作等逻辑
+     * 2、激活选中的那天的界面
+     * 3、根据以后计划或者之前的状态，更新显示的信息
      * @param e
      */
     onSelectDay: function (e) {
         let weekData = this.data.weekData;
         let weekVisual = this.data.weekVisual;
-        let selectedDateList = [];
+        let currentDay;
+        let selectedDateList = app.Util.deepClone(this.data.selectedDateList);
         let selectedDateIdx = parseInt(e.currentTarget.id);
+
         console.log("selected: ", selectedDateIdx, ", ",
             this.data.weekVisual[selectedDateIdx].name, ", ", this.data.weekVisual[selectedDateIdx].value);
 
-        // 如果多选，判断之前选中的天是否有计划
-        // 如果是同样的计划（之前同批次制定的），或者选中的天都没有计划，或者多天中只有一天有计划，则可以同时选中
-        // 否则，则取消之前的选中，然后选中最后一次点击的天
-        console.log(app.currentPlan.circleDaySet.length > 0, this.data.selectedDateList.length > 0
-            , !this.data.selectedDateList.includes(selectedDateIdx));
-
-        if (app.currentPlan.circleDaySet.length > 0 && this.data.selectedDateList.length > 0
-            && !this.data.selectedDateList.includes(selectedDateIdx)) {
-            let hasPlanCount = 0;
-            selectedDateList = this.data.selectedDateList.concat([selectedDateIdx]);
-            console.log("list:", selectedDateList);
-            for (let item of selectedDateList) {
-                if (app.currentPlan.circleDaySet[item].exerciseSet.length > 0)
-                    hasPlanCount++;
+        // 1、判断周期选中的状态，如果是多选，判断之前选中的天是否有计划
+        // 1.1、如果是同样的计划（之前同批次制定的），或者选中的天都没有计划，或者多天中只有一天有计划，则可以同时选中
+        // 1.2、否则，则取消之前的选中，然后选中最后一次点击的天
+        if (this.data.selectedDateList.length > 0) {
+            // 如果这一天之前没有选中
+            if (!this.data.selectedDateList.includes(selectedDateIdx)) {
+                for (let idx = 0; idx < this.data.selectedDateList.length; idx++) {
+                    let dayIdx = this.data.selectedDateList[idx];
+                    // 当选中的天的计划和之前选中的天计划相同时（这里要判断是否选中的动作相同），
+                    // 如果相同，则选中这天；如果不同，则需判断是否这天或者别的天为空
+                    if (app.Util.isEqual(weekData[selectedDateIdx].body, weekData[dayIdx].body)) {
+                        console.log("those days have the exactly same selection!!!");
+                        if (!selectedDateList.includes(selectedDateIdx))
+                            selectedDateList.push(selectedDateIdx);
+                    } else {
+                        // 这两天中有一天为空，也可以同时选中，否则就是选中的动作不同，不是同一天的计划，清空之前选中的天
+                        if (!weekData[selectedDateIdx].body.hasSelectedAction() || !weekData[dayIdx].body.hasSelectedAction()) {
+                            console.log("one day don't have action selection!");
+                            if (!selectedDateList.includes(selectedDateIdx))
+                                selectedDateList.push(selectedDateIdx);
+                        } else if (app.Util.isEqual(weekData[selectedDateIdx].body.getSelectedAction(), weekData[dayIdx].body.getSelectedAction())) {
+                            // 如果选中的动作相同，仅仅是激活的部位不同而已，也算相同计划
+                            console.log("those days have same action selection!");
+                            if (!selectedDateList.includes(selectedDateIdx))
+                                selectedDateList.push(selectedDateIdx);
+                        } else {
+                            console.log("those days don't have same action selection!");
+                            selectedDateList = [];
+                            selectedDateList.push(selectedDateIdx);
+                        }
+                    }
+                }
+            } else {
+                // 如果这一天有选中，则说明此次是再次点击取消，selectDateList里不添加即可
+                for (let idx = 0; idx < selectedDateList.length; idx++) {
+                    if (selectedDateList[idx] === selectedDateIdx) {
+                        selectedDateList.splice(idx, 1);
+                    }
+                }
             }
-
-            // 当有计划数的天数超过一天时，即提示
-            if (hasPlanCount > 1) {
-                app.Util.showNormalToast("不可同时修改两天的计划~~", this, 1000);
-                return;
-            }
+        } else {
+            // 之前选中的日期列表为空，将选中的加入日期选中列表
+            selectedDateList.push(selectedDateIdx);
         }
-
-        selectedDateList = [];
-
-        for (let day = 0; day < weekVisual.length; day++) {
-            if (parseInt(e.currentTarget.id) === weekVisual[day].id) {
-                weekVisual[day].selected = !weekVisual[day].selected;
-                weekData[day].selected = !weekData[day].selected;
-
-            }
-            // 将选中的加入日期选中列表
-            if (weekVisual[day].selected) {
-                selectedDateList.push(weekVisual[day].id);
-            }
-        }
-
         console.log("selectedDateList:", selectedDateList);
 
-        // 如果这天有计划，则只选中这天的部位
-        // 先得到这天的部位
+        // 2、根据selectedDateList，重置选中的状态，激活当前选中的部位与动作面板
+        for (let day = 0; day < weekVisual.length; day++) {
+            weekVisual[day].selected = false;
+            weekData[day].selected = false;
+
+        }
+
+        for (let selectedDate of selectedDateList) {
+            weekVisual[selectedDate].selected = true;
+            weekData[selectedDate].selected = true;
+        }
+
+        // 3、更新面板中的部位与动作的信息
+        // 3.1、先得到这天的部位
         let selectedPartNames = [];
         let partList = this.data.partList;
 
@@ -195,42 +221,46 @@ Page({
             }
         }
 
-        // console.log("partList:", partList);
-
-        let body = this.data.body;
-
-        for (let part of partList) {
-            if (part.selected)
-                selectedPartNames.push(part.name);
+        for (let day of this.data.weekData) {
+            if (day.selected) {
+                currentDay = day;
+                if (day.body.hasSelectedAction()) {
+                    // 仅用第一个选中的数据显示即可
+                    break;
+                }
+            }
         }
 
-        console.log("selectedPartNames:", selectedPartNames);
+        // 为其他未选计划的克隆已经选过的计划
+        for (let day of this.data.weekData) {
+            if (day.selected) {
+                day.body.parts = app.Util.deepClone(currentDay.body.parts);
+                day.partList = app.Util.deepClone(currentDay.partList);
+            }
+        }
 
-        body.unSelectAllActions();
-        body.selectPartsByName(selectedPartNames);
-
-        // this.initPartTab();
-        // // 刷新其他tab数据，防止用户直接跳转到预览，造成数据未选的假象
-        // this.initActionTab();
+        // 如果没有选中，则置空
+        if (typeof currentDay === "undefined") {
+            currentDay = {id: 6, value: '六', name: "Saturday", partList: [], body: {}, selected: false};
+        }
 
         this.setData({
             selectedDateList: selectedDateList,
             selectedPartNames: selectedPartNames,
             weekVisual: weekVisual, // 这里用weekData来渲染，速度实在太慢，而且会出现exceed max size错误，超出setData的数据容量范围
-            currentDay: weekData[0],
-            partList: partList,
-            body: body
+            currentDay: currentDay,
         });
-        console.log("selectedPartNames: fuck!!!!", selectedPartNames);
+
+        console.log("selectedPartNames: fuck!!!!");
     },
 
     /**
-     * 选择动作tab
-     * 响应部位导航的选择
+     * 选择动作，响应部位导航的选择
+     * 如果是多天，那么多天的内部状态，都要一致
      * @param e
      */
     onSelectPartTab: function (e) {
-        console.log(e);
+        // console.log(e);
         console.log("Selected part: ", e.currentTarget.id);
 
         let currentDay;
@@ -245,21 +275,18 @@ Page({
                     part.selected = (part.name === activePartName);
                 }
                 currentDay = day;
-                break;
             }
         }
 
-
         this.setData({
             currentDay: currentDay
-
         });
 
     },
 
     /**
      * 选择动作，响应动作点击选中
-     *
+     * 如果是多天，那么多天的内部状态，都要一致
      * @param e
      */
     onSelectAction: function (e) {
@@ -278,28 +305,42 @@ Page({
 
         for (let day of this.data.weekData) {
             if (day.selected) {
-                console.log("selected day:",day.id);
+                console.log("selected day:", day.id);
                 day.body.selectActionByName(e.currentTarget.id);
                 for (let part of day.partList) {
                     part.selectedActionCount = day.body.getActionSelectedCountByPart(part.name);
                 }
+
+                day.hasparts = app.Util.makePartString(day.body.getPartNameArray());
+
                 currentDay = day;
+
+            }
+        }
+
+        let weekVisual = this.data.weekVisual;
+        for (let idx = 0; idx < weekVisual.length; idx++) {
+            if (weekVisual[idx].selected) {
+                weekVisual[idx].hasparts = app.Util.makePartString(this.data.weekData[idx].body.getSelectedPartNames());
             }
         }
 
         this.setData({
+            weekVisual: weekVisual,
             currentDay: currentDay
         });
+
+
     },
 
     /**
      * 选择动作重量，响应重量变化
-     *
+     * 如果是多天，那么多天的内部状态，都要一致
      * @param e
      */
     onChangeQuantity: function (e) {
         console.log("action:", e.currentTarget.dataset.action);
-        let currentDay ;
+        let currentDay;
 
         let selectedRowArr = e.detail.value;
 

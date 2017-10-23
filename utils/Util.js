@@ -7,6 +7,8 @@ import User from '../datamodel/User'
 import PlanSet from '../datamodel/PlanSet'
 import SystemSetting from '../datamodel/SystemSetting'
 
+var _ = require('./underscore.modified');
+
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
  * 参数：date，日期类（Date）
@@ -253,6 +255,11 @@ function deepClone(obj) {
     return clone;
 }
 
+function isEqual(a, b) {
+
+    return _.isEqual(a, b);
+}
+
 /**
  * 功能：从选中的日期读取指定内容
  * 参数1：key，要读取的数据
@@ -355,6 +362,8 @@ module.exports = {
     makePartString: makePartString,
     compare2Array: compare2Array,
     deepClone: deepClone,
+    isEqual: isEqual,
+    underscore: _,
     loadData: loadData,
     loadPlan: loadPlan,
     saveData: saveData

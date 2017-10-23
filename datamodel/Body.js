@@ -180,6 +180,44 @@ class Body {
         return hasSelectedPart;
     }
 
+    getSelectedPartNames() {
+        let selectedPartNames = [];
+        for (let part of this.parts) {
+            for (let action of part.actionSet) {
+                if (action.selected && !selectedPartNames.includes(part.bodyPart)) {
+                    selectedPartNames.push(part.bodyPart);
+                }
+            }
+        }
+
+        return selectedPartNames;
+    }
+
+    hasSelectedAction() {
+        let hasSelectedAction = false;
+        for (let part of this.parts) {
+            for (let action of part.actionSet) {
+                hasSelectedAction = hasSelectedAction || action.selected;
+            }
+        }
+
+        return hasSelectedAction;
+    }
+
+    getSelectedAction() {
+        let selectedAction = [];
+
+        for (let part of this.parts) {
+            for (let action of part.actionSet) {
+                if (action.selected) {
+                    selectedAction.push(action);
+                }
+            }
+        }
+
+        return selectedAction;
+    }
+
     /**
      * 给定Id，选中目标部位
      * @param partId
@@ -338,7 +376,7 @@ class Body {
      */
     addGroupSetToAction(selectedAction, groupSet) {
         for (let part of this.parts) {
-            if (part.selected ) {
+            if (part.selected) {
                 for (let action of part.actionSet) {
                     if (selectedAction.partSet[0] === action.partSet[0] && selectedAction.name === action.name) {
                         delete action.groupSet;
