@@ -8,7 +8,7 @@
     <view class="top-panel">
         <view class="top-panel-left-box">
             <view wx:if="{{todayHasPlan}}" class="top-panel-left-item">
-                <canvas class='canvas' disable-scroll="true" canvas-id="trainingCanvas"></canvas>
+                <canvas class='ring-canvas' disable-scroll="true" canvas-id="trainingCanvas"></canvas>
             </view>
 
             <view wx:if="{{!todayHasPlan}}" class="top-panel-left-item">
@@ -37,11 +37,11 @@
         <view class="middle-panel-item-container" wx:if="{{hasActivePlan}}">
 
             <!-- 控制条件：今天是否有健身计划 -->
-            <view class="middle-panel-item-box" wx:if="{{todayHasPlan}}">
+            <view class="middle-panel-item-container" wx:if="{{todayHasPlan}}">
                 <!-- 1、动作展示和切换部分 -->
-                <view class='middlePanelColContainer' style='height:60%'>
+                <view class='middle-panel-item-col-box' style='height:60%'>
                     <!-- 动作显示和浏览 -->
-                    <view class='middlePanelRowContainer'>
+                    <view class='middle-panel-item-row-box'>
                         <view class='image-arrows'>
                             <image id='last' wx:if="{{!firstAction}}" class='image-arrows' src='../image/arrows_square_left_64px.png' bindtap='onActionChange'></image>
                         </view>
@@ -55,7 +55,7 @@
                     </view>
 
                     <!-- 切换动作数据 -->
-                    <view class='middlePanelRowContainer' style='height:120rpx'>
+                    <view class='middle-panel-item-row-box' style='height:120rpx'>
                         <picker mode="multiSelector" bindchange="onActionPickerChange" bindcolumnchange="onPartPickerChange" value="{{multiIndex}}" range="{{partActionArray}}">
                             <text class="fontset"> {{todayReality.executedSet[currentActionId].action.name}} </text>
                         </picker>
@@ -63,26 +63,26 @@
                 </view>
 
                 <!-- 2、动作数据记录和休息控制部分 -->
-                <view class='middlePanelColContainer' style='height:30%'>
+                <view class='middle-panel-item-col-box' style='height:30%'>
                     <!-- 当前组的数据，通过pause和时间倒数显示互斥 -->
-                    <view class='middlePanelRowContainer' style='height:50rpx' wx:if="{{!paused}}">
-                        <view class="pickerItem firstItem">第 {{currentGroupId + 1}} /{{todayReality.executedSet[currentActionId].groupSet.length}} 组</view>
-                        <picker class="pickerItemContainer" mode="multiSelector" bindchange="onChangeRealityData" value="{{realityIndex}}" range="{{realityDataArray}}">
-                            <view class="pickerItemContainer">
-                                <view class="pickerItem">{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedQuantity}} /{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].quantity}} 次</view>
-                                <view class="pickerItem">{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedWeight}} /{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].weight}} {{todayReality.executedSet[currentActionId].groupSet[currentGroupId].uom}}</view>
+                    <view class='middle-panel-item-row-box' style='height:50rpx' wx:if="{{!paused}}">
+                        <view class="picker-item first-item">第 {{currentGroupId + 1}} /{{todayReality.executedSet[currentActionId].groupSet.length}} 组</view>
+                        <picker class="picker-item-box" mode="multiSelector" bindchange="onChangeRealityData" value="{{realityIndex}}" range="{{realityDataArray}}">
+                            <view class="picker-item-box">
+                                <view class="picker-item">{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedQuantity}} /{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].quantity}} 次</view>
+                                <view class="picker-item">{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedWeight}} /{{todayReality.executedSet[currentActionId].groupSet[currentGroupId].weight}} {{todayReality.executedSet[currentActionId].groupSet[currentGroupId].uom}}</view>
                                 <image class='image-small' src='../image/pencil_64px.png'></image>
                             </view>
                         </picker>
                     </view>
 
                     <!-- 时间倒数显示，通过pause和当前组的数据互斥 -->
-                    <view class='middlePanelRowContainer' style='height:50rpx' wx:else>
+                    <view class='middle-panel-item-row-box' style='height:50rpx' wx:else>
                         <view class="clock"> 休息 {{clock}} </view>
                     </view>
 
                     <!-- 中间的倒数计时及组之间浏览控制器 -->
-                    <view class='middlePanelRowContainer' style='height:180rpx'>
+                    <view class='middle-panel-item-row-box' style='height:180rpx'>
                         <view class='image-container' bindtap="{{currentActionId!==0||currentGroupId!==0?'onLastGroup':''}}">
                             <image class='image-arrows small' src="{{currentActionId!==0||currentGroupId!==0?'../image/left_arrow_100.png':''}}"></image>
                             <view class='tips-btn center'>{{currentActionId!==0||currentGroupId!==0?'上一组':''}}</view>
@@ -112,12 +112,12 @@
                 </view>
 
                 <!-- 3、每个动作计分器 -->
-                <view class='middlePanelRowContainer' style='height:10%'>
-                    <view class='middlePanelRowContainer' wx:if="{{todayReality.executedSet[currentActionId].finished}}">
+                <view class='middle-panel-item-row-box' style='height:10%'>
+                    <view class='middle-panel-item-row-box' wx:if="{{todayReality.executedSet[currentActionId].finished}}">
                         <view>本动作感觉</view>
-                        <view class="imageContainer">
+                        <view class="star-image-box">
                             <view wx:for="{{actionScoreStarArray}}" wx:key="{{index}}">
-                                <image value="{{item.id}}" id="{{item.id}}" class="image_star" bindtap="onActionScore" src="{{item.checked?'../image/start_checked.png':'../image/start_unchecked.png'}}"></image>
+                                <image value="{{item.id}}" id="{{item.id}}" class="star-image" bindtap="onActionScore" src="{{item.checked?'../image/start_checked.png':'../image/start_unchecked.png'}}"></image>
                             </view>
                         </view>
                     </view>

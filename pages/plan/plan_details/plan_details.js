@@ -56,8 +56,8 @@ Page({
     },
 
     onShowDetails: function (e) {
-        console.log(e.target.id);
-        let idx = parseInt(e.target.id);
+        console.log(e.currentTarget.id);
+        let idx = parseInt(e.currentTarget.id);
         let plan = this.data.plan;
 
         plan.circleDaySet[idx].showDetails = !plan.circleDaySet[idx].showDetails;
@@ -92,7 +92,7 @@ Page({
 
     onModifyPlan: function () {
         wx.navigateTo({
-            url: '../define_plan/define_plan',
+            url: '../define_plan/define_plan?mode=modify',
         });
     },
 
@@ -104,7 +104,6 @@ Page({
 
     onSavePlan: function () {
         this.savePlanData();
-
 
         wx.switchTab({
             url: '../../index/index',
@@ -143,6 +142,7 @@ Page({
 
         for (let circleDay of plan.circleDaySet) {
             circleDay.showDetails = false;
+            circleDay.partShowing = circleDay.partArray.join("，");
         }
 
         this.setData({

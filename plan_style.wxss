@@ -403,12 +403,14 @@
 }
 
 .action-item-head {
-    height: 60rpx;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     font-size: 30rpx;
     margin-top: 10rpx;
+    text-align: center;
+    align-content: center;
+    align-items: center;
 }
 
 .action-number-picker-box {
@@ -789,7 +791,6 @@
     width: 100%;
     align-content: center;
     justify-content: space-around;
-    border-bottom: 1rpx solid #eee;
 }
 
 .header-image-author {
@@ -811,8 +812,8 @@
     align-items: center;
     text-align: center;
     justify-content: space-around;
-    font-size: 44rpx;
-    font-weight: 500;
+    font-size: 40rpx;
+    font-weight: 450;
 }
 
 .plan-brief-item-box {
@@ -831,17 +832,46 @@
 }
 
 .brief-item {
-    padding: 20rpx;
+    padding: 10rpx;
     padding-left: 40rpx;
-    font-size: 36rpx;
+    font-size: 32rpx;
 }
 
-.weekday-header {
+.weekday-header-container {
     padding: 20rpx;
-    padding-left: 40rpx;
-    font-size: 40rpx;
-    font-weight: 400;
+    /* padding-left: 40rpx; */
+    font-size: 36rpx;
+    /* font-weight: 300; */
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
     width: 100%;
+}
+
+.weekday-header-box {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    padding-right: 20rpx;
+}
+
+.weekday-header-week-txt {
+    width: 450rpx;
+    padding-left: 40rpx;
+}
+
+.weekday-header-count-txt {
+    width: 200rpx;
+    font-size: 26rpx;
+    color: #09bb07;
+}
+
+.weekday-header-icon {
+    width: 60rpx;
+    height: 60rpx;
+    white-space: nowrap;
 }
 
 .weekday-detailed-body {
@@ -856,27 +886,41 @@
 }
 
 .weekday-brief-body {
+    padding-top: 20rpx;
     white-space: nowrap;
 }
 
 .action-brief-box {
     flex-direction: column;
-    width: 200rpx;
+    width: 300rpx;
     align-content: center;
     align-items: center;
     display: inline-block;
     justify-content: space-around;
-    height: 250rpx;
+    height: 200rpx;
+    margin: 20rpx;
     font-size: 24rpx;
+    background-color: #eee;
+}
+
+.action-brief-item-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 30rpx;
+    margin-top: 10rpx;
+    text-align: center;
+    align-content: center;
+    align-items: center;
 }
 
 .purpose {
     height: 80rpx;
 }
 
-.image {
-    width: 720rpx;
-    height: 480rpx;
+.cover-image {
+    width: 750rpx;
+    height: 500rpx;
 }
 
 .bottom {

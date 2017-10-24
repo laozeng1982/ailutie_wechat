@@ -1,10 +1,6 @@
 // pages/plan/define_plan/define_plan.js
 import PlanSet from '../../../datamodel/PlanSet'
 import Body from '../../../datamodel/Body'
-import Part from '../../../datamodel/Part'
-import Action from '../../../datamodel/Action'
-
-// var _ = require('../../../utils/underscore.modified');
 
 const app = getApp();
 
@@ -305,6 +301,7 @@ Page({
         for (let day of this.data.weekData) {
             if (day.selected) {
                 day.body.addGroupSetToAction(selectedAction, groupSet);
+                day.partList.selectedActionCount = day.body.getActionSelectedCountByPart(selectedAction.partSet[0]);
                 currentDay = day;
             }
         }
@@ -319,7 +316,7 @@ Page({
      * 选择动作tab
      * 准备重量选择的picker，每次选动作的时候生成
      */
-    makeActionPicker: function (gpMeasurement) {
+    makeActionPicker: function () {
 
         let actionQuantityArray = [];
 
@@ -388,63 +385,70 @@ Page({
         let currentPlan;
 
         // 寻找激活的计划
-        for (let plan of planSet) {
-            if (plan.currentUse) {
-                currentPlan = plan;
-                break;
-            }
-        }
-
-        console.log(currentPlan);
-
-        let fromDate = "请选择";
-        let toDate = "";
-        let showPeriod = false;
-        let weekVisual = this.data.weekVisual;
-
-        // 如果已经有计划了，需要根据计划里的内容，给body的数据更新
-        if (typeof currentPlan !== "undefined" && currentPlan.circleDaySet.length > 0) {
-            // 读取日期
-            fromDate = currentPlan.fromDate;
-            toDate = currentPlan.toDate;
-            showPeriod = true;
-            for (let day of this.data.weekData) {
-                // 更新重量数据，同时获取部位列表
-                let partNameArray = [];
-                for (let exercise of currentPlan.circleDaySet[day.id].exerciseSet) {
-                    if (!partNameArray.includes(exercise.action.partSet[0])) {
-                        partNameArray.push(exercise.action.partSet[0]);
-                    }
-                    day.body.updateGroupSet(exercise);
-                }
-                day.body.selectPartsByName(partNameArray);
-                day.body.unActiveAllParts();
-                day.body.countSelectedAction();
-
-                // 更新视图部分
-                // 1、更新周期视图
-                weekVisual[day.id].hasparts = app.Util.makePartString(day.body.getSelectedPartNames());
-                // 2、更新部位选中状态和计数
-                for (let part of day.partList) {
-                    part.selected = partNameArray.includes(part.name);
-                    part.selectedActionCount = day.body.getSelectedActionByPartName(part.name).length;
-                }
-            }
-        } else {
-            // if (app.planStartDate !== "") {
-            //     fromDate = app.planStartDate;
-            //     toDate = app.planEndDate;
-            // } else {
-            //     fromDate = app.Util.formatDateToString(new Date());
-            //     toDate = app.Util.getMovedDate(fromDate, true, 30);
-            // }
-
+        if (this.data.options.mode ==="tempPlan" || this.data.options.mode === "longPlan") {
             if (app.currentPlan.circleDaySet.length === 0) {
                 for (let idx = 0; idx < 7; idx++) {
                     app.currentPlan.circleDaySet.push(new PlanSet.CircleDay(idx, this.data.weekData[idx].name));
                 }
             }
+
+            currentPlan = app.currentPlan;
+        } else {
+            for (let plan of planSet) {
+                if (plan.currentUse) {
+                    currentPlan = plan;
+                    break;
+                }
+            }
         }
+
+        if (typeof currentPlan === "undefined") {
+            currentPlan = app.currentPlan;
+        }
+
+        console.log(currentPlan);
+
+        let fromDate;
+        let toDate;
+        let showPeriod = false;
+        let weekVisual = this.data.weekVisual;
+
+        // 如果已经有计划了，需要根据计划里的内容，给body的数据更新
+        // 始终以currentPlan来初始化
+
+        // 读取日期
+        if (currentPlan.fromDate === "") {
+            fromDate = "请选择";
+            toDate = "";
+        } else {
+            fromDate = currentPlan.fromDate;
+            toDate = currentPlan.toDate;
+            showPeriod = true;
+        }
+
+        for (let day of this.data.weekData) {
+            // 更新重量数据，同时获取部位列表
+            let partNameArray = [];
+            for (let exercise of currentPlan.circleDaySet[day.id].exerciseSet) {
+                if (!partNameArray.includes(exercise.action.partSet[0])) {
+                    partNameArray.push(exercise.action.partSet[0]);
+                }
+                day.body.updateGroupSet(exercise);
+            }
+            day.body.selectPartsByName(partNameArray);
+            day.body.activePartByName(partNameArray[0]);
+            day.body.countSelectedAction();
+
+            // 更新视图部分
+            // 1、更新周期视图
+            weekVisual[day.id].hasparts = app.Util.makePartString(day.body.getSelectedPartNames());
+            // 2、更新部位选中状态和计数
+            for (let part of day.partList) {
+                part.selected = partNameArray.includes(part.name);
+                part.selectedActionCount = day.body.getSelectedActionByPartName(part.name).length;
+            }
+        }
+
 
         this.setData({
             fromDate: fromDate,
@@ -520,11 +524,24 @@ Page({
     onLoad: function (options) {
         console.log("Select Part Page onLoad");
         console.log("options.model:", options.mode);
+        if (options.mode === "tempPlan" || options.mode === "longPlan") {
+            app.currentPlan = new PlanSet.Plan();
+            wx.setNavigationBarTitle({
+                title: '定制我的锻炼计划',
+            });
+
+        }else {
+            wx.setNavigationBarTitle({
+                title: '修改我的锻炼计划',
+            });
+
+        }
         // 只需要这一次
         this.makeActionPicker();
 
-        wx.setNavigationBarTitle({
-            title: '定制我的锻炼计划',
+
+        this.setData({
+            options: options
         });
 
     },

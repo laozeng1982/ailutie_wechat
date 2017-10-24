@@ -24,7 +24,6 @@ Page({
         // 当前选中的部位和动作索引，初始选中第一个
         currentActionId: 0,
         currentGroupId: 0,
-        totalFinishedGroups: 0, // 小程序诡异，通过todayReality.totalFinishedGroups不能控制控件，不得已，多加这个变量
 
         // 只给每个动作最后做完以后打分
         actionScoreStarArray: [
@@ -110,7 +109,6 @@ Page({
 
         this.setData({
             todayReality: todayReality,
-            totalFinishedGroups: todayReality.totalFinishedGroups,
             paused: true
         });
 
@@ -142,7 +140,7 @@ Page({
             percentFinished = Math.ceil(totalFinishedGroups * 100 / totalGroups);
         }
 
-        // console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
+        console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
 
         this.data.currentChart.updateData({
             title: {
@@ -716,41 +714,42 @@ Page({
         if (todayReality.executedSet.length > 0) {
             todayReality.totalGroups = 0;
             todayReality.totalFinishedGroups = 0;
-            // 先获得所有的一级部位名称
+            // 1、统计部位：先获得所有的一级部位名称
             for (let exercise of todayReality.executedSet) {
                 if (!partArray.includes(exercise.action.partSet[0])) {
                     partArray.push(exercise.action.partSet[0]);
                 }
             }
 
+            // 2、统计动作
             for (let part of partArray) {
                 let array = [];
                 for (let exercise of todayReality.executedSet) {
                     if (part === exercise.action.partSet[0]) {
                         array.push(exercise.action.name);
                     }
-
-                    todayReality.totalGroups = todayReality.totalGroups + exercise.groupSet.length;
-
-                    for (let group of exercise.groupSet) {
-                        if (group.finished) {
-                            todayReality.totalFinishedGroups++;
-                        }
-                    }
                 }
                 actionArray.push(array);
             }
-
             partActionArray.push(partArray);
             partActionArray.push(actionArray[0]);
 
+            // 3、统计总组数和完成数
+            for (let exercise of todayReality.executedSet) {
+                todayReality.totalGroups = todayReality.totalGroups + exercise.groupSet.length;
+
+                for (let group of exercise.groupSet) {
+                    if (group.finished) {
+                        todayReality.totalFinishedGroups++;
+                    }
+                }
+            }
         }
 
         this.setData({
             todayReality: todayReality,
             hasActivePlan: hasActivePlan,
             todayHasPlan: todayHasPlan,
-            totalFinishedGroups: todayReality.totalFinishedGroups,
             partArray: partArray,
             actionArray: actionArray,
             partActionArray: partActionArray,

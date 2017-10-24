@@ -64,20 +64,13 @@
     justify-content: space-around;
     flex-direction: column;
     height: 280rpx;
-    /* width: 280rpx; *//* border-bottom: 1rpx solid #eee; */
+    /* width: 280rpx;
+    border-bottom: 1rpx solid #eee; */
 }
 
-.canvas {
+.ring-canvas {
     height: 300rpx;
     width: 300rpx;
-}
-
-.top-panelRight_InnerRight {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 20%;
-    /* border-bottom: 1rpx solid #eee; */
 }
 
 /* 中段 */
@@ -102,7 +95,7 @@
     /* border-bottom: 1rpx solid #eee; */
 }
 
-.middle-panelColContainer {
+.middle-panel-item-col-box {
     display: flex;
     align-items: center;
     align-content: center;
@@ -110,6 +103,15 @@
     flex-direction: column;
     width: 100%;
     border-bottom: 1rpx solid #eee;
+}
+
+.middle-panel-item-row-box {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
 }
 
 .image-container {
@@ -226,6 +228,28 @@
     /* border-bottom: 1rpx solid #eee; */
 }
 
+
+.picker-item-box {
+    display: inline-flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+}
+
+.picker-item {
+    width: 200rpx;
+    display: flex;
+    justify-content: center;
+}
+
+.first-item {
+    padding-left: 20rpx;
+    width: 250rpx;
+    font-weight: 500;
+}
 .recordBtn {
     /* background: #09bb07; */
     color: #09bb07;
@@ -237,27 +261,8 @@
     flex-grow: 4;
 }
 
-.pickerItemContainer {
-    display: inline-flex;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-    justify-content: space-around;
-    height: 100%;
-    width: 100%;
-}
 
-.pickerItem {
-    width: 200rpx;
-    display: flex;
-    justify-content: center;
-}
 
-.firstItem {
-    padding-left: 20rpx;
-    width: 250rpx;
-    font-weight: 500;
-}
 
 .clock {
     width: 3200rpx;
@@ -297,7 +302,7 @@
     width: 100%;
 }
 
-.imageContainer {
+.star-image-box {
     display: flex;
     flex-direction: row;
     height: 100rpx;
@@ -305,7 +310,7 @@
     align-items: center;
 }
 
-.image_star {
+.star-image {
     display: flex;
     width: 64rpx;
     height: 64rpx;
