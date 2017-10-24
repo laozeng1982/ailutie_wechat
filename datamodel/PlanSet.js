@@ -121,9 +121,38 @@ class Plan {
 
 class CircleDay {
     constructor(id, weekDay) {
-        this.id = id;   // 这个部位锻炼的天次，该部位每周期内锻炼天次，存放数字0,1,2,3等，代表周期内的第N天
-        this.weekDay = weekDay;
+        this.id = id;
+        this.enWeekDay = weekDay;
+        this.chWeekDay = this.getChWeekDay(weekDay);
         this.exerciseSet = [];  // 存放计划的数据，既Exercise数组
+    }
+
+    getChWeekDay(weekDay) {
+        let chWeekDay = '';
+        switch (weekDay) {
+            case "Sunday":
+                chWeekDay = "周日";
+                break;
+            case "Monday":
+                chWeekDay = "周一";
+                break;
+            case "Tuesday":
+                chWeekDay = "周二";
+                break;
+            case "Wednesday":
+                chWeekDay = "周三";
+                break;
+            case "Thursday":
+                chWeekDay = "周四";
+                break;
+            case "Friday":
+                chWeekDay = "周五";
+                break;
+            case "Saturday":
+                chWeekDay = "周六";
+                break;
+        }
+        return chWeekDay;
     }
 }
 

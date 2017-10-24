@@ -18,10 +18,12 @@ Page({
         // 起止时间控制数据
         fromDate: "",
         toDate: "",
+        showPeriod: false,
 
-        // 全页面控制的数据结构，按一周七天，每天都有partList，代表大的激活部位，仅仅作为页面控制用，
+        // 全页面控制的数据结构，按一周七天，用作数据存储，每天都有
+        // partList，仅仅作为页面控制用，代表大的激活部位
         // body，每个部位的动作及信息，存储每天选中的具体内容，最后离开页面时，收集每天每个部位的动作及信息
-        // 这里用weekData来渲染，速度实在太慢，而且会出现exceed max size错误，超出setData的数据容量范围
+
         weekData: [
             {id: 0, value: '日', name: "Sunday", partList: [], body: {}, selected: false},
             {id: 1, value: '一', name: "Monday", partList: [], body: {}, selected: false},
@@ -32,6 +34,7 @@ Page({
             {id: 6, value: '六', name: "Saturday", partList: [], body: {}, selected: false}
         ],
 
+        // 用作显示，这里用weekData来渲染，速度实在太慢，而且会出现exceed max size错误，超出setData的数据容量范围
         weekVisual: [
             {id: 0, value: '日', name: "Sunday", selected: false},
             {id: 1, value: '一', name: "Monday", selected: false},
@@ -42,13 +45,10 @@ Page({
             {id: 6, value: '六', name: "Saturday", selected: false}
         ],
 
-        currentDay: {}, // weekData数组中的一个，用单数据来提高渲染速度，否则用weekDta直接渲染，速度太慢
+        // weekData数组中的一个，用单数据来作为当前选中日期的显示，提高渲染速度，否则用weekDta直接渲染，速度太慢
+        currentDay: {},
 
         selectedDateList: [],
-
-        // 动作tab的数据
-        selectedPartIdx: 0,
-        selectedActionIdx: 0,
 
         search: {
             searchValue: '',
@@ -58,7 +58,7 @@ Page({
 
         actionQuantityArray: [], // 3D 数组，用来存放动作组数，次数，重量和单位
         actionQuantityIndex: [5, 9, 19, 0],  // 数量选择索引
-        plan: '',
+
     },
 
     /**
@@ -71,7 +71,8 @@ Page({
             case "start":
                 this.setData({
                     fromDate: e.detail.value,
-                    toDate: app.Util.getMovedDate(e.detail.value, true, 30)
+                    toDate: app.Util.getMovedDate(e.detail.value, true, 30),
+                    showPeriod: true
                 });
                 break;
             case "end":
@@ -208,6 +209,8 @@ Page({
 
         for (let day of this.data.weekData) {
             if (day.selected) {
+                // active用于显示当前激活的部位，select用于标记选中的
+                day.body.activePartByName(activePartName);
                 day.body.selectPartByName(activePartName);
 
                 for (let part of day.partList) {
@@ -263,6 +266,8 @@ Page({
                 weekVisual[idx].hasparts = app.Util.makePartString(this.data.weekData[idx].body.getSelectedPartNames());
             }
         }
+
+        console.log("currentDay", currentDay);
 
         this.setData({
             weekVisual: weekVisual,
@@ -340,39 +345,6 @@ Page({
     },
 
     /**
-     * 初始化函数，每次进入该页面时，先调用
-     */
-    initDate: function () {
-
-        let fromDate;
-        let toDate;
-
-        // 判断进入的入口，如果是定制新计划，日期用当前日期；如果是修改已有计划，日期则使用计划的日期
-        // 如果是现有计划，则显示现有计划的起止日期，否则看是否存有日期，如果没有，则用当前日期
-        if (app.makingNewPlan) {
-            if (app.planStartDate !== "") {
-                fromDate = app.planStartDate;
-                toDate = app.planEndDate;
-            } else {
-                fromDate = app.Util.formatDateToString(new Date());
-                toDate = app.Util.getMovedDate(fromDate, true, 30);
-            }
-
-            if (app.currentPlan.circleDaySet.length === 0) {
-                for (let idx = 0; idx < 7; idx++) {
-                    app.currentPlan.circleDaySet.push(new PlanSet.CircleDay(idx, this.data.weekData[idx].name));
-                }
-            }
-        }
-
-        this.setData({
-            fromDate: fromDate,
-            toDate: toDate
-        });
-
-    },
-
-    /**
      * 初始化每天的部位与动作
      */
     initPartAction: function () {
@@ -425,8 +397,9 @@ Page({
 
         console.log(currentPlan);
 
-        let fromDate = "";
+        let fromDate = "请选择";
         let toDate = "";
+        let showPeriod = false;
         let weekVisual = this.data.weekVisual;
 
         // 如果已经有计划了，需要根据计划里的内容，给body的数据更新
@@ -434,6 +407,7 @@ Page({
             // 读取日期
             fromDate = currentPlan.fromDate;
             toDate = currentPlan.toDate;
+            showPeriod = true;
             for (let day of this.data.weekData) {
                 // 更新重量数据，同时获取部位列表
                 let partNameArray = [];
@@ -444,6 +418,7 @@ Page({
                     day.body.updateGroupSet(exercise);
                 }
                 day.body.selectPartsByName(partNameArray);
+                day.body.unActiveAllParts();
                 day.body.countSelectedAction();
 
                 // 更新视图部分
@@ -455,11 +430,26 @@ Page({
                     part.selectedActionCount = day.body.getSelectedActionByPartName(part.name).length;
                 }
             }
+        } else {
+            // if (app.planStartDate !== "") {
+            //     fromDate = app.planStartDate;
+            //     toDate = app.planEndDate;
+            // } else {
+            //     fromDate = app.Util.formatDateToString(new Date());
+            //     toDate = app.Util.getMovedDate(fromDate, true, 30);
+            // }
+
+            if (app.currentPlan.circleDaySet.length === 0) {
+                for (let idx = 0; idx < 7; idx++) {
+                    app.currentPlan.circleDaySet.push(new PlanSet.CircleDay(idx, this.data.weekData[idx].name));
+                }
+            }
         }
 
         this.setData({
             fromDate: fromDate,
             toDate: toDate,
+            showPeriod: showPeriod,
             weekVisual: weekVisual
         });
 
@@ -497,11 +487,11 @@ Page({
                         }
 
                         // 如果没选动作，就不加
-                        if (exercise.groupSet.length === 0) {
-                            continue;
+                        if (exercise.groupSet.length > 0) {
+                            exerciseSet.push(exercise);
+                            actionIdx++;
                         }
-                        exerciseSet.push(exercise);
-                        actionIdx++;
+
                     }
                 }
             }
@@ -514,8 +504,7 @@ Page({
         console.log("app.currentPlan:", app.currentPlan);
 
         wx.navigateTo({
-            url: '../../settings/history_records/history_records',
-            // url: '../plan_details/plan_details',
+            url: '../plan_details/plan_details?mode=preview',
         });
     },
 
@@ -553,7 +542,6 @@ Page({
     onShow: function () {
         console.log("Select Part Page onShow");
 
-        this.initDate();
         this.initPartAction();
 
         if (app.lastPlanSaved) {

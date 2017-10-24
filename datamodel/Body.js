@@ -219,7 +219,7 @@ class Body {
         let selectedAction = [];
 
         for (let part of this.parts) {
-            if (part.bodyPart=== partName) {
+            if (part.bodyPart === partName) {
                 for (let action of part.actionSet) {
                     if (action.selected) {
                         selectedAction.push(action);
@@ -263,7 +263,20 @@ class Body {
      */
     selectPartByName(partName) {
         for (let part of this.parts) {
-            part.selected = (partName === part.bodyPart);
+            if (partName === part.bodyPart)
+                part.selected = true;
+        }
+    }
+
+    activePartByName(partName) {
+        for (let part of this.parts) {
+            part.active = partName === part.bodyPart;
+        }
+    }
+
+    unActiveAllParts() {
+        for (let part of this.parts) {
+            part.active = false;
         }
     }
 

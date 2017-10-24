@@ -3,7 +3,7 @@
 <!-- plan的图片 -->
 <view class='container'>
     <scroll-view scroll-y="{{true}}">
-        <view class='plan-item-container column' style='justify-content: center; margin: 0;'>
+        <view class='plan-item-container column'>
             <image class='image' src='../../image/jianshen002.jpg'></image>
 
             <view class='plan-item-container'>
@@ -31,56 +31,92 @@
 
         <view class='plan-item-container column'>
             <view class='header'>计划简介</view>
-            <view class=''>
-                <view>健身目标：</view>
-                <view>{{plan.purpose}}</view>
+            <view class='plan-brief-item-box'>
+                <view class='brief-item'>健身目标：</view>
+                <view class='brief-item'>{{plan.purpose}}</view>
             </view>
 
-            <view class=''>
-                <view>健身水平：</view>
-                <view>{{plan.level}}</view>
+            <view class='plan-brief-item-box'>
+                <view class='brief-item'>健身水平：</view>
+                <view class='brief-item'>{{plan.level}}</view>
             </view>
 
-            <view class=''>
-                <view>适用人群：</view>
-                <view>{{plan.purpose}}</view>
+            <view class='plan-brief-item-box'>
+                <view class='brief-item'>适用人群：</view>
+                <view class='brief-item'>{{plan.purpose}}</view>
             </view>
 
-            <view class=''>
-                <view>健身设备：</view>
-                <view>器械</view>
+            <view class='plan-brief-item-box'>
+                <view class='brief-item'>健身设备：</view>
+                <view class='brief-item'>器械</view>
             </view>
 
-            <view class=''>
-                <view>健身地点：</view>
-                <view>{{plan.place}}</view>
+            <view class='plan-brief-item-box'>
+                <view class='brief-item'>健身地点：</view>
+                <view class='brief-item'>{{plan.place}}</view>
             </view>
         </view>
 
         <view class='gray-space-small'></view>
 
-        <view class='plan-item-container column' wx:if="{{item.exerciseSet.length>0}}" wx:for="{{plan.circleDaySet}}" wx:key="{{index}}">
+        <view class='plan-item-container column'>
+            <view class='header'> 计划详情 </view>
 
-            <view>
-                {{item.weekDay}}
-            </view>
+            <view class='plan-item-container column' wx:if="{{item.exerciseSet.length>0}}" wx:for="{{plan.circleDaySet}}" wx:key="{{index}}">
 
-            <scroll-view class='plan-item-container' scroll-x="{{true}}">
-                <view wx:for="{{item.exerciseSet}}" wx:key="{{index}}">
-                    {{item.action.name}}
+                <view id="{{item.id}}" class='weekday-header' bindtap='onShowDetails'>
+                    {{item.chWeekDay}} ({{item.partArray}})
 
                 </view>
-            </scroll-view>
 
-            <view class='gray-space-small'></view>
+                <!-- 显示缩略图 -->
+                <scroll-view class='weekday-brief-body' wx:if="{{!item.showDetails}}" scroll-x="{{true}}">
+                    <view class='action-brief-box' wx:for="{{item.exerciseSet}}" wx:key="{{index}}">
+                        <image class='action-item-image' src="../../{{item.action.imageUrl}}"></image>
+                        <view class='action-item-head'>{{item.action.name}}</view>
+                    </view>
+                </scroll-view>
+
+                <!-- 显示详情 -->
+                <view class='weekday-detailed-body' wx:else>
+                    <view class='action-box width100' wx:for="{{item.exerciseSet}}" wx:key="{{index}}">
+                        <image class='action-item-image' src="../../{{item.action.imageUrl}}"></image>
+                        <view class='action-item-text-box'>
+                            <view class='action-item-head'>{{item.action.name}}</view>
+                            <view class='action-number-picker-box'>
+                                <view class="action-number-picker-item">{{item.groupSet.length}} </view>
+                                <view class="action-number-picker-item">组</view>
+                                <view class="action-number-picker-item">{{item.groupSet[0].quantity}}</view>
+                                <view class="action-number-picker-item">{{item.gpMeasurement}}</view>
+                                <view class="action-number-picker-item">{{item.groupSet[0].weight}}</view>
+                                <view class="action-number-picker-item">{{item.groupSet[0].uom}}</view>
+                            </view>
+                            <view></view>
+
+                        </view>
+
+
+                    </view>
+                </view>
+
+
+            </view>
         </view>
 
-        <view class='foot-box'>
+        <view class='gray-space-small'> </view>
+
+        <view class='foot-box' wx:if="{{options.mode==='preview'}}">
+            <button class='cancel-btn' bindtap='onGoBack'> 返回修改 </button>
+            <button class='confirm-btn' bindtap='onSavePlan'> 保存计划 </button>
+        </view>
+
+        <view class='foot-box' wx:else>
             <button class='cancel-btn' bindtap='onDeletePlan'> 删除此计划 </button>
             <button class='confirm-btn' bindtap='onModifyPlan'> 修改此计划 </button>
         </view>
     </scroll-view>
 
-
+    <!-- 这是Toast -->
+    <include src="../../ui/toast/warn_toast.wxml" />
 
 </view>

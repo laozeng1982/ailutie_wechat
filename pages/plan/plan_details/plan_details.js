@@ -10,6 +10,41 @@ Page({
     data: {
         // plan: {},
     },
+    /**
+     * 保存数据
+     */
+
+    savePlanData: function () {
+
+        app.currentPlan.currentUse = true;
+
+        if (app.planSet.length === 0) {
+            app.planSet.push(app.currentPlan);
+        } else {
+            // 暂时不考虑删除计划，隐藏即可，这里就需要判断是否有激活的计划，有的话直接替换，没有的话，直接添加
+            var hasUsingPlan = false;
+            for (let idx = 0; idx < app.planSet.length; idx++) {
+                if (app.planSet[idx].currentUse) {
+                    hasUsingPlan = true;
+                    app.planSet.splice(idx, 1, app.currentPlan);
+                }
+            }
+            if (!hasUsingPlan) {
+                app.planSet.push(app.currentPlan);
+            }
+        }
+        app.Util.saveData(app.StorageType.PlanSet, app.planSet);
+
+        // wx.showToast({
+        //     title: '计划已保存',
+        //     icon: 'success',
+        //     duration: 2000
+        // });
+
+        app.Util.showNormalToast("计划已保存", this, 2000);
+
+        console.log(app.planSet);
+    },
 
 
     onComments: function () {
@@ -18,6 +53,18 @@ Page({
 
     onFavorite: function (e) {
 
+    },
+
+    onShowDetails: function (e) {
+        console.log(e.target.id);
+        let idx = parseInt(e.target.id);
+        let plan = this.data.plan;
+
+        plan.circleDaySet[idx].showDetails = !plan.circleDaySet[idx].showDetails;
+
+        this.setData({
+            plan: plan
+        });
     },
 
     onDeletePlan: function () {
@@ -49,12 +96,32 @@ Page({
         });
     },
 
+    onGoBack: function () {
+        wx.navigateBack({
+            delta: 1,
+        });
+    },
+
+    onSavePlan: function () {
+        this.savePlanData();
+
+
+        wx.switchTab({
+            url: '../../index/index',
+        });
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+
         wx.setNavigationBarTitle({
             title: "预览计划",
+        });
+
+        this.setData({
+            options: options
         });
     },
 
@@ -72,6 +139,11 @@ Page({
 
         let plan = app.currentPlan;
 
+        app.currentPlan.setPlanParts();
+
+        for (let circleDay of plan.circleDaySet) {
+            circleDay.showDetails = false;
+        }
 
         this.setData({
             plan: plan

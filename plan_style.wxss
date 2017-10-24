@@ -378,7 +378,7 @@
     height: 150rpx;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-content: center;
     align-items: center;
     border-bottom: 1rpx solid #eee;
@@ -548,6 +548,10 @@
     flex-direction: row;
     justify-content: space-around;
     font-size: 20rpx;
+}
+
+.width100 {
+    width: 100%;
 }
 
 .smallbtn {
@@ -785,7 +789,7 @@
     width: 100%;
     align-content: center;
     justify-content: space-around;
-
+    border-bottom: 1rpx solid #eee;
 }
 
 .header-image-author {
@@ -806,8 +810,64 @@
     align-content: center;
     align-items: center;
     text-align: center;
-    justify-content: space-around;   
+    justify-content: space-around;
+    font-size: 44rpx;
     font-weight: 500;
+}
+
+.plan-brief-item-box {
+    width: 100%;
+    height: 70rpx;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.scroll-view-item_H {
+    display: inline-block;
+    width: 100%;
+    height: 300rpx;
+}
+
+.brief-item {
+    padding: 20rpx;
+    padding-left: 40rpx;
+    font-size: 36rpx;
+}
+
+.weekday-header {
+    padding: 20rpx;
+    padding-left: 40rpx;
+    font-size: 40rpx;
+    font-weight: 400;
+    width: 100%;
+}
+
+.weekday-detailed-body {
+    width: 100%;
+    padding: 20rpx;
+    padding-left: 40rpx;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.weekday-brief-body {
+    white-space: nowrap;
+}
+
+.action-brief-box {
+    flex-direction: column;
+    width: 200rpx;
+    align-content: center;
+    align-items: center;
+    display: inline-block;
+    justify-content: space-around;
+    height: 250rpx;
+    font-size: 24rpx;
 }
 
 .purpose {

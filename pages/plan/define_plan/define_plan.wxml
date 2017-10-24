@@ -30,8 +30,8 @@
         </view>
 
         <!-- 周期选择 -->
-        <view class="swiper-box column">
-            <view class="head-body-top">
+        <view class="swiper-box column" wx:if="{{showPeriod}}">
+            <view class="head-body-top" >
                 <view class="title-text">
                     请点选周期中的天次（可多选）
                 </view>
@@ -47,11 +47,10 @@
 
                 <view class="gray-space-small"></view>
             </view>
-
         </view>
 
         <!-- 动作选择 -->
-        <view class="swiper-box column">
+        <view class="swiper-box column" wx:if="{{showPeriod}}">
             <view class="swiper-item">
                 <!-- 左边部位列表 -->
                 <scroll-view class="partlist-scrollview" scroll-y="true">
@@ -62,7 +61,7 @@
 
                 <!-- 右边动作列表 -->
                 <scroll-view class="parts-actions-scrollview" scroll-y="true">
-                    <view id="{{item.name}}" class="sub-part-actions-item" wx:if="{{item.selected}}" wx:for="{{currentDay.body.parts}}" wx:key="{{index}}">
+                    <view id="{{item.name}}" class="sub-part-actions-item" wx:if="{{item.active}}" wx:for="{{currentDay.body.parts}}" wx:key="{{index}}">
                         <view class="sub-part-actions-scrollview" scroll-y="true">
                             <!-- 每个部位细分类 -->
                             <view class="sub-part-head-text"> {{item.name}}</view>
