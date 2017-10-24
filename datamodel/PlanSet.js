@@ -55,7 +55,7 @@ class Plan {
      */
     getPlanPartByDay(dayIdx) {
         this.setPlanParts();
-        return this.circleDaySet[dayIdx].partString;
+
     }
 
     /**
@@ -104,7 +104,6 @@ class Plan {
      * 设置计划的部位信息
      */
     setPlanParts() {
-        let app = getApp();
         for (let circleDay of this.circleDaySet) {
             let partArray = [];
             for (let exercise of circleDay.exerciseSet) {
@@ -113,7 +112,6 @@ class Plan {
                 }
             }
             circleDay.partArray = partArray;
-            circleDay.partString = app.Util.makePartString(partArray);
         }
         // console.log(this.circleDaySet);
     }

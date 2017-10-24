@@ -195,7 +195,7 @@ Page({
      * 如果是多天，那么多天的内部状态，都要一致
      * @param e
      */
-    onSelectPartTab: function (e) {
+    onSelectPart: function (e) {
         // console.log(e);
         console.log("Selected part: ", e.currentTarget.id);
 
@@ -460,12 +460,11 @@ Page({
     },
 
     /**
-     * 预览功能入口，跳转到预览页面
-     * 所有选项都已选择，进入下一步预览计划
-     * @param e
+     * 保存善后
      */
-    onPreview: function (e) {
-        // 准备Plan的数据
+    saveSession: function () {
+        app.planStartDate = this.data.fromDate;
+        app.planEndDate = this.data.toDate;
         app.currentPlan.fromDate = this.data.fromDate;
         app.currentPlan.toDate = this.data.toDate;
         app.currentPlan.name = "我的计划";
@@ -506,6 +505,16 @@ Page({
         app.currentPlan.circleDaySet = circleDaySet;
 
         console.log("app.currentPlan:", app.currentPlan);
+    },
+
+    /**
+     * 预览功能入口，跳转到预览页面
+     * 所有选项都已选择，进入下一步预览计划
+     * 把收集数据写到onHide中，离开页面就收集数据
+     * @param e
+     */
+    onPreview: function (e) {
+        // 准备Plan的数据
 
         wx.navigateTo({
             url: '../plan_details/plan_details?mode=preview',
@@ -578,14 +587,6 @@ Page({
         }
 
         console.log("weekData:", this.data.weekData);
-    },
-
-    /**
-     * 保存善后
-     */
-    saveSession: function () {
-        app.planStartDate = this.data.fromDate;
-        app.planEndDate = this.data.toDate;
     },
 
     /**

@@ -54,7 +54,7 @@
             <view class="swiper-item">
                 <!-- 左边部位列表 -->
                 <scroll-view class="partlist-scrollview" scroll-y="true">
-                    <view id="{{item.name}}" class="partlist-item {{item.selected?'partlist-item-active':''}}" wx:for="{{currentDay.partList}}" wx:key="{{index}}" bindtap="onSelectPartTab">
+                    <view id="{{item.name}}" class="partlist-item {{item.selected?'partlist-item-active':''}}" wx:for="{{currentDay.partList}}" wx:key="{{index}}" bindtap="onSelectPart">
                         {{item.name}}({{item.selectedActionCount}})
                     </view>
                 </scroll-view>
@@ -77,7 +77,7 @@
                                         <view>{{item.name}}</view>
                                     </view>
                                     <!-- 当动作单位为空的时候，是自定义动作，不显示picker -->
-                                    <picker wx:if="{{item.gpMeasurement !== ''}}" data-action="{{item}}" mode="multiSelector" bindchange="onChangeQuantity" value="{{actionQuantityIndex}}" range="{{actionQuantityArray}}">
+                                    <picker wx:if="{{item.groupSet.length !== 0}}" data-action="{{item}}" mode="multiSelector" bindchange="onChangeQuantity" value="{{actionQuantityIndex}}" range="{{actionQuantityArray}}">
                                         <view class="action-number-picker-box">
                                             <view class="action-number-picker-item">{{item.groupSet.length}} </view>
                                             <view class="action-number-picker-item">组</view>

@@ -140,7 +140,7 @@ Page({
             percentFinished = Math.ceil(totalFinishedGroups * 100 / totalGroups);
         }
 
-        console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
+        // console.log("finishedGroup:", totalFinishedGroups, ", totalGroups:", totalGroups, ", percent:", percentFinished, "%");
 
         this.data.currentChart.updateData({
             title: {
@@ -239,7 +239,7 @@ Page({
         let todayReality = this.data.todayReality;
         let currentActionId = this.data.currentActionId;
 
-        console.log("in onActionScore, score is: ", e.currentTarget.id);
+        // console.log("in onActionScore, score is: ", e.currentTarget.id);
 
         todayReality.executedSet[currentActionId].actionScore = score;
 

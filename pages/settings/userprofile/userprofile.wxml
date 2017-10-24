@@ -3,12 +3,12 @@
 
     <!-- 这是Toast -->
     <include src="../../ui/toast/toast.wxml" />
-
+    <view class="header">
+        {{today}} 记录
+    </view>
     <form bindsubmit="onFormSubmit" bindreset="onFormReset">
 
-        <view class="header">
-            {{today}}记录
-        </view>
+
 
         <scroll-view style='height:800rpx' scroll-y="true">
             <view class="section" wx:for="{{userProfile}}" wx:key="{{index}}">

@@ -4,9 +4,10 @@
     text-align: center;
     align-items: center;
     align-content: center;
-    height: 50rpx;
+    height: 100rpx;
     font-size: 40rpx;
     font-weight: 500;
+    border-bottom: 1rpx solid #eee;
 }
 
 .section {

@@ -105,8 +105,6 @@ Page({
         let url = (e.currentTarget.id === "tempPlan") ?
             "../plan/define_plan/define_plan?mode=tempPlan" : "../plan/define_plan/define_plan?mode=longPlan";
 
-        console.log("url:", url);
-
         wx.navigateTo({
             url: url,
         });

@@ -39,6 +39,8 @@ class Body {
                 action.equipment = part.actionArray[actionIdx].equipment;
                 action.gpMeasurement = part.actionArray[actionIdx].gpmeasurement;
                 action.measurement = part.actionArray[actionIdx].measurement;
+                action.defaultQuantity = part.actionArray[actionIdx].defaultQuantity;
+
                 action.partSet.push(part.bodyPart);
 
                 actions.push(action);
@@ -92,24 +94,6 @@ class Body {
 
     }
 
-    /**
-     * 深度复制目标
-     * @param obj
-     */
-    static deepClone(obj) {
-
-        let clone = obj.constructor === Array ? [] : {};
-
-        // 递归
-        for (let item in obj) {
-            if (obj.hasOwnProperty(item)) {
-                clone[item] = typeof obj[item] === "object" ? deepClone(obj[item]) : obj[item];
-            }
-        }
-
-        return clone;
-    }
-
     getPartNameArray() {
         let partNameArray = [];
 
@@ -126,15 +110,19 @@ class Body {
      * 给每一个动作，增加一个groupSet，方便以后用
      */
     initGroupSet() {
-        for (let partIdx = 0; partIdx < this.parts.length; partIdx++) {
-            for (let actionIdx = 0; actionIdx < this.parts[partIdx].actionSet.length; actionIdx++) {
+        for (let part of this.parts) {
+            for (let action of part.actionSet) {
                 // 临时增加一个数据项，用以保存数据
-                this.parts[partIdx].actionSet[actionIdx].groupSet = [];
-                for (let idx = 0; idx < 6; idx++) {
-                    let group = new PlanSet.GroupSet(idx + 1, 10,
-                        30, this.parts[partIdx].actionSet[actionIdx].measurement);
+                action.groupSet = [];
+                let length = action.defaultQuantity.gpQuantity;
+                for (let idx = 0; idx < length; idx++) {
+                    let group = new PlanSet.GroupSet(
+                        idx + 1,
+                        action.defaultQuantity.quantity,
+                        action.defaultQuantity.weight,
+                        action.measurement);
 
-                    this.parts[partIdx].actionSet[actionIdx].groupSet.push(group);
+                    action.groupSet.push(group);
                 }
             }
         }
@@ -158,7 +146,6 @@ class Body {
                     }
                 }
             }
-
         }
 
         this.countSelectedAction();
@@ -327,7 +314,6 @@ class Body {
     unSelectAllParts() {
         for (let part of this.parts) {
             part.selected = false;
-
         }
     }
 
@@ -339,7 +325,6 @@ class Body {
         let selectedActionCount = 0;
 
         for (let part of this.parts) {
-
             if (part.bodyPart === partName) {
                 selectedActionCount = selectedActionCount + part.selectedActionCount;
             }
@@ -453,144 +438,6 @@ class Body {
         return this.hasSelectedPart() && allActionSelected;
     }
 
-    /**
-     * 为每个部位添加选中的日期
-     * @param partSet
-     * @param cycleLength
-     */
-    makeLabel(partSet, cycleLength) {
-        for (let partIdx = 0; partIdx < this.parts.length; partIdx++) {
-            if (partSet.name === this.parts[partIdx].name) {
-                // 两种显示，如果是七天，则显示“周N”，否则显示“第N天”
-                if (cycleLength === 7) {
-
-                    let trainDate = [];
-                    for (let date of partSet.trainDates) {
-                        switch (date) {
-                            case 0:
-                                trainDate.push("周日");
-                                break;
-                            case 1:
-                                trainDate.push("周一");
-                                break;
-                            case 2:
-                                trainDate.push("周二");
-                                break;
-                            case 3:
-                                trainDate.push("周三");
-                                break;
-                            case 4:
-                                trainDate.push("周四");
-                                break;
-                            case 5:
-                                trainDate.push("周五");
-                                break;
-                            case 6:
-                                trainDate.push("周六");
-                                break;
-                        }
-                    }
-                    this.parts[partIdx].trainDateArr = partSet.trainDates;
-                    this.parts[partIdx].trainDateStr = "( " + trainDate.join("，") + " )";
-                    console.log("partSets.trainDateStr ", this.parts[partIdx].trainDateStr);
-                } else {
-                    // 需要加1，新建数组，不改变原数组的值
-                    let trainDate = [];
-                    for (let idx = 0; idx < partSet.trainDates.length; idx++) {
-                        trainDate.push(partSet.trainDates[idx] + 1);
-                    }
-                    this.parts[partIdx].trainDateArr = partSet.trainDates;
-                    this.parts[partIdx].trainDateStr = "(第 " + trainDate.join("，") + " 天)";
-                }
-            }
-        }
-    }
-
-    /**
-     * 把内容重新排序，以便按时间显示，方便直观
-     */
-    sortListByDate() {
-        let orderPartList = []; // 重排序后存储
-
-        // 先排没有计划的，放在前面
-        for (let part of this.parts) {
-            if (typeof part.trainDateArr === "undefined") {
-                orderPartList.push(part);
-            }
-        }
-
-        let str = [];
-        for (let item of orderPartList) {
-            str.push(item.name);
-        }
-        console.log(str.toString());
-
-        // 再排有计划的，如果计划有多天，按照第一天谁靠前排序
-        for (let part of this.parts) {
-            if (typeof part.trainDateArr !== "undefined" && part.trainDateArr.length > 0) {
-                // 默认加在最后
-                let insertPos = -1;
-                for (let index = 0; index < orderPartList.length; index++) {
-                    // 当训练日期列表第一个小于body.partList列表中某一个trainDate的第一个时，前插
-
-                    if (typeof  orderPartList[index].trainDateArr !== "undefined"
-                        && orderPartList[index].trainDateArr.length > 0) {
-                        if (Body.arr1_IsFront_arr2(part.trainDateArr, orderPartList[index].trainDateArr)) {
-                            insertPos = index;
-                            break;
-                        }
-                    }
-                }
-                if (insertPos === -1) {
-                    orderPartList.push(part);
-                } else {
-                    orderPartList.splice(insertPos, 0, part);
-                }
-
-                let str2 = [];
-                for (let item of orderPartList) {
-                    str2.push(item.name);
-                }
-
-                // console.log("insertPos:", insertPos, "orderPartList:", str2.toString());
-                // console.log("with plan", part.name);
-            }
-        }
-
-        this.parts = orderPartList;
-    }
-
-    /**
-     *
-     * @param arr1
-     * @param arr2
-     */
-    static arr1_IsFront_arr2(arr1, arr2) {
-
-        // 得到一个较小的数组长度，用以循环比较
-        let loopLength = arr1.length <= arr2.length ? arr1.length : arr2.length;
-
-        let front = true;
-        let allSameElement = true;
-
-        for (let idx = 0; idx < loopLength; idx++) {
-            if (arr1[idx] < arr2[idx]) {
-                allSameElement = false;
-                break;
-            } else if (arr1[idx] > arr2[idx]) {
-                allSameElement = false;
-                front = false;
-                break;
-            }
-        }
-
-        if (allSameElement) {
-            console.log("same");
-            front = arr1.length <= arr2.length;
-        }
-
-        return front;
-    }
 }
 
 class PartDictionary {
@@ -607,70 +454,80 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/canter.png',
-                    measurement: "Km"
+                    measurement: "Km",
+                    defaultQuantity: {gpQuantity: 1, quantity: 30, weight: 5},
                 },
                 {
                     name: '原地跑步',
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/running_on_the_spot.png',
-                    measurement: "Km"
+                    measurement: "次",
+                    defaultQuantity: {gpQuantity: 1, quantity: 30, weight: 100},
                 },
                 {
                     name: '原地高抬腿',
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/place_high_leg_on_the_spot.png',
-                    measurement: "Km"
+                    measurement: "次",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 100},
                 },
                 {
                     name: '快走',
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/fast_walking.png',
-                    measurement: "Km"
+                    measurement: "Km",
+                    defaultQuantity: {gpQuantity: 1, quantity: 30, weight: 3},
                 },
                 {
                     name: '椭圆机',
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/elliptical_machine.png',
-                    measurement: "次"
+                    measurement: "Km",
+                    defaultQuantity: {gpQuantity: 1, quantity: 30, weight: 3},
                 },
                 {
                     name: '开合跳',
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/jumping_jacks.png',
-                    measurement: "Km"
+                    measurement: "次",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 100},
                 },
                 {
                     name: '动感单车',
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/spinning.png',
-                    measurement: "Km"
+                    measurement: "Km",
+                    defaultQuantity: {gpQuantity: 1, quantity: 30, weight: 8},
                 },
                 {
                     name: '登山机',
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/climbing.png',
-                    measurement: "Km"
+                    measurement: "Km",
+                    defaultQuantity: {gpQuantity: 1, quantity: 30, weight: 5},
                 },
                 {
                     name: '跳绳',
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/rope_skipping.png',
-                    measurement: "Km"
+                    measurement: "个",
+                    defaultQuantity: {gpQuantity: 6, quantity: 3, weight: 50},
                 },
                 {
                     name: '俯身登山',
                     equipment: "",
                     gpmeasurement: "分钟",
                     imageUrl: 'image/actions/aerobic/bend_over_climbing.png',
-                    measurement: "Km"
+                    measurement: "个",
+                    defaultQuantity: {gpQuantity: 6, quantity: 5, weight: 50},
                 },
             ]
         });
@@ -686,21 +543,24 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/horizontal_barbell_bench_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '上斜哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/incline_dumbbell_bench_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '上斜器械推举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/incline_machine_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
             ]
         });
@@ -715,21 +575,24 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/horizontal_barbell_bench_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '平板哑铃卧推',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/horizontal_dumbbell_bench_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '坐姿器械推胸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/seated_machine_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
             ]
         });
@@ -744,21 +607,24 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/horizontal_barbell_bench_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '下斜哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/horizontal_dumbbell_bench_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '双杠臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/dip_on_parallel_bars.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
             ]
         });
@@ -773,28 +639,32 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/incline_wide_push_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '标准俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/stand_push_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '下斜钻石俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/down_incline_diamond_push_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '跪姿俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/kneel_push_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
             ]
         });
@@ -809,42 +679,48 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/incline_dumbbell_bench_fly.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '平板哑铃飞鸟',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/horizontal_dumbbell_bench_fly.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '蝴蝶机器械夹胸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/butterfly_machine_crossover.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '上斜拉索夹胸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/incline_able_crossover.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '拉力器十字夹胸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/cable_crossover.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '下斜拉索夹胸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/decline_cable_crossover.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
             ]
 
@@ -861,21 +737,24 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/bar_military_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '站姿哑单臂铃前平举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/standing_one_arm_dumbbell_front_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '站姿哑铃前平举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/standing_dumbbells_front_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
             ]
         });
@@ -890,42 +769,48 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/machine_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '坐姿哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/seated_dumbbell_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '站姿哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/standing_dumbbell_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '站姿哑铃侧平举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/standing_dumbbell_lateral_raise.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: 'L侧平举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/L_lateral_raise.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '阿诺德哑铃推举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/arnold_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
             ]
         });
@@ -940,28 +825,32 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/overhead_bar_press.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '俯身拉索侧平举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/cable_rear_lateral_raise.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '俯身哑铃侧平举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/dumbbell_rear_lateral_raise.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '哑铃反向飞鸟',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/dumbbell_reverse_fly.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
             ],
         });
@@ -976,7 +865,8 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/shoulder/stand_shrug.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
             ],
         });
@@ -992,98 +882,112 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/reverse_neutral_grip_pull_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '反握窄距引体向上',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/reverse_narrow_pull_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '正握宽距引体向上',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/neutral_grip_pull_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '正握窄距引体向上',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/narrow_pull_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '标准高位下拉',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/stand_machine_pull_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '反握高位下拉',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/reverse_cable_pull_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '器械反握下拉',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/reverse_machine_pull_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '反向器械飞鸟',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/reverse_machine_fly.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '俯身单臂哑铃划船',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/bent_over_one_arm_row.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '坐姿器械对握划船',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/seated_cable_close_row.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '俯身反握杠铃划船',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/bent_over_reverse_barbell_row.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '俯身反握哑铃划船',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/bent_over_reverse_dumbbell_row.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '杠铃罗马尼亚硬拉',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/romanian_barbell_deadlift.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '杠铃直腿硬拉',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/back/straight_leg_barbell_deadlift.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
             ]
         });
@@ -1099,35 +1003,40 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/waist/romanian_barbell_deadlift.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '杠铃直腿硬拉',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/waist/straight_leg_barbell_deadlift.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '平板支撑',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/waist/plank.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '山羊挺身',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/waist/back_hyperextension.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '十字挺身',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/waist/cross_lift.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
             ]
         });
@@ -1143,77 +1052,88 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/decline_sit_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '屈膝卷腹',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/bent_leg_crunch.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '反向卷腹',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/reverse_crunch.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '器械卷腹',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/machine_crunch.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '悬垂卷腹',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/hanging_crunch.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '悬垂举腿',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/hanging_leg_raise.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '负重俄罗斯转体',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/weighted_russian_twist.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '空中单车',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/sky_bike.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '自重臀桥',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/self_weighted_hip_bridge.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '平板支撑',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/plank.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: 'V型平衡',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/abs/v_balance.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
             ]
         });
@@ -1229,49 +1149,56 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/standing_barbell_biceps_curl.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '站姿重锤弯举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/standing_hammer_curl.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '坐姿哑铃集中弯举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/seated_dumbbell_focus_curl.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '坐姿重锤弯举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/seated_hammer_curl.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '坐姿哑铃弯举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/seated_dumbbell_biceps_curl.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '托板哑铃弯举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/incline_dumbbell_curl.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '站姿拉索弯举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/standing_cable_curl.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
 
             ]
@@ -1287,63 +1214,72 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/lying_barbell_dip.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '站姿单臂颈后臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/standing_one_arm_dip.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '站姿哑铃颈后屈臂伸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/standing_dumbbell_dip.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '站姿拉索下压',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/standing_cable_triceps_push_down.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '双杠臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/parallel_bar_dip.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '器械直臂下压',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/machine_push_down.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '器械臂屈伸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/machine_dip.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '标准俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/standard_push_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '钻石俯卧撑',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/arm/diamond_push_up.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
             ]
         });
@@ -1358,35 +1294,40 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     // imageUrl: 'image/actions/arm/aerobic.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '哑铃腕弯举',
                     equipment: "",
                     gpmeasurement: "次",
                     // imageUrl: 'image/actions/arm/aerobic.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '杠铃背后腕腕举',
                     equipment: "",
                     gpmeasurement: "次",
                     // imageUrl: 'image/actions/arm/aerobic.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '杠铃腕弯举',
                     equipment: "",
                     gpmeasurement: "次",
                     // imageUrl: 'image/actions/arm/aerobic.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 10},
                 },
                 {
                     name: '引体悬挂',
                     equipment: "",
                     gpmeasurement: "次",
                     // imageUrl: 'image/actions/arm/aerobic.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
             ]
         });
@@ -1402,14 +1343,16 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/bent_over_machine_leg_curl.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '器械腿后展',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/cable_hamstring_curl.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
             ]
         });
@@ -1424,77 +1367,88 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/barbell_overhead_squat.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 50},
                 },
                 {
                     name: '颈前杠铃深蹲',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/barbell_before_neck_squat.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '器械哈克深蹲',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/machine_hack_squat.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 50},
                 },
                 {
                     name: '哑铃深蹲',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/dumbbell_squat.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '徒手深蹲',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/none_weighted_squat.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '靠墙马步蹲',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/firm_stance.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
                 {
                     name: '器械腿举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/machine_leg_lift.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 40},
                 },
                 {
                     name: '坐姿单腿腿举',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/seated_one_leg_lift.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '杠铃翘臀分腿蹲',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/barbell_one_leg_squat.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '坐姿腿屈伸',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/seated_leg_dip.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
                 {
                     name: '坐姿器械腿外展',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/seated_machine_leg_split.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
                 },
             ]
         });
@@ -1509,18 +1463,19 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/standing_calf_raise.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 40},
                 },
                 {
                     name: '坐姿提踵',
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/leg/seated_calf_raise.png',
-                    measurement: "Kg"
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 40},
                 },
             ]
         });
-
     }
 }
 

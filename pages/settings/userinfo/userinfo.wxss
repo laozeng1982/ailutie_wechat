@@ -27,7 +27,7 @@
 }
 
 .confirmBtn {
-    width: 100%;
+    width: 90%;
     padding-block-end: 10rpx;
     padding-bottom: 10rpx;
 }

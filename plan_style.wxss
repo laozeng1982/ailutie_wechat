@@ -393,7 +393,7 @@
 }
 
 .action-item-text-box {
-    /* width: 60%; */
+    width: 320rpx;
     height: 140rpx;
     display: flex;
     flex-direction: column;
@@ -423,6 +423,11 @@
 .action-number-picker-item {
     width: 50rpx;
     font-size: 30rpx;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
 }
 
 .action-item-icon {

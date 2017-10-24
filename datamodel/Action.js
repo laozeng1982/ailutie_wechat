@@ -10,6 +10,7 @@ class Action {
         this.imageUrl = '';
         this.predefined = true;    // 是否为系统内置
         this.partSet = [];  // 该动作关联的部位，一个动作可能会练到多个部位
+        this.defaultQuantity = {};
         // just for UI
         this.selected = false;
     }
