@@ -8,4 +8,6 @@
         <text style="width:200rpx">公众号:</text>
         <text>我们爱撸铁</text>
     </view>
+
+    <image src="{{imageUrl}}"></image>
 </view>
