@@ -31,42 +31,44 @@ Page({
 
     touchEndHandler: function (e) {
         // TODO 这里可以做的更复杂，实现点击进入当天详细内容
-        console.log("touchEnd:", e.target.id);
+        // console.log("touchEnd:", e.target.id);
         this.data.currentChart.scrollEnd(e);
-        // this.data.currentChart.showToolTip(e, {
-        //     format: function (item, category) {
-        //         return category + ', ' + item.name + ': ' + item.data
-        //     }
-        // });
+        this.data.currentChart.showToolTip(e, {
+            format: function (item, category) {
+                console.log("item",item);
+                return category + ', ' + item.name + ': ' + item.data
+            }
+        });
     },
 
-    onRadioChange: function (e) {
+    /**
+     * 根据当前激活的chartType来设置图表
+     */
+    setChart: function () {
         let chartType = this.data.chartType;
+        let currentChartId;
         let currentChart;
-        switch (e.detail.value) {
-            case "1":
-                for (let idx = 0; idx < chartType.length; idx++) {
-                    chartType[idx].checked = (parseInt(e.detail.value) - 1) === idx;
-                }
 
+        for (let idx = 0; idx < chartType.length; idx++) {
+            if (chartType[idx].checked) {
+                currentChartId = idx;
+            }
+        }
+
+        switch (currentChartId) {
+            case 0:
                 currentChart = chartMaker.makeLineChart(chartData.createLineData(true));
                 this.setData({
                     chartTitle: "本周运动量",
                 });
                 break;
-            case "2":
-                for (let idx = 0; idx < chartType.length; idx++) {
-                    chartType[idx].checked = (parseInt(e.detail.value) - 1) === idx;
-                }
+            case 1:
                 currentChart = chartMaker.makeLineChart(chartData.createLineData(false));
                 this.setData({
                     chartTitle: "本月运动量",
                 });
                 break;
-            case "3":
-                for (let idx = 0; idx < chartType.length; idx++) {
-                    chartType[idx].checked = (parseInt(e.detail.value) - 1) === idx;
-                }
+            case 2:
 
                 currentChart = chartMaker.makePieChart(chartData.createPieData());
                 this.setData({
@@ -78,10 +80,23 @@ Page({
         }
 
         this.setData({
-            currentChart: currentChart,
-            chartType: chartType
+            currentChart: currentChart
         });
+    },
 
+    /**
+     * 响应图表类型选择，设置激活的图表类型，然后调用setChart()来显示图表
+     * @param e
+     */
+    onChangeRadio: function (e) {
+        let chartType = this.data.chartType;
+        let chartId = parseInt(e.detail.value);
+
+        for (let idx = 0; idx < chartType.length; idx++) {
+            chartType[idx].checked = (chartId - 1) === idx;
+        }
+
+        this.setChart();
     },
 
     /**
@@ -136,12 +151,7 @@ Page({
 
     onShow: function () {
         // 首次进入，渲染第一张，周视图
-        let currentChart = chartMaker.makeLineChart(chartData.createLineData(true));
-
-        this.setData({
-            chartTitle: "本周运动量",
-            currentChart: currentChart
-        });
+        this.setChart();
 
         console.log('index page onShow');
 

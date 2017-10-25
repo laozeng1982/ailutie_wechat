@@ -40,11 +40,11 @@ class ChartData {
      * @param dateList
      * @param dataType
      */
-    makeActualData(dateList,dataType) {
+    makeActualData(dateList, dataType) {
         let realitySet = this.loadRealitySet();
         let data = [];
 
-        let dateListWithReality= [];
+        let dateListWithReality = [];
         // 先获取有效锻炼数据的日期列表
         for (let reality of realitySet) {
             if (reality.executedSet.length > 0) {
@@ -58,13 +58,25 @@ class ChartData {
                     if (date === reality.date) {
                         switch (dataType) {
                             case "GROUP_COUNT":
+                                let group_count = 0;
+                                for (let exercise of reality.executedSet) {
+                                    group_count = group_count + exercise.groupSet.length;
+                                }
+                                data.push(group_count);
                                 break;
                             case "WEIGHT":
+                                let weight = 0;
+                                for (let exercise of reality.executedSet) {
+                                    for (let group of exercise.groupSet) {
+                                        weight = weight + group.quantity * group.weight;
+                                    }
+                                }
+                                data.push(weight);
                                 break;
                             case "ENERGY":
                                 break;
                             default:
-                                data.push(500);
+                                data.push("");
                                 break;
                         }
 
@@ -116,7 +128,7 @@ class ChartData {
                 fullDate.push(Util.formatDateToString(date));
             }
             // 1.3 产生锻炼的实际数据
-            data = this.makeActualData(fullDate);
+            data = this.makeActualData(fullDate, "GROUP_COUNT");
         } else {
             // 整月，逻辑简单，从1号开始，到最后一天
             // 1.1 产生日期数据
@@ -126,12 +138,8 @@ class ChartData {
                 fullDate.push(Util.formatStringDate(today.getFullYear(), (today.getMonth() + 1), dayIdx));
             }
             // 1.2 产生锻炼的实际数据
-            data = this.makeActualData(fullDate);
+            data = this.makeActualData(fullDate, "WEIGHT");
         }
-
-        // console.log("categories:", categories);
-        // console.log("fullDate:", fullDate);
-        // console.log("data:", data);
 
         return {
             categories: categories,
@@ -147,31 +155,48 @@ class ChartData {
      * @returns
      */
     createPieData() {
-        let pieData = [{
-            name: '有氧',
-            data: 15,
-        }, {
-            name: '胸',
-            data: 35,
-        }, {
-            name: '肩',
-            data: 78,
-        }, {
-            name: '臂',
-            data: 63,
-        }, {
-            name: '背',
-            data: 63,
-        }, {
-            name: '腰',
-            data: 35,
-        }, {
-            name: '腹',
-            data: 78,
-        }, {
-            name: '腿',
-            data: 35,
-        }];
+        let pieData = [
+            {
+                name: '有氧',
+                data: 0,
+            }, {
+                name: '胸',
+                data: 0,
+            }, {
+                name: '肩',
+                data: 0,
+            }, {
+                name: '臂',
+                data: 0,
+            }, {
+                name: '背',
+                data: 0,
+            }, {
+                name: '腰',
+                data: 0,
+            }, {
+                name: '腹',
+                data: 0,
+            }, {
+                name: '腿',
+                data: 0,
+            }
+        ];
+
+        let realitySet = this.loadRealitySet();
+
+        // 这里还需要想想以完成的组数，重量，次数中哪一种为计算标准
+        for (let dataItem of pieData) {
+            for (let reality of realitySet) {
+                if (reality.executedSet.length > 0) {
+                    for (let exercise of reality.executedSet) {
+                        if (exercise.action.partSet[0].includes(dataItem.name)) {
+                            dataItem.data++;
+                        }
+                    }
+                }
+            }
+        }
 
         return pieData;
     }

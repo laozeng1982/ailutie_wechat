@@ -32,7 +32,7 @@ App({
                     wx.getUserInfo({
                         success: res => {
                             // 可以将 res 发送给后台解码出 unionId
-                            this.globalData.wechatUserInfo = res.userInfo;
+                            this.wechatUserInfo = res.userInfo;
                             console.log("app onLoad, res.userInfo: ", res.userInfo);
                             // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                             // 所以此处加入 callback 以防止这种情况
@@ -77,15 +77,15 @@ App({
     // 提供获取微信信息的结构
     getWechatUserInfo: function (cb) {
         var that = this;
-        if (this.globalData.wechatUserInfo) {
-            typeof cb === "function" && cb(this.globalData.wechatUserInfo)
+        if (this.wechatUserInfo) {
+            typeof cb === "function" && cb(this.wechatUserInfo)
         } else {
             //调用登录接口
             wx.getUserInfo({
                 withCredentials: false,
                 success: function (res) {
-                    that.globalData.wechatUserInfo = res.userInfo;
-                    typeof cb === "function" && cb(that.globalData.wechatUserInfo)
+                    that.wechatUserInfo = res.userInfo;
+                    typeof cb === "function" && cb(that.wechatUserInfo)
                 }
             })
         }
@@ -96,6 +96,7 @@ App({
     Util: util,
 
     // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
+    wechatUserInfo: {},
 
     makingNewPlan: true,    // 操作计划的模式：如制定新计划为真，否则为假，在首页里两个操作互斥
     planMakeModel: 3,  // 用户对计划来源的选择，1代表使用推荐计划，2代表使用历史计划，3代表使用自定义计划，默认是三
@@ -106,7 +107,7 @@ App({
     globalData: {
 
         userInfo: null,
-        wechatUserInfo: null,
+
 
         isLogin: false,// 登陆状态记录
 

@@ -13,7 +13,7 @@
             <canvas class="canvas" disable-scroll="true" canvas-id="indexCanvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
         </view>
 
-        <radio-group class="type-radio-box" bindchange="onRadioChange">
+        <radio-group class="type-radio-box" bindchange="onChangeRadio">
             <label id="{{item.id}}" wx:for="{{chartType}}" wx:key="{{index}}">
                 <view class='type-radio-item-box' id="{{item.id}}">
                     <text class="{{item.checked?'type-radio-text-checked':'type-radio-text-unchecked'}}">{{item.text}}</text>

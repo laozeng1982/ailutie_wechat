@@ -1,51 +1,51 @@
 <!--userinfo.wxml-->
-<view class="generalContainer" style='justify-content:space-between'>
+<view class="container">
 
-    <view>
-        <view class='itemHolder' style='justify-content:space-around'>
-            <text class='text'>请填写信息</text>
-        </view>
-        <view class='graySpace'></view>
+    <view class='page-title'>
+        <text>请填写信息</text>
+    </view>
+    <view class='gray-space'></view>
 
+    <view class='items-container'>
 
-        <view class='itemHolder'>
-            <view class='itemLeft'>
+        <view class='item-box'>
+            <view class='item-text'>
                 <text>生日</text>
             </view>
-            <view class='itemRight'>
+            <view class='item-picker'>
                 <picker id='birthday' mode="date" value="{{userInfo.birthday}}" start="1900-01-01" end="2099-12-31" bindchange="onPickerChange">
                     {{userInfo.birthday}}
                 </picker>
             </view>
         </view>
 
-        <view class='itemHolder'>
-            <view class='itemLeft'>
+        <view class='item-box'>
+            <view class='item-text'>
                 <text>性别</text>
             </view>
-            <view class='itemRight'>
+            <view class='item-picker'>
                 <picker id='gender' mode="selector" value="{{userInfo.gender}}" range='{{genderArray}}' bindchange="onPickerChange">
                     {{userInfo.gender}}
                 </picker>
             </view>
         </view>
 
-        <view class='itemHolder'>
-            <view class='itemLeft'>
+        <view class='item-box'>
+            <view class='item-text'>
                 <text>身高</text>
             </view>
-            <view class='itemRight'>
+            <view class='item-picker'>
                 <picker id='height' mode="selector" value="{{userInfo.height-1}}" range='{{heightArray}}' bindchange="onPickerChange">
                     {{userInfo.height }} cm
                 </picker>
             </view>
         </view>
 
-        <view class='itemHolder'>
-            <view class='itemLeft'>
+        <view class='item-box'>
+            <view class='item-text'>
                 <text>体重</text>
             </view>
-            <view class='itemRight'>
+            <view class='item-picker'>
                 <picker id='weight' mode="selector" value="{{userInfo.weight-1}}" range='{{weightArray}}' bindchange="onPickerChange">
                     {{userInfo.weight }} Kg
                 </picker>
@@ -56,6 +56,8 @@
     <!-- 这是Toast -->
     <include src="../../ui/toast/toast.wxml" />
 
-    <button class='confirmBtn' type='primary' size='default' bindtap="onOK">OK</button>
+    <view class="foot-box">
+        <button class='next-btn' type='primary' size='default' bindtap="onOK">OK</button>
+    </view>
 
 </view>

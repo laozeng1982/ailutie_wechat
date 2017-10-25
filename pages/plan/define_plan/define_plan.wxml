@@ -3,7 +3,7 @@
 
     <view class="head-box">
         <!-- 时间选择 -->
-        <view class="swiper-box column">
+        <view class="content-box">
             <view class="head-body-top">
                 <view class="date-selector-box">
                     <view class="date-type-text">开始日期：</view>
@@ -30,7 +30,7 @@
         </view>
 
         <!-- 周期选择 -->
-        <view class="swiper-box column" wx:if="{{showPeriod}}">
+        <view class="content-box" wx:if="{{showPeriod}}">
             <view class="head-body-top" >
                 <view class="title-text">
                     请点选周期中的天次（可多选）
@@ -50,7 +50,7 @@
         </view>
 
         <!-- 动作选择 -->
-        <view class="swiper-box column" wx:if="{{showPeriod}}">
+        <view class="content-box" wx:if="{{showPeriod}}">
             <view class="swiper-item">
                 <!-- 左边部位列表 -->
                 <scroll-view class="partlist-scrollview" scroll-y="true">

@@ -13,7 +13,7 @@
         "pages/settings/donation/donation",
         "pages/settings/favorite/favorite",
         "pages/settings/knowledge/knowledge",
-        "pages/plan/plan_list/plan_list",
+        "pages/settings/plan_list/plan_list",
         "pages/plan/plan_details/plan_details",
         "pages/plan/define_plan/define_plan",
         "pages/plan/custom_actions/custom_actions"

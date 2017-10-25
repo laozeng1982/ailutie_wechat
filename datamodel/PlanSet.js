@@ -19,6 +19,7 @@ class Plan {
         this.name = '';      // 计划的名字
         this.predefined = false;
         this.privacy = '';   // 计划权限设置：Public谁都可以看，Protect只给朋友看，Private只能自己看。
+        this.source = '';
         this.currentUse = false;
 
         this.purpose = '';   // 计划的类型：减脂，塑性，增肌

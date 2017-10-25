@@ -1,6 +1,6 @@
 <!--pages/plan/plan_list/plan_list.wxml-->
 
-<view class='thisContainer'>
+<view class='container'>
 
     <view class="tab">
         <block wx:for="{{tabData}}" wx:key="{{index}}">
@@ -8,7 +8,7 @@
         </block>
     </view>
 
-    <view class='graySpace'></view>
+    <view class='gray-space'></view>
 
     <swiper current="{{currentTabIdx}}" class="swiper-box row" indicator-dots="{{true}}" duration="300" bindchange="onSwiperChange">
         <block wx:for="{{tabData}}" wx:key="{{index}}">
@@ -18,7 +18,7 @@
                     <!-- 每个具体的plan -->
                     <view class='plan-container' wx:for="{{tabData[currentTabIdx].data}}" wx:key="{{index}}" data-plan="{{item}}" bindtap='onPlanSelected'>
                         <!-- plan的头，包含作者头像，作者名字和创建时间 -->
-                        <view class='plan-item-container header'>
+                        <view class='plan-item-header'>
                             <image class='header-image-author' src='../../image/app_icon.png'></image>
                             <view class='header-text-author'>
                                 <view>{{item.source}}</view>
@@ -27,17 +27,17 @@
                         </view>
 
                         <!-- plan的级别、目标和名字 -->
-                        <view class='plan-item-container purpose'>
-                            <view>{{item.purpose}}</view>
-                            <view> -- </view>
-                            <view> {{item.level}}</view>
-                            <view> -- </view>
-                            <view> {{item.name}}</view>
+                        <view class='plan-item-purpose'>
+                            <view class='purpose-item-header'>{{item.purpose}}</view>
+                            <view class='purpose-item'> - </view>
+                            <view class='purpose-item'> {{item.level}}</view>
+                            <view class='purpose-item'> - </view>
+                            <view class='purpose-item'> {{item.name}}</view>
                         </view>
 
                         <!-- plan的图片 -->
-                        <view class='plan-item-container ' style='justify-content: center; margin: 0;'>
-                            <image class='image' src='../../image/jianshen002.jpg'></image>
+                        <view class='plan-item-image'>
+                            <image class='cover-image' src='../../image/jianshen002.jpg'></image>
                         </view>
 
 
@@ -58,7 +58,7 @@
                         </view>
 
                         <!-- 每个plan分割 -->
-                        <view class='graySpaceSmall'></view>
+                        <view class='gray-space-small'></view>
                     </view>
                 </scroll-view>
             </swiper-item>

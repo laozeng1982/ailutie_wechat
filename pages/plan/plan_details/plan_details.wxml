@@ -65,9 +65,9 @@
             <view class='plan-item-container column' wx:if="{{item.exerciseSet.length>0}}" wx:for="{{plan.circleDaySet}}" wx:key="{{index}}">
 
                 <view class='weekday-header-container'>
-                    <view class='weekday-header-week-txt'> {{item.chWeekDay}}  （{{item.partShowing}}）</view>
+                    <view class='weekday-header-week-txt'> {{item.chWeekDay}} （{{item.partShowing}}）</view>
                     <view class='weekday-header-count-txt'>共{{item.exerciseSet.length}} 个动作</view>
-                    <view  class='weekday-header-box' id="{{item.id}}" bindtap='onShowDetails'>
+                    <view class='weekday-header-box' id="{{item.id}}" bindtap='onShowDetails'>
                         <image class='weekday-header-icon' src='../../image/form.png'></image>
                     </view>
                 </view>
@@ -116,9 +116,13 @@
             <button class='confirm-btn' bindtap='onSavePlan'> 保存计划 </button>
         </view>
 
-        <view class='foot-box' wx:else>
+        <view class='foot-box' wx:if="{{options.mode==='modify'}}">
             <button class='cancel-btn' bindtap='onDeletePlan'> 删除此计划 </button>
             <button class='confirm-btn' bindtap='onModifyPlan'> 修改此计划 </button>
+        </view>
+
+        <view class='foot-box' wx:if="{{options.mode==='view'}}">
+            <button class='next-btn' type='primary' bindtap='onUseThisPlan'>使用此计划</button>
         </view>
     </scroll-view>
 

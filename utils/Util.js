@@ -138,10 +138,10 @@ function getMovedDate(startDay, isNext, dayCount) {
     let movedDayTimeMills;
 
     // 判断参数时间类型
-    if (typeof startDay.getFullYear() !== "undefined") {
-        selectedDayTimeMills = startDay.getTime();
-    } else {
+    if (typeof startDay === "string") {
         selectedDayTimeMills = getDateFromString(startDay, '-').getTime();
+    } else {
+        selectedDayTimeMills = startDay.getTime();
     }
 
     //时间改变一天，直接加上、或减去一天的毫秒数
@@ -155,10 +155,10 @@ function getMovedDate(startDay, isNext, dayCount) {
     // console.log("move to ", movedDayDate + ".............");
 
     // 根据输入返回
-    if (typeof startDay.getFullYear() !== "undefined") {
-        return movedDayDate;
-    } else {
+    if (typeof startDay === "string") {
         return formatDateToString(movedDayDate);
+    } else {
+        return movedDayDate;
     }
 
 }

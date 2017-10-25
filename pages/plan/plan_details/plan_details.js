@@ -11,9 +11,8 @@ Page({
         // plan: {},
     },
     /**
-     * 保存数据
+     * 保存计划
      */
-
     savePlanData: function () {
 
         app.currentPlan.currentUse = true;
@@ -35,12 +34,6 @@ Page({
         }
         app.Util.saveData(app.StorageType.PlanSet, app.planSet);
 
-        // wx.showToast({
-        //     title: '计划已保存',
-        //     icon: 'success',
-        //     duration: 2000
-        // });
-
         app.Util.showNormalToast("计划已保存", this, 2000);
 
         console.log(app.planSet);
@@ -55,8 +48,12 @@ Page({
 
     },
 
+    onUseThisPlan:function () {
+
+    },
+
     onShowDetails: function (e) {
-        console.log(e.currentTarget.id);
+        // console.log(e.currentTarget.id);
         let idx = parseInt(e.currentTarget.id);
         let plan = this.data.plan;
 
@@ -149,7 +146,7 @@ Page({
             plan: plan
         });
 
-        console.log(this.data.plan);
+        // console.log(this.data.plan);
     },
 
     /**

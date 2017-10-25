@@ -16,38 +16,31 @@ Page({
     },
 
     makeTabData: function () {
-        let tabData;
-        if (this.data.mode === "recommend") {
-            tabData = [
-                {
-                    type: "ailutie",
-                    name: "爱撸铁推荐",
-                    data: [],
-                    selected: true
-                },
-                {
-                    type: "coach",
-                    name: "明星教练",
-                    data: [],
-                    selected: false
-                },
-                {
-                    type: "other",
-                    name: "网友上传",
-                    data: [],
-                    selected: false
-                }
-            ]
-        } else {
-            tabData = [
-                {
-                    type: "user",
-                    name: "我的历史计划",
-                    data: [],
-                    selected: true
-                }
-            ]
-        }
+        let tabData = [
+            {
+                type: "ailutie",
+                name: "热门",
+                data: [],
+                selected: true
+            },
+            {
+                type: "coach",
+                name: "教练",
+                data: [],
+                selected: false
+            },
+            {
+                type: "other",
+                name: "网友",
+                data: [],
+                selected: false
+            }, {
+                type: "user",
+                name: "我的",
+                data: [],
+                selected: false
+            }
+        ];
 
         this.setData({
             tabData: tabData
@@ -70,9 +63,9 @@ Page({
 
     onPlanSelected: function (e) {
         console.log(e.currentTarget.dataset.plan);
-        app.currentViewPlan = e.currentTarget.dataset.plan;
+        app.currentPlan.cloneDataFrom(e.currentTarget.dataset.plan);
         wx.navigateTo({
-            url: '../plan_details/plan_details?mode=' + this.data.tabData[this.data.currentTabIdx].name,
+            url: '../../plan/plan_details/plan_details?mode=view',
         });
 
     },
@@ -82,15 +75,18 @@ Page({
      */
     onLoad: function (options) {
         console.log(options.mode);
-        if (options.mode === "recommend") {
-            wx.setNavigationBarTitle({
-                title: '选择推荐计划',
-            });
-        } else {
-            wx.setNavigationBarTitle({
-                title: '选择我的历史计划',
-            });
-        }
+        wx.setNavigationBarTitle({
+            title: '计划墙',
+        });
+        // if (options.mode === "recommend") {
+        //     wx.setNavigationBarTitle({
+        //         title: '选择推荐计划',
+        //     });
+        // } else {
+        //     wx.setNavigationBarTitle({
+        //         title: '选择我的历史计划',
+        //     });
+        // }
 
         this.setData({
             mode: options.mode
@@ -112,15 +108,14 @@ Page({
 
         let planSet = app.Util.loadData(app.StorageType.PlanSet);
 
-        console.log("planSet:", planSet);
+        // console.log("planSet:", planSet);
 
         let tabData = this.data.tabData;
 
         tabData[0].data = planSet;
-        if (this.data.mode === "recommend") {
-            tabData[1].data = planSet;
-            tabData[2].data = planSet;
-        }
+        tabData[1].data = planSet;
+        tabData[2].data = planSet;
+        tabData[3].data = planSet;
         this.setData({
             tabData: tabData
         });

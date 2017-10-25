@@ -2,7 +2,7 @@
  * 生成图表的工具
  */
 
-import wxCharts from './wxcharts-min'
+import wxCharts from './wxcharts'
 
 class ChartMaker {
     constructor(canvasId) {

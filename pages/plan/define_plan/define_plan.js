@@ -377,34 +377,10 @@ Page({
             day.body.initGroupSet();
         }
 
-        // 进行标注
+        // 无论哪种入口进来，都以app.currentPlan为准进行标注，app.currentPlan的取值在页面跳转是进行判断赋值
         // 进行判断，如果是继续制定计划，那么之前的计划，已经保存了，这里刷新一下数据，如果不是，则不用刷新
         // 这个地方应该根据已经保存的plan来显示，获取当前已经保存的计划
-
-        let planSet = app.Util.loadData(app.StorageType.PlanSet);
-        let currentPlan;
-
-        // 寻找激活的计划
-        if (this.data.options.mode ==="tempPlan" || this.data.options.mode === "longPlan") {
-            if (app.currentPlan.circleDaySet.length === 0) {
-                for (let idx = 0; idx < 7; idx++) {
-                    app.currentPlan.circleDaySet.push(new PlanSet.CircleDay(idx, this.data.weekData[idx].name));
-                }
-            }
-
-            currentPlan = app.currentPlan;
-        } else {
-            for (let plan of planSet) {
-                if (plan.currentUse) {
-                    currentPlan = plan;
-                    break;
-                }
-            }
-        }
-
-        if (typeof currentPlan === "undefined") {
-            currentPlan = app.currentPlan;
-        }
+        let currentPlan = app.currentPlan;
 
         console.log(currentPlan);
 
@@ -467,6 +443,7 @@ Page({
         app.planEndDate = this.data.toDate;
         app.currentPlan.fromDate = this.data.fromDate;
         app.currentPlan.toDate = this.data.toDate;
+        app.currentPlan.source = app.wechatUserInfo.nickName;
         app.currentPlan.name = "我的计划";
 
         let circleDaySet = app.currentPlan.circleDaySet;
@@ -535,11 +512,14 @@ Page({
         console.log("options.model:", options.mode);
         if (options.mode === "tempPlan" || options.mode === "longPlan") {
             app.currentPlan = new PlanSet.Plan();
+            for (let idx = 0; idx < 7; idx++) {
+                app.currentPlan.circleDaySet.push(new PlanSet.CircleDay(idx, this.data.weekData[idx].name));
+            }
             wx.setNavigationBarTitle({
                 title: '定制我的锻炼计划',
             });
 
-        }else {
+        } else {
             wx.setNavigationBarTitle({
                 title: '修改我的锻炼计划',
             });
