@@ -5,7 +5,6 @@
 import util from './utils/Util'
 import StorageType from './datamodel/SystemSetting'
 import PlanSet from './datamodel/PlanSet'
-import Body from './datamodel/Body'
 
 const STORAGETYPE = new StorageType.StorageType();
 
@@ -79,14 +78,14 @@ App({
     getWechatUserInfo: function (cb) {
         var that = this;
         if (this.globalData.wechatUserInfo) {
-            typeof cb == "function" && cb(this.globalData.wechatUserInfo)
+            typeof cb === "function" && cb(this.globalData.wechatUserInfo)
         } else {
             //调用登录接口
             wx.getUserInfo({
                 withCredentials: false,
                 success: function (res) {
                     that.globalData.wechatUserInfo = res.userInfo;
-                    typeof cb == "function" && cb(that.globalData.wechatUserInfo)
+                    typeof cb === "function" && cb(that.globalData.wechatUserInfo)
                 }
             })
         }

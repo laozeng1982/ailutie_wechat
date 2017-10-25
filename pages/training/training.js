@@ -5,10 +5,12 @@
 import Reality from '../../datamodel/RealitySet'
 import Timer from '../../utils/Timer'
 import ChartMaker from '../ui/canvas/ChartMaker'
+import ChartData from '../ui/canvas/ChartData'
 
 //获取应用实例
 const app = getApp();
 const chartMaker = new ChartMaker.ChartMaker('trainingCanvas');
+const chartData = new ChartData.ChartData();
 
 Page({
 
@@ -476,8 +478,7 @@ Page({
 
         let realityDataArray = [countSelector, weightSelector];
 
-        chartMaker.setDrawType("ring");
-        let currentChart = chartMaker.makeChart();
+        let currentChart = chartMaker.makeRingChart(chartData.createRingData());
 
         this.setData({
             showDate: showDate,

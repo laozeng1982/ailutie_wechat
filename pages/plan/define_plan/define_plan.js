@@ -570,23 +570,6 @@ Page({
 
         this.initPartAction();
 
-        if (app.lastPlanSaved) {
-            this.data.body.unSelectAllParts();
-            let partList = this.data.partList;
-            let body = this.data.body;
-            body.unSelectAllActions();
-            for (let part of partList) {
-                part.selected = false;
-                part.active = false;
-            }
-            this.setData({
-                partList: partList
-            });
-            // 重置为没保存的状态
-            app.lastPlanSaved = false;
-        }
-
-        console.log("weekData:", this.data.weekData);
     },
 
     /**

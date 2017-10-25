@@ -134,8 +134,16 @@ function datesDistance(start, end) {
  * @param dayCount
  */
 function getMovedDate(startDay, isNext, dayCount) {
-    let selectedDayTimeMills = getDateFromString(startDay, '-').getTime();
+    let selectedDayTimeMills;
     let movedDayTimeMills;
+
+    // 判断参数时间类型
+    if (typeof startDay.getFullYear() !== "undefined") {
+        selectedDayTimeMills = startDay.getTime();
+    } else {
+        selectedDayTimeMills = getDateFromString(startDay, '-').getTime();
+    }
+
     //时间改变一天，直接加上、或减去一天的毫秒数
     if (isNext) {
         movedDayTimeMills = selectedDayTimeMills + 3600 * 24 * 1000 * dayCount;
@@ -146,7 +154,13 @@ function getMovedDate(startDay, isNext, dayCount) {
     movedDayDate.setTime(movedDayTimeMills);
     // console.log("move to ", movedDayDate + ".............");
 
-    return formatDateToString(movedDayDate);
+    // 根据输入返回
+    if (typeof startDay.getFullYear() !== "undefined") {
+        return movedDayDate;
+    } else {
+        return formatDateToString(movedDayDate);
+    }
+
 }
 
 /**

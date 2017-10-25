@@ -1,8 +1,10 @@
 //index.js
 import ChartMaker from '../ui/canvas/ChartMaker'
+import ChartData from '../ui/canvas/ChartData'
 
 const app = getApp();
 const chartMaker = new ChartMaker.ChartMaker('indexCanvas');
+const chartData = new ChartData.ChartData();
 
 Page({
     data: {
@@ -46,8 +48,8 @@ Page({
                 for (let idx = 0; idx < chartType.length; idx++) {
                     chartType[idx].checked = (parseInt(e.detail.value) - 1) === idx;
                 }
-                chartMaker.setDrawType("line");
-                currentChart = chartMaker.makeChart();
+
+                currentChart = chartMaker.makeLineChart(chartData.createLineData(true));
                 this.setData({
                     chartTitle: "本周运动量",
                 });
@@ -56,8 +58,7 @@ Page({
                 for (let idx = 0; idx < chartType.length; idx++) {
                     chartType[idx].checked = (parseInt(e.detail.value) - 1) === idx;
                 }
-                chartMaker.setDrawType("scroll");
-                currentChart = chartMaker.makeChart();
+                currentChart = chartMaker.makeLineChart(chartData.createLineData(false));
                 this.setData({
                     chartTitle: "本月运动量",
                 });
@@ -66,8 +67,8 @@ Page({
                 for (let idx = 0; idx < chartType.length; idx++) {
                     chartType[idx].checked = (parseInt(e.detail.value) - 1) === idx;
                 }
-                chartMaker.setDrawType("pie");
-                currentChart = chartMaker.makeChart();
+
+                currentChart = chartMaker.makePieChart(chartData.createPieData());
                 this.setData({
                     chartTitle: "本次计划各部位锻炼次数比例",
                 });
@@ -135,7 +136,7 @@ Page({
 
     onShow: function () {
         // 首次进入，渲染第一张，周视图
-        let currentChart = chartMaker.makeChart();
+        let currentChart = chartMaker.makeLineChart(chartData.createLineData(true));
 
         this.setData({
             chartTitle: "本周运动量",
