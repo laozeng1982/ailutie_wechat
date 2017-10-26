@@ -13,15 +13,15 @@
         <view class="setting-brief-title">本月已锻炼</view>
         <view class='setting-brief-box'>
             <view class='exercise-brief-box'>
-                <view> 500 次</view>
+                <view> {{trainData.dayCount}} 次</view>
                 <view>健身</view>
             </view>
             <view class='exercise-brief-box'>
-                <view> 500 个</view>
+                <view> {{trainData.actionCount}} 个</view>
                 <view>动作</view>
             </view>
             <view class='exercise-brief-box'>
-                <view> 500 </view>
+                <view> {{trainData.energyCost}} </view>
                 <view>大卡（kCal）</view>
             </view>
         </view>

@@ -299,7 +299,7 @@ function loadData(dataType) {
                 break;
             case 1:
                 // 1. UserProfile
-                requestData = new User.UserProfile();
+                requestData = [];
                 break;
             case 2:
                 // 2. DailyRecords
@@ -360,6 +360,26 @@ function saveData(dataType, dataToSave) {
     wx.setStorageSync(dataType.key, dataToSave);
 }
 
+/**
+ * 计算每个练习消耗的热量
+ * @param exercise
+ */
+function calcEnergyCost(exercise, isKCal) {
+    // 先简单计算吧，按照行程1米来算。
+    // 焦耳是功和能的单位 (F：力的单位N，S距离单位m，m质量单位kg， a加速度单位m/s^2
+    // 功: W=FS=maS,1焦耳=1牛·米=1千克·平方米/二次方秒
+    // 换算：4184焦耳=1000 热卡 即1000卡
+    let exerciseEnergy = 0;
+    for (let group of exercise.groupSet) {
+        exerciseEnergy += group.executedQuantity * group.executedWeight * 9.8 / 4184;  // 将焦耳换成卡
+    }
+
+    if (isKCal) {
+
+    }
+    return isKCal ? exerciseEnergy : exerciseEnergy * 1000;
+}
+
 module.exports = {
     formatTimeToString: formatTimeToString,
     formatDateToString: formatDateToString,
@@ -380,6 +400,7 @@ module.exports = {
     underscore: _,
     loadData: loadData,
     loadPlan: loadPlan,
-    saveData: saveData
+    saveData: saveData,
+    calcEnergyCost: calcEnergyCost
 
 }

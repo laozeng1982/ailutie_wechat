@@ -33,14 +33,14 @@ class ChartMaker {
                 name: "消耗热量",
                 data: chartData.data,
                 format: function (val, name) {
-                    return val.toFixed(0) + 'kCal';
+                    return val.toFixed(0) + 'Cal';
                 }
             }],
             xAxis: {
                 disableGrid: true
             },
             yAxis: {
-                title: '消耗热量 (kCal)',
+                title: '消耗热量 (Cal)',
                 format: function (val) {
                     return val.toFixed(0);
                 },

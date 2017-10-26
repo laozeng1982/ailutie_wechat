@@ -2,13 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09081185-d626-43bc-bc98-138cd57da214" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/settings/about/about.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/settings/system/system.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/ui/toast/nomal_toast.wxml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pages/ui/toast/nomal_toast.wxss" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/User.js" afterPath="$PROJECT_DIR$/datamodel/User.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/plan/plan_details/plan_details.wxml" afterPath="$PROJECT_DIR$/pages/plan/plan_details/plan_details.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/about/about.js" afterPath="$PROJECT_DIR$/pages/settings/about/about.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/about/about.wxml" afterPath="$PROJECT_DIR$/pages/settings/about/about.wxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/settings.js" afterPath="$PROJECT_DIR$/pages/settings/settings.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/userinfo/userinfo.wxss" afterPath="$PROJECT_DIR$/pages/settings/userinfo/userinfo.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/settings.wxml" afterPath="$PROJECT_DIR$/pages/settings/settings.wxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/system/system.js" afterPath="$PROJECT_DIR$/pages/settings/system/system.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/userprofile/userprofile.js" afterPath="$PROJECT_DIR$/pages/settings/userprofile/userprofile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/userprofile/userprofile.wxml" afterPath="$PROJECT_DIR$/pages/settings/userprofile/userprofile.wxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/settings/userprofile/userprofile.wxss" afterPath="$PROJECT_DIR$/pages/settings/userprofile/userprofile.wxss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plan_style.wxss" afterPath="$PROJECT_DIR$/plan_style.wxss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/ui/canvas/ChartData.js" afterPath="$PROJECT_DIR$/pages/ui/canvas/ChartData.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/ui/canvas/ChartMaker.js" afterPath="$PROJECT_DIR$/pages/ui/canvas/ChartMaker.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Util.js" afterPath="$PROJECT_DIR$/utils/Util.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,11 +32,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/index/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="59" column="80" lean-forward="false" selection-start-line="59" selection-start-column="66" selection-end-line="59" selection-end-column="80" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChartData.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pages/ui/canvas/ChartData.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="572">
+              <caret line="83" column="43" lean-forward="false" selection-start-line="83" selection-start-column="43" selection-end-line="83" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="settings.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/settings/settings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="28" column="13" lean-forward="true" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+            <state relative-caret-position="609">
+              <caret line="99" column="9" lean-forward="true" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="9" />
+              <folding>
+                <element signature="e#242#2325#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RealitySet.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datamodel/RealitySet.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="797">
+              <caret line="43" column="4" lean-forward="false" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SystemSetting.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datamodel/SystemSetting.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -35,73 +87,29 @@
       <file leaf-file-name="userprofile.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/settings/userprofile/userprofile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="30" column="6" lean-forward="false" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+            <state relative-caret-position="342">
+              <caret line="141" column="56" lean-forward="false" selection-start-line="141" selection-start-column="56" selection-end-line="141" selection-end-column="56" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="plan_list.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/settings/plan_list/plan_list.js">
+      <file leaf-file-name="Util.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/Util.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="61" selection-end-column="6" />
+            <state relative-caret-position="609">
+              <caret line="379" column="58" lean-forward="false" selection-start-line="379" selection-start-column="58" selection-end-line="379" selection-end-column="58" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/datamodel/User.js">
+      <file leaf-file-name="plan_details.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/plan/plan_details/plan_details.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+            <state relative-caret-position="566">
+              <caret line="36" column="32" lean-forward="false" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="32" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="define_plan.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/plan/define_plan/define_plan.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="389" column="46" lean-forward="true" selection-start-line="389" selection-start-column="46" selection-end-line="389" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Body.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/datamodel/Body.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlanSet.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/datamodel/PlanSet.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="20" column="16" lean-forward="false" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1995">
-              <caret line="97" column="21" lean-forward="false" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
-              <folding>
-                <element signature="e#27#58#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -109,8 +117,8 @@
       <file leaf-file-name="ChartMaker.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/ui/canvas/ChartMaker.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="4" column="32" lean-forward="false" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+            <state relative-caret-position="777">
+              <caret line="42" column="30" lean-forward="false" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -118,14 +126,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wxcharts.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/ui/canvas/wxcharts.js">
+      <file leaf-file-name="User.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datamodel/User.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="1170">
+              <caret line="65" column="13" lean-forward="true" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -156,6 +162,7 @@
       <find>we</find>
       <find>app.currentPlan =</find>
       <find>curRecords</find>
+      <find>showNormalToast</find>
       <find>var</find>
     </findStrings>
     <replaceStrings>
@@ -172,19 +179,19 @@
       <list>
         <option value="$PROJECT_DIR$/pages/index/chartData.js" />
         <option value="$PROJECT_DIR$/pages/training/training.js" />
-        <option value="$PROJECT_DIR$/utils/Util.js" />
         <option value="$PROJECT_DIR$/pages/plan/plan_details/plan_details.js" />
         <option value="$PROJECT_DIR$/pages/settings/plan_list/plan_list.js" />
         <option value="$PROJECT_DIR$/pages/index/index.js" />
-        <option value="$PROJECT_DIR$/pages/ui/canvas/ChartData.js" />
-        <option value="$PROJECT_DIR$/pages/ui/canvas/ChartMaker.js" />
         <option value="$PROJECT_DIR$/pages/ui/canvas/wxcharts.js" />
         <option value="$PROJECT_DIR$/pages/plan/define_plan/define_plan.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/datamodel/PlanSet.js" />
-        <option value="$PROJECT_DIR$/pages/settings/settings.js" />
-        <option value="$PROJECT_DIR$/pages/settings/userprofile/userprofile.js" />
         <option value="$PROJECT_DIR$/datamodel/User.js" />
+        <option value="$PROJECT_DIR$/pages/settings/userprofile/userprofile.js" />
+        <option value="$PROJECT_DIR$/utils/Util.js" />
+        <option value="$PROJECT_DIR$/pages/ui/canvas/ChartMaker.js" />
+        <option value="$PROJECT_DIR$/pages/settings/settings.js" />
+        <option value="$PROJECT_DIR$/pages/ui/canvas/ChartData.js" />
       </list>
     </option>
   </component>
@@ -344,12 +351,12 @@
       <updated>1508893848147</updated>
       <workItem from="1508893850608" duration="22356000" />
       <workItem from="1508935715641" duration="1208000" />
-      <workItem from="1508981469391" duration="8534000" />
+      <workItem from="1508981469391" duration="16381000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32098000" />
+    <option name="totallyTimeSpent" value="39945000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
@@ -468,7 +475,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2247">
           <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#242#2325#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -556,7 +565,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2247">
           <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#242#2325#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -571,47 +582,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4151">
           <caret line="488" column="6" lean-forward="true" selection-start-line="488" selection-start-column="6" selection-end-line="488" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/Util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="159" column="12" lean-forward="true" selection-start-line="159" selection-start-column="12" selection-end-line="159" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/index/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
-          <caret line="39" column="13" lean-forward="false" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/plan/plan_details/plan_details.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
-          <caret line="39" column="6" lean-forward="false" selection-start-line="39" selection-start-column="6" selection-end-line="39" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/ui/canvas/ChartData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3738">
-          <caret line="180" column="26" lean-forward="false" selection-start-line="180" selection-start-column="26" selection-end-line="180" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/ui/canvas/ChartMaker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="4" column="32" lean-forward="false" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -643,14 +613,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/settings/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="28" column="13" lean-forward="true" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/datamodel/Body.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -677,18 +639,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/settings/userprofile/userprofile.js">
+    <entry file="file://$PROJECT_DIR$/pages/plan/plan_details/plan_details.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="30" column="6" lean-forward="false" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+        <state relative-caret-position="566">
+          <caret line="36" column="32" lean-forward="false" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/SystemSetting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/RealitySet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="797">
+          <caret line="43" column="4" lean-forward="false" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/datamodel/User.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+        <state relative-caret-position="1170">
+          <caret line="65" column="13" lean-forward="true" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/Util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="379" column="58" lean-forward="false" selection-start-line="379" selection-start-column="58" selection-end-line="379" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/settings/userprofile/userprofile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="141" column="56" lean-forward="false" selection-start-line="141" selection-start-column="56" selection-end-line="141" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/index/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="59" column="80" lean-forward="false" selection-start-line="59" selection-start-column="66" selection-end-line="59" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/ui/canvas/ChartMaker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="42" column="30" lean-forward="false" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/settings/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="99" column="9" lean-forward="true" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="9" />
+          <folding>
+            <element signature="e#242#2325#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/ui/canvas/ChartData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="83" column="43" lean-forward="false" selection-start-line="83" selection-start-column="43" selection-end-line="83" selection-end-column="43" />
           <folding />
         </state>
       </provider>

@@ -11,6 +11,10 @@ Page({
      */
     data: {
         userInfo: {},
+
+        // 锻炼数据
+        trainData: {dayCount: 0, actionCount: 0, energyCost: 0},
+
         list: [
             {
                 list_tool: [
@@ -69,20 +73,43 @@ Page({
                     // },
                 ]
             },
-        ]
+        ],
     },
 
     goPage: function (event) {
-        console.log(event.currentTarget.dataset.log);
+        console.log("going to page: ", event.currentTarget.dataset.log);
         wx.navigateTo({
-            url: event.currentTarget.dataset.url+"?model=fromSetting",
+            url: event.currentTarget.dataset.url + "?model=fromSetting",
         })
+    },
+
+    initTrainData: function () {
+        let realitySet = app.Util.loadData(app.StorageType.RealitySet);
+        let trainData = this.data.trainData;
+        for (let reality of realitySet) {
+            if (reality.executedSet.length > 0) {
+                // 计算锻炼的天数
+                trainData.dayCount++;
+                // 计算总的动作数
+                trainData.actionCount = trainData.actionCount + reality.executedSet.length;
+                // 计算能量消耗数
+                for (let exercise of reality.executedSet) {
+                    trainData.energyCost = trainData.energyCost + Math.ceil(app.Util.calcEnergyCost(exercise, true));
+                }
+            }
+        }
+
+        console.log(trainData);
+
+        this.setData({trainData});
+
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.initTrainData();
         this.setData({
             userInfo: app.wechatUserInfo,
         });

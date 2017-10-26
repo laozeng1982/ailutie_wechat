@@ -60,7 +60,7 @@ Page({
     initUserProfile: function () {
         let userProfile;
 
-        let profileSet = wx.getStorageSync("UserProfile");
+        let profileSet = app.Util.loadData(app.StorageType.UserProfile);
 
         for (let profile of profileSet) {
             if (profile.date === this.data.today) {
@@ -70,7 +70,7 @@ Page({
 
         if (typeof userProfile === "undefined") {
             userProfile = new User.UserProfile();
-
+            userProfile.date = this.data.today;
             for (let item of userProfile.profiles.general.data) {
                 if (item.enName === "height") {
                     item.value = this.data.userInfo.height;
@@ -80,8 +80,6 @@ Page({
                 }
             }
         }
-
-        console.log("userProfile:", userProfile);
 
         this.setData({
             userProfile: userProfile
@@ -95,7 +93,6 @@ Page({
         let userProfile = this.data.userProfile.profiles;
         let tabData = [];
         for (let item in userProfile) {
-            console.log(item);
             tabData.push({
                 type: item,
                 name: userProfile[item].name,
@@ -113,6 +110,36 @@ Page({
 
     onFormSubmit: function (e) {
         console.log('form发生了submit事件，携带数据为：', e.detail.value);
+
+        // 先保存数据
+        for (let value in e.detail.value) {
+            // console.log(value,e.detail.value[value]);
+            for (let item in this.data.userProfile.profiles) {
+                for (let dataItem of this.data.userProfile.profiles[item].data) {
+                    if (dataItem.chName === value && e.detail.value[value] !== "") {
+                        dataItem.value = e.detail.value[value];
+                    }
+                }
+            }
+        }
+
+        // console.log(this.data.userProfile);
+
+        let profileSet = app.Util.loadData(app.StorageType.UserProfile);
+
+        if (profileSet.length === 0) {
+            profileSet.push(this.data.userProfile);
+        } else {
+            for (let idx = 0; idx < profileSet.length; idx++) {
+                if (profileSet[idx].date === this.data.today) {
+                    profileSet.splice(idx, 1, this.data.userProfile);
+                }
+            }
+        }
+
+        app.Util.saveData(app.StorageType.UserProfile, profileSet);
+
+        app.Util.showNormalToast("保存已保存好！", this, 2000);
     },
 
     onFormReset: function () {

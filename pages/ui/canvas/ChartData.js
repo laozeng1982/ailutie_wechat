@@ -74,9 +74,14 @@ class ChartData {
                                 data.push(weight);
                                 break;
                             case "ENERGY":
+                                let energy = 0;
+                                for (let exercise of reality.executedSet) {
+                                    energy = Util.calcEnergyCost(exercise, false);
+                                }
+                                data.push(energy);
                                 break;
                             default:
-                                data.push("");
+                                data.push(0);
                                 break;
                         }
 
@@ -128,7 +133,7 @@ class ChartData {
                 fullDate.push(Util.formatDateToString(date));
             }
             // 1.3 产生锻炼的实际数据
-            data = this.makeActualData(fullDate, "GROUP_COUNT");
+            data = this.makeActualData(fullDate, "ENERGY");
         } else {
             // 整月，逻辑简单，从1号开始，到最后一天
             // 1.1 产生日期数据
@@ -138,7 +143,7 @@ class ChartData {
                 fullDate.push(Util.formatStringDate(today.getFullYear(), (today.getMonth() + 1), dayIdx));
             }
             // 1.2 产生锻炼的实际数据
-            data = this.makeActualData(fullDate, "WEIGHT");
+            data = this.makeActualData(fullDate, "ENERGY");
         }
 
         return {

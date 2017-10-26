@@ -1,5 +1,5 @@
 <!--about.wxml-->
-<view class="generalContainer">
+<view class="container">
     <view class="rowContainerStart">
         <text style="width:200rpx">QQ群:</text>
         <text>562654283</text>

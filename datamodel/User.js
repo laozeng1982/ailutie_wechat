@@ -44,14 +44,14 @@ class UserProfile {
 
                 // 维度指标
                 circumference: {
-                    name: "维度",
+                    name: "围度",
                     data: [
                         new UserProfileItem(1, "Circumference", "shoulder_width", "肩宽", "", "cm"),
                         new UserProfileItem(2, "Circumference", "chest_perimeter", "胸围", "", "cm"),
                         new UserProfileItem(3, "Circumference", "waist_perimeter", "腰围", "", "cm"),
+                        new UserProfileItem(6, "Circumference", "buttocks_perimeter", "臀围", "", "cm"),
                         new UserProfileItem(4, "Circumference", "upper_arm_perimeter", "上臂围", "", "cm"),
                         new UserProfileItem(5, "Circumference", "forearm_perimeter", "小臂围", "", "cm"),
-                        new UserProfileItem(6, "Circumference", "buttocks_perimeter", "臀围", "", "cm"),
                         new UserProfileItem(7, "Circumference", "thigh_perimeter", "大腿围", "", "cm"),
                         new UserProfileItem(8, "Circumference", "shank_perimeter", "小腿围", "", "cm"),
                     ],
