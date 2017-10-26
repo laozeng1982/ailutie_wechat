@@ -41,7 +41,3 @@
     width: 300rpx;
 }
 
-.confirmBtn {
-    width: 90%;
-    bottom: 0;
-}

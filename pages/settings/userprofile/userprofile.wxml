@@ -1,30 +1,41 @@
 <!--userprofile.wxml-->
-<view class="generalContainer">
+<view class="container">
 
     <!-- 这是Toast -->
     <include src="../../ui/toast/toast.wxml" />
     <view class="header">
         {{today}} 记录
     </view>
-    <form bindsubmit="onFormSubmit" bindreset="onFormReset">
 
+    <!-- <view class='gray-space-small'></view> -->
 
+    <view class="tab">
+        <block wx:for="{{tabData}}" wx:key="{{index}}">
+            <view class="tab-list {{currentTabIdx===index ? 'current-highlight': ''}}" data-current="{{index}}" bindtap="onSwitchNav">{{item.name}}</view>
+        </block>
+    </view>
+    <view class='gray-space-small'></view>
 
-        <scroll-view style='height:800rpx' scroll-y="true">
-            <view class="section" wx:for="{{userProfile}}" wx:key="{{index}}">
-                <view class="section_item_name">
-                    <text>{{item.name}}</text>
-                </view>
-                <input id="{{item.type}}{{item.key}}" class="section_item_input" type='number' name="{{item.type}}{{item.key}}_input" placeholder="input" value="{{item.value}}" bindinput="onInput" />{{item.measurement}}
-
-                <slider id="{{item.type}}{{item.key}}" class="section_item_slider" name="{{item.type}}{{item.key}}_slider" show-value value="{{item.value}}" bindchange="onSliderChange"></slider>{{item.measurement}}
-            </view>
-        </scroll-view>
-
-        <view class="btn-area">
-            <button formType="submit">Submit</button>
-            <button formType="reset">Reset</button>
+    <form class='form-container' bindsubmit="onFormSubmit" bindreset="onFormReset">
+        <swiper current="{{currentTabIdx}}" class="swiper-box row" indicator-dots="{{true}}" duration="300" bindchange="onSwiperChange">
+            <block wx:for="{{tabData}}" wx:key="{{index}}">
+                <swiper-item id="{{item.type}}">
+                    <scroll-view style='height:880rpx' scroll-y="true">
+                        <view class="section" wx:for="{{userProfile.profiles[item.type].data}}" wx:key="{{index}}">
+                            <view class="section_item_name">
+                                <text>{{item.chName}}</text>
+                            </view>
+                            <input id="{{item.type}}{{item.key}}" class="section_item_input" type='number' name="{{item.chName}}" placeholder="请输入" value="{{item.value}}" />{{item.measurement}}
+                        </view>
+                    </scroll-view>
+                </swiper-item>
+            </block>
+        </swiper>
+        <view class="foot-box">
+            <button class='cancel-btn' type='default' size='default' formType="reset">重置</button>
+            <button class='confirm-btn' type='primary' size='default' formType="submit">保存</button>
         </view>
 
     </form>
+
 </view>

@@ -2,6 +2,8 @@
  * 账户基本信息
  */
 
+import Body from './Body'
+
 class UserInfo {
 
     constructor() {
@@ -27,38 +29,66 @@ class UserInfo {
 class UserProfile {
     constructor() {
         this.date = '';
-        this.height = new UserProfileItem(1, "General", "身高", "", "cm");
-        this.weight = new UserProfileItem(2, "General", "体重", "", "Kg");
-        this.bmi = new UserProfileItem(3, "General", "BMI", "", "");
-        this.bodyFatRate = new UserProfileItem(4, "General", "体脂率", "", "%");
-        this.profiles = [
+        this.profiles =
+            // 一般指标
+            {
+                general: {
+                    name: "总体",
+                    data: [
+                        new UserProfileItem(1, "General", "height", "身高", "", "cm"),
+                        new UserProfileItem(2, "General", "weight", "体重", "", "Kg"),
+                        new UserProfileItem(3, "General", "bmi", "BMI", "", ""),
+                        new UserProfileItem(4, "General", "bodyFatRate", "体脂率", "", "%"),
+                    ],
+                },
 
-            new UserProfileItem(1, "Circumference", "肩宽", "", "cm"),
-            new UserProfileItem(2, "Circumference", "胸围", "", "cm"),
-            new UserProfileItem(3, "Circumference", "腰围", "", "cm"),
-            new UserProfileItem(4, "Circumference", "上臂围", "", "cm"),
-            new UserProfileItem(5, "Circumference", "小臂维", "", "cm"),
-            new UserProfileItem(6, "Circumference", "臀围", "", "cm"),
-            new UserProfileItem(7, "Circumference", "大腿维", "", "cm"),
-            new UserProfileItem(8, "Circumference", "小腿维", "", "cm"),
+                // 维度指标
+                circumference: {
+                    name: "维度",
+                    data: [
+                        new UserProfileItem(1, "Circumference", "shoulder_width", "肩宽", "", "cm"),
+                        new UserProfileItem(2, "Circumference", "chest_perimeter", "胸围", "", "cm"),
+                        new UserProfileItem(3, "Circumference", "waist_perimeter", "腰围", "", "cm"),
+                        new UserProfileItem(4, "Circumference", "upper_arm_perimeter", "上臂围", "", "cm"),
+                        new UserProfileItem(5, "Circumference", "forearm_perimeter", "小臂围", "", "cm"),
+                        new UserProfileItem(6, "Circumference", "buttocks_perimeter", "臀围", "", "cm"),
+                        new UserProfileItem(7, "Circumference", "thigh_perimeter", "大腿围", "", "cm"),
+                        new UserProfileItem(8, "Circumference", "shank_perimeter", "小腿围", "", "cm"),
+                    ],
+                },
 
-            new UserProfileItem(1, "Strength", "上斜卧推", "", "Kg"),
-            new UserProfileItem(2, "Strength", "平卧推举", "", "Kg"),
-            new UserProfileItem(3, "Strength", "下斜卧推", "", "Kg"),
-            new UserProfileItem(4, "Strength", "直腿硬拉", "", "Kg"),
-            new UserProfileItem(5, "Strength", "屈腿硬拉", "", "Kg"),
-            new UserProfileItem(6, "Strength", "哑铃弯举", "", "Kg"),
-            new UserProfileItem(7, "Strength", "杠铃弯举", "", "Kg"),
+                // 力量指标
 
-        ];
+                strength: {
+                    name: "力量",
+                    data: [],
+                }
+            }
+
+        ;
+
+        let body = new Body.Body();
+        body.makeDefaultDefaultPartList();
+        let idx = 1;
+        let actionNameArray = [];
+        for (let part of body.parts) {
+            for (let action of part.actionSet) {
+                if (!actionNameArray.includes(action.name)) {
+                    actionNameArray.push(action.name);
+                    this.profiles.strength.data.push(new UserProfileItem(idx, "Strength", "", action.name, "", "Kg"));
+                    idx++;
+                }
+            }
+        }
     }
 }
 
 class UserProfileItem {
-    constructor(key, type, name, value, measurement) {
+    constructor(key, type, enName, chName, value, measurement) {
         this.key = key;
         this.type = type;
-        this.name = name;
+        this.enName = enName;
+        this.chName = chName;
         this.value = value;
         this.measurement = measurement;
     }

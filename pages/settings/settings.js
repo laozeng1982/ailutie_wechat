@@ -14,11 +14,6 @@ Page({
         list: [
             {
                 list_tool: [
-                    // {
-                    //     img: "../../pages/image/vintage_camera_64px.png",
-                    //     name: "朋友圈",
-                    //     url: "friends/friends"
-                    // },
                     {
                         img: "../../pages/image/friend_64px.png",
                         name: "个人信息",
@@ -31,32 +26,32 @@ Page({
                     },
                 ]
             },
-            // {
-            //     list_tool: [
-            //         {
-            //             img: "../../pages/image/information_64px.png",
-            //             name: "计划墙",
-            //             url: "plan_list/plan_list"
-            //         },
-            //         {
-            //             img: "../../pages/image/burger_64px.png",
-            //             name: "我们吃什么",//(三个页面：增肌、减脂和营养)
-            //             url: "food/food"
-            //         },
-            //         {
-            //             img: "../../pages/image/rate_64px.png",
-            //             name: "收藏",
-            //             url: "favorite/favorite"
-            //         },
-            //     ]
-            // },
             {
                 list_tool: [
+                    // {
+                    //     img: "../../pages/image/information_64px.png",
+                    //     name: "计划墙",
+                    //     url: "plan_list/plan_list"
+                    // },
+                    // {
+                    //     img: "../../pages/image/burger_64px.png",
+                    //     name: "我们吃什么",//(三个页面：增肌、减脂和营养)
+                    //     url: "food/food"
+                    // },
                     {
                         img: "../../pages/image/information_64px.png",
                         name: "计划墙",
                         url: "plan_list/plan_list"
                     },
+                    {
+                        img: "../../pages/image/rate_64px.png",
+                        name: "收藏",
+                        url: "favorite/favorite"
+                    },
+                ]
+            },
+            {
+                list_tool: [
                     {
                         img: "../../pages/image/settings_64px.png",
                         name: "软件设置",
@@ -67,11 +62,11 @@ Page({
                         name: "关于我们",
                         url: "about/about"
                     },
-                    {
-                        img: "../../pages/image/yen_64px.png",
-                        name: "打赏~~",
-                        url: "donation/donation"
-                    },
+                    // {
+                    //     img: "../../pages/image/yen_64px.png",
+                    //     name: "打赏~~",
+                    //     url: "donation/donation"
+                    // },
                 ]
             },
         ]
