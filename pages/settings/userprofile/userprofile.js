@@ -139,7 +139,7 @@ Page({
 
         app.Util.saveData(app.StorageType.UserProfile, profileSet);
 
-        app.Util.showNormalToast("保存已保存好！", this, 2000);
+        app.Util.showNormalToast("数据已保存好！", this, 2000);
     },
 
     onFormReset: function () {

@@ -31,24 +31,20 @@
     border-bottom: 1rpx solid #eee;
 }
 
-.section_item_name {
+.section-item-name {
     width: 300rpx;
     height: 50rpx;
-    /* text-align: center; */
     align-items: center;
     align-content: center;
 }
 
-.section_item_input {
-    padding: 20rpx;
+.section-item-input {
+    padding: 10rpx;
     height: 50rpx;
     width: 150rpx;
     align-items: center;
+    align-content: center;
+    text-align: center;
+    border: 1rpx solid #eee;
 }
 
-.section_item_slider {
-    padding: 20rpx;
-    height: 50rpx;
-    width: 300rpx;
-    align-items: center;
-}

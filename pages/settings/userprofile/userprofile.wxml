@@ -22,10 +22,11 @@
                 <swiper-item id="{{item.type}}">
                     <scroll-view style='height:880rpx' scroll-y="true">
                         <view class="section" wx:for="{{userProfile.profiles[item.type].data}}" wx:key="{{index}}">
-                            <view class="section_item_name">
+                            <view class="section-item-name">
                                 <text>{{item.chName}}</text>
                             </view>
-                            <input id="{{item.type}}{{item.key}}" class="section_item_input" type='number' name="{{item.chName}}" placeholder="请输入" value="{{item.value}}" />{{item.measurement}}
+                            <input id="{{item.type}}{{item.key}}" class="section-item-input" type='number' name="{{item.chName}}" placeholder="" value="{{item.value}}" />
+                            <view style='padding-left:20rpx'>{{item.measurement}}</view>
                         </view>
                     </scroll-view>
                 </swiper-item>

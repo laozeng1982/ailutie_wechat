@@ -1,6 +1,5 @@
 <!--system.wxml-->
-<view class="generalContainer">
-    <view class="graySpace"></view>
+<view class="container">
     <view class="rowContainerStart" style="font-size:50rpx">
         <text>系统存储信息</text>
     </view>
@@ -15,7 +14,7 @@
         <text>{{storageInfo.limitSize}}KB</text>
     </view>
 
-    <view class="graySpace"></view>
+    <view class="gray-space"></view>
 
     <view class="rowContainerStart" style="font-size:50rpx">
         <text>系统存储内容</text>
