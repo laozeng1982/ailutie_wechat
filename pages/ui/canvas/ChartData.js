@@ -76,7 +76,7 @@ class ChartData {
                             case "ENERGY":
                                 let energy = 0;
                                 for (let exercise of reality.executedSet) {
-                                    energy = Util.calcEnergyCost(exercise, false);
+                                    energy = Util.calcEnergyCost(exercise, true);
                                 }
                                 data.push(energy);
                                 break;

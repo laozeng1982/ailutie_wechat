@@ -361,22 +361,35 @@ function saveData(dataType, dataToSave) {
 }
 
 /**
+ * 计算基础代谢率
+ */
+function calcBMR() {
+    // 同一环境下的同一种恒温动物，其基础代谢量与其体表面积成正比。
+    // 人的体表面积S（cm2），可由体重W（kg）和身高H（cm），用各种实验式来计算。
+    // Dubois氏（1915）式：S=Wx0.245 × Hx0.725 × 71.84，被普遍应用。
+}
+
+/**
  * 计算每个练习消耗的热量
  * @param exercise
+ * @param isKCal
  */
 function calcEnergyCost(exercise, isKCal) {
     // 先简单计算吧，按照行程1米来算。
     // 焦耳是功和能的单位 (F：力的单位N，S距离单位m，m质量单位kg， a加速度单位m/s^2
     // 功: W=FS=maS,1焦耳=1牛·米=1千克·平方米/二次方秒
     // 换算：4184焦耳=1000 热卡 即1000卡
+    // 1卡=1卡路里=4.186焦耳；
+    // 1千卡=1大卡(kcal)=1000卡=1000卡路里 =4186焦耳=4.186千焦(kJ)。
+    // 卡路里 (简称“卡”，缩写为"calorie")的定义为将1克水在1大气压下提升1摄氏度所需要的热量。
     let exerciseEnergy = 0;
+    let idx = 0;
     for (let group of exercise.groupSet) {
-        exerciseEnergy += group.executedQuantity * group.executedWeight * 9.8 / 4184;  // 将焦耳换成卡
+        exerciseEnergy += group.executedQuantity * group.executedWeight * 9.8 / 4186;  // 将焦耳换成卡
+        console.log(idx, exerciseEnergy);
+        idx++;
     }
 
-    if (isKCal) {
-
-    }
     return isKCal ? exerciseEnergy : exerciseEnergy * 1000;
 }
 
