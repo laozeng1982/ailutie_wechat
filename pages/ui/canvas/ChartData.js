@@ -42,6 +42,9 @@ class ChartData {
      */
     makeActualData(dateList, dataType) {
         let realitySet = this.loadRealitySet();
+        if (typeof realitySet=='undefined') {
+          return [];
+        }
         let data = [];
 
         let dateListWithReality = [];
