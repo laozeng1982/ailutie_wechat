@@ -47,7 +47,7 @@ class ChartData {
         let dateListWithReality = [];
         // 先获取有效锻炼数据的日期列表
         for (let reality of realitySet) {
-            if (reality.executedSet.length > 0) {
+            if (reality.exerciseSet.length > 0) {
                 dateListWithReality.push(reality.date);
             }
         }
@@ -59,14 +59,14 @@ class ChartData {
                         switch (dataType) {
                             case "GROUP_COUNT":
                                 let group_count = 0;
-                                for (let exercise of reality.executedSet) {
+                                for (let exercise of reality.exerciseSet) {
                                     group_count = group_count + exercise.groupSet.length;
                                 }
                                 data.push(group_count);
                                 break;
                             case "WEIGHT":
                                 let weight = 0;
-                                for (let exercise of reality.executedSet) {
+                                for (let exercise of reality.exerciseSet) {
                                     for (let group of exercise.groupSet) {
                                         weight = weight + group.quantity * group.weight;
                                     }
@@ -75,7 +75,7 @@ class ChartData {
                                 break;
                             case "ENERGY":
                                 let energy = 0;
-                                for (let exercise of reality.executedSet) {
+                                for (let exercise of reality.exerciseSet) {
                                     energy = Util.calcEnergyCost(exercise, true);
                                 }
                                 data.push(energy);
@@ -193,8 +193,8 @@ class ChartData {
         // 这里还需要想想以完成的组数，重量，次数中哪一种为计算标准
         for (let dataItem of pieData) {
             for (let reality of realitySet) {
-                if (reality.executedSet.length > 0) {
-                    for (let exercise of reality.executedSet) {
+                if (reality.exerciseSet.length > 0) {
+                    for (let exercise of reality.exerciseSet) {
                         if (exercise.action.partSet[0].includes(dataItem.name)) {
                             dataItem.data++;
                         }

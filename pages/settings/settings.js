@@ -87,13 +87,13 @@ Page({
         let realitySet = app.Util.loadData(app.StorageType.RealitySet);
         let trainData = this.data.trainData;
         for (let reality of realitySet) {
-            if (reality.executedSet.length > 0) {
+            if (reality.exerciseSet.length > 0) {
                 // 计算锻炼的天数
                 trainData.dayCount++;
                 // 计算总的动作数
-                trainData.actionCount = trainData.actionCount + reality.executedSet.length;
+                trainData.actionCount = trainData.actionCount + reality.exerciseSet.length;
                 // 计算能量消耗数
-                for (let exercise of reality.executedSet) {
+                for (let exercise of reality.exerciseSet) {
                     trainData.energyCost = trainData.energyCost + Math.ceil(app.Util.calcEnergyCost(exercise, true));
                 }
             }

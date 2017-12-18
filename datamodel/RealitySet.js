@@ -6,7 +6,7 @@ class Reality {
     constructor(date) {
         this.id = '';
         this.date = date;
-        this.executedSet = []; // 存放ExecutedPartSet
+        this.exerciseSet = []; // 存放ExecutedPartSet
     }
 }
 

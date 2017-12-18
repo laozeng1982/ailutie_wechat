@@ -74,9 +74,9 @@ Page({
         let currentActionId = this.data.currentActionId;
         let currentGroupId = this.data.currentGroupId;
 
-        todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedQuantity =
+        todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantity =
             parseInt(this.data.realityDataArray[0][e.detail.value[0]]);
-        todayReality.executedSet[currentActionId].groupSet[currentGroupId].executedWeight =
+        todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedWeight =
             parseInt(this.data.realityDataArray[1][e.detail.value[1]]);
 
         this.setData({
@@ -96,16 +96,16 @@ Page({
         let todayReality = this.data.todayReality;
         let currentActionId = this.data.currentActionId;
         let currentGroupId = this.data.currentGroupId;
-        todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished = true;
+        todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].finished = true;
 
-        if (todayReality.executedSet[currentActionId].currentGroupId + 1 >= todayReality.executedSet[currentActionId].groupSet.length)
-            todayReality.executedSet[currentActionId].currentGroupId = todayReality.executedSet[currentActionId].groupSet.length - 1;
+        if (todayReality.exerciseSet[currentActionId].currentGroupId + 1 >= todayReality.exerciseSet[currentActionId].groupSet.length)
+            todayReality.exerciseSet[currentActionId].currentGroupId = todayReality.exerciseSet[currentActionId].groupSet.length - 1;
         else
-            todayReality.executedSet[currentActionId].currentGroupId++;
+            todayReality.exerciseSet[currentActionId].currentGroupId++;
 
-        todayReality.executedSet[currentActionId].finishedCount++;
-        todayReality.executedSet[currentActionId].finished =
-            todayReality.executedSet[currentActionId].finishedCount >= todayReality.executedSet[currentActionId].groupSet.length;
+        todayReality.exerciseSet[currentActionId].finishedCount++;
+        todayReality.exerciseSet[currentActionId].finished =
+            todayReality.exerciseSet[currentActionId].finishedCount >= todayReality.exerciseSet[currentActionId].groupSet.length;
 
         todayReality.totalFinishedGroups++;
 
@@ -243,7 +243,7 @@ Page({
 
         // console.log("in onActionScore, score is: ", e.currentTarget.id);
 
-        todayReality.executedSet[currentActionId].actionScore = score;
+        todayReality.exerciseSet[currentActionId].actionScore = score;
 
         this.setData({
             todayReality: todayReality,
@@ -303,10 +303,10 @@ Page({
 
         if (isNext) {
             // 向后翻
-            if (currentGroupId + 1 < todayReality.executedSet[currentActionId].groupSet.length) {
+            if (currentGroupId + 1 < todayReality.exerciseSet[currentActionId].groupSet.length) {
                 currentGroupId++;
             } else {
-                if (currentActionId + 1 < todayReality.executedSet.length) {
+                if (currentActionId + 1 < todayReality.exerciseSet.length) {
                     currentActionId++;
                     currentGroupId = 0;
                     // 这已经到最后了
@@ -323,7 +323,7 @@ Page({
             } else {
                 if (currentActionId - 1 >= 0) {
                     currentActionId--;
-                    currentGroupId = todayReality.executedSet[currentActionId].groupSet.length - 1;
+                    currentGroupId = todayReality.exerciseSet[currentActionId].groupSet.length - 1;
                 } else {
                     currentActionId = 0;
                     currentGroupId = 0;
@@ -356,19 +356,19 @@ Page({
         // 同时更新动作选择列表
         let currentPartId = 0;
         for (let idx = 0; idx < partActionArray[0].length; idx++) {
-            if (partActionArray[idx] === todayReality.executedSet[currentActionId].action.partSet[0]) {
+            if (partActionArray[idx] === todayReality.exerciseSet[currentActionId].action.partSet[0]) {
                 console.log("match:  ", partActionArray[idx]);
                 currentPartId = idx;
             }
         }
         partActionArray[1] = this.data.actionArray[currentPartId];
 
-        if (todayReality.executedSet[currentActionId].finished) {
-            console.log("score:", todayReality.executedSet[currentActionId].actionScore);
-            this.updateActionScore(todayReality.executedSet[currentActionId].actionScore);
+        if (todayReality.exerciseSet[currentActionId].finished) {
+            console.log("score:", todayReality.exerciseSet[currentActionId].actionScore);
+            this.updateActionScore(todayReality.exerciseSet[currentActionId].actionScore);
         }
 
-        todayReality.executedSet[currentActionId].currentGroupId = currentGroupId;
+        todayReality.exerciseSet[currentActionId].currentGroupId = currentGroupId;
 
         this.setData({
             currentActionId: currentActionId,
@@ -376,14 +376,14 @@ Page({
             partActionArray: partActionArray,
             multiIndex: [currentPartId, currentActionId],
             firstAction: currentActionId === 0,
-            lastAction: currentActionId === todayReality.executedSet.length - 1,
+            lastAction: currentActionId === todayReality.exerciseSet.length - 1,
             enablePause: true,  //无论是哪里跳转来的，都要把暂停复位
             paused: false
         });
 
         // console.log("currentActionId:", currentActionId, "currentGroupId:", currentGroupId);
         // console.log("Training page onShow call, this.data.todayReality: ",
-        //     this.data.todayReality.executedSet[currentActionId].groupSet[currentGroupId].finished);
+        //     this.data.todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].finished);
 
     },
 
@@ -420,16 +420,16 @@ Page({
         let actionIdx = e.detail.value[1];
         let currentActionId = 0;
 
-        for (let idx = 0; idx < this.data.todayReality.executedSet.length; idx++) {
+        for (let idx = 0; idx < this.data.todayReality.exerciseSet.length; idx++) {
             // 注意这里要判断两个，一个是动作名，一个是对应的主部位名，同时相等才行
-            if (this.data.todayReality.executedSet[idx].action.partSet[0] === this.data.partActionArray[0][partIdx] &&
-                this.data.todayReality.executedSet[idx].action.name === this.data.partActionArray[1][actionIdx]) {
+            if (this.data.todayReality.exerciseSet[idx].action.partSet[0] === this.data.partActionArray[0][partIdx] &&
+                this.data.todayReality.exerciseSet[idx].action.name === this.data.partActionArray[1][actionIdx]) {
                 currentActionId = idx;
                 break;
             }
         }
 
-        let currentGroupId = todayReality.executedSet[currentActionId].currentGroupId;
+        let currentGroupId = todayReality.exerciseSet[currentActionId].currentGroupId;
         this.changeAction(currentActionId, currentGroupId);
     },
 
@@ -445,15 +445,15 @@ Page({
 
         if (e.currentTarget.id === "next") {
             // 向后跳转，如果越界，直接跳到最后一个
-            currentActionId = (currentActionId + 1 >= todayReality.executedSet.length) ?
-                todayReality.executedSet.length - 1 : (currentActionId + 1);
+            currentActionId = (currentActionId + 1 >= todayReality.exerciseSet.length) ?
+                todayReality.exerciseSet.length - 1 : (currentActionId + 1);
         } else {
             // 向前跳转，如果越界，直接跳到第一个
             currentActionId = (currentActionId - 1 < 0) ? 0 : (currentActionId - 1);
         }
 
         // 将切换后的动作currentGroupId传过来
-        let currentGroupId = todayReality.executedSet[currentActionId].currentGroupId;
+        let currentGroupId = todayReality.exerciseSet[currentActionId].currentGroupId;
 
         this.changeAction(currentActionId, currentGroupId);
     },
@@ -522,12 +522,12 @@ Page({
         // 2、整理Reality
         // 2.1、如果已经存在的记录本次存储没有（由于计划有变，进入页面初始化时，丢掉了），需要加上；反之，已本次页面产生的最新数据为准，这里没有替换地方
         // 2.2、只记录已经锻炼的部分，没有锻炼的不记录
-        if (existReality !== null && existReality.executedSet.length > 0) {
+        if (existReality !== null && existReality.exerciseSet.length > 0) {
             // 先搜索
-            for (let existExercise of existReality.executedSet) {
+            for (let existExercise of existReality.exerciseSet) {
                 let hasThisExercise = false;
 
-                for (let currentExercise of todayReality.executedSet) {
+                for (let currentExercise of todayReality.exerciseSet) {
                     if (existExercise.action.partSet[0] === currentExercise.action.partSet[0] &&
                         existExercise.action.name === currentExercise.action.name) {
                         hasThisExercise = true;
@@ -535,14 +535,14 @@ Page({
                 }
 
                 if (!hasThisExercise) {
-                    todayReality.executedSet.push(existExercise);
+                    todayReality.exerciseSet.push(existExercise);
                 }
             }
         }
 
         let realityToSave = new Reality.Reality(today);
 
-        for (let exercise of todayReality.executedSet) {
+        for (let exercise of todayReality.exerciseSet) {
             let exerciseToBeAdd = null;
             if (exercise.finishedCount > 0 && exercise.finishedCount < exercise.groupSet.length) {
                 // 未全部完成
@@ -560,7 +560,7 @@ Page({
             }
 
             if (exerciseToBeAdd !== null) {
-                realityToSave.executedSet.push(exerciseToBeAdd);
+                realityToSave.exerciseSet.push(exerciseToBeAdd);
             }
         }
 
@@ -619,9 +619,9 @@ Page({
             hasActivePlan = true;
             // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
             if (app.Util.checkDate(currentPlan.fromDate, today, currentPlan.toDate)) {
-                todayReality.executedSet = app.currentPlan.circleDaySet[dayIdx].exerciseSet;
+                todayReality.exerciseSet = app.currentPlan.circleDaySet[dayIdx].exerciseSet;
                 // 今天有计划
-                if (todayReality.executedSet.length > 0) {
+                if (todayReality.exerciseSet.length > 0) {
                     todayHasPlan = true;
                 } else {
                     todayHasPlan = false;
@@ -653,10 +653,10 @@ Page({
         // console.log("existReality:", existReality);
 
         // 3、根据已经保存的数据整理
-        if (todayReality.executedSet.length > 0) {
+        if (todayReality.exerciseSet.length > 0) {
             // 每次进入时，都默认统一初始化，以防保存的数据里没有这些项
 
-            for (let exercise of todayReality.executedSet) {
+            for (let exercise of todayReality.exerciseSet) {
                 for (let group of exercise.groupSet) {
                     group.executedQuantity = group.quantity;
                     group.executedWeight = group.weight;
@@ -668,11 +668,11 @@ Page({
                 exercise.actionScore = 3;
             }
 
-            if (existReality !== null && existReality.executedSet.length > 0) {
-                // 之前有保存的内容
+            if (existReality !== null && existReality.exerciseSet.length > 0) {
+                // 之前有保存的内容，需要读取过来
                 console.log("existReality is not empty!");
-                for (let plan of todayReality.executedSet) {
-                    for (let exist of existReality.executedSet) {
+                for (let plan of todayReality.exerciseSet) {
+                    for (let exist of existReality.exerciseSet) {
                         // 注意，这里需要判断两个，当部位和动作同时相同，方可认为他们是一个动作
                         if (exist.action.partSet[0] === plan.action.partSet[0] && exist.action.name === plan.action.name) {
                             let length = exist.groupSet.length;
@@ -686,7 +686,7 @@ Page({
             }
 
             // 再次整理数据，置状态
-            for (let exercise of todayReality.executedSet) {
+            for (let exercise of todayReality.exerciseSet) {
                 for (let group of exercise.groupSet) {
                     if (group.finished)
                         exercise.finishedCount++;
@@ -698,10 +698,10 @@ Page({
             }
 
             // 设置进入页面激活的动作及组，激活未完成的第一个动作和第一组
-            for (let idx = 0; idx < todayReality.executedSet.length; idx++) {
-                if (!todayReality.executedSet[idx].finished) {
+            for (let idx = 0; idx < todayReality.exerciseSet.length; idx++) {
+                if (!todayReality.exerciseSet[idx].finished) {
                     currentActionId = idx;
-                    currentGroupId = todayReality.executedSet[idx].currentGroupId;
+                    currentGroupId = todayReality.exerciseSet[idx].currentGroupId;
                     break;
                 }
             }
@@ -712,11 +712,11 @@ Page({
         // 4、根据初始化的todayReality，准备数据
         // 4.1、准备部位列表
         // 4.2、初始化总组数和已完成的组数
-        if (todayReality.executedSet.length > 0) {
+        if (todayReality.exerciseSet.length > 0) {
             todayReality.totalGroups = 0;
             todayReality.totalFinishedGroups = 0;
             // 1、统计部位：先获得所有的一级部位名称
-            for (let exercise of todayReality.executedSet) {
+            for (let exercise of todayReality.exerciseSet) {
                 if (!partArray.includes(exercise.action.partSet[0])) {
                     partArray.push(exercise.action.partSet[0]);
                 }
@@ -725,7 +725,7 @@ Page({
             // 2、统计动作
             for (let part of partArray) {
                 let array = [];
-                for (let exercise of todayReality.executedSet) {
+                for (let exercise of todayReality.exerciseSet) {
                     if (part === exercise.action.partSet[0]) {
                         array.push(exercise.action.name);
                     }
@@ -736,7 +736,7 @@ Page({
             partActionArray.push(actionArray[0]);
 
             // 3、统计总组数和完成数
-            for (let exercise of todayReality.executedSet) {
+            for (let exercise of todayReality.exerciseSet) {
                 todayReality.totalGroups = todayReality.totalGroups + exercise.groupSet.length;
 
                 for (let group of exercise.groupSet) {
