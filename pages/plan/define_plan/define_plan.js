@@ -352,6 +352,7 @@ Page({
         let weekData = this.data.weekData;
 
         let systemSetting = app.Util.loadData(app.StorageType.SystemSetting);
+        wx.setStorageSync("body", systemSetting.body)
         body.cloneDataFrom(systemSetting.body);
 
         // 添加两个临时属性

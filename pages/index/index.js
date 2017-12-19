@@ -135,6 +135,8 @@ Page({
 
         let notSignUp = app.Util.checkSignUp();
 
+        
+
         //更新数据
         this.setData({
             notSignUp: notSignUp
