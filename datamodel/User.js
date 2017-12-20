@@ -8,7 +8,7 @@ class UserInfo {
 
     constructor() {
         //以下数据，一旦建立，不可修改
-        this.userUID = ''; //系统分配，所有数据的唯一识别号，系统验证使用
+        this.userUID = -1; //系统分配，所有数据的唯一识别号，系统验证使用
         this.gender = ''; //就俩，男或者女
         this.birthday = ''; //格式：1990-08-10
 

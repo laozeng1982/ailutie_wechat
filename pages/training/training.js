@@ -4,8 +4,8 @@
 
 import Reality from '../../datamodel/RealitySet'
 import Timer from '../../utils/Timer'
-import ChartMaker from '../ui/canvas/ChartMaker'
-import ChartData from '../ui/canvas/ChartData'
+import ChartMaker from '../ui/chart/ChartMaker'
+import ChartData from '../ui/chart/ChartData'
 
 //获取应用实例
 const app = getApp();

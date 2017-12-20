@@ -41,16 +41,27 @@ Page({
 
     onOK: function () {
         // 根据入口不同，选择切换不同的Tab
-        app.Util.saveData(app.StorageType.UserInfo, this.data.userInfo);
+        let tabUrl = '';
+
         if (this.data.option === "newUser") {
-            wx.switchTab({
-                url: '../../index/index',
+            tabUrl = '../../index/index';
+
+            // 创建用户
+
+            wx.request({
+                url: app.requestUrl + "user/byWechatUnionId/" + app.wechatUserInfo.nickName,
+                success: function(res) {
+                    console.log(res.data)
+                }
             });
         } else {
-            wx.switchTab({
-                url: '../../settings/settings',
-            });
+            tabUrl = '../../settings/settings';
         }
+
+        app.Util.saveData(app.StorageType.UserInfo, this.data.userInfo);
+        wx.switchTab({
+            url: tabUrl,
+        });
     },
 
     /**
@@ -61,9 +72,10 @@ Page({
     onLoad: function (options) {
         // 初始化入口参数，以备离开页面的时候正确切换,请选择
         this.data.option = options.model;
-        var userInfo = app.Util.loadData(app.StorageType.UserInfo);
-        // var
+        let userInfo = app.Util.loadData(app.StorageType.UserInfo);
 
+
+        // 默认值
         if (userInfo.birthday === "") {
             userInfo.birthday = '1990-08-30';
         }
@@ -80,13 +92,12 @@ Page({
 
         if (userInfo.weight === "") {
             userInfo.weight = 65;
-
         } else {
             userInfo.weight = parseInt(userInfo.weight);
         }
 
-        var heightArray = [];
-        var weightArray = [];
+        let heightArray = [];
+        let weightArray = [];
         for (let idx = 1; idx <= 220; idx++) {
             heightArray.push(idx + " cm");
         }

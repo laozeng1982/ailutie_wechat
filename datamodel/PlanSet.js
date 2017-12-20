@@ -114,7 +114,6 @@ class Plan {
             }
             circleDay.partArray = partArray;
         }
-        // console.log(this.circleDaySet);
     }
 }
 
@@ -122,11 +121,11 @@ class CircleDay {
     constructor(id, weekDay) {
         this.id = id;
         this.enWeekDay = weekDay;
-        this.chWeekDay = this.getChWeekDay(weekDay);
+        this.chWeekDay = CircleDay.getChWeekDay(weekDay);
         this.exerciseSet = [];  // 存放计划的数据，既Exercise数组
     }
 
-    getChWeekDay(weekDay) {
+    static getChWeekDay(weekDay) {
         let chWeekDay = '';
         switch (weekDay) {
             case "Sunday":

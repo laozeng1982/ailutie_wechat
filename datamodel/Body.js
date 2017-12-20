@@ -562,6 +562,30 @@ class PartDictionary {
                     measurement: "Kg",
                     defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
+                {
+                    name: '下斜钻石俯卧撑',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/chest/down_incline_diamond_push_up.png',
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
+                },
+                {
+                    name: '上斜哑铃飞鸟',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/chest/incline_dumbbell_bench_fly.png',
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
+                },
+                {
+                    name: '上斜拉索夹胸',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/chest/incline_able_crossover.png',
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
+                },
             ]
         });
 
@@ -591,6 +615,46 @@ class PartDictionary {
                     equipment: "",
                     gpmeasurement: "次",
                     imageUrl: 'image/actions/chest/seated_machine_press.png',
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
+                },
+                {
+                    name: '标准俯卧撑',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/chest/stand_push_up.png',
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
+                },
+                {
+                    name: '跪姿俯卧撑',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/chest/kneel_push_up.png',
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
+                },
+                {
+                    name: '平板哑铃飞鸟',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/chest/horizontal_dumbbell_bench_fly.png',
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
+                },
+                {
+                    name: '蝴蝶机器械夹胸',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/chest/butterfly_machine_crossover.png',
+                    measurement: "Kg",
+                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
+                },
+                {
+                    name: '拉力器十字夹胸',
+                    equipment: "",
+                    gpmeasurement: "次",
+                    imageUrl: 'image/actions/chest/cable_crossover.png',
                     measurement: "Kg",
                     defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
@@ -626,14 +690,6 @@ class PartDictionary {
                     measurement: "Kg",
                     defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
                 },
-            ]
-        });
-
-        this.data.push({
-            bodyPart: "胸部", // 'Chest',
-            name: '俯卧撑',
-            imageUrl: 'image/bodyparts/chest.png',
-            actionArray: [
                 {
                     name: '上斜宽距俯卧撑',
                     equipment: "",
@@ -641,78 +697,6 @@ class PartDictionary {
                     imageUrl: 'image/actions/chest/incline_wide_push_up.png',
                     measurement: "Kg",
                     defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
-                },
-                {
-                    name: '标准俯卧撑',
-                    equipment: "",
-                    gpmeasurement: "次",
-                    imageUrl: 'image/actions/chest/stand_push_up.png',
-                    measurement: "Kg",
-                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
-                },
-                {
-                    name: '下斜钻石俯卧撑',
-                    equipment: "",
-                    gpmeasurement: "次",
-                    imageUrl: 'image/actions/chest/down_incline_diamond_push_up.png',
-                    measurement: "Kg",
-                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
-                },
-                {
-                    name: '跪姿俯卧撑',
-                    equipment: "",
-                    gpmeasurement: "次",
-                    imageUrl: 'image/actions/chest/kneel_push_up.png',
-                    measurement: "Kg",
-                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 0},
-                },
-            ]
-        });
-
-        this.data.push({
-            bodyPart: "胸部", // 'Chest',
-            name: '夹胸',
-            imageUrl: 'image/bodyparts/chest.png',
-            actionArray: [
-                {
-                    name: '上斜哑铃飞鸟',
-                    equipment: "",
-                    gpmeasurement: "次",
-                    imageUrl: 'image/actions/chest/incline_dumbbell_bench_fly.png',
-                    measurement: "Kg",
-                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 20},
-                },
-                {
-                    name: '平板哑铃飞鸟',
-                    equipment: "",
-                    gpmeasurement: "次",
-                    imageUrl: 'image/actions/chest/horizontal_dumbbell_bench_fly.png',
-                    measurement: "Kg",
-                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
-                },
-                {
-                    name: '蝴蝶机器械夹胸',
-                    equipment: "",
-                    gpmeasurement: "次",
-                    imageUrl: 'image/actions/chest/butterfly_machine_crossover.png',
-                    measurement: "Kg",
-                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
-                },
-                {
-                    name: '上斜拉索夹胸',
-                    equipment: "",
-                    gpmeasurement: "次",
-                    imageUrl: 'image/actions/chest/incline_able_crossover.png',
-                    measurement: "Kg",
-                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
-                },
-                {
-                    name: '拉力器十字夹胸',
-                    equipment: "",
-                    gpmeasurement: "次",
-                    imageUrl: 'image/actions/chest/cable_crossover.png',
-                    measurement: "Kg",
-                    defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
                 {
                     name: '下斜拉索夹胸',
@@ -723,7 +707,6 @@ class PartDictionary {
                     defaultQuantity: {gpQuantity: 6, quantity: 10, weight: 30},
                 },
             ]
-
         });
 
         //2、肩部

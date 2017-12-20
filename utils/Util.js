@@ -386,7 +386,7 @@ function calcEnergyCost(exercise, isKCal) {
     let idx = 0;
     for (let group of exercise.groupSet) {
         exerciseEnergy += group.executedQuantity * group.executedWeight * 9.8 / 4186;  // 将焦耳换成卡
-        console.log(idx, exerciseEnergy);
+        // console.log(idx, exerciseEnergy);
         idx++;
     }
 

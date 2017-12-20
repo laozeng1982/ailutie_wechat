@@ -1,6 +1,6 @@
 //index.js
-import ChartMaker from '../ui/canvas/ChartMaker'
-import ChartData from '../ui/canvas/ChartData'
+import ChartMaker from '../ui/chart/ChartMaker'
+import ChartData from '../ui/chart/ChartData'
 
 const app = getApp();
 const chartMaker = new ChartMaker.ChartMaker('indexCanvas');
@@ -35,7 +35,7 @@ Page({
         this.data.currentChart.scrollEnd(e);
         this.data.currentChart.showToolTip(e, {
             format: function (item, category) {
-                console.log("item",item);
+                console.log("item", item);
                 return category + ', ' + item.name + ': ' + item.data
             }
         });
@@ -131,11 +131,7 @@ Page({
 
         app.getWechatUserInfo();
 
-        console.log(app.globalData.wechatUserInfo);
-
         let notSignUp = app.Util.checkSignUp();
-
-        
 
         //更新数据
         this.setData({
@@ -152,13 +148,13 @@ Page({
         // 取数据
         wx.request({
             url: 'https://mf991b83b0.cn1.hana.ondemand.com/m/part/allPredefinedOnes', //仅为示例，并非真实的接口地址
-            success: function(res) {
+            success: function (res) {
                 console.log(res.data)
             }
         })
 
         // 存放数据
-        
+
 
     },
 
