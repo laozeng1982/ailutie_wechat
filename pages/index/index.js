@@ -129,8 +129,6 @@ Page({
     onLoad: function () {
         console.log('index page onLoad');
 
-        app.getWechatUserInfo();
-
         let notSignUp = app.Util.checkSignUp();
 
         //更新数据
@@ -147,11 +145,11 @@ Page({
 
         // 取数据
         wx.request({
-            url: 'https://mf991b83b0.cn1.hana.ondemand.com/m/part/allPredefinedOnes', //仅为示例，并非真实的接口地址
+            url: 'https://www.newpictown.com/part/allPredefinedOnes', 
             success: function (res) {
                 console.log(res.data)
             }
-        })
+        });
 
         // 存放数据
 

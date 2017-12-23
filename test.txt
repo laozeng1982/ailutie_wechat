@@ -1,0 +1,9 @@
+{
+  "accountNonExpired": true,
+  "accountNonLocked": true,
+  "username": "admin",
+  "dateOfBirth": "1990-08-30",
+  "gender": "Male",
+  "wechatMPOpenId": "oehHx0KiURA09lkBc-Q8ev1SgHmI",
+  "wechatUnionId": "oehHx0KiURA09lkBc-Q8ev1SgHmI"
+}

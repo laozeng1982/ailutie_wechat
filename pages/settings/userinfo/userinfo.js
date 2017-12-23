@@ -10,19 +10,23 @@ Page({
     data: {
         option: '',
         dataCollector: '',
-        genderArray: ["男", "女"],
+        genderChArray: ["男", "女", "不确定"],
+        genderEnArray: ["Male", "Female", "Unknown"],
+        genderIdx: 0,
         userInfo: '',
     },
 
     onPickerChange: function (e) {
         console.log(e);
+        let genderIdx = this.data.genderIdx;
         var userInfo = this.data.userInfo;
         switch (e.target.id) {
             case "birthday":
                 userInfo.birthday = e.detail.value;
                 break;
             case "gender":
-                userInfo.gender = this.data.genderArray[parseInt(e.detail.value)];
+                genderIdx = parseInt(e.detail.value);
+                userInfo.gender = this.data.genderEnArray[genderIdx];
                 break;
             case "height":
                 userInfo.height = parseInt(this.data.heightArray[parseInt(e.detail.value)]);
@@ -35,29 +39,23 @@ Page({
         }
 
         this.setData({
+            genderIdx: genderIdx,
             userInfo: userInfo
         });
     },
 
     onOK: function () {
         // 根据入口不同，选择切换不同的Tab
+
         let tabUrl = '';
 
         if (this.data.option === "newUser") {
             tabUrl = '../../index/index';
-
-            // 创建用户
-
-            wx.request({
-                url: app.requestUrl + "user/byWechatUnionId/" + app.wechatUserInfo.nickName,
-                success: function(res) {
-                    console.log(res.data)
-                }
-            });
         } else {
             tabUrl = '../../settings/settings';
         }
 
+        // 保存并跳转页面
         app.Util.saveData(app.StorageType.UserInfo, this.data.userInfo);
         wx.switchTab({
             url: tabUrl,
@@ -71,17 +69,26 @@ Page({
      */
     onLoad: function (options) {
         // 初始化入口参数，以备离开页面的时候正确切换,请选择
+        console.log("app.wechatUserInfo: ", app.wechatUserInfo);
+
         this.data.option = options.model;
         let userInfo = app.Util.loadData(app.StorageType.UserInfo);
-
+        let genderIdx = 0;
 
         // 默认值
         if (userInfo.birthday === "") {
             userInfo.birthday = '1990-08-30';
         }
 
-        if (userInfo.gender === "") {
-            userInfo.gender = '男';
+        if (userInfo.gender === 'Male') {
+            genderIdx = 0;
+        } else if (userInfo.gender === 'Female') {
+            genderIdx = 1;
+        } else if (userInfo.gender === 'Unknown') {
+            genderIdx = 2;
+        } else {
+            genderIdx = 0;
+            userInfo.gender = 'Male';
         }
 
         if (userInfo.height === "") {
@@ -107,10 +114,86 @@ Page({
         }
 
         this.setData({
+            genderIdx: genderIdx,
             userInfo: userInfo,
             heightArray: heightArray,
             weightArray: weightArray
         });
+
+        if (this.data.option === "newUser") {
+            // 查询用户
+            wx.showLoading({
+                title: '获取登录信息',
+            });
+
+            // sleep 2 seconds
+            setTimeout(function () {
+                console.log("loading closed");
+                console.log("app.openId: ", app.openId);
+                console.log("resUserData is: ", app.userInfoFromServer);
+                wx.hideLoading();
+            }, 5000);
+
+            // 创建用户
+            let userUID = '';
+            if (typeof app.userInfoFromServer.wechatMPOpenId === 'undefined') {
+                try {
+                    let gender, birthday;
+                    if (this.data.userInfo.gender === '男') {
+                        gender = 'Male';
+                    } else if (this.data.userInfo.gender === '女') {
+                        gender = 'Female';
+                    } else {
+                        gender = 'Unknown';
+                    }
+                    birthday = this.data.userInfo.birthday;
+
+                    let new_user_data = {
+                        accountNonExpired: true,
+                        accountNonLocked: true,
+                        gender: gender,
+                        dateOfBirth: birthday,
+                        username: app.wechatUserInfo.nickName,
+                        nickName: app.wechatUserInfo.nickName,
+                        wechatMPOpenId: app.openId,
+                        wechatUnionId: app.openId
+                    };
+                    console.log("new user: ", new_user_data);
+                    // 后台创建
+                    // wx.request({
+                    //         url: app.requestUrl + "user",
+                    //         method: 'POST',
+                    //         data: new_user_data,
+                    //         success: function (res) {
+                    //             console.log(res.data);
+                    //             userUID = res.data.id;
+                    //         },
+                    //         fail: function (res) {
+                    //             console.log(res.data)
+                    //         }
+                    //     }
+                    // );
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            } else {
+                userUID = app.userInfoFromServer.id;
+            }
+
+            console.log("userUID: ", userUID);
+            // 等5秒钟，等获取到数据再写入本地
+            let host = this;
+            setTimeout(function () {
+                if (userUID !== '') {
+                    host.data.userInfo.userUID = parseInt(userUID);
+                }
+            }, 5000);
+
+            console.log("userInfo: ", this.data.userInfo);
+        } else {
+
+        }
 
     },
 

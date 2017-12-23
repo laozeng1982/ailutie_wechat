@@ -24,8 +24,8 @@
                 <text>性别</text>
             </view>
             <view class='item-picker'>
-                <picker id='gender' mode="selector" value="{{userInfo.gender}}" range='{{genderArray}}' bindchange="onPickerChange">
-                    {{userInfo.gender}}
+                <picker id='gender' mode="selector" value="{{genderChArray[genderIdx]}}" range='{{genderChArray}}' bindchange="onPickerChange">
+                    {{genderChArray[genderIdx]}}
                 </picker>
             </view>
         </view>

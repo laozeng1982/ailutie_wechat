@@ -7,7 +7,8 @@ import User from '../datamodel/User'
 import PlanSet from '../datamodel/PlanSet'
 import SystemSetting from '../datamodel/SystemSetting'
 
-var _ = require('./underscore.modified');
+const _ = require('./underscore.modified');
+const Promise = require('./bluebird.min'); //用了bluebird.js
 
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
@@ -277,7 +278,7 @@ function isEqual(a, b) {
 /**
  * 功能：从选中的日期读取指定内容
  * 参数1：key，要读取的数据
- * 参数2：dataType，数据类型（StrorageType）
+ * 参数2：dataType，数据类型（StorageType）
  * 返回：请求类型的数据
  * 调用关系：外部函数，开放接口
  */
@@ -322,8 +323,6 @@ function loadData(dataType) {
                 break;
         }
     }
-
-    // console.log("in Controller.loadData, after loadData, requestData: ", requestData);
 
     return requestData;
 }
@@ -393,6 +392,212 @@ function calcEnergyCost(exercise, isKCal) {
     return isKCal ? exerciseEnergy : exerciseEnergy * 1000;
 }
 
+/**
+ * 获取并设置app的OpenId
+ */
+function setWechatOpenId(host) {
+    wx.login({
+        success: function (res) {
+            if (res.code) {
+                //获取openId
+                wx.request({
+                    url: 'https://api.weixin.qq.com/sns/jscode2session',
+                    data: {
+                        //小程序唯一标识
+                        appid: 'wxbea378c38515347c',
+                        //小程序的 app secret
+                        secret: 'cca9244dc17c06c3ab91ac9ee158c9d0',
+                        grant_type: 'authorization_code',
+                        js_code: res.code
+                    },
+                    method: 'GET',
+                    header: {'content-type': 'application/json'},
+                    success: function (openIdRes) {
+                        console.log("登录成功返回的openId：", openIdRes.data);
+                        // weChatUserInfo.openId = openIdRes.data.openid;
+                        // 判断openId是否获取成功
+                        if (openIdRes.data.openid != null && typeof openIdRes.data.openid !== 'undefined') {
+                            // 有一点需要注意，询问用户是否授权，那提示是这API发出的
+                            wx.getUserInfo({
+                                success: function (data) {
+                                    // 自定义操作，获取成功，传给全局变量
+                                    host.openId = openIdRes.data.openid;
+                                    console.log("登录成功返回的openId：" + openIdRes.data.openid);
+                                },
+                                fail: function (failData) {
+                                    // TODO，二次授权
+                                    wx.showModal({
+                                        title: 'Warining',
+                                        content: '如果不授权，将无法远程保存您的数据，“取消”不授权，“确定”授权',
+                                        success: function (res) {
+                                            if (res.confirm) {
+                                                setWechatOpenIdAgain(host);
+                                                console.log('用户点击确定')
+                                            } else if (res.cancel) {
+                                                console.log('用户点击取消')
+                                            }
+                                        }
+                                    });
+                                    console.log("用户拒绝授权");
+                                }
+                            });
+                        } else {
+                            console.log("获取用户openId失败");
+                        }
+                    },
+                    fail: function (error) {
+                        console.log("获取用户openId失败");
+                        console.log(error);
+                    }
+                })
+            }
+        }
+    });
+}
+
+/**
+ * 手动打开微信授权
+ */
+function setWechatOpenIdAgain(host) {
+    wx.openSetting({
+        success: function (data) {
+            //判断 用户是否同意授权
+            if (data.authSetting["scope.userInfo"] === true) {
+                // 同意授权
+                wx.login({
+                    success: function (res) {
+                        if (res.code) {
+                            console.log("登录成功返回的CODE：" + res.code);
+                            //获取openId
+                            wx.request({
+                                url: 'https://api.weixin.qq.com/sns/jscode2session',
+                                data: {
+                                    // 小程序唯一标示
+                                    appid: 'wxbea378c38515347c',
+                                    // 小程序的 app secret
+                                    secret: 'cca9244dc17c06c3ab91ac9ee158c9d0',
+                                    grant_type: 'authorization_code',
+                                    js_code: res.code
+                                },
+                                method: 'GET',
+                                header: {'content-type': 'application/json'},
+                                success: function (openIdRes) {
+                                    // 获取到 openId
+                                    console.log(openIdRes.data.openid);
+                                    // 判断openId是否为空
+                                    if (openIdRes.data.openid != null && typeof openIdRes.data.openid !== 'undefined') {
+                                        wx.getUserInfo({
+                                            success: function (data) {
+                                                // 自定义操作，获取成功，传给全局变量
+                                                host.openId = openIdRes.data.openid;
+                                                console.log("登录成功返回的openId：" + openIdRes.data.openid);
+                                            }
+                                        })
+                                    } else {
+                                        // openId为空
+                                    }
+                                }
+                            })
+                        }
+                    }
+                });
+            } else {
+                // 手动开启是否授权提示框后，用户再次拒绝
+            }
+        }
+    });
+}
+
+/**
+ * 检查是否系统注册
+ */
+function checkRegister() {
+    console.log("checking register");
+
+    // 验证是否是首次使用爱撸铁，首次登陆，录入用户基本信息
+    let userInfo = loadData((new SystemSetting.StorageType()).UserInfo);
+    console.log("in checkRegister, userInfo: ", userInfo);
+    let userUID = userInfo.userUID;
+
+    if (typeof userUID === 'undefined' || userUID === -1) {
+        // 去注册
+        console.log("in checkRegister, go to User information record page!");
+        wx.redirectTo({
+            url: 'pages/settings/userinfo/userinfo?model=newUser',
+        });
+    }
+}
+
+/**
+ * 提供获取微信信息的结构
+ * @param host
+ */
+function setWechatUserInfo(host) {
+    // 获取用户信息
+    wx.getSetting({
+        success: res => {
+            if (res.authSetting['scope.userInfo']) {
+                // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+                wx.getUserInfo({
+                    success: res => {
+                        // 可以将 res 发送给后台解码出 unionId
+                        host.wechatUserInfo = res.userInfo;
+                        console.log("in checkRegister, res.userInfo: ", res.userInfo);
+                        // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                        // 所以此处加入 callback 以防止这种情况
+                        if (host.userInfoReadyCallback) {
+                            host.userInfoReadyCallback(res);
+                        }
+                    }
+                })
+            }
+        }
+    });
+}
+
+/**
+ * 从服务端读取用户信息
+ * @param host
+ */
+function setUserInfoFromServer(host) {
+    // 异步获取信息
+    setTimeout(function () {
+        let getUserInfo = wxPromisify(wx.request);
+        if (typeof host.openId !== 'undefined' || host.openId !== '') {
+            getUserInfo({
+                url: "https://www.newpictown.com/" + "user/byWechatUnionId/" + "admin",
+            }).then(function (res) {
+                console.log("setUserInfoFromServer: ", res.data);
+                host.userInfoFromServer = res.data;
+            }).catch(function () {
+                console.error("get user information failed")
+            });
+        }
+    }, 2000);
+}
+
+/**
+ * 微信版的Promise
+ * @param fn
+ * @returns {Function}
+ */
+function wxPromisify(fn) {
+    return function (obj = {}) {
+        return new Promise((resolve, reject) => {
+            obj.success = function (res) {
+                resolve(res)
+            };
+
+            obj.fail = function (res) {
+                reject(res)
+            };
+
+            fn(obj);
+        })
+    }
+}
+
+
 module.exports = {
     formatTimeToString: formatTimeToString,
     formatDateToString: formatDateToString,
@@ -414,6 +619,11 @@ module.exports = {
     loadData: loadData,
     loadPlan: loadPlan,
     saveData: saveData,
-    calcEnergyCost: calcEnergyCost
+    calcEnergyCost: calcEnergyCost,
+    setWechatOpenId: setWechatOpenId,
+    setWechatUserInfo: setWechatUserInfo,
+    setUserInfoFromServer: setUserInfoFromServer,
+    checkRegister: checkRegister,
+    wxPromisify: wxPromisify
 
 }
