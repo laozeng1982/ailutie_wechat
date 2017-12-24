@@ -9,6 +9,7 @@ import SystemSetting from '../datamodel/SystemSetting'
 
 const _ = require('./underscore.modified');
 const Promise = require('./bluebird.min'); //用了bluebird.js
+const BASE_URL = 'https://www.newpictown.com/';
 
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
@@ -562,30 +563,44 @@ function setWechatUserInfo(host) {
 function setUserInfoFromServer(host) {
     // 异步获取信息
     setTimeout(function () {
+
         let getUserInfo = wxPromisify(wx.request);
         if (typeof host.openId !== 'undefined' || host.openId !== '') {
-            getUserInfo({
-                url: "https://www.newpictown.com/user/byWechatMPOpenId/" + host.openId,
-            }).then(function (res) {
-                console.log("setUserInfoFromServer: ", res.data);
-                host.userInfoFromServer = res.data;
-            }).catch(function () {
-                console.error("get user information failed")
-            });
+            wx.request({
+                    url: BASE_URL + "user/byWechatMPOpenId/" + host.openId,
+                    method: 'GET',
+                    success: function (res) {
+                        if (typeof res.data.id !== 'undefined') {
+                            console.log("setUserInfoFromServer: ", res.data);
+                            host.userInfoFromServer = res.data;
+                        }
+                    },
+                    fail: function (res) {
+                        console.log("get fail: ", res.data)
+                    }
+                }
+            );
+            // getUserInfo({
+            //     url: "https://www.newpictown.com/user/byWechatMPOpenId/" + host.openId,
+            // }).then(function (res) {
+            //     console.log("setUserInfoFromServer: ", res.data);
+            //     host.userInfoFromServer = res.data;
+            // }).catch(function () {
+            //     console.error("get user information failed")
+            // });
         }
     }, 2000);
 }
 
 /**
  *
- * @param baseUrl
  * @param path
  * @param data
  * @param userInfo
  */
-function createData(baseUrl, path, data, userInfo) {
+function createData(path, data, userInfo) {
     wx.request({
-            url: baseUrl + path,
+            url: BASE_URL + path,
             method: 'POST',
             data: data,
             success: function (res) {
@@ -608,16 +623,15 @@ function createData(baseUrl, path, data, userInfo) {
 
 /**
  *
- * @param baseUrl
  * @param path
  * @param data
  * @param userInfo
  */
-function updateData(baseUrl, path, data, userInfo) {
+function updateData(path, data, userInfo) {
     // 后台更新
     let resData;
     wx.request({
-            url: baseUrl + path,
+            url: BASE_URL + path,
             method: 'PATCH',
             data: data,
             success: function (res) {
