@@ -456,7 +456,7 @@ function setWechatOpenId(host) {
 }
 
 /**
- * 手动打开微信授权
+ * 手动打开微信授权，获取并设置app的OpenId
  */
 function setWechatOpenIdAgain(host) {
     wx.openSetting({
@@ -565,7 +565,7 @@ function setUserInfoFromServer(host) {
         let getUserInfo = wxPromisify(wx.request);
         if (typeof host.openId !== 'undefined' || host.openId !== '') {
             getUserInfo({
-                url: "https://www.newpictown.com/" + "user/byWechatUnionId/" + "admin",
+                url: "https://www.newpictown.com/user/byWechatMPOpenId/" + host.openId,
             }).then(function (res) {
                 console.log("setUserInfoFromServer: ", res.data);
                 host.userInfoFromServer = res.data;
@@ -574,6 +574,64 @@ function setUserInfoFromServer(host) {
             });
         }
     }, 2000);
+}
+
+/**
+ *
+ * @param baseUrl
+ * @param path
+ * @param data
+ * @param userInfo
+ */
+function createData(baseUrl, path, data, userInfo) {
+    wx.request({
+            url: baseUrl + path,
+            method: 'POST',
+            data: data,
+            success: function (res) {
+                if (typeof res.data.id !== 'undefined') {
+                    userInfo.userUID = parseInt(res.data.id);
+                    userInfo.wechatOpenId = data.wechatMPOpenId;
+                    userInfo.nickName = data.nickName;
+                    console.log("userInfo: ", userInfo);
+                    saveData(new SystemSetting.StorageType().UserInfo, userInfo);
+                }
+
+                console.log("create success: ", res.data);
+            },
+            fail: function (res) {
+                console.log("create fail: ", res.data)
+            }
+        }
+    );
+}
+
+/**
+ *
+ * @param baseUrl
+ * @param path
+ * @param data
+ * @param userInfo
+ */
+function updateData(baseUrl, path, data, userInfo) {
+    // 后台更新
+    let resData;
+    wx.request({
+            url: baseUrl + path,
+            method: 'PATCH',
+            data: data,
+            success: function (res) {
+                resData = res.data;
+                saveData(new SystemSetting.StorageType().UserInfo, userInfo);
+                console.log("update success: ", res.data);
+            },
+            fail: function (res) {
+                resData = res.data;
+                console.log("update fail: ", res.data)
+            }
+        }
+    );
+    return resData;
 }
 
 /**
@@ -624,6 +682,8 @@ module.exports = {
     setWechatUserInfo: setWechatUserInfo,
     setUserInfoFromServer: setUserInfoFromServer,
     checkRegister: checkRegister,
+    createData: createData,
+    updateData: updateData,
     wxPromisify: wxPromisify
 
 }

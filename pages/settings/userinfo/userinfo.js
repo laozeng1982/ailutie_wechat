@@ -46,17 +46,67 @@ Page({
 
     onOK: function () {
         // 根据入口不同，选择切换不同的Tab
+        let userInfo = this.data.userInfo;
 
         let tabUrl = '';
 
         if (this.data.option === "newUser") {
+            // 由新建页面进入，页面设置完成，跳转到首页
             tabUrl = '../../index/index';
+
+            // 创建用户信息
+            if (typeof app.userInfoFromServer.id === 'undefined') {
+                try {
+                    let gender, birthday;
+                    gender = userInfo.gender;
+                    birthday = userInfo.birthday;
+
+                    let new_user_data = {
+                        accountNonExpired: true,
+                        accountNonLocked: true,
+                        gender: gender,
+                        dateOfBirth: birthday,
+                        username: app.wechatUserInfo.nickName,
+                        nickName: app.wechatUserInfo.nickName,
+                        wechatMPOpenId: app.openId,
+                        wechatUnionId: app.openId
+                    };
+                    console.log("new user: ", new_user_data);
+                    // 后台创建，创建成功，获得id，并保存到本地
+                    app.Util.createData(app.requestUrl, "user", new_user_data, userInfo);
+
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            } else {
+                // 应对用户删除本地存储，在获取了用户id之后，更新用户信息
+                let update_user_data = {
+                    id: app.userInfoFromServer.id,
+                    gender: userInfo.gender,
+                    dateOfBirth: userInfo.birthday
+                };
+                userInfo.userUID = app.userInfoFromServer.id;
+                console.log("update user: ", update_user_data);
+                // 后台更新，并保存
+                app.Util.updateData(app.requestUrl, "user", update_user_data, userInfo);
+            }
+
         } else {
+            // 由更新页面进入，页面设置完成，跳转到设置
             tabUrl = '../../settings/settings';
+
+            // 更新用户信息
+            let update_user_data = {
+                id: userInfo.userUID,
+                gender: userInfo.gender,
+                dateOfBirth: userInfo.birthday
+            };
+            console.log("update user: ", update_user_data);
+            // 后台更新，并保存
+            app.Util.updateData(app.requestUrl, "user", update_user_data, userInfo);
         }
 
-        // 保存并跳转页面
-        app.Util.saveData(app.StorageType.UserInfo, this.data.userInfo);
         wx.switchTab({
             url: tabUrl,
         });
@@ -126,71 +176,14 @@ Page({
                 title: '获取登录信息',
             });
 
-            // sleep 2 seconds
+            // sleep 5 seconds waiting get information from server
             setTimeout(function () {
                 console.log("loading closed");
-                console.log("app.openId: ", app.openId);
-                console.log("resUserData is: ", app.userInfoFromServer);
+                // console.log("app.openId: ", app.openId);
+                // console.log("resUserData is: ", app.userInfoFromServer);
                 wx.hideLoading();
             }, 5000);
 
-            // 创建用户
-            let userUID = '';
-            if (typeof app.userInfoFromServer.wechatMPOpenId === 'undefined') {
-                try {
-                    let gender, birthday;
-                    if (this.data.userInfo.gender === '男') {
-                        gender = 'Male';
-                    } else if (this.data.userInfo.gender === '女') {
-                        gender = 'Female';
-                    } else {
-                        gender = 'Unknown';
-                    }
-                    birthday = this.data.userInfo.birthday;
-
-                    let new_user_data = {
-                        accountNonExpired: true,
-                        accountNonLocked: true,
-                        gender: gender,
-                        dateOfBirth: birthday,
-                        username: app.wechatUserInfo.nickName,
-                        nickName: app.wechatUserInfo.nickName,
-                        wechatMPOpenId: app.openId,
-                        wechatUnionId: app.openId
-                    };
-                    console.log("new user: ", new_user_data);
-                    // 后台创建
-                    // wx.request({
-                    //         url: app.requestUrl + "user",
-                    //         method: 'POST',
-                    //         data: new_user_data,
-                    //         success: function (res) {
-                    //             console.log(res.data);
-                    //             userUID = res.data.id;
-                    //         },
-                    //         fail: function (res) {
-                    //             console.log(res.data)
-                    //         }
-                    //     }
-                    // );
-                }
-                catch (err) {
-                    console.log(err)
-                }
-            } else {
-                userUID = app.userInfoFromServer.id;
-            }
-
-            console.log("userUID: ", userUID);
-            // 等5秒钟，等获取到数据再写入本地
-            let host = this;
-            setTimeout(function () {
-                if (userUID !== '') {
-                    host.data.userInfo.userUID = parseInt(userUID);
-                }
-            }, 5000);
-
-            console.log("userInfo: ", this.data.userInfo);
         } else {
 
         }
