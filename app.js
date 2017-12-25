@@ -49,10 +49,6 @@ App({
     globalData: {
 
         userInfo: null,
-
-
-        isLogin: false,// 登陆状态记录
-
         selectedDateString: util.formatDateToString(new Date()),
         selectedDate: new Date(),
     },
