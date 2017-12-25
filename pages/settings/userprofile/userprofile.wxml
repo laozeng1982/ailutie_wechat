@@ -1,8 +1,6 @@
 <!--userprofile.wxml-->
 <view class="container">
 
-
-
     <view class="header">
         {{today}} 记录
     </view>
@@ -40,5 +38,5 @@
     </form>
     
     <!-- 这是Toast -->
-    <include src="../../ui/toast/normal_toast.wxml" />
+    <include src="//ui/toast/normal_toast.wxml" />
 </view>

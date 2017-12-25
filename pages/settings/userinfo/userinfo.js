@@ -72,6 +72,7 @@ Page({
                         wechatUnionId: app.openId
                     };
                     console.log("new user: ", new_user_data);
+                    userInfo.wechatOpenId = app.openId;
                     // 后台创建，创建成功，获得id，并保存到本地
                     app.Util.createData("user", new_user_data, userInfo);
 
@@ -82,11 +83,12 @@ Page({
             } else {
                 // 应对用户删除本地存储，在获取了用户id之后，更新用户信息
                 let update_user_data = {
-                    id: app.userInfoFromServer.id,
-                    gender: userInfo.gender,
-                    dateOfBirth: userInfo.birthday
+                    "id": app.userInfoFromServer.id,
+                    "gender": userInfo.gender,
+                    "dateOfBirth": userInfo.birthday
                 };
                 userInfo.userUID = app.userInfoFromServer.id;
+                userInfo.wechatOpenId = app.openId;
                 console.log("update user: ", update_user_data);
                 // 后台更新，并保存
                 app.Util.updateData("user", update_user_data, userInfo);
@@ -98,9 +100,9 @@ Page({
 
             // 更新用户信息
             let update_user_data = {
-                id: userInfo.userUID,
-                gender: userInfo.gender,
-                dateOfBirth: userInfo.birthday
+                "id": userInfo.userUID,
+                "gender": userInfo.gender,
+                "dateOfBirth": userInfo.birthday
             };
             console.log("update user: ", update_user_data);
             // 后台更新，并保存

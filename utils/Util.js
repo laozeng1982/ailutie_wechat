@@ -399,120 +399,15 @@ function calcEnergyCost(exercise, isKCal) {
 function setWechatOpenId(host) {
     wx.login({
         success: function (res) {
-            console.log("in setWechatOpenId login.res: ", res);
+            // console.log("in setWechatOpenId login.res: ", res);
             if (res.code) {
                 wx.request({
-                    url: 'https://www.newpictown.com/user/wechatMPOpenId/' +res.code ,
-                    success: function (resCode) {
-                        console.log("resCode: ", resCode);
+                    url: 'https://www.newpictown.com/user/wechatMPOpenId/' + res.code,
+                    success: function (res) {
+                        host.openId = res.data;
+                        console.log("in setWechatOpenId, openId: ", res.data);
                     }
                 })
-            }
-            if (res.code) {
-                //获取openId
-                wx.request({
-                    url: 'https://api.weixin.qq.com/sns/jscode2session',
-                    data: {
-                        //小程序唯一标识
-                        appid: 'wxbea378c38515347c',
-                        //小程序的 app secret
-                        secret: 'cca9244dc17c06c3ab91ac9ee158c9d0',
-                        grant_type: 'authorization_code',
-                        js_code: res.code
-                    },
-                    method: 'GET',
-                    header: { 'content-type': 'application/json' },
-                    success: function (openIdRes) {
-                        console.log("登录成功返回的openId：", openIdRes.data);
-                        // weChatUserInfo.openId = openIdRes.data.openid;
-                        // 判断openId是否获取成功
-                        if (openIdRes.data.openid != null && typeof openIdRes.data.openid !== 'undefined') {
-                            // 有一点需要注意，询问用户是否授权，那提示是这API发出的
-                            wx.getUserInfo({
-                                success: function (data) {
-                                    // 自定义操作，获取成功，传给全局变量
-                                    host.openId = openIdRes.data.openid;
-                                    console.log("登录成功返回的openId：" + openIdRes.data.openid);
-                                },
-                                fail: function (failData) {
-                                    // TODO，二次授权
-                                    wx.showModal({
-                                        title: 'Warining',
-                                        content: '如果不授权，将无法远程保存您的数据，“取消”不授权，“确定”授权',
-                                        success: function (res) {
-                                            if (res.confirm) {
-                                                setWechatOpenIdAgain(host);
-                                                console.log('用户点击确定')
-                                            } else if (res.cancel) {
-                                                console.log('用户点击取消')
-                                            }
-                                        }
-                                    });
-                                    console.log("用户拒绝授权");
-                                }
-                            });
-                        } else {
-                            console.log("获取用户openId失败");
-                        }
-                    },
-                    fail: function (error) {
-                        console.log("获取用户openId失败");
-                        console.log(error);
-                    }
-                })
-            }
-        }
-    });
-}
-
-/**
- * 手动打开微信授权，获取并设置app的OpenId
- */
-function setWechatOpenIdAgain(host) {
-    wx.openSetting({
-        success: function (data) {
-            //判断 用户是否同意授权
-            if (data.authSetting["scope.userInfo"] === true) {
-                // 同意授权
-                // wx.login({
-                //     success: function (res) {
-                //         if (res.code) {
-                //             console.log("登录成功返回的CODE：" + res.code);
-                //             //获取openId
-                //             wx.request({
-                //                 url: 'https://api.weixin.qq.com/sns/jscode2session',
-                //                 data: {
-                //                     // 小程序唯一标示
-                //                     appid: 'wxbea378c38515347c',
-                //                     // 小程序的 app secret
-                //                     secret: 'cca9244dc17c06c3ab91ac9ee158c9d0',
-                //                     grant_type: 'authorization_code',
-                //                     js_code: res.code
-                //                 },
-                //                 method: 'GET',
-                //                 header: { 'content-type': 'application/json' },
-                //                 success: function (openIdRes) {
-                //                     // 获取到 openId
-                //                     console.log(openIdRes.data.openid);
-                //                     // 判断openId是否为空
-                //                     if (openIdRes.data.openid != null && typeof openIdRes.data.openid !== 'undefined') {
-                //                         wx.getUserInfo({
-                //                             success: function (data) {
-                //                                 // 自定义操作，获取成功，传给全局变量
-                //                                 host.openId = openIdRes.data.openid;
-                //                                 console.log("登录成功返回的openId：" + openIdRes.data.openid);
-                //                             }
-                //                         })
-                //                     } else {
-                //                         // openId为空
-                //                     }
-                //                 }
-                //             })
-                //         }
-                //     }
-                // });
-            } else {
-                // 手动开启是否授权提示框后，用户再次拒绝
             }
         }
     });
@@ -539,30 +434,28 @@ function checkRegister() {
 }
 
 /**
- * 提供获取微信信息的结构
+ * 获取并设置用户的微信信息
  * @param host
  */
 function setWechatUserInfo(host) {
-    // 获取用户信息
-    wx.getSetting({
+    // 获取用户的微信信息
+    wx.getUserInfo({
         success: res => {
-            if (res.authSetting['scope.userInfo']) {
-                // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-                wx.getUserInfo({
-                    success: res => {
-                        // 可以将 res 发送给后台解码出 unionId
-                        console.log("in checkRegister, res: ", res);
-                        host.wechatUserInfo = res.userInfo;
-                        // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                        // 所以此处加入 callback 以防止这种情况
-                        if (host.userInfoReadyCallback) {
-                            host.userInfoReadyCallback(res);
-                        }
-                    }
-                })
+            // 可以将 res 发送给后台解码出 unionId
+            console.log("in setWechatUserInfo, res.userInfo: ", res.userInfo);
+            host.wechatUserInfo = res.userInfo;
+            // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+            // 所以此处加入 callback 以防止这种情况
+            if (host.userInfoReadyCallback) {
+                host.userInfoReadyCallback(res);
             }
+        },
+        fail: res => {
+            console.log("failed: ", res);
         }
+
     });
+
 }
 
 /**
@@ -572,31 +465,21 @@ function setWechatUserInfo(host) {
 function setUserInfoFromServer(host) {
     // 异步获取信息
     setTimeout(function () {
-
-        let getUserInfo = wxPromisify(wx.request);
         if (typeof host.openId !== 'undefined' || host.openId !== '') {
             wx.request({
-                url: BASE_URL + "user/byWechatMPOpenId/" + host.openId,
-                method: 'GET',
-                success: function (res) {
-                    if (typeof res.data.id !== 'undefined') {
-                        console.log("setUserInfoFromServer: ", res.data);
-                        host.userInfoFromServer = res.data;
+                    url: BASE_URL + "user/byWechatMPOpenId/" + host.openId,
+                    method: 'GET',
+                    success: function (res) {
+                        if (typeof res.data.id !== 'undefined') {
+                            console.log("setUserInfoFromServer: ", res.data);
+                            host.userInfoFromServer = res.data;
+                        }
+                    },
+                    fail: function (res) {
+                        console.log("get fail: ", res.data)
                     }
-                },
-                fail: function (res) {
-                    console.log("get fail: ", res.data)
                 }
-            }
             );
-            // getUserInfo({
-            //     url: "https://www.newpictown.com/user/byWechatMPOpenId/" + host.openId,
-            // }).then(function (res) {
-            //     console.log("setUserInfoFromServer: ", res.data);
-            //     host.userInfoFromServer = res.data;
-            // }).catch(function () {
-            //     console.error("get user information failed")
-            // });
         }
     }, 2000);
 }
@@ -609,24 +492,24 @@ function setUserInfoFromServer(host) {
  */
 function createData(path, data, userInfo) {
     wx.request({
-        url: BASE_URL + path,
-        method: 'POST',
-        data: data,
-        success: function (res) {
-            if (typeof res.data.id !== 'undefined') {
-                userInfo.userUID = parseInt(res.data.id);
-                userInfo.wechatOpenId = data.wechatMPOpenId;
-                userInfo.nickName = data.nickName;
-                console.log("userInfo: ", userInfo);
-                saveData(new SystemSetting.StorageType().UserInfo, userInfo);
-            }
+            url: BASE_URL + path,
+            method: 'POST',
+            data: data,
+            success: function (res) {
+                if (typeof res.data.id !== 'undefined') {
+                    userInfo.userUID = parseInt(res.data.id);
+                    userInfo.wechatOpenId = data.wechatMPOpenId;
+                    userInfo.nickName = data.nickName;
+                    console.log("userInfo: ", userInfo);
+                    saveData(new SystemSetting.StorageType().UserInfo, userInfo);
+                }
 
-            console.log("create success: ", res.data);
-        },
-        fail: function (res) {
-            console.log("create fail: ", res.data)
+                console.log("create success: ", res.data);
+            },
+            fail: function (res) {
+                console.log("create fail: ", res.data)
+            }
         }
-    }
     );
 }
 
@@ -640,19 +523,19 @@ function updateData(path, data, userInfo) {
     // 后台更新
     let resData;
     wx.request({
-        url: BASE_URL + path,
-        method: 'PATCH',
-        data: data,
-        success: function (res) {
-            resData = res.data;
-            saveData(new SystemSetting.StorageType().UserInfo, userInfo);
-            console.log("update success: ", res.data);
-        },
-        fail: function (res) {
-            resData = res.data;
-            console.log("update fail: ", res.data)
+            url: BASE_URL + path,
+            method: 'PATCH',
+            data: data,
+            success: function (res) {
+                resData = res.data;
+                saveData(new SystemSetting.StorageType().UserInfo, userInfo);
+                console.log("update success: ", res.data);
+            },
+            fail: function (res) {
+                resData = res.data;
+                console.log("update fail: ", res.data)
+            }
         }
-    }
     );
     return resData;
 }
