@@ -6,58 +6,68 @@
     </view>
     <view class='gray-space'></view>
 
-    <view class='items-container'>
-
-        <view class='item-box'>
-            <view class='item-text'>
-                <text>生日</text>
+    <form class='items-container' bindsubmit="onFormSubmit" bindreset="onFormReset">
+        <view class='items-container'>
+            <view class='item-box'>
+                <view class='item-text'>
+                    <text>生日</text>
+                </view>
+                <view class='item-picker'>
+                    <picker id='birthday' mode="date" name="birthday" value="{{userInfo.birthday}}" start="1900-01-01" end="2099-12-31" bindchange="onPickerChange" >
+                        {{userInfo.birthday}}
+                    </picker>
+                </view>
             </view>
-            <view class='item-picker'>
-                <picker id='birthday' mode="date" value="{{userInfo.birthday}}" start="1900-01-01" end="2099-12-31" bindchange="onPickerChange">
-                    {{userInfo.birthday}}
-                </picker>
+ 
+            <view class='item-box'>
+                <view class='item-text'>
+                    <text>性别</text>
+                </view>
+                <view class='item-picker'>
+                    <picker id='gender' mode="selector" name="gender" value="{{genderChArray[genderIdx]}}" range='{{genderChArray}}' bindchange="onPickerChange">
+                        {{genderChArray[genderIdx]}}
+                    </picker>
+                </view>
+            </view>
+
+            <view class='item-box'>
+                <view class='item-text'>
+                    <text>身高</text>
+                </view>
+                <view class='item-picker'>
+                    <picker id='height' mode="selector" name="height" value="{{userInfo.height-1}}" range='{{heightArray}}' bindchange="onPickerChange">
+                        {{userInfo.height }} cm
+                    </picker>
+                </view>
+            </view>
+
+            <view class='item-box'>
+                <view class='item-text'>
+                    <text>体重</text>
+                </view>
+                <view class='item-picker'>
+                    <picker id='weight' mode="selector" name="weight" value="{{userInfo.weight-1}}" range='{{weightArray}}' bindchange="onPickerChange">
+                        {{userInfo.weight }} Kg
+                    </picker>
+                </view>
+            </view>
+
+            <view class='item-box'>
+                <view class='item-text'>
+                    <text>电话</text>
+                </view>
+                <view class='item-picker'>
+                    <input id="mobileNumber" class="section-item-input" type='number' name="mobileNumber" placeholder="" value="{{userInfo.mobileNumber}}" bindinput='onInput' /> 
+                </view>
             </view>
         </view>
-
-        <view class='item-box'>
-            <view class='item-text'>
-                <text>性别</text>
-            </view>
-            <view class='item-picker'>
-                <picker id='gender' mode="selector" value="{{genderChArray[genderIdx]}}" range='{{genderChArray}}' bindchange="onPickerChange">
-                    {{genderChArray[genderIdx]}}
-                </picker>
-            </view>
+        <view class="foot-box">
+            <button class='cancel-btn' type='default' size='default' formType="reset">重置</button>
+            <button class='confirm-btn' type='primary' size='default' formType="submit">保存</button>
         </view>
-
-        <view class='item-box'>
-            <view class='item-text'>
-                <text>身高</text>
-            </view>
-            <view class='item-picker'>
-                <picker id='height' mode="selector" value="{{userInfo.height-1}}" range='{{heightArray}}' bindchange="onPickerChange">
-                    {{userInfo.height }} cm
-                </picker>
-            </view>
-        </view>
-
-        <view class='item-box'>
-            <view class='item-text'>
-                <text>体重</text>
-            </view>
-            <view class='item-picker'>
-                <picker id='weight' mode="selector" value="{{userInfo.weight-1}}" range='{{weightArray}}' bindchange="onPickerChange">
-                    {{userInfo.weight }} Kg
-                </picker>
-            </view>
-        </view>
-    </view>
+    </form>
 
     <!-- 这是Toast -->
-    <include src="../../ui/toast/toast.wxml" />
-
-    <view class="foot-box">
-        <button class='next-btn' type='primary' size='default' bindtap="onOK">OK</button>
-    </view>
+    <!-- <include src="../../ui/toast/toast.wxml" /> -->
 
 </view>

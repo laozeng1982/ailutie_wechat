@@ -20,7 +20,7 @@ class UserInfo {
         this.nickName = ''; //昵称
         this.height = '';
         this.weight = '';
-        this.cellPhoneNo = '';  //电话
+        this.mobileNumber = '';  //电话
         this.privacy = '';  //隐私权限设置
         this.gym = '';  //健身房信息
         this.relationship = ''; //教练，朋友

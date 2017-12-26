@@ -17,7 +17,7 @@ Page({
     },
 
     onPickerChange: function (e) {
-        console.log(e);
+        // console.log(e);
         let genderIdx = this.data.genderIdx;
         var userInfo = this.data.userInfo;
         switch (e.target.id) {
@@ -44,9 +44,21 @@ Page({
         });
     },
 
-    onOK: function () {
+    onInput: function (e) {
+        // console.log(e);
+    },
+
+    onFormSubmit: function (e) {
+        // TODO 这一节因为页面数据结构的逻辑不太好，所以判断就写的不好，将来参考userprofile页重写
         // 根据入口不同，选择切换不同的Tab
+        console.log('form发生了submit事件，携带数据为：', e.detail.value);
         let userInfo = this.data.userInfo;
+
+        userInfo.wechatOpenId = app.openId;
+
+        if (e.detail.value.mobileNumber !== '') {
+            userInfo.mobileNumber = e.detail.value.mobileNumber;
+        }
 
         let tabUrl = '';
 
@@ -56,17 +68,17 @@ Page({
 
             // 创建用户信息
             if (typeof app.userInfoFromServer.id === 'undefined') {
-                userInfo.wechatOpenId = app.openId;
-                let new_user_data = this.makeValue(userInfo, true);
+
+                let new_user_data = this.makeUserInfo(userInfo, true);
                 console.log("new user: ", new_user_data);
                 // 后台创建，创建成功，获得id，并保存到本地
                 app.Util.createData("user", new_user_data, userInfo);
 
             } else {
-                // 应对用户删除本地存储，在获取了用户id之后，更新用户信息
+                // 应对用户删除本地存储，在获取了用户id之后，更新用户信息，这步必须的。
                 userInfo.userUID = app.userInfoFromServer.id;
-                userInfo.wechatOpenId = app.openId;
-                let update_user_data = this.makeValue(userInfo, false);
+
+                let update_user_data = this.makeUserInfo(userInfo, false);
 
                 console.log("update user: ", update_user_data);
                 // 后台更新，并保存
@@ -78,7 +90,7 @@ Page({
             tabUrl = '../../settings/settings';
 
             // 更新用户信息
-            let update_user_data = this.makeValue(userInfo, false);
+            let update_user_data = this.makeUserInfo(userInfo, false);
             console.log("update user: ", update_user_data);
             // 后台更新，并保存
             app.Util.updateData("user", update_user_data, userInfo);
@@ -89,7 +101,13 @@ Page({
         });
     },
 
-    makeValue: function (userInfo, createNew) {
+    onFormReset: function () {
+        this.setData({
+            userInfo: app.Util.loadData(app.StorageType.UserInfo)
+        });
+    },
+
+    makeUserInfo: function (userInfo, createNew) {
         let value = {
             "accountNonExpired": true,
             "accountNonLocked": true,
@@ -99,6 +117,7 @@ Page({
             "nickName": app.wechatUserInfo.nickName,
             "wechatMPOpenId": app.openId,
             "wechatUnionId": app.openId,
+            "mobileNumber": userInfo.mobileNumber,
             "extendedInfoMap": {
                 "height": {
                     "value": userInfo.height
@@ -167,6 +186,10 @@ Page({
             } else {
                 userInfo.height = 170;
                 userInfo.weight = 65;
+            }
+
+            if (typeof app.userInfoFromServer.mobileNumber !== 'undefined' && app.userInfoFromServer.mobileNumber !== '') {
+                userInfo.mobileNumber = app.userInfoFromServer.mobileNumber;
             }
 
         }

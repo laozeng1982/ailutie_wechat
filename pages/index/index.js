@@ -128,13 +128,8 @@ Page({
 
     onLoad: function () {
         console.log('index page onLoad');
-
-        let notSignUp = app.Util.checkSignUp();
-
         //更新数据
-        this.setData({
-            notSignUp: notSignUp
-        });
+
 
     },
 
@@ -145,15 +140,13 @@ Page({
 
         // 取数据
         wx.request({
-            url: 'https://www.newpictown.com/part/allPredefinedOnes', 
+            url: 'https://www.newpictown.com/part/allPredefinedOnes',
             success: function (res) {
                 console.log(res.data)
             }
         });
 
         // 存放数据
-
-
     },
 
     onShow: function () {

@@ -1,0 +1,145 @@
+{
+  "circleDaySet": [
+    {
+      "createdBy": "admin",
+      "exerciseSet": [
+        {
+          "weekDay": "Wednesday",
+          "exerciseSet": [
+            {
+              "forPlan": true,
+              "action": {
+                "id": 1,
+                "name": "上斜杠铃推举",
+                "equipment": "",
+                "description": "",
+                "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+                "predefined": true,
+                "partSet": [
+                  {
+                    "actionSet": [
+                      {}
+                    ],
+                    "bodyPart": "Chest",
+                    "name": "胸部",
+                    "predefined": true
+                  }
+                ],
+                "selected": true,
+                "gpMeasurement": "次",
+                "measurement": "Kg"
+              },
+              "groupSet": [
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                }
+              ]
+            },
+            {
+              "forPlan": true,
+              "action": {
+                "id": 2,
+                "name": "上斜哑铃推举",
+                "equipment": "",
+                "description": "",
+                "imageUrl": "image/actions/chest/incline_dumbbell_bench_press.png",
+                "predefined": true,
+                "partSet": [
+                  {
+                    "actionSet": [
+                      {}
+                    ],
+                    "bodyPart": "Chest",
+                    "name": "胸部",
+                    "predefined": true
+                  }
+                ],
+                "selected": true,
+                "gpMeasurement": "次",
+                "measurement": "Kg"
+              },
+              "groupSet": [
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                },
+                {
+                  "quantity": 10,
+                  "weight": 30,
+                  "uom": "Kg"
+                }
+              ]
+            }
+          ],
+          "partArray": [
+            "胸部",
+            "肩部",
+            "腰部"
+          ],
+          "partString": "胸,肩,腰"
+        }
+      ],
+      "weekDay": "Sunday"
+    }
+  ],
+  "createdBy": "admin",
+  "description": "string",
+  "fromDate": "2017-12-01",
+  "grade": "Primary",
+  "name": "string",
+  "predefined": true,
+  "purpose": "Weight",
+  "temporary": true,
+  "toDate": "2017-12-31",
+  "user": {
+    "id": 3
+  }
+}

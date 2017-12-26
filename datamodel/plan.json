@@ -1,0 +1,3731 @@
+{
+  "name": "腹肌达人计划",
+  "predefined": true,
+  "privacy": "",
+  "currentUse": false,
+  "fromDate": "2017-10-18",
+  "toDate": "2017-11-17",
+  "description": "System",
+  "reading": 0,
+  "comments": [],
+  "agree": 0,
+  "circleDaySet": [
+    {
+      "id": 0,
+      "weekDay": "Sunday",
+      "exerciseSet": [],
+      "partArray": [],
+      "partString": ""
+    },
+    {
+      "id": 1,
+      "weekDay": "Monday",
+      "exerciseSet": [],
+      "partArray": [],
+      "partString": ""
+    },
+    {
+      "id": 2,
+      "weekDay": "Tuesday",
+      "exerciseSet": [],
+      "partArray": [],
+      "partString": ""
+    },
+    {
+      "id": 3,
+      "weekDay": "Wednesday",
+      "exerciseSet": [
+        {
+          "id": 1,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "上斜杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "上斜哑铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_dumbbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "平板哑铃卧推",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_dumbbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "forPlan": true,
+          "action": {
+            "id": 3,
+            "name": "坐姿器械推胸",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/seated_machine_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "标准俯卧撑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/stand_push_up.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "平板哑铃飞鸟",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_dumbbell_bench_fly.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "forPlan": true,
+          "action": {
+            "id": 5,
+            "name": "拉力器十字夹胸",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/cable_crossover.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "forPlan": true,
+          "action": {
+            "id": 6,
+            "name": "下斜拉索夹胸",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/decline_cable_crossover.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "颈前杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/bar_military_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Shoulder",
+                "name": "肩部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "站姿哑单臂铃前平举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/standing_one_arm_dumbbell_front_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Shoulder",
+                "name": "肩部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "forPlan": true,
+          "action": {
+            "id": 3,
+            "name": "站姿哑铃前平举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/standing_dumbbells_front_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Shoulder",
+                "name": "肩部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "器械推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/machine_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Shoulder",
+                "name": "肩部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "杠铃罗马尼亚硬拉",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/romanian_barbell_deadlift.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Shoulder",
+                "name": "肩部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "杠铃直腿硬拉",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/straight_leg_barbell_deadlift.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "forPlan": true,
+          "action": {
+            "id": 3,
+            "name": "平板支撑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/plank.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "forPlan": true,
+          "action": {
+            "id": 4,
+            "name": "山羊挺身",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/back_hyperextension.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        }
+      ],
+      "partArray": [
+        "胸部",
+        "肩部",
+        "腰部"
+      ],
+      "partString": "胸,肩,腰"
+    },
+    {
+      "id": 4,
+      "weekDay": "Thursday",
+      "exerciseSet": [
+        {
+          "id": 1,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "上斜杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "上斜哑铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_dumbbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "平板杠铃卧推",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "平板哑铃卧推",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_dumbbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "forPlan": true,
+          "action": {
+            "id": 3,
+            "name": "坐姿器械推胸",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/seated_machine_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "下斜杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "上斜宽距俯卧撑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_wide_push_up.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "标准俯卧撑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/stand_push_up.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "上斜哑铃飞鸟",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_dumbbell_bench_fly.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "平板哑铃飞鸟",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_dumbbell_bench_fly.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "forPlan": true,
+          "action": {
+            "id": 5,
+            "name": "拉力器十字夹胸",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/cable_crossover.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "forPlan": true,
+          "action": {
+            "id": 6,
+            "name": "下斜拉索夹胸",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/decline_cable_crossover.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Chest",
+                "name": "胸部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "颈前杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/bar_military_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Shoulder",
+                "name": "肩部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "站姿哑单臂铃前平举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/standing_one_arm_dumbbell_front_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Shoulder",
+                "name": "肩部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "forPlan": true,
+          "action": {
+            "id": 3,
+            "name": "站姿哑铃前平举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/standing_dumbbells_front_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Shoulder",
+                "name": "肩部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "器械推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/machine_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Shoulder",
+                "name": "肩部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "杠铃罗马尼亚硬拉",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/romanian_barbell_deadlift.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "杠铃直腿硬拉",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/straight_leg_barbell_deadlift.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "forPlan": true,
+          "action": {
+            "id": 3,
+            "name": "平板支撑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/plank.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "forPlan": true,
+          "action": {
+            "id": 4,
+            "name": "山羊挺身",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/back_hyperextension.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        }
+      ],
+      "partArray": [
+        "胸部",
+        "肩部",
+        "腰部"
+      ],
+      "partString": "胸,肩,腰"
+    },
+    {
+      "id": 5,
+      "weekDay": "Friday",
+      "exerciseSet": [
+        {
+          "id": 1,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "上斜杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "上斜哑铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_dumbbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "平板杠铃卧推",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "平板哑铃卧推",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_dumbbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "forPlan": true,
+          "action": {
+            "id": 3,
+            "name": "坐姿器械推胸",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/seated_machine_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "下斜杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "上斜宽距俯卧撑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_wide_push_up.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "标准俯卧撑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/stand_push_up.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "上斜哑铃飞鸟",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_dumbbell_bench_fly.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 7,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            },
+            {
+              "id": 8,
+              "quantity": 10,
+              "weight": 20,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "平板哑铃飞鸟",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_dumbbell_bench_fly.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "forPlan": true,
+          "action": {
+            "id": 5,
+            "name": "拉力器十字夹胸",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/cable_crossover.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "forPlan": true,
+          "action": {
+            "id": 6,
+            "name": "下斜拉索夹胸",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/decline_cable_crossover.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "颈前杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/bar_military_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "站姿哑单臂铃前平举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/standing_one_arm_dumbbell_front_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "forPlan": true,
+          "action": {
+            "id": 3,
+            "name": "站姿哑铃前平举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/standing_dumbbells_front_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "器械推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/shoulder/machine_press.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "forPlan": true,
+          "action": {
+            "id": 1,
+            "name": "杠铃罗马尼亚硬拉",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/romanian_barbell_deadlift.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "forPlan": true,
+          "action": {
+            "id": 2,
+            "name": "杠铃直腿硬拉",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/straight_leg_barbell_deadlift.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "forPlan": true,
+          "action": {
+            "id": 3,
+            "name": "平板支撑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/plank.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "forPlan": true,
+          "action": {
+            "id": 4,
+            "name": "山羊挺身",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/back_hyperextension.png",
+            "predefined": true,
+            "partSet": [
+              {
+                "actionSet": [
+                  {}
+                ],
+                "bodyPart": "Waist",
+                "name": "腰部",
+                "predefined": true
+              }
+            ],
+            "selected": true,
+            "gpMeasurement": "次",
+            "measurement": "Kg"
+          },
+          "groupSet": [
+            {
+              "id": 1,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 2,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 3,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 4,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 5,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            },
+            {
+              "id": 6,
+              "quantity": 10,
+              "weight": 30,
+              "uom": "Kg"
+            }
+          ]
+        }
+      ],
+      "partArray": [],
+      "partString": ""
+    },
+    {
+      "id": 6,
+      "weekDay": "Saturday",
+      "exerciseSet": [],
+      "partArray": [],
+      "partString": ""
+    }
+
+  ],
+  "createdBy": "你剑哥",
+  "cycleLength": 7,
+  "grade": "Primary",
+  "purpose": "Weight",
+  "temporary": false,
+  "user": {
+    "id": 3
+  }
+}

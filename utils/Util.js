@@ -180,15 +180,6 @@ function checkDate(startDate, checkDate, endDate) {
 }
 
 /**
- * 检查用户是否有注册，如果没有注册，将不能远程同步
- */
-function checkSignUp() {
-    let userInfo = wx.getStorageSync("UserInfo");
-    // console.log(userInfo.length);
-    return (userInfo.length === 0);
-}
-
-/**
  * 显示正常提示
  * @param text
  * @param host
@@ -340,7 +331,8 @@ function loadPlan() {
     console.log("planSet:", planSet);
 
     for (let plan of planSet) {
-        if (plan.currentUse) {
+        // 满足三个条件：有效的plan，且未过期和正在使用
+        if (typeof plan !== 'undefined' && dateDirection(plan.toDate) >= 0 && plan.currentUse) {
             currentPlan = plan;
         }
     }
@@ -414,14 +406,14 @@ function setWechatOpenId(host) {
 }
 
 /**
- * 检查是否系统注册
+ * 检查是否系统注册，如果没有注册，将不能远程同步
  */
 function checkRegister() {
     console.log("checking register");
 
     // 验证是否是首次使用爱撸铁，首次登陆，录入用户基本信息
     let userInfo = loadData((new SystemSetting.StorageType()).UserInfo);
-    console.log("in checkRegister, userInfo: ", userInfo);
+    console.log("in checkRegister, local userInfo: ", userInfo);
     let userUID = userInfo.userUID;
 
     if (typeof userUID === 'undefined' || userUID === -1) {
@@ -485,7 +477,7 @@ function setUserInfoFromServer(host) {
 }
 
 /**
- *
+ * 到服务端创建数据，本地保存新建的数据
  * @param path
  * @param data
  * @param userInfo
@@ -502,6 +494,8 @@ function createData(path, data, userInfo) {
                     userInfo.nickName = data.nickName;
                     console.log("userInfo: ", userInfo);
                     saveData(new SystemSetting.StorageType().UserInfo, userInfo);
+                    // update app information
+                    setUserInfoFromServer(getApp());
                 }
 
                 console.log("create success: ", res.data);
@@ -511,38 +505,32 @@ function createData(path, data, userInfo) {
             }
         }
     );
-    // update app information
-    setUserInfoFromServer(getApp());
 }
 
 /**
- *
+ * 到服务端更新数据，本地保存更新的数据
  * @param path
  * @param data
  * @param userInfo
  */
 function updateData(path, data, userInfo) {
     // 后台更新
-    let resData;
     wx.request({
             url: BASE_URL + path,
             method: 'PUT',
             data: data,
             success: function (res) {
-                resData = res.data;
-                saveData(new SystemSetting.StorageType().UserInfo, userInfo);
                 console.log("update success: ", res.data);
+                saveData(new SystemSetting.StorageType().UserInfo, userInfo);
+                // update app information
+                setUserInfoFromServer(getApp());
             },
             fail: function (res) {
-                resData = res.data;
                 console.log("update fail: ", res.data)
             }
         }
     );
-    // update app information
-    console.log("app: ", getApp());
-    setUserInfoFromServer(getApp());
-    return resData;
+
 }
 
 /**
@@ -575,7 +563,6 @@ module.exports = {
     formatNumber: formatNumber,
     dateDirection: dateDirection,
     datesDistance: datesDistance,
-    checkSignUp: checkSignUp,
     showNormalToast: showNormalToast,
     showWarnToast: showWarnToast,
     getMovedDate: getMovedDate,
