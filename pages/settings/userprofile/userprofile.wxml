@@ -5,8 +5,6 @@
         {{today}} 记录
     </view>
 
-    <!-- <view class='gray-space-small'></view> -->
-
     <view class="tab">
         <block wx:for="{{tabData}}" wx:key="{{index}}">
             <view class="tab-list {{currentTabIdx===index ? 'current-highlight': ''}}" data-current="{{index}}" bindtap="onSwitchNav">{{item.name}}</view>

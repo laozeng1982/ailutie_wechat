@@ -8,7 +8,7 @@ import PlanSet from '../datamodel/PlanSet'
 import SystemSetting from '../datamodel/SystemSetting'
 
 const _ = require('./underscore.modified');
-const Promise = require('./bluebird.min'); //用了bluebird.js
+// const Promise = require('./bluebird.min'); //用了bluebird.js
 const BASE_URL = 'https://www.newpictown.com/';
 
 /**
@@ -442,7 +442,7 @@ function setWechatUserInfo(host) {
     wx.getUserInfo({
         success: res => {
             // 可以将 res 发送给后台解码出 unionId
-            console.log("in setWechatUserInfo, res.userInfo: ", res.userInfo);
+            console.log("in setWechatUserInfo,wechatUserInfo: ", res.userInfo);
             host.wechatUserInfo = res.userInfo;
             // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
             // 所以此处加入 callback 以防止这种情况
@@ -511,6 +511,8 @@ function createData(path, data, userInfo) {
             }
         }
     );
+    // update app information
+    setUserInfoFromServer(getApp());
 }
 
 /**
@@ -524,7 +526,7 @@ function updateData(path, data, userInfo) {
     let resData;
     wx.request({
             url: BASE_URL + path,
-            method: 'PATCH',
+            method: 'PUT',
             data: data,
             success: function (res) {
                 resData = res.data;
@@ -537,6 +539,9 @@ function updateData(path, data, userInfo) {
             }
         }
     );
+    // update app information
+    console.log("app: ", getApp());
+    setUserInfoFromServer(getApp());
     return resData;
 }
 
@@ -545,21 +550,21 @@ function updateData(path, data, userInfo) {
  * @param fn
  * @returns {Function}
  */
-function wxPromisify(fn) {
-    return function (obj = {}) {
-        return new Promise((resolve, reject) => {
-            obj.success = function (res) {
-                resolve(res)
-            };
-
-            obj.fail = function (res) {
-                reject(res)
-            };
-
-            fn(obj);
-        })
-    }
-}
+// function wxPromisify(fn) {
+//     return function (obj = {}) {
+//         return new Promise((resolve, reject) => {
+//             obj.success = function (res) {
+//                 resolve(res)
+//             };
+//
+//             obj.fail = function (res) {
+//                 reject(res)
+//             };
+//
+//             fn(obj);
+//         })
+//     }
+// }
 
 
 module.exports = {
@@ -590,6 +595,6 @@ module.exports = {
     checkRegister: checkRegister,
     createData: createData,
     updateData: updateData,
-    wxPromisify: wxPromisify
+    // wxPromisify: wxPromisify
 
 }

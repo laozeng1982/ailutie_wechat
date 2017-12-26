@@ -56,39 +56,18 @@ Page({
 
             // 创建用户信息
             if (typeof app.userInfoFromServer.id === 'undefined') {
-                try {
-                    let gender, birthday;
-                    gender = userInfo.gender;
-                    birthday = userInfo.birthday;
+                userInfo.wechatOpenId = app.openId;
+                let new_user_data = this.makeValue(userInfo, true);
+                console.log("new user: ", new_user_data);
+                // 后台创建，创建成功，获得id，并保存到本地
+                app.Util.createData("user", new_user_data, userInfo);
 
-                    let new_user_data = {
-                        accountNonExpired: true,
-                        accountNonLocked: true,
-                        gender: gender,
-                        dateOfBirth: birthday,
-                        username: app.wechatUserInfo.nickName,
-                        nickName: app.wechatUserInfo.nickName,
-                        wechatMPOpenId: app.openId,
-                        wechatUnionId: app.openId
-                    };
-                    console.log("new user: ", new_user_data);
-                    userInfo.wechatOpenId = app.openId;
-                    // 后台创建，创建成功，获得id，并保存到本地
-                    app.Util.createData("user", new_user_data, userInfo);
-
-                }
-                catch (err) {
-                    console.log(err)
-                }
             } else {
                 // 应对用户删除本地存储，在获取了用户id之后，更新用户信息
-                let update_user_data = {
-                    "id": app.userInfoFromServer.id,
-                    "gender": userInfo.gender,
-                    "dateOfBirth": userInfo.birthday
-                };
                 userInfo.userUID = app.userInfoFromServer.id;
                 userInfo.wechatOpenId = app.openId;
+                let update_user_data = this.makeValue(userInfo, false);
+
                 console.log("update user: ", update_user_data);
                 // 后台更新，并保存
                 app.Util.updateData("user", update_user_data, userInfo);
@@ -99,11 +78,7 @@ Page({
             tabUrl = '../../settings/settings';
 
             // 更新用户信息
-            let update_user_data = {
-                "id": userInfo.userUID,
-                "gender": userInfo.gender,
-                "dateOfBirth": userInfo.birthday
-            };
+            let update_user_data = this.makeValue(userInfo, false);
             console.log("update user: ", update_user_data);
             // 后台更新，并保存
             app.Util.updateData("user", update_user_data, userInfo);
@@ -111,6 +86,94 @@ Page({
 
         wx.switchTab({
             url: tabUrl,
+        });
+    },
+
+    makeValue: function (userInfo, createNew) {
+        let value = {
+            "accountNonExpired": true,
+            "accountNonLocked": true,
+            "gender": userInfo.gender,
+            "dateOfBirth": userInfo.birthday,
+            "username": app.wechatUserInfo.nickName,
+            "nickName": app.wechatUserInfo.nickName,
+            "wechatMPOpenId": app.openId,
+            "wechatUnionId": app.openId,
+            "extendedInfoMap": {
+                "height": {
+                    "value": userInfo.height
+                },
+                "weight": {
+                    "value": userInfo.weight
+                }
+            }
+        };
+        if (!createNew) {
+            value.id = userInfo.userUID;
+        }
+        return value;
+    },
+
+    setValues: function () {
+        let userInfo = app.Util.loadData(app.StorageType.UserInfo);
+        let genderIdx = 0;
+
+        // 根据服务器获取值来初始化界面
+        if (typeof app.userInfoFromServer.id === 'undefined') {
+            // 默认值
+            if (userInfo.birthday === "") {
+                userInfo.birthday = '1990-08-30';
+            }
+
+            if (userInfo.gender === 'Male') {
+                genderIdx = 0;
+            } else if (userInfo.gender === 'Female') {
+                genderIdx = 1;
+            } else if (userInfo.gender === 'Unknown') {
+                genderIdx = 2;
+            } else {
+                genderIdx = 0;
+                userInfo.gender = 'Male';
+            }
+
+            if (userInfo.height === "") {
+                userInfo.height = 170;
+            } else {
+                userInfo.height = parseInt(userInfo.height);
+            }
+
+            if (userInfo.weight === "") {
+                userInfo.weight = 65;
+            } else {
+                userInfo.weight = parseInt(userInfo.weight);
+            }
+        } else {
+            userInfo.birthday = app.userInfoFromServer.dateOfBirth;
+            userInfo.gender = app.userInfoFromServer.gender;
+            if (userInfo.gender === 'Male') {
+                genderIdx = 0;
+            } else if (userInfo.gender === 'Female') {
+                genderIdx = 1;
+            } else if (userInfo.gender === 'Unknown') {
+                genderIdx = 2;
+            } else {
+                genderIdx = 0;
+                userInfo.gender = 'Male';
+            }
+
+            if (typeof app.userInfoFromServer.extendedInfoMap !== 'undefined') {
+                userInfo.height = app.userInfoFromServer.extendedInfoMap.height.value;
+                userInfo.weight = app.userInfoFromServer.extendedInfoMap.weight.value;
+            } else {
+                userInfo.height = 170;
+                userInfo.weight = 65;
+            }
+
+        }
+
+        this.setData({
+            genderIdx: genderIdx,
+            userInfo: userInfo,
         });
     },
 
@@ -124,36 +187,8 @@ Page({
         console.log("app.wechatUserInfo: ", app.wechatUserInfo);
 
         this.data.option = options.model;
-        let userInfo = app.Util.loadData(app.StorageType.UserInfo);
-        let genderIdx = 0;
 
-        // 默认值
-        if (userInfo.birthday === "") {
-            userInfo.birthday = '1990-08-30';
-        }
-
-        if (userInfo.gender === 'Male') {
-            genderIdx = 0;
-        } else if (userInfo.gender === 'Female') {
-            genderIdx = 1;
-        } else if (userInfo.gender === 'Unknown') {
-            genderIdx = 2;
-        } else {
-            genderIdx = 0;
-            userInfo.gender = 'Male';
-        }
-
-        if (userInfo.height === "") {
-            userInfo.height = 170;
-        } else {
-            userInfo.height = parseInt(userInfo.height);
-        }
-
-        if (userInfo.weight === "") {
-            userInfo.weight = 65;
-        } else {
-            userInfo.weight = parseInt(userInfo.weight);
-        }
+        this.setValues();
 
         let heightArray = [];
         let weightArray = [];
@@ -166,8 +201,6 @@ Page({
         }
 
         this.setData({
-            genderIdx: genderIdx,
-            userInfo: userInfo,
             heightArray: heightArray,
             weightArray: weightArray
         });
@@ -179,10 +212,12 @@ Page({
             });
 
             // sleep 5 seconds waiting get information from server
+            let host = this;
             setTimeout(function () {
                 console.log("loading closed");
                 // console.log("app.openId: ", app.openId);
                 // console.log("resUserData is: ", app.userInfoFromServer);
+                host.setValues();
                 wx.hideLoading();
             }, 5000);
 
@@ -216,7 +251,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        console.log("onUnload");
+        console.log("userInfo page onUnload");
     },
 
     /**
