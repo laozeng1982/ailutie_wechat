@@ -27,6 +27,7 @@ class Body {
             let bodyPart = new Part.BodyPart();
             bodyPart.id = partIndex;
             bodyPart.bodyPart = part.bodyPart;
+            bodyPart.displayName = part.displayName;
             bodyPart.name = part.name;
             bodyPart.imageUrl = part.imageUrl;
 
@@ -42,6 +43,7 @@ class Body {
                 action.defaultQuantity = part.actionArray[actionIdx].defaultQuantity;
 
                 action.partSet.push(part.bodyPart);
+                action.displayPartSet.push(part.displayName);
 
                 actions.push(action);
                 bodyPart.actionSet.push(action);
@@ -100,6 +102,17 @@ class Body {
         for (let part of this.parts) {
             if (!partNameArray.includes(part.bodyPart))
                 partNameArray.push(part.bodyPart);
+        }
+
+        return partNameArray;
+    }
+
+    getPartDisplayNameArray() {
+        let partNameArray = [];
+
+        for (let part of this.parts) {
+            if (!partNameArray.includes(part.displayName))
+                partNameArray.push(part.displayName);
         }
 
         return partNameArray;
@@ -168,8 +181,8 @@ class Body {
         let selectedPartNames = [];
         for (let part of this.parts) {
             for (let action of part.actionSet) {
-                if (action.selected && !selectedPartNames.includes(part.bodyPart)) {
-                    selectedPartNames.push(part.bodyPart);
+                if (action.selected && !selectedPartNames.includes(part.displayName)) {
+                    selectedPartNames.push(part.displayName);
                 }
             }
         }
@@ -445,7 +458,8 @@ class PartDictionary {
         this.data = [];
         // 0、有氧
         this.data.push({
-            bodyPart: "全身", // 'All',
+            bodyPart: "All", // 'All',
+            displayName: "全身",
             name: '有氧',
             imageUrl: 'image/bodyparts/aerobic.png',
             actionArray: [
@@ -534,7 +548,8 @@ class PartDictionary {
 
         // 1、胸部
         this.data.push({
-            bodyPart: "胸部", // 'Chest',
+            bodyPart: "Chest", // 'Chest',
+            displayName: "胸部",
             name: '胸上部',
             imageUrl: 'image/bodyparts/chest.png',
             actionArray: [
@@ -590,7 +605,8 @@ class PartDictionary {
         });
 
         this.data.push({
-            bodyPart: "胸部", // 'Chest',
+            bodyPart: "Chest", // 'Chest',
+            displayName: "胸部",
             name: '胸中部',
             imageUrl: 'image/bodyparts/chest.png',
             actionArray: [
@@ -662,7 +678,8 @@ class PartDictionary {
         });
 
         this.data.push({
-            bodyPart: "胸部", // 'Chest',
+            bodyPart: "Chest", // 'Chest',
+            displayName: "胸部",
             name: '胸下部',
             imageUrl: 'image/bodyparts/chest.png',
             actionArray: [
@@ -711,7 +728,8 @@ class PartDictionary {
 
         //2、肩部
         this.data.push({
-            bodyPart: "肩部", // 'Shoulder',
+            bodyPart: "Shoulder", // 'Shoulder',
+            displayName: "肩部",
             name: '前束',
             imageUrl: 'image/bodyparts/shoulder.png',
             actionArray: [
@@ -743,7 +761,8 @@ class PartDictionary {
         });
 
         this.data.push({
-            bodyPart: "肩部", // 'Shoulder',
+            bodyPart: "Shoulder", // 'Shoulder',
+            displayName: "肩部",
             name: '中束',
             imageUrl: 'image/bodyparts/shoulder.png',
             actionArray: [
@@ -799,7 +818,8 @@ class PartDictionary {
         });
 
         this.data.push({
-            bodyPart: "肩部", // 'Shoulder',
+            bodyPart: "Shoulder", // 'Shoulder',
+            displayName: "肩部",
             name: '后束',
             imageUrl: 'image/bodyparts/shoulder.png',
             actionArray: [
@@ -839,7 +859,8 @@ class PartDictionary {
         });
 
         this.data.push({
-            bodyPart: "肩部", // 'Shoulder',
+            bodyPart: "Shoulder", // 'Shoulder',
+            displayName: "肩部",
             name: '斜方肌',
             imageUrl: 'image/bodyparts/shoulder.png',
             actionArray: [
@@ -856,7 +877,8 @@ class PartDictionary {
 
         //3、背部
         this.data.push({
-            bodyPart: "背部", // 'Back',
+            bodyPart: "Back", // 'Back',
+            displayName: "背部",
             name: '背部',
             imageUrl: 'image/bodyparts/back.png',
             actionArray: [
@@ -977,7 +999,8 @@ class PartDictionary {
 
         //4、腰部
         this.data.push({
-            bodyPart: "腰部",// 'Waist',
+            bodyPart: "Waist",// 'Waist',
+            displayName: "腰部",
             name: '腰部',
             imageUrl: 'image/bodyparts/waist.png',
             actionArray: [
@@ -1026,7 +1049,8 @@ class PartDictionary {
 
         //5、腹部
         this.data.push({
-            bodyPart: "腹部",// 'Abdomen',
+            bodyPart: "Abdomen",// 'Abdomen',
+            displayName: "腹部",
             name: '腹部',
             imageUrl: 'image/bodyparts/abs.png',
             actionArray: [
@@ -1123,7 +1147,8 @@ class PartDictionary {
 
         //6、手臂
         this.data.push({
-            bodyPart: "手臂",   // 'Arm',
+            bodyPart: "Arm",   // 'Arm',
+            displayName: "手臂",
             name: '肱二头',
             imageUrl: 'image/bodyparts/arm.png',
             actionArray: [
@@ -1188,7 +1213,8 @@ class PartDictionary {
         });
 
         this.data.push({
-            bodyPart: "手臂",   // 'Arm',
+            bodyPart: "Arm",   // 'Arm',
+            displayName: "手臂",
             name: '肱三头',
             imageUrl: 'image/bodyparts/arm.png',
             actionArray: [
@@ -1268,7 +1294,8 @@ class PartDictionary {
         });
 
         this.data.push({
-            bodyPart: "手臂",   // 'Arm',
+            bodyPart: "Arm",   // 'Arm',
+            displayName: "手臂",
             name: '小臂',
             imageUrl: 'image/bodyparts/arm.png',
             actionArray: [
@@ -1317,7 +1344,8 @@ class PartDictionary {
 
         //7、腿部
         this.data.push({
-            bodyPart: "腿部", // 'Leg',
+            bodyPart: "Leg", // 'Leg',
+            displayName: "腿部",
             name: '股二头',
             imageUrl: 'image/bodyparts/legs.png',
             actionArray: [
@@ -1341,7 +1369,8 @@ class PartDictionary {
         });
 
         this.data.push({
-            bodyPart: "腿部", // 'Leg',
+            bodyPart: "Leg", // 'Leg',
+            displayName: "腿部",
             name: '股四头',
             imageUrl: 'image/bodyparts/legs.png',
             actionArray: [
@@ -1437,7 +1466,8 @@ class PartDictionary {
         });
 
         this.data.push({
-            bodyPart: "腿部", // 'Leg',
+            bodyPart: "Leg", // 'Leg',
+            displayName: "腿部",
             name: '小腿',
             imageUrl: 'image/bodyparts/legs.png',
             actionArray: [

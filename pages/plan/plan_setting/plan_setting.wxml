@@ -1,0 +1,44 @@
+<!--pages/plan/plan_setting/plan_setting.wxml-->
+
+<view class="container">
+
+    <view class='page-title'>
+        <text>请填写计划信息</text>
+    </view>
+    <view class='gray-space'></view>
+
+    <form class='items-container' bindsubmit="onFormSubmit" bindreset="onFormReset">
+        <view class='items-container'>
+            <scroll-view style='height:700rpx' scroll-y="true">
+                <view class="section" wx:for="{{planSetting}}" wx:key="{{index}}">
+                    <view class='item-box'>
+                        <view class='item-text'>
+                            <text>{{item.name}}</text>
+                        </view>
+
+                        <view wx:if="{{item.isPicker}}" class='item-picker'>
+                            <picker id='{{item.id}}' name="{{item.id}}" value="{{item.value[item.index]}}" range="{{item.value}}" bindchange="onPickerChange">
+                                {{item.value[item.index]}}
+                            </picker>
+                        </view>
+
+                        <view wx:else class='item-picker'>
+                            <input id="{{item.id}}" class="section-item-input" type='number' name="{{item.id}}" value='我的计划' placeholder="我的计划" value="" />
+                        </view>
+                    </view>
+
+                </view>
+            </scroll-view>
+
+
+        </view>
+        <view class="foot-box">
+            <button class='cancel-btn' type='default' size='default' formType="reset">重置</button>
+            <button class='confirm-btn' type='primary' size='default' formType="submit">保存</button>
+        </view>
+    </form>
+
+    <!-- 这是Toast -->
+    <!-- <include src="../../ui/toast/toast.wxml" /> -->
+
+</view>

@@ -23,7 +23,7 @@ class Plan {
         this.currentUse = false;
 
         this.purpose = '';   // 计划的类型：减脂，塑性，增肌
-        this.level = '';    // 计划的级别：初级，中级，高级
+        this.grade = '';    // 计划的级别：初级，中级，高级
 
         this.fromDate = '';     // 计划开始的日期，格式：2017-09-25
         this.toDate = '';     // 计划结束的日期，格式：2017-09-25
@@ -66,7 +66,7 @@ class Plan {
      */
     getPlanPartArrayByDay(dayIdx) {
         this.setPlanParts();
-        return this.circleDaySet[dayIdx].partArray;
+        return this.circleDaySet[dayIdx].displayPartArray;
     }
 
     /**
@@ -76,7 +76,7 @@ class Plan {
      */
     getPlanActionArrayByDay(dayIdx) {
         this.setPlanParts();
-        // return this.circleDaySet[dayIdx].partArray;
+        // return this.circleDaySet[dayIdx].displayPartArray;
     }
 
 
@@ -108,11 +108,11 @@ class Plan {
         for (let circleDay of this.circleDaySet) {
             let partArray = [];
             for (let exercise of circleDay.exerciseSet) {
-                if (!partArray.includes(exercise.action.partSet[0])) {
-                    partArray.push(exercise.action.partSet[0]);
+                if (!partArray.includes(exercise.action.displayPartSet[0])) {
+                    partArray.push(exercise.action.displayPartSet[0]);
                 }
             }
-            circleDay.partArray = partArray;
+            circleDay.displayPartArray = partArray;
         }
     }
 }

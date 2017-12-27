@@ -142,7 +142,7 @@ Page({
         wx.request({
             url: 'https://www.newpictown.com/part/allPredefinedOnes',
             success: function (res) {
-                console.log(res.data)
+                console.log("body info from server: ", res.data);
             }
         });
 

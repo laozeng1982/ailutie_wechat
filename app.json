@@ -16,7 +16,8 @@
         "pages/settings/plan_list/plan_list",
         "pages/plan/plan_details/plan_details",
         "pages/plan/define_plan/define_plan",
-        "pages/plan/custom_actions/custom_actions"
+        "pages/plan/custom_actions/custom_actions",
+        "pages/plan/plan_setting/plan_setting"
     ],
     "window": {
         "navigationBarBackgroundColor": "#000000",

@@ -169,7 +169,7 @@ Page({
             }
         }
 
-        // 为其他未选计划的克隆已经选过的计划
+        // 为其他未选的日期克隆已经选过的内容
         for (let day of this.data.weekData) {
             if (day.selected) {
                 day.body.parts = app.Util.deepClone(currentDay.body.parts);
@@ -249,7 +249,7 @@ Page({
                     part.selectedActionCount = day.body.getActionSelectedCountByPart(part.name);
                 }
 
-                day.hasparts = app.Util.makePartString(day.body.getPartNameArray());
+                day.hasparts = app.Util.makePartString(day.body.getPartDisplayNameArray());
 
                 currentDay = day;
 
@@ -352,8 +352,9 @@ Page({
         let weekData = this.data.weekData;
 
         let systemSetting = app.Util.loadData(app.StorageType.SystemSetting);
-        wx.setStorageSync("body", systemSetting.body)
+        wx.setStorageSync("body", systemSetting.body);
         body.cloneDataFrom(systemSetting.body);
+        console.log("body info from local: ", body);
 
         // 添加两个临时属性
         for (let part of body.parts) {
@@ -362,9 +363,12 @@ Page({
 
         let partList = [];
         let partNameArray = body.getPartNameArray();
-        for (let partName of partNameArray) {
+        let partDisplayNameArray = body.getPartDisplayNameArray();
+
+        for (let idx =0 ; idx< partNameArray.length;idx++) {
             partList.push({
-                name: partName,
+                name: partNameArray[idx],
+                displayName: partDisplayNameArray[idx],
                 selectedActionCount: 0,
                 selected: false
             });
@@ -437,7 +441,7 @@ Page({
     },
 
     /**
-     * 保存善后
+     * 保存场景，以防没有保存计划时，用户返回该页面
      */
     saveSession: function () {
         app.planStartDate = this.data.fromDate;
@@ -492,11 +496,13 @@ Page({
      * @param e
      */
     onPreview: function (e) {
-        // 准备Plan的数据
 
+        // 设置Plan的信息
         wx.navigateTo({
-            url: '../plan_details/plan_details?mode=preview',
+            url: '../plan_setting/plan_setting',
         });
+
+
     },
 
     /**

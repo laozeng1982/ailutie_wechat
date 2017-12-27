@@ -41,7 +41,7 @@ Page({
         lastAction: false,
         paused: false,
 
-        partArray: [],   // 今天计划的部位列表，一维数组
+        displayPartArray: [],   // 今天计划的部位列表，一维数组
         actionArray: [], // 今天计划的动作列表，二维数组，序号与partArray对应
         partActionArray: [], // 动作选择Picker的数据池，二维数组，第一列始终是partArray，第二列是actionArray中的一个元素
         multiIndex: [0, 0], // 动作选择Picker的索引
@@ -751,7 +751,7 @@ Page({
             todayReality: todayReality,
             hasActivePlan: hasActivePlan,
             todayHasPlan: todayHasPlan,
-            partArray: partArray,
+            displayPartArray: partArray,
             actionArray: actionArray,
             partActionArray: partActionArray,
             currentActionId: currentActionId,

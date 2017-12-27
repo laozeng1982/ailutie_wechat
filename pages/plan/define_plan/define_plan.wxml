@@ -55,7 +55,7 @@
                 <!-- 左边部位列表 -->
                 <scroll-view class="partlist-scrollview" scroll-y="true">
                     <view id="{{item.name}}" class="partlist-item {{item.selected?'partlist-item-active':''}}" wx:for="{{currentDay.partList}}" wx:key="{{index}}" bindtap="onSelectPart">
-                        {{item.name}}({{item.selectedActionCount}})
+                        {{item.displayName}}({{item.selectedActionCount}})
                     </view>
                 </scroll-view>
 

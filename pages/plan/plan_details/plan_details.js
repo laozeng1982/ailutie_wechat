@@ -148,7 +148,7 @@ Page({
 
         for (let circleDay of plan.circleDaySet) {
             circleDay.showDetails = false;
-            circleDay.partShowing = circleDay.partArray.join("，");
+            circleDay.partShowing = circleDay.displayPartArray.join("，");
         }
 
         this.setData({

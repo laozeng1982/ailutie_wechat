@@ -263,7 +263,6 @@ function deepClone(obj) {
 }
 
 function isEqual(a, b) {
-
     return _.isEqual(a, b);
 }
 
@@ -276,9 +275,9 @@ function isEqual(a, b) {
  */
 function loadData(dataType) {
     // 读取该类型数据已存储的内容
-    var readInData = wx.getStorageSync(dataType.key);
+    let readInData = wx.getStorageSync(dataType.key);
     // 当天请求的数据
-    var requestData = '';
+    let requestData = '';
 
     // 根据类型来抽取需要的数据
     // 如果没有这个记录，取的会是空值，则新建一个对应的项
