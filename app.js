@@ -17,7 +17,7 @@ App({
         // 根据OpenId获取服务器上用户信息
         util.setUserInfoFromServer(this);
         // 查询用户是否注册过
-        util.checkRegister();
+        util.checkRegister(this);
 
         // 全局变量
         this.planSet = util.loadData(STORAGETYPE.PlanSet);
@@ -33,11 +33,12 @@ App({
     StorageType: STORAGETYPE,
     Util: util,
 
-    requestUrl: 'https://www.newpictown.com/',
+    baseUrl: 'https://www.newpictown.com/',
 
     // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
     wechatUserInfo: {},
     openId: '',
+    userInfoLocal: {},
     userInfoFromServer: {},
 
     makingNewPlan: true,    // 操作计划的模式：如制定新计划为真，否则为假，在首页里两个操作互斥

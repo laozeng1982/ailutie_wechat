@@ -24,6 +24,8 @@ class Plan {
 
         this.purpose = '';   // 计划的类型：减脂，塑性，增肌
         this.grade = '';    // 计划的级别：初级，中级，高级
+        this.targetUser = '';   // 目标人群
+        this.facility = ''; // 健身设备
 
         this.fromDate = '';     // 计划开始的日期，格式：2017-09-25
         this.toDate = '';     // 计划结束的日期，格式：2017-09-25

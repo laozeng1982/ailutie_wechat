@@ -43,17 +43,17 @@
 
             <view class='plan-brief-item-box'>
                 <view class='brief-item'>健身水平：</view>
-                <view class='brief-item'>{{plan.level}}</view>
+                <view class='brief-item'>{{plan.grade}}</view>
             </view>
 
             <view class='plan-brief-item-box'>
-                <view class='brief-item'>适用人群：</view>
-                <view class='brief-item'>{{plan.purpose}}</view>
+                <view class='brief-item'>目标人群：</view>
+                <view class='brief-item'>{{plan.targetUser}}</view>
             </view>
 
             <view class='plan-brief-item-box'>
                 <view class='brief-item'>健身设备：</view>
-                <view class='brief-item'>器械</view>
+                <view class='brief-item'>{{plan.facility}}</view>
             </view>
 
             <view class='plan-brief-item-box'>

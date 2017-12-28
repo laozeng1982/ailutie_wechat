@@ -407,7 +407,7 @@ function setWechatOpenId(host) {
 /**
  * 检查是否系统注册，如果没有注册，将不能远程同步
  */
-function checkRegister() {
+function checkRegister(host) {
     console.log("checking register");
 
     // 验证是否是首次使用爱撸铁，首次登陆，录入用户基本信息
@@ -421,6 +421,8 @@ function checkRegister() {
         wx.redirectTo({
             url: 'pages/settings/userinfo/userinfo?model=newUser',
         });
+    } else {
+        host.userInfoLocal = userInfo;
     }
 }
 
@@ -433,7 +435,7 @@ function setWechatUserInfo(host) {
     wx.getUserInfo({
         success: res => {
             // 可以将 res 发送给后台解码出 unionId
-            console.log("in setWechatUserInfo,wechatUserInfo: ", res.userInfo);
+            console.log("in setWechatUserInfo, wechatUserInfo: ", res.userInfo);
             host.wechatUserInfo = res.userInfo;
             // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
             // 所以此处加入 callback 以防止这种情况
@@ -456,9 +458,9 @@ function setWechatUserInfo(host) {
 function setUserInfoFromServer(host) {
     // 异步获取信息
     setTimeout(function () {
-        if (typeof host.openId !== 'undefined' || host.openId !== '') {
+        if (typeof host.openId !== 'undefined' || host.userInfoLocal.wechatOpenId !== '') {
             wx.request({
-                    url: BASE_URL + "user/byWechatMPOpenId/" + host.openId,
+                    url: BASE_URL + "user/byWechatMPOpenId/" + host.userInfoLocal.wechatOpenId,
                     method: 'GET',
                     success: function (res) {
                         if (typeof res.data.id !== 'undefined') {

@@ -448,8 +448,8 @@ Page({
         app.planEndDate = this.data.toDate;
         app.currentPlan.fromDate = this.data.fromDate;
         app.currentPlan.toDate = this.data.toDate;
-        app.currentPlan.source = app.wechatUserInfo.nickName;
-        app.currentPlan.name = "我的计划";
+        app.currentPlan.source = app.userInfoLocal.nickName;
+        // app.currentPlan.name = "我的计划";
 
         let circleDaySet = app.currentPlan.circleDaySet;
 

@@ -9,7 +9,7 @@
 
     <form class='items-container' bindsubmit="onFormSubmit" bindreset="onFormReset">
         <view class='items-container'>
-            <scroll-view style='height:700rpx' scroll-y="true">
+            <scroll-view style='height:800rpx' scroll-y="true">
                 <view class="section" wx:for="{{planSetting}}" wx:key="{{index}}">
                     <view class='item-box'>
                         <view class='item-text'>
@@ -17,13 +17,13 @@
                         </view>
 
                         <view wx:if="{{item.isPicker}}" class='item-picker'>
-                            <picker id='{{item.id}}' name="{{item.id}}" value="{{item.value[item.index]}}" range="{{item.value}}" bindchange="onPickerChange">
-                                {{item.value[item.index]}}
+                            <picker id='{{item.id}}' name="{{item.id}}" value="{{item.value[item.index]}}" range="{{item.description}}" bindchange="onPickerChange">
+                                {{item.description[item.index]}}
                             </picker>
                         </view>
 
                         <view wx:else class='item-picker'>
-                            <input id="{{item.id}}" class="section-item-input" type='number' name="{{item.id}}" value='我的计划' placeholder="我的计划" value="" />
+                            <input id="{{item.id}}" class="section-item-input" name="{{item.id}}" value="{{item.value}}" placeholder="{{item.value}}" value="" />
                         </view>
                     </view>
 
