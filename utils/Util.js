@@ -6,10 +6,12 @@
 import User from '../datamodel/User'
 import PlanSet from '../datamodel/PlanSet'
 import SystemSetting from '../datamodel/SystemSetting'
+import Urls from '../datamodel/Urls'
 
 const _ = require('./underscore.modified');
 // const Promise = require('./bluebird.min'); //用了bluebird.js
 const BASE_URL = 'https://www.newpictown.com/';
+const urls = new Urls.Urls();
 
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
@@ -393,9 +395,10 @@ function setWechatOpenId(host) {
             // console.log("in setWechatOpenId login.res: ", res);
             if (res.code) {
                 wx.request({
-                    url: 'https://www.newpictown.com/user/wechatMPOpenId/' + res.code,
+                    url: urls.user.getOpenId(res.code),
                     success: function (res) {
                         host.openId = res.data;
+                        // 根据OpenId获取服务器上用户信息
                         setUserInfoFromServer(host, res.data);
                     }
                 })
@@ -448,19 +451,19 @@ function setWechatUserInfo(host) {
         }
 
     });
-
 }
 
 /**
  * 从服务端读取用户信息
  * @param host
+ * @param openId
  */
 function setUserInfoFromServer(host, openId) {
     // 异步获取信息
     console.log("openId", openId);
     if (typeof host.openId !== 'undefined' || openId !== '') {
         wx.request({
-                url: BASE_URL + "user/byWechatMPOpenId/" + openId,
+                url: urls.user.byOpenId(openId),
                 method: 'GET',
                 success: function (res) {
                     if (typeof res.data.id !== 'undefined') {

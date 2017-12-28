@@ -10,12 +10,10 @@ const STORAGETYPE = new StorageType.StorageType();
 
 App({
     onLaunch: function () {
-        // 获取用户OpenId
-        util.setWechatOpenId(this);
         // 获取用户微信信息
         util.setWechatUserInfo(this);
-        // 根据OpenId获取服务器上用户信息
-        // util.setUserInfoFromServer(this);
+        // 获取用户OpenId
+        util.setWechatOpenId(this);
         // 查询用户是否注册过
         util.checkRegister(this);
 
@@ -33,7 +31,7 @@ App({
     StorageType: STORAGETYPE,
     Util: util,
 
-    baseUrl: 'https://www.newpictown.com/',
+    
 
     // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
     wechatUserInfo: {},

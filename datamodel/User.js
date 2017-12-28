@@ -34,54 +34,57 @@ class UserProfile {
         this.profiles =
             // 一般指标
             {
-                general: {
-                    name: "总体",
-                    data: [
-                        new UserProfileItem(1, "General", "height", "身高", "", "cm"),
-                        new UserProfileItem(2, "General", "weight", "体重", "", "Kg"),
-                        new UserProfileItem(3, "General", "bmi", "BMI", "", ""),
-                        new UserProfileItem(4, "General", "bodyFatRate", "体脂率", "", "%"),
-                    ],
-                },
+                // general: {
+                //     name: "总体",
+                //     data: [
+                //         new UserProfileItem(1, "General", "height", "身高", "", "cm"),
+                //         new UserProfileItem(2, "General", "weight", "体重", "", "Kg"),
+                //         new UserProfileItem(3, "General", "bmi", "BMI", "", ""),
+                //         new UserProfileItem(4, "General", "bodyFatRate", "体脂率", "", "%"),
+                //     ],
+                // },
 
                 // 维度指标
                 circumference: {
                     name: "围度",
                     data: [
-                        new UserProfileItem(1, "Circumference", "shoulder_width", "肩宽", "", "cm"),
-                        new UserProfileItem(2, "Circumference", "chest_perimeter", "胸围", "", "cm"),
-                        new UserProfileItem(3, "Circumference", "waist_perimeter", "腰围", "", "cm"),
-                        new UserProfileItem(6, "Circumference", "buttocks_perimeter", "臀围", "", "cm"),
-                        new UserProfileItem(4, "Circumference", "upper_arm_perimeter", "上臂围", "", "cm"),
-                        new UserProfileItem(5, "Circumference", "forearm_perimeter", "小臂围", "", "cm"),
-                        new UserProfileItem(7, "Circumference", "thigh_perimeter", "大腿围", "", "cm"),
-                        new UserProfileItem(8, "Circumference", "shank_perimeter", "小腿围", "", "cm"),
+                        new UserProfileItem(1, "General", "weight", "体重", "", "Kg"),
+                        new UserProfileItem(2, "General", "bmi", "BMI", "", ""),
+                        new UserProfileItem(3, "General", "bodyFatRate", "体脂率", "", "%"),
+                        new UserProfileItem(4, "Circumference", "shoulder_width", "肩宽", "", "cm"),
+                        new UserProfileItem(5, "Circumference", "chest_perimeter", "胸围", "", "cm"),
+                        new UserProfileItem(6, "Circumference", "waist_perimeter", "腰围", "", "cm"),
+                        new UserProfileItem(7, "Circumference", "buttocks_perimeter", "臀围", "", "cm"),
+                        new UserProfileItem(8, "Circumference", "upper_arm_perimeter", "上臂围", "", "cm"),
+                        new UserProfileItem(9, "Circumference", "forearm_perimeter", "小臂围", "", "cm"),
+                        new UserProfileItem(10, "Circumference", "thigh_perimeter", "大腿围", "", "cm"),
+                        new UserProfileItem(11, "Circumference", "shank_perimeter", "小腿围", "", "cm"),
                     ],
                 },
 
                 // 力量指标
 
-                strength: {
-                    name: "力量",
-                    data: [],
-                }
+                // strength: {
+                //     name: "力量",
+                //     data: [],
+                // }
             }
 
         ;
 
-        let body = new Body.Body();
-        body.makeDefaultDefaultPartList();
-        let idx = 1;
-        let actionNameArray = [];
-        for (let part of body.parts) {
-            for (let action of part.actionSet) {
-                if (!actionNameArray.includes(action.name)) {
-                    actionNameArray.push(action.name);
-                    this.profiles.strength.data.push(new UserProfileItem(idx, "Strength", "", action.name, "", "Kg"));
-                    idx++;
-                }
-            }
-        }
+        // let body = new Body.Body();
+        // body.makeDefaultDefaultPartList();
+        // let idx = 1;
+        // let actionNameArray = [];
+        // for (let part of body.parts) {
+        //     for (let action of part.actionSet) {
+        //         if (!actionNameArray.includes(action.name)) {
+        //             actionNameArray.push(action.name);
+        //             this.profiles.strength.data.push(new UserProfileItem(idx, "Strength", "", action.name, "", "Kg"));
+        //             idx++;
+        //         }
+        //     }
+        // }
     }
 }
 
