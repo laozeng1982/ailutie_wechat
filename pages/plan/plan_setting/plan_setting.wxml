@@ -9,7 +9,7 @@
 
     <form class='items-container' bindsubmit="onFormSubmit" bindreset="onFormReset">
         <view class='items-container'>
-            <scroll-view style='height:800rpx' scroll-y="true">
+            <scroll-view style='height:860rpx' scroll-y="true">
                 <view class="section" wx:for="{{planSetting}}" wx:key="{{index}}">
                     <view class='item-box'>
                         <view class='item-text'>
@@ -26,10 +26,8 @@
                             <input id="{{item.id}}" class="section-item-input" name="{{item.id}}" value="{{item.value}}" placeholder="{{item.value}}" value="" />
                         </view>
                     </view>
-
                 </view>
             </scroll-view>
-
 
         </view>
         <view class="foot-box">

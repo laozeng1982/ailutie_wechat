@@ -15,7 +15,7 @@ App({
         // 获取用户微信信息
         util.setWechatUserInfo(this);
         // 根据OpenId获取服务器上用户信息
-        util.setUserInfoFromServer(this);
+        // util.setUserInfoFromServer(this);
         // 查询用户是否注册过
         util.checkRegister(this);
 

@@ -458,7 +458,7 @@ class PartDictionary {
         this.data = [];
         // 0、有氧
         this.data.push({
-            bodyPart: "All", // 'All',
+            bodyPart: "Whole", // 'All',
             displayName: "全身",
             name: '有氧',
             imageUrl: 'image/bodyparts/aerobic.png',

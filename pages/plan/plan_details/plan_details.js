@@ -1,6 +1,8 @@
 // pages/plan/plan_details/plan_details.js
+import Dictionary from '../../../datamodel/Dictionary'
 
 const app = getApp();
+const dict = new Dictionary.Dictionary();
 
 Page({
 
@@ -8,7 +10,15 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        planSetting: [
+            {id: "name", description: "计划名字：", value: ''},
+            {id: "purpose", description: "健身目标：", value: ''},
+            {id: "grade", description: "健身水平：", value: ''},
+            {id: "targetUser", description: "目标人群：", value: ''},
+            {id: "facility", description: "健身设备：", value: ''},
+            {id: "place", description: "健身地点：", value: ''},
+            {id: "description", description: "计划描述", value: ''},
+        ]
     },
     /**
      * 保存计划
@@ -143,6 +153,7 @@ Page({
     onShow: function () {
 
         let plan = app.currentPlan;
+        let planSetting = this.data.planSetting;
 
         app.currentPlan.setPlanParts();
 
@@ -151,8 +162,14 @@ Page({
             circleDay.partShowing = circleDay.displayPartArray.join("，");
         }
 
+        for (let setting of planSetting) {
+            setting.value = dict.getChFromEn(app.currentPlan[setting.id]);
+            // console.log(setting.id, setting, app.currentPlan[setting.id]);
+        }
+
         this.setData({
-            plan: plan
+            plan: plan,
+            planSetting: planSetting
         });
 
         // console.log(this.data.plan);

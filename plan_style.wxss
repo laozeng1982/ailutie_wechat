@@ -876,6 +876,7 @@
 .weekday-header-week-txt {
     width: 450rpx;
     padding-left: 40rpx;
+    font-size: 32rpx;
 }
 
 .weekday-header-count-txt {

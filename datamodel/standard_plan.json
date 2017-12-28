@@ -3,6 +3,7 @@
     {
       "exerciseSet": [
         {
+          "id" : 3,
           "action": {
             "id": 1
           },

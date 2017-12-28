@@ -14,7 +14,7 @@ Page({
                 name: "健身目标",
                 type: "picker",
                 isPicker: true,
-                value: ["Muscle Gain", "Fat Lose", "Body Building"],
+                value: ["Muscle", "Weight", "Physique"],
                 description: ["增肌", "减脂", "塑性"],
                 index: 0
             },
@@ -23,8 +23,8 @@ Page({
                 name: "健身水平",
                 type: "picker",
                 isPicker: true,
-                value: ["Primary", "Medium", "Advanced", "Professional"],
-                description: ["初级", "中级", "高级", "骨灰级"],
+                value: ["Primary", "Medium", "Professional"],
+                description: ["初级", "中级", "高级"],
                 index: 0
             },
             {
@@ -54,10 +54,17 @@ Page({
                 description: ["健身房", "操场", "家里"],
                 index: 0
             },
+            {
+                id: "privacy",
+                name: "计划权限",
+                type: "picker",
+                isPicker: true,
+                value: ["Public", "Protect", "Private"],
+                description: ["全部公开", "仅朋友可见", "仅自己可见"],
+                index: 0
+            },
             {id: "description", name: "计划描述", type: "input", isPicker: false, value: ''},
         ],
-        planNameTips: "",
-        planDescriptionTips: ""
     },
 
     onPickerChange: function (e) {
@@ -70,28 +77,23 @@ Page({
             }
         }
 
-        let planDescriptionTips = app.userInfoLocal.nickName + "的" +
-            planSetting[5].description[planSetting[5].index] + planSetting[1].description[planSetting[1].index] + "计划";
+        // planSetting[7].value = app.userInfoLocal.nickName + "的" +
+        //     planSetting[5].description[planSetting[5].index] + planSetting[1].description[planSetting[1].index] + "计划";
 
         this.setData({
             planSetting: planSetting,
-            planDescriptionTips: planDescriptionTips
         });
     },
 
     onFormSubmit: function (e) {
         // TODO 这一节因为页面数据结构的逻辑不太好，所以判断就写的不好，将来参考userprofile页重写
-        // app.currentPlan.name = e.detail.value.name === '' ? this.data.planNameTips : e.detail.value.name;
-        // app.currentPlan.purpose = e.detail.value.purpose;
-        // app.currentPlan.grade = e.detail.value.grade;
-        // app.currentPlan.targetUser = e.detail.value.targetUser;
-        // app.currentPlan.place = e.detail.value.place;
-        // app.currentPlan.facility = e.detail.value.facility;
 
         e.detail.value.name = e.detail.value.name === ''
-            ? this.data.planNameTips : e.detail.value.name;
+            ? this.data.planSetting[0].value : e.detail.value.name;
+
         e.detail.value.description = e.detail.value.description === ''
-            ? this.data.planDescriptionTips : e.detail.value.description;
+            ? this.data.planSetting[7].value : e.detail.value.description;
+
         for (let property in e.detail.value) {
             app.currentPlan[property] = e.detail.value[property];
         }
@@ -136,15 +138,16 @@ Page({
             // console.log(setting.id, setting.index);
         }
 
-        let planDescriptionTips = planSetting[6].value;
-        if (planDescriptionTips === '') {
-            planDescriptionTips = app.userInfoLocal.nickName + "的" +
+        if (planSetting[0].value ==='') {
+            planSetting[0].value = app.userInfoLocal.nickName + "的计划";
+        }
+
+        if (planSetting[7].value === '') {
+            planSetting[7].value = app.userInfoLocal.nickName + "的" +
                 planSetting[5].description[planSetting[5].index] + planSetting[1].description[planSetting[1].index] + "计划"
         }
 
         this.setData({
-            planNameTips: this.data.planSetting[0].value,
-            planDescriptionTips: planDescriptionTips,
             planSetting: planSetting
         })
     },

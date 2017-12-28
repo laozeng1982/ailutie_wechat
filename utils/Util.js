@@ -396,7 +396,7 @@ function setWechatOpenId(host) {
                     url: 'https://www.newpictown.com/user/wechatMPOpenId/' + res.code,
                     success: function (res) {
                         host.openId = res.data;
-                        console.log("in setWechatOpenId, openId: ", res.data);
+                        setUserInfoFromServer(host, res.data);
                     }
                 })
             }
@@ -455,26 +455,25 @@ function setWechatUserInfo(host) {
  * 从服务端读取用户信息
  * @param host
  */
-function setUserInfoFromServer(host) {
+function setUserInfoFromServer(host, openId) {
     // 异步获取信息
-    setTimeout(function () {
-        if (typeof host.openId !== 'undefined' || host.userInfoLocal.wechatOpenId !== '') {
-            wx.request({
-                    url: BASE_URL + "user/byWechatMPOpenId/" + host.userInfoLocal.wechatOpenId,
-                    method: 'GET',
-                    success: function (res) {
-                        if (typeof res.data.id !== 'undefined') {
-                            console.log("setUserInfoFromServer: ", res.data);
-                            host.userInfoFromServer = res.data;
-                        }
-                    },
-                    fail: function (res) {
-                        console.log("get fail: ", res.data)
+    console.log("openId", openId);
+    if (typeof host.openId !== 'undefined' || openId !== '') {
+        wx.request({
+                url: BASE_URL + "user/byWechatMPOpenId/" + openId,
+                method: 'GET',
+                success: function (res) {
+                    if (typeof res.data.id !== 'undefined') {
+                        console.log("setUserInfoFromServer: ", res.data);
+                        host.userInfoFromServer = res.data;
                     }
+                },
+                fail: function (res) {
+                    console.log("get fail: ", res.data)
                 }
-            );
-        }
-    }, 2000);
+            }
+        );
+    }
 }
 
 /**

@@ -10,7 +10,7 @@
 
             <!-- 1.2计划名字 -->
             <view class='plan-item-container'>
-                <view class='header'>{{plan.name}}</view>
+                <view class='header'>{{planSetting[0].value}}</view>
             </view>
 
             <!-- 1.3 计划的阅读数、评论数和点赞数 -->
@@ -36,30 +36,17 @@
         <view class='plan-item-container column'>
             <view class='header'>计划简介</view>
 
-            <view class='plan-brief-item-box'>
-                <view class='brief-item'>健身目标：</view>
-                <view class='brief-item'>{{plan.purpose}}</view>
-            </view>
+            <scroll-view style='height:460rpx' scroll-y="true">
+                <view class="section" wx:for="{{planSetting}}" wx:key="{{index}}">
 
-            <view class='plan-brief-item-box'>
-                <view class='brief-item'>健身水平：</view>
-                <view class='brief-item'>{{plan.grade}}</view>
-            </view>
+                    <view class='plan-brief-item-box'>
+                        <view class='brief-item'>{{item.description}}</view>
+                        <view class='brief-item'>{{item.value}}</view>
+                    </view>
 
-            <view class='plan-brief-item-box'>
-                <view class='brief-item'>目标人群：</view>
-                <view class='brief-item'>{{plan.targetUser}}</view>
-            </view>
+                </view>
+            </scroll-view>
 
-            <view class='plan-brief-item-box'>
-                <view class='brief-item'>健身设备：</view>
-                <view class='brief-item'>{{plan.facility}}</view>
-            </view>
-
-            <view class='plan-brief-item-box'>
-                <view class='brief-item'>健身地点：</view>
-                <view class='brief-item'>{{plan.place}}</view>
-            </view>
         </view>
 
         <view class='gray-space-small'></view>

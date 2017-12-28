@@ -30,7 +30,7 @@
                         <view class='plan-item-purpose'>
                             <view class='purpose-item-header'>{{item.purpose}}</view>
                             <view class='purpose-item'> - </view>
-                            <view class='purpose-item'> {{item.level}}</view>
+                            <view class='purpose-item'> {{item.grade}}</view>
                             <view class='purpose-item'> - </view>
                             <view class='purpose-item'> {{item.name}}</view>
                         </view>
