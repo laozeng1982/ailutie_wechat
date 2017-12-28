@@ -68,9 +68,7 @@ class UserProfile {
                 //     name: "力量",
                 //     data: [],
                 // }
-            }
-
-        ;
+            };
 
         // let body = new Body.Body();
         // body.makeDefaultDefaultPartList();

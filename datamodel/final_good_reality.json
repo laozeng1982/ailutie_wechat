@@ -1,0 +1,25 @@
+{
+  "id": 5,
+  "date": "2017-12-28",
+  "user": {
+    "id": 4
+  },
+  "exerciseSet": [
+    {
+      "forPlan": false,
+      "action": {
+        "id": 1
+      },
+      "groupSet": [
+        {
+          "forPlan": false,
+          "uom": "ea",
+          "quantity": 20,
+          "weight": 30,
+          "executedQuantity": 10,
+          "executedWeight": 20
+        }
+      ]
+    }
+  ]
+}

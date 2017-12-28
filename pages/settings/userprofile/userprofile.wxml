@@ -13,7 +13,7 @@
     <view class='gray-space-small'></view>
 
     <form class='form-container' bindsubmit="onFormSubmit" bindreset="onFormReset">
-        <swiper current="{{currentTabIdx}}" class="swiper-box row" indicator-dots="{{true}}" duration="300" bindchange="onSwiperChange">
+        <swiper current="{{currentTabIdx}}" class="swiper-box row" indicator-dots="{{false}}" duration="300" bindchange="onSwiperChange">
             <block wx:for="{{tabData}}" wx:key="{{index}}">
                 <swiper-item id="{{item.type}}">
                     <scroll-view style='height:880rpx' scroll-y="true">

@@ -71,7 +71,7 @@ Page({
         if (typeof userProfile === "undefined") {
             userProfile = new User.UserProfile();
             userProfile.date = this.data.today;
-            for (let item of userProfile.profiles.general.data) {
+            for (let item of userProfile.profiles.circumference.data) {
                 if (item.enName === "height") {
                     item.value = this.data.userInfo.height;
                 }
