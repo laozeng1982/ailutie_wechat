@@ -1,0 +1,81 @@
+{
+
+  "date": "2017-12-28",
+  "exerciseSet": [
+    {
+      "target": "Shoulder",
+      "action": {
+        "id": 1
+      },
+      "forPlan": false,
+      "groupSet": [
+        {
+          "orderNumber": 1,
+          "executedQuantity": 10,
+          "executedWeight": 10,
+          "forPlan": false,
+          "quantity": 20,
+          "uom": "ea",
+          "weight": 20
+        },
+        {
+          "orderNumber": 2,
+          "executedQuantity": 11,
+          "executedWeight": 10,
+          "forPlan": false,
+          "quantity": 20,
+          "uom": "ea",
+          "weight": 20
+        },
+        {
+          "orderNumber": 3,
+          "executedQuantity": 12,
+          "executedWeight": 10,
+          "forPlan": false,
+          "quantity": 20,
+          "uom": "ea",
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "target": "Shoulder",
+      "action": {
+        "id": 2
+      },
+      "forPlan": false,
+      "groupSet": [
+        {
+          "orderNumber": 1,
+          "executedQuantity": 10,
+          "executedWeight": 10,
+          "forPlan": false,
+          "quantity": 20,
+          "uom": "ea",
+          "weight": 20
+        },
+        {
+          "orderNumber": 2,
+          "executedQuantity": 11,
+          "executedWeight": 10,
+          "forPlan": false,
+          "quantity": 20,
+          "uom": "ea",
+          "weight": 20
+        },
+        {
+          "orderNumber": 3,
+          "executedQuantity": 12,
+          "executedWeight": 10,
+          "forPlan": false,
+          "quantity": 20,
+          "uom": "ea",
+          "weight": 20
+        }
+      ]
+    }
+  ],
+  "user": {
+    "id": 1
+  }
+}

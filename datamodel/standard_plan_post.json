@@ -1,0 +1,145 @@
+{
+  "user": {
+    "id": 1
+  },
+  "name": "First",
+  "description": "2017 Plan",
+  "purpose": "Weight",
+  "fromDate": "2017-01-01",
+  "toDate": "2017-12-31",
+  "predefined": true,
+  "temporary": true,
+  "grade": "Primary",
+  "circleDaySet": [
+    {
+      "weekDay": "Sunday",
+      "exerciseSet": [
+        {
+          "forPlan": true,
+          "target": "Shoulder",
+          "action": {
+            "id": 1
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            },
+            {
+              "orderNumber": 2,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            },
+            {
+              "orderNumber": 3,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "forPlan": true,
+          "target": "Shoulder",
+          "action": {
+            "id": 2
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            },
+            {
+              "orderNumber": 2,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            },
+            {
+              "orderNumber": 3,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekDay": "Monday",
+      "exerciseSet": [
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 1
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            },
+            {
+              "orderNumber": 2,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            },
+            {
+              "orderNumber": 3,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "forPlan": true,
+          "target": "Shoulder",
+          "action": {
+            "id": 2
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            },
+            {
+              "orderNumber": 2,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            },
+            {
+              "orderNumber": 3,
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 20
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

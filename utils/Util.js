@@ -408,28 +408,6 @@ function setWechatOpenId(host) {
 }
 
 /**
- * 检查是否系统注册，如果没有注册，将不能远程同步
- */
-function checkRegister(host) {
-    console.log("checking register");
-
-    // 验证是否是首次使用爱撸铁，首次登陆，录入用户基本信息
-    let userInfo = loadData((new SystemSetting.StorageType()).UserInfo);
-    console.log("in checkRegister, local userInfo: ", userInfo);
-    let userUID = userInfo.userUID;
-
-    if (typeof userUID === 'undefined' || userUID === -1) {
-        // 去注册
-        console.log("in checkRegister, go to User information record page!");
-        wx.redirectTo({
-            url: 'pages/settings/userinfo/userinfo?model=newUser',
-        });
-    } else {
-        host.userInfoLocal = userInfo;
-    }
-}
-
-/**
  * 获取并设置用户的微信信息
  * @param host
  */
@@ -440,6 +418,9 @@ function setWechatUserInfo(host) {
             // 可以将 res 发送给后台解码出 unionId
             console.log("in setWechatUserInfo, wechatUserInfo: ", res.userInfo);
             host.wechatUserInfo = res.userInfo;
+            if (typeof host.userInfoLocal.nickName === 'undefined' || host.userInfoLocal.nickName === '') {
+                host.userInfoLocal.nickName = res.userInfo.nickName;
+            }
             // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
             // 所以此处加入 callback 以防止这种情况
             if (host.userInfoReadyCallback) {
@@ -449,7 +430,6 @@ function setWechatUserInfo(host) {
         fail: res => {
             console.log("failed: ", res);
         }
-
     });
 }
 
@@ -480,14 +460,38 @@ function setUserInfoFromServer(host, openId) {
 }
 
 /**
+ * 检查是否系统注册，如果没有注册，将不能远程同步
+ */
+function checkRegister(host) {
+    console.log("checking register");
+
+    // 验证是否是首次使用爱撸铁，首次登陆，录入用户基本信息
+    let userInfo = loadData((new SystemSetting.StorageType()).UserInfo);
+    console.log("in checkRegister, local userInfo: ", userInfo);
+    let userUID = userInfo.userUID;
+
+    if (typeof userUID === 'undefined' || userUID === -1) {
+        // 去注册
+        console.log("in checkRegister, go to User information record page!");
+        wx.redirectTo({
+            url: 'pages/settings/userinfo/userinfo?model=newUser',
+        });
+    } else {
+        host.userInfoLocal = userInfo;
+    }
+}
+
+
+
+/**
  * 到服务端创建数据，本地保存新建的数据
- * @param path
+ * @param type
  * @param data
  * @param userInfo
  */
-function createData(path, data, userInfo) {
+function createData(type, data, userInfo) {
     wx.request({
-            url: BASE_URL + path,
+            url: BASE_URL + type,
             method: 'POST',
             data: data,
             success: function (res) {

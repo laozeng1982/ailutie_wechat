@@ -31,8 +31,6 @@ App({
     StorageType: STORAGETYPE,
     Util: util,
 
-    
-
     // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
     wechatUserInfo: {},
     openId: '',
