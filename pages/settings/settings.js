@@ -47,11 +47,12 @@ Page({
                         name: "计划墙",
                         url: "plan_list/plan_list"
                     },
-                    {
-                        img: "../../pages/image/rate_64px.png",
-                        name: "收藏",
-                        url: "favorite/favorite"
-                    },
+                    // 第一期先不做
+                    // {
+                    //     img: "../../pages/image/rate_64px.png",
+                    //     name: "收藏",
+                    //     url: "favorite/favorite"
+                    // },
                 ]
             },
             {
@@ -66,6 +67,11 @@ Page({
                         name: "关于我们",
                         url: "about/about"
                     },
+                    {
+                        img: "../../pages/image/support_64px.png",
+                        name: "不爽，我要吐槽",
+                        url: "feedback/feedback"
+                    }
                     // {
                     //     img: "../../pages/image/yen_64px.png",
                     //     name: "打赏~~",

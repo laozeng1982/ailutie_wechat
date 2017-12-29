@@ -7864,7 +7864,7 @@
     "circleDaySet": [
       {
         "id": 0,
-        "enWeekDay": "Sunday",
+        "weekDay": "Sunday",
         "chWeekDay": "周日",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -7872,7 +7872,7 @@
       },
       {
         "id": 1,
-        "enWeekDay": "Monday",
+        "weekDay": "Monday",
         "chWeekDay": "周一",
         "exerciseSet": [
           {
@@ -8385,7 +8385,7 @@
       },
       {
         "id": 2,
-        "enWeekDay": "Tuesday",
+        "weekDay": "Tuesday",
         "chWeekDay": "周二",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -8393,7 +8393,7 @@
       },
       {
         "id": 3,
-        "enWeekDay": "Wednesday",
+        "weekDay": "Wednesday",
         "chWeekDay": "周三",
         "exerciseSet": [
           {
@@ -8570,7 +8570,7 @@
       },
       {
         "id": 4,
-        "enWeekDay": "Thursday",
+        "weekDay": "Thursday",
         "chWeekDay": "周四",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -8578,7 +8578,7 @@
       },
       {
         "id": 5,
-        "enWeekDay": "Friday",
+        "weekDay": "Friday",
         "chWeekDay": "周五",
         "exerciseSet": [
           {
@@ -8867,7 +8867,7 @@
       },
       {
         "id": 6,
-        "enWeekDay": "Saturday",
+        "weekDay": "Saturday",
         "chWeekDay": "周六",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -8892,7 +8892,7 @@
     "circleDaySet": [
       {
         "id": 0,
-        "enWeekDay": "Sunday",
+        "weekDay": "Sunday",
         "chWeekDay": "周日",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -8901,7 +8901,7 @@
       },
       {
         "id": 1,
-        "enWeekDay": "Monday",
+        "weekDay": "Monday",
         "chWeekDay": "周一",
         "exerciseSet": [
           {
@@ -9138,7 +9138,7 @@
       },
       {
         "id": 2,
-        "enWeekDay": "Tuesday",
+        "weekDay": "Tuesday",
         "chWeekDay": "周二",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9147,7 +9147,7 @@
       },
       {
         "id": 3,
-        "enWeekDay": "Wednesday",
+        "weekDay": "Wednesday",
         "chWeekDay": "周三",
         "exerciseSet": [
           {
@@ -9440,7 +9440,7 @@
       },
       {
         "id": 4,
-        "enWeekDay": "Thursday",
+        "weekDay": "Thursday",
         "chWeekDay": "周四",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9449,7 +9449,7 @@
       },
       {
         "id": 5,
-        "enWeekDay": "Friday",
+        "weekDay": "Friday",
         "chWeekDay": "周五",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9458,7 +9458,7 @@
       },
       {
         "id": 6,
-        "enWeekDay": "Saturday",
+        "weekDay": "Saturday",
         "chWeekDay": "周六",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9485,7 +9485,7 @@
     "circleDaySet": [
       {
         "id": 0,
-        "enWeekDay": "Sunday",
+        "weekDay": "Sunday",
         "chWeekDay": "周日",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9494,7 +9494,7 @@
       },
       {
         "id": 1,
-        "enWeekDay": "Monday",
+        "weekDay": "Monday",
         "chWeekDay": "周一",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9503,7 +9503,7 @@
       },
       {
         "id": 2,
-        "enWeekDay": "Tuesday",
+        "weekDay": "Tuesday",
         "chWeekDay": "周二",
         "exerciseSet": [
           {
@@ -9698,7 +9698,7 @@
       },
       {
         "id": 3,
-        "enWeekDay": "Wednesday",
+        "weekDay": "Wednesday",
         "chWeekDay": "周三",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9707,7 +9707,7 @@
       },
       {
         "id": 4,
-        "enWeekDay": "Thursday",
+        "weekDay": "Thursday",
         "chWeekDay": "周四",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9716,7 +9716,7 @@
       },
       {
         "id": 5,
-        "enWeekDay": "Friday",
+        "weekDay": "Friday",
         "chWeekDay": "周五",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9725,7 +9725,7 @@
       },
       {
         "id": 6,
-        "enWeekDay": "Saturday",
+        "weekDay": "Saturday",
         "chWeekDay": "周六",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9752,7 +9752,7 @@
     "circleDaySet": [
       {
         "id": 0,
-        "enWeekDay": "Sunday",
+        "weekDay": "Sunday",
         "chWeekDay": "周日",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9761,7 +9761,7 @@
       },
       {
         "id": 1,
-        "enWeekDay": "Monday",
+        "weekDay": "Monday",
         "chWeekDay": "周一",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -9770,7 +9770,7 @@
       },
       {
         "id": 2,
-        "enWeekDay": "Tuesday",
+        "weekDay": "Tuesday",
         "chWeekDay": "周二",
         "exerciseSet": [
           {
@@ -10149,7 +10149,7 @@
       },
       {
         "id": 3,
-        "enWeekDay": "Wednesday",
+        "weekDay": "Wednesday",
         "chWeekDay": "周三",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -10158,7 +10158,7 @@
       },
       {
         "id": 4,
-        "enWeekDay": "Thursday",
+        "weekDay": "Thursday",
         "chWeekDay": "周四",
         "exerciseSet": [
           {
@@ -10353,7 +10353,7 @@
       },
       {
         "id": 5,
-        "enWeekDay": "Friday",
+        "weekDay": "Friday",
         "chWeekDay": "周五",
         "exerciseSet": [],
         "displayPartArray": [],
@@ -10362,7 +10362,7 @@
       },
       {
         "id": 6,
-        "enWeekDay": "Saturday",
+        "weekDay": "Saturday",
         "chWeekDay": "周六",
         "exerciseSet": [],
         "displayPartArray": [],

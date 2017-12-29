@@ -100,7 +100,7 @@ Page({
         console.log("selected: ", selectedDateIdx, ", ",
             this.data.weekVisual[selectedDateIdx].name, ", ", this.data.weekVisual[selectedDateIdx].value);
 
-        // 1、判断周期选中的状态，如果是多选，判断之前选中的天是否有计划
+        // 1、判断周期选中的状态，如果是多选，判断之前选中的天是否有计划，准备选中的日期列表
         // 1.1、如果是同样的计划（之前同批次制定的），或者选中的天都没有计划，或者多天中只有一天有计划，则可以同时选中
         // 1.2、否则，则取消之前的选中，然后选中最后一次点击的天
         if (this.data.selectedDateList.length > 0) {
@@ -143,12 +143,14 @@ Page({
         console.log("selectedDateList:", selectedDateList);
 
         // 2、根据selectedDateList，重置选中的状态，激活当前选中的部位与动作面板
+        // 2.1、清除选中状态
         for (let day = 0; day < weekVisual.length; day++) {
             weekVisual[day].selected = false;
             weekData[day].selected = false;
 
         }
 
+        // 2.2、高亮选中日期
         for (let selectedDate of selectedDateList) {
             weekVisual[selectedDate].selected = true;
             weekData[selectedDate].selected = true;
@@ -156,7 +158,6 @@ Page({
 
         // 3、更新面板中的部位与动作的信息
         // 3.1、先得到这天的部位
-
         app.currentPlan.setPlanParts();
 
         for (let day of this.data.weekData) {
@@ -365,7 +366,7 @@ Page({
         let partNameArray = body.getPartNameArray();
         let partDisplayNameArray = body.getPartDisplayNameArray();
 
-        for (let idx =0 ; idx< partNameArray.length;idx++) {
+        for (let idx = 0; idx < partNameArray.length; idx++) {
             partList.push({
                 name: partNameArray[idx],
                 displayName: partDisplayNameArray[idx],
@@ -416,6 +417,7 @@ Page({
                 }
                 day.body.updateGroupSet(exercise);
             }
+            console.log("partNameArray:", partNameArray);
             day.body.selectPartsByName(partNameArray);
             day.body.activePartByName(partNameArray[0]);
             day.body.countSelectedAction();
@@ -424,12 +426,23 @@ Page({
             // 1、更新周期视图
             weekVisual[day.id].hasparts = app.Util.makePartString(day.body.getSelectedPartNames());
             // 2、更新部位选中状态和计数
+            // 2.1 清除状态和技术
+            for (let part of day.partList) {
+                part.selected = false;
+                part.selectedActionCount = day.body.getSelectedActionByPartName(part.name).length;
+                if (part.selected) {
+                    break;
+                }
+            }
+
+            // 2.2 重置状态
             for (let part of day.partList) {
                 part.selected = partNameArray.includes(part.name);
-                part.selectedActionCount = day.body.getSelectedActionByPartName(part.name).length;
+                if (part.selected) {
+                    break;
+                }
             }
         }
-
 
         this.setData({
             fromDate: fromDate,

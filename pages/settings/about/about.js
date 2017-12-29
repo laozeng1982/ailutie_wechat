@@ -6,8 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        // imageUrl: "https://mf991b83b0.cn1.hana.ondemand.com/m/images/bodyparts/abs.png",
-        imageUrl: "",
+
     },
 
     /**
@@ -17,36 +16,9 @@ Page({
         wx.setNavigationBarTitle({
             title: '关于我们',
         });
-        let imageUrl;
+
         let body = new Body.Body();
         body.makeDefaultDefaultPartList();
-        for (let part of body.parts) {
-            for (let action of part.actionSet) {
-                let url = "https://mf991b83b0.cn1.hana.ondemand.com/m/" + action.imageUrl;
-                console.log(url);
-                wx.downloadFile({
-                    url: url, 
-                    success: function (res) {
-                        wx.saveFile({
-                            tempFilePath: res.tempFilePath,
-                        });
-                    }
-                });
-            }
-        }
-
-        wx.getSavedFileList({
-            success: function (res) {
-                console.log(res);
-                imageUrl = res.fileList[0].filePath;
-                console.log(imageUrl);
-            }
-        });
-
-        this.setData({
-            imageUrl: imageUrl
-        });
-
     },
 
     /**

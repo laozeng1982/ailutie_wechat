@@ -13,7 +13,19 @@
               "forPlan": true,
               "quantity": 20,
               "uom": "ea",
-              "weight": 30
+              "weight": 20
+            },
+            {
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 40
+            },
+            {
+              "forPlan": true,
+              "quantity": 20,
+              "uom": "ea",
+              "weight": 50
             }
           ]
         }
@@ -21,10 +33,10 @@
       "weekDay": "Sunday"
     }
   ],
-  "description": "2017 Plan",
+  "description": "2018 Plan",
   "fromDate": "2017-01-01",
   "grade": "Primary",
-  "name": "First",
+  "name": "JianGe1 First",
   "predefined": false,
   "purpose": "Weight",
   "temporary": false,

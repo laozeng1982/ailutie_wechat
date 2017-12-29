@@ -122,7 +122,7 @@ class Plan {
 class CircleDay {
     constructor(id, weekDay) {
         this.id = id;
-        this.enWeekDay = weekDay;
+        this.weekDay = weekDay;
         this.chWeekDay = CircleDay.getChWeekDay(weekDay);
         this.exerciseSet = [];  // 存放计划的数据，既Exercise数组
     }

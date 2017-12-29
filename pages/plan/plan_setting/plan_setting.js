@@ -77,8 +77,8 @@ Page({
             }
         }
 
-        // planSetting[7].value = app.userInfoLocal.nickName + "的" +
-        //     planSetting[5].description[planSetting[5].index] + planSetting[1].description[planSetting[1].index] + "计划";
+        planSetting[7].value = app.userInfoLocal.nickName + "的" +
+            planSetting[5].description[planSetting[5].index] + planSetting[1].description[planSetting[1].index] + "计划";
 
         this.setData({
             planSetting: planSetting,

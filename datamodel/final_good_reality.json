@@ -1,5 +1,4 @@
 {
-  "id": 5,
   "date": "2017-12-28",
   "user": {
     "id": 4
@@ -8,7 +7,7 @@
     {
       "forPlan": false,
       "action": {
-        "id": 1
+        "id": 5
       },
       "groupSet": [
         {
@@ -18,6 +17,38 @@
           "weight": 30,
           "executedQuantity": 10,
           "executedWeight": 20
+        },
+        {
+          "forPlan": false,
+          "uom": "ea",
+          "quantity": 20,
+          "weight": 30,
+          "executedQuantity": 11,
+          "executedWeight": 30
+        }
+      ]
+    },
+    {
+      "forPlan": false,
+      "action": {
+        "id": 7
+      },
+      "groupSet": [
+        {
+          "forPlan": false,
+          "uom": "ea",
+          "quantity": 20,
+          "weight": 30,
+          "executedQuantity": 10,
+          "executedWeight": 20
+        },
+        {
+          "forPlan": false,
+          "uom": "ea",
+          "quantity": 20,
+          "weight": 30,
+          "executedQuantity": 11,
+          "executedWeight": 30
         }
       ]
     }

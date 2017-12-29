@@ -55,6 +55,7 @@ Page({
         let userInfo = this.data.userInfo;
 
         userInfo.wechatOpenId = app.openId;
+        userInfo.nickName = app.wechatUserInfo.nickName;
 
         if (e.detail.value.mobileNumber !== '') {
             userInfo.mobileNumber = e.detail.value.mobileNumber;
