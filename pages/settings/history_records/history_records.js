@@ -167,7 +167,7 @@ Page({
                             dateList[week][day].hasPlan = true;
                             dateList[week][day].planPartsArr.push(circleDay.name);
                             for (let exercise of circleDay.exerciseSet) {
-                                partArr.push(exercise.action.partSet[0]);
+                                partArr.push(exercise.action.target[0]);
                             }
                         }
                     }
@@ -258,7 +258,7 @@ Page({
             selectedDatePlan = app.currentPlan.getReGroupExerciseSetByDay(selectedDate.week);
         }
 
-        console.log("Selected Date's PlanSet: ", selectedDatePlan);
+        console.log("Selected Date's PlanReality: ", selectedDatePlan);
 
         this.setData({
             selectedDatePlan: selectedDatePlan,

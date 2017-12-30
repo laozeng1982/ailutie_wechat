@@ -1,0 +1,73 @@
+{
+  "name": "你剑哥的计划",
+  "user": {
+    "id": 1
+  },
+  "predefined": false,
+  "temporary": false,
+  "fromDate": "2017-12-30",
+  "toDate": "2018-01-29",
+  "purpose": "Muscle",
+  "grade": "Primary",
+  "description": "你剑哥的健身房增肌计划",
+  "circleDaySet": [
+    {
+      "weekDay": "Sunday",
+      "chWeekDay": "周日",
+      "exerciseSet": [],
+      "displayPartArray": [],
+      "showDetails": false,
+      "partShowing": ""
+    },
+    {
+      "weekDay": "Monday",
+      "chWeekDay": "周一",
+      "exerciseSet": [],
+      "displayPartArray": [],
+      "showDetails": false,
+      "partShowing": ""
+    },
+    {
+      "weekDay": "Tuesday",
+      "chWeekDay": "周二",
+      "exerciseSet": [],
+      "displayPartArray": [],
+      "showDetails": false,
+      "partShowing": ""
+    },
+    {
+      "weekDay": "Wednesday",
+      "chWeekDay": "周三",
+      "exerciseSet": [
+        {
+          "forPlan": true,
+          "target": "Back",
+          "action": {
+            "id": 31
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "executedQuantityPerAction": 0,
+              "executedQuantityPerGroup": 0,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "privacy": "Public",
+  "source": "你剑哥",
+  "currentUse": true,
+  "targetUser": "Male",
+  "place": "Gym",
+  "facility": "Equipment",
+  "reading": 0,
+  "comments": [],
+  "agree": 0
+}

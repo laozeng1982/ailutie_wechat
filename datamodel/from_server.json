@@ -7,7 +7,7 @@
   "gender": "Male",
   "dateOfBirth": "1982-08-30",
   "extendedInfoMap": {
-    "weight": {
+    "quantityPerAction": {
       "id": 96,
       "value": "69"
     },
@@ -45,9 +45,9 @@
                 {
                   "id": 3,
                   "forPlan": true,
-                  "uom": "ea",
-                  "quantity": 20,
-                  "weight": 30
+                  "actionUom": "ea",
+                  "quantityPerGroup": 20,
+                  "quantityPerAction": 30
                 }
               ]
             }
@@ -83,9 +83,9 @@
                 {
                   "id": 4,
                   "forPlan": true,
-                  "uom": "ea",
-                  "quantity": 20,
-                  "weight": 30
+                  "actionUom": "ea",
+                  "quantityPerGroup": 20,
+                  "quantityPerAction": 30
                 }
               ]
             }
@@ -121,9 +121,9 @@
                 {
                   "id": 5,
                   "forPlan": false,
-                  "uom": "Kg",
-                  "quantity": 10,
-                  "weight": 30
+                  "actionUom": "Kg",
+                  "quantityPerGroup": 10,
+                  "quantityPerAction": 30
                 }
               ]
             }
@@ -159,9 +159,9 @@
                 {
                   "id": 8,
                   "forPlan": true,
-                  "uom": "ea",
-                  "quantity": 20,
-                  "weight": 30
+                  "actionUom": "ea",
+                  "quantityPerGroup": 20,
+                  "quantityPerAction": 30
                 }
               ]
             }
@@ -197,9 +197,9 @@
                 {
                   "id": 13,
                   "forPlan": true,
-                  "uom": "ea",
-                  "quantity": 20,
-                  "weight": 30
+                  "actionUom": "ea",
+                  "quantityPerGroup": 20,
+                  "quantityPerAction": 30
                 }
               ]
             }
@@ -235,9 +235,9 @@
                 {
                   "id": 14,
                   "forPlan": true,
-                  "uom": "ea",
-                  "quantity": 20,
-                  "weight": 30
+                  "actionUom": "ea",
+                  "quantityPerGroup": 20,
+                  "quantityPerAction": 30
                 }
               ]
             }
@@ -273,9 +273,9 @@
                 {
                   "id": 15,
                   "forPlan": true,
-                  "uom": "ea",
-                  "quantity": 20,
-                  "weight": 30
+                  "actionUom": "ea",
+                  "quantityPerGroup": 20,
+                  "quantityPerAction": 30
                 }
               ]
             }
@@ -311,9 +311,9 @@
                 {
                   "id": 16,
                   "forPlan": true,
-                  "uom": "ea",
-                  "quantity": 20,
-                  "weight": 30
+                  "actionUom": "ea",
+                  "quantityPerGroup": 20,
+                  "quantityPerAction": 30
                 }
               ]
             }
@@ -349,9 +349,9 @@
                 {
                   "id": 17,
                   "forPlan": true,
-                  "uom": "ea",
-                  "quantity": 20,
-                  "weight": 20
+                  "actionUom": "ea",
+                  "quantityPerGroup": 20,
+                  "quantityPerAction": 20
                 }
               ]
             }

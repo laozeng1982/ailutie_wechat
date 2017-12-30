@@ -4,7 +4,7 @@
  *
  */
 import User from '../datamodel/User'
-import PlanSet from '../datamodel/PlanSet'
+import PlanSet from '../datamodel/PlanReality'
 import SystemSetting from '../datamodel/SystemSetting'
 import Urls from '../datamodel/Urls'
 
@@ -12,6 +12,7 @@ const _ = require('./underscore.modified');
 // const Promise = require('./bluebird.min'); //用了bluebird.js
 const BASE_URL = 'https://www.newpictown.com/';
 const urls = new Urls.Urls();
+const Storage = new SystemSetting.StorageType();
 
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
@@ -338,7 +339,7 @@ function loadPlan() {
         }
     }
 
-    return (currentPlan === '') ? new PlanSet.Plan() : currentPlan;
+    return (currentPlan === '') ? new PlanSet.Plan(getApp().userInfoLocal.userUID) : currentPlan;
 }
 
 /**
@@ -378,7 +379,7 @@ function calcEnergyCost(exercise, isKCal) {
     let exerciseEnergy = 0;
     let idx = 0;
     for (let group of exercise.groupSet) {
-        exerciseEnergy += group.executedQuantity * group.executedWeight * 9.8 / 4186;  // 将焦耳换成卡
+        exerciseEnergy += group.executedQuantityPerGroup * group.executedQuantityPerAction * 9.8 / 4186;  // 将焦耳换成卡
         // console.log(idx, exerciseEnergy);
         idx++;
     }
@@ -452,7 +453,7 @@ function setUserInfoFromServer(host, openId) {
                     }
                 },
                 fail: function (res) {
-                    console.log("get fail: ", res.data)
+                    console.log("get fail: ", res.data);
                 }
             }
         );
@@ -481,30 +482,64 @@ function checkRegister(host) {
     }
 }
 
-
+function syncSysParameter(host) {
+    // 取数据
+    wx.request({
+        url: 'https://www.newpictown.com/part/allPredefinedOnes',
+        success: function (res) {
+            console.log("body info from server: ", res.data);
+            host.actionArray = res.data;
+        }
+    });
+}
 
 /**
  * 到服务端创建数据，本地保存新建的数据
  * @param type
- * @param data
- * @param userInfo
+ * @param data2Sever
+ * @param data2Local
  */
-function createData(type, data, userInfo) {
+function createData(type, data2Sever, data2Local) {
     wx.request({
-            url: BASE_URL + type,
+            url: BASE_URL + type + "/",
             method: 'POST',
-            data: data,
+            data: data2Sever,
             success: function (res) {
                 if (typeof res.data.id !== 'undefined') {
-                    userInfo.userUID = parseInt(res.data.id);
-                    userInfo.wechatOpenId = data.wechatMPOpenId;
-                    userInfo.nickName = data.nickName;
-                    console.log("userInfo: ", userInfo);
-                    saveData(new SystemSetting.StorageType().UserInfo, userInfo);
-                    // update app information
-                    setUserInfoFromServer(getApp());
-                }
+                    switch (type) {
+                        case "user":
+                            data2Local.userUID = parseInt(res.data.id);
+                            data2Local.wechatOpenId = data2Sever.wechatMPOpenId;
+                            data2Local.nickName = data2Sever.nickName;
+                            console.log("data2Local: ", data2Local);
+                            saveData(Storage.UserInfo, data2Local);
+                            // update app information
+                            setUserInfoFromServer(getApp(), data2Sever.wechatMPOpenId);
+                            break;
+                        case "plan":
+                            for (let plan of data2Local) {
+                                if (isEqual(plan, data2Sever)) {
+                                    plan.id = res.data.id;
+                                }
+                            }
+                            saveData(Storage.PlanSet, data2Local);
+                            console.log("update plan successful, res.data:", res.data);
+                            break;
+                        case "reality":
+                            for (let reality of data2Local) {
+                                if (reality.date = res.date) {
+                                    reality.id = res.data.id;
+                                }
+                            }
 
+                            saveData(Storage.RealitySet, data2Local);
+                            console.log("update reality successful, res.data:", res.data);
+                            break;
+                        default:
+                            console.log("in createData, wrong type!");
+                            break;
+                    }
+                }
                 console.log("create success: ", res.data);
             },
             fail: function (res) {
@@ -516,21 +551,35 @@ function createData(type, data, userInfo) {
 
 /**
  * 到服务端更新数据，本地保存更新的数据
- * @param path
- * @param data
- * @param userInfo
+ * @param type
+ * @param data2Sever
+ * @param data2Local
  */
-function updateData(path, data, userInfo) {
+function updateData(type, data2Sever, data2Local) {
     // 后台更新
     wx.request({
-            url: BASE_URL + path,
+            url: BASE_URL + type + "/",
             method: 'PUT',
-            data: data,
+            data: data2Sever,
             success: function (res) {
-                console.log("update success: ", res.data);
-                saveData(new SystemSetting.StorageType().UserInfo, userInfo);
-                // update app information
-                setUserInfoFromServer(getApp());
+                if (typeof res.data.id !== 'undefined') {
+                    switch (type) {
+                        case "user":
+                            console.log("update success: ", res.data);
+                            saveData(Storage.UserInfo, data2Local);
+                            // update app information
+                            setUserInfoFromServer(getApp(), data2Sever.wechatMPOpenId);
+                            break;
+                        case "plan":
+                            break;
+                        case "reality":
+                            break;
+                        default:
+                            console.log("in createData, wrong type");
+                            break;
+                    }
+                }
+
             },
             fail: function (res) {
                 console.log("update fail: ", res.data)
@@ -589,6 +638,7 @@ module.exports = {
     checkRegister: checkRegister,
     createData: createData,
     updateData: updateData,
+    syncSysParameter: syncSysParameter
     // wxPromisify: wxPromisify
 
 }

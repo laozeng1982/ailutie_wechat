@@ -138,15 +138,6 @@ Page({
      */
     onReady: function () {
 
-        // 取数据
-        wx.request({
-            url: 'https://www.newpictown.com/part/allPredefinedOnes',
-            success: function (res) {
-                console.log("body info from server: ", res.data);
-            }
-        });
-
-        // 存放数据
     },
 
     onShow: function () {

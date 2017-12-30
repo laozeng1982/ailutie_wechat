@@ -4,18 +4,21 @@
  */
 import util from './utils/Util'
 import StorageType from './datamodel/SystemSetting'
-import PlanSet from './datamodel/PlanSet'
+import PlanSet from './datamodel/PlanReality'
 
 const STORAGETYPE = new StorageType.StorageType();
 
 App({
     onLaunch: function () {
+        // 同步服务器模板数据
+        util.syncSysParameter(this);
         // 获取用户微信信息
         util.setWechatUserInfo(this);
         // 获取用户OpenId
         util.setWechatOpenId(this);
         // 查询用户是否注册过
         util.checkRegister(this);
+        
 
         // 全局变量
         this.planSet = util.loadData(STORAGETYPE.PlanSet);

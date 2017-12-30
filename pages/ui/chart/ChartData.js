@@ -71,7 +71,7 @@ class ChartData {
                                 let weight = 0;
                                 for (let exercise of reality.exerciseSet) {
                                     for (let group of exercise.groupSet) {
-                                        weight = weight + group.quantity * group.weight;
+                                        weight = weight + group.quantityPerGroup * group.quantityPerAction;
                                     }
                                 }
                                 data.push(weight);
@@ -198,7 +198,7 @@ class ChartData {
             for (let reality of realitySet) {
                 if (reality.exerciseSet.length > 0) {
                     for (let exercise of reality.exerciseSet) {
-                        if (exercise.action.partSet[0].includes(dataItem.name)) {
+                        if (exercise.action.target[0].includes(dataItem.name)) {
                             dataItem.data++;
                         }
                     }

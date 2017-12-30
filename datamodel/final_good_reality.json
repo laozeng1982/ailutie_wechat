@@ -12,19 +12,19 @@
       "groupSet": [
         {
           "forPlan": false,
-          "uom": "ea",
-          "quantity": 20,
-          "weight": 30,
-          "executedQuantity": 10,
-          "executedWeight": 20
+          "actionUom": "ea",
+          "quantityPerGroup": 20,
+          "quantityPerAction": 30,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 20
         },
         {
           "forPlan": false,
-          "uom": "ea",
-          "quantity": 20,
-          "weight": 30,
-          "executedQuantity": 11,
-          "executedWeight": 30
+          "actionUom": "ea",
+          "quantityPerGroup": 20,
+          "quantityPerAction": 30,
+          "executedQuantityPerGroup": 11,
+          "executedQuantityPerAction": 30
         }
       ]
     },
@@ -36,19 +36,19 @@
       "groupSet": [
         {
           "forPlan": false,
-          "uom": "ea",
-          "quantity": 20,
-          "weight": 30,
-          "executedQuantity": 10,
-          "executedWeight": 20
+          "actionUom": "ea",
+          "quantityPerGroup": 20,
+          "quantityPerAction": 30,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 20
         },
         {
           "forPlan": false,
-          "uom": "ea",
-          "quantity": 20,
-          "weight": 30,
-          "executedQuantity": 11,
-          "executedWeight": 30
+          "actionUom": "ea",
+          "quantityPerGroup": 20,
+          "quantityPerAction": 30,
+          "executedQuantityPerGroup": 11,
+          "executedQuantityPerAction": 30
         }
       ]
     }

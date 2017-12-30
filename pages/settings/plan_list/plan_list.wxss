@@ -11,7 +11,7 @@
 .plan-item-purpose {
     display: flex;
     flex-direction: row;
-    height: 80rpx;
+    height: 60rpx;
     font-size: 30rpx;
 }
 

@@ -36,7 +36,7 @@
                 "imageUrl": "actionImageUrl",
                 "equipment": "actionEquipment",
                 "predefined": false,
-                "partSet": [
+                "target": [
                   {
                     "id": 6,
                     "bodyPart": "Chest",
@@ -51,9 +51,9 @@
                 {
                   "id": 7,
                   "forPlan": true,
-                  "uom": "KG",
-                  "quantity": 20,
-                  "weight": 50
+                  "actionUom": "KG",
+                  "quantityPerGroup": 20,
+                  "quantityPerAction": 50
                 }
               ]
             }
@@ -77,7 +77,7 @@
             "imageUrl": "actionImageUrl",
             "equipment": "actionEquipment",
             "predefined": false,
-            "partSet": [
+            "target": [
               {
                 "id": 6,
                 "bodyPart": "Chest",
@@ -92,11 +92,11 @@
             {
               "id": 10,
               "forPlan": false,
-              "uom": "KG",
-              "quantity": 20,
-              "weight": 50,
-              "executedQuantity": 30,
-              "executedWeight": 55
+              "actionUom": "KG",
+              "quantityPerGroup": 20,
+              "quantityPerAction": 50,
+              "executedQuantityPerGroup": 30,
+              "executedQuantityPerAction": 55
             }
           ]
         }

@@ -24,23 +24,23 @@
             {
               "orderNumber": 1,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             },
             {
               "orderNumber": 2,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             },
             {
               "orderNumber": 3,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             }
           ]
         },
@@ -54,23 +54,23 @@
             {
               "orderNumber": 1,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             },
             {
               "orderNumber": 2,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             },
             {
               "orderNumber": 3,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             }
           ]
         }
@@ -89,23 +89,23 @@
             {
               "orderNumber": 1,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             },
             {
               "orderNumber": 2,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             },
             {
               "orderNumber": 3,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             }
           ]
         },
@@ -119,23 +119,23 @@
             {
               "orderNumber": 1,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             },
             {
               "orderNumber": 2,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             },
             {
               "orderNumber": 3,
               "forPlan": true,
-              "quantity": 20,
-              "uom": "ea",
-              "weight": 20
+              "quantityPerGroup": 20,
+              "actionUom": "ea",
+              "quantityPerAction": 20
             }
           ]
         }

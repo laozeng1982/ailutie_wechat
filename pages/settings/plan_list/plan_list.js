@@ -1,5 +1,9 @@
 // pages/plan/plan_list/plan_list.js
 
+import Dictionary from '../../../datamodel/Dictionary'
+
+const dict = new Dictionary.Dictionary();
+
 const app = getApp();
 
 Page({
@@ -23,18 +27,19 @@ Page({
                 data: [],
                 selected: true
             },
+            // {
+            //     type: "coach",
+            //     name: "教练",
+            //     data: [],
+            //     selected: false
+            // },
+            // {
+            //     type: "other",
+            //     name: "网友",
+            //     data: [],
+            //     selected: false
+            // }, 
             {
-                type: "coach",
-                name: "教练",
-                data: [],
-                selected: false
-            },
-            {
-                type: "other",
-                name: "网友",
-                data: [],
-                selected: false
-            }, {
                 type: "user",
                 name: "我的",
                 data: [],
@@ -78,15 +83,6 @@ Page({
         wx.setNavigationBarTitle({
             title: '计划墙',
         });
-        // if (options.mode === "recommend") {
-        //     wx.setNavigationBarTitle({
-        //         title: '选择推荐计划',
-        //     });
-        // } else {
-        //     wx.setNavigationBarTitle({
-        //         title: '选择我的历史计划',
-        //     });
-        // }
 
         this.setData({
             mode: options.mode
@@ -112,10 +108,17 @@ Page({
 
         let tabData = this.data.tabData;
 
+        for (let plan of planSet) {
+            plan.chPlace= dict.getChFromEn(plan.place);
+            plan.chPurpose = dict.getChFromEn(plan.purpose);
+            plan.chGrade = dict.getChFromEn(plan.grade);
+
+        }
+
         tabData[0].data = planSet;
+        // tabData[1].data = planSet;
+        // tabData[2].data = planSet;
         tabData[1].data = planSet;
-        tabData[2].data = planSet;
-        tabData[3].data = planSet;
         this.setData({
             tabData: tabData
         });

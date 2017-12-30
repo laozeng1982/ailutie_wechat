@@ -1,5 +1,5 @@
 // pages/plan/define_plan/define_plan.js
-import PlanSet from '../../../datamodel/PlanSet'
+import PlanReality from '../../../datamodel/PlanReality'
 import Body from '../../../datamodel/Body'
 
 const app = getApp();
@@ -16,10 +16,9 @@ Page({
         toDate: "",
         showPeriod: false,
 
-        // 全页面控制的数据结构，按一周七天，用作数据存储，每天都有
+        // 全页面控制的数据结构，存取用户数据的选择状态，按一周七天，用作数据存储，每天都有
         // partList，仅仅作为页面控制用，代表大的激活部位
         // body，每个部位的动作及信息，存储每天选中的具体内容，最后离开页面时，收集每天每个部位的动作及信息
-
         weekData: [
             {id: 0, value: '日', name: "Sunday", partList: [], body: {}, selected: false},
             {id: 1, value: '一', name: "Monday", partList: [], body: {}, selected: false},
@@ -192,7 +191,7 @@ Page({
     },
 
     /**
-     * 选择动作，响应部位导航的选择
+     * 选择部位，响应部位导航的选择
      * 如果是多天，那么多天的内部状态，都要一致
      * @param e
      */
@@ -210,6 +209,7 @@ Page({
                 day.body.activePartByName(activePartName);
                 day.body.selectPartByName(activePartName);
 
+                // 界面高亮选中的部位
                 for (let part of day.partList) {
                     part.selected = (part.name === activePartName);
                 }
@@ -253,7 +253,6 @@ Page({
                 day.hasparts = app.Util.makePartString(day.body.getPartDisplayNameArray());
 
                 currentDay = day;
-
             }
         }
 
@@ -284,25 +283,24 @@ Page({
 
         let selectedRowArr = e.detail.value;
 
+        let selectedAction = e.currentTarget.dataset.action;
         // 获取当前页面用户的输入
         let planGpCount = parseInt(this.data.actionQuantityArray[0][selectedRowArr[0]]);
-        let planCount = parseInt(this.data.actionQuantityArray[1][selectedRowArr[1]]);
-        let planWeight = parseInt(this.data.actionQuantityArray[2][selectedRowArr[2]]);
+        let planGroupQuantity = parseInt(this.data.actionQuantityArray[1][selectedRowArr[1]]);
+        let planActionQuantity = parseInt(this.data.actionQuantityArray[2][selectedRowArr[2]]);
         let measurement = this.data.actionQuantityArray[3][selectedRowArr[3]];
 
-        console.log("in onNumberChange, picker: ", planGpCount + "组, ", planCount, planWeight, measurement);
+        console.log("in onNumberChange, picker: ", planGpCount + "组, ", planGroupQuantity, planActionQuantity, measurement);
 
         let groupSet = [];
         for (let idx = 0; idx < planGpCount; idx++) {
-            groupSet.push(new PlanSet.GroupSet(idx + 1, planCount, planWeight, measurement));
+            groupSet.push(new PlanReality.Group("plan", idx + 1, planGroupQuantity, selectedAction.groupUom, planActionQuantity, selectedAction.actionUom));
         }
-
-        let selectedAction = e.currentTarget.dataset.action;
 
         for (let day of this.data.weekData) {
             if (day.selected) {
                 day.body.addGroupSetToAction(selectedAction, groupSet);
-                day.partList.selectedActionCount = day.body.getActionSelectedCountByPart(selectedAction.partSet[0]);
+                day.partList.selectedActionCount = day.body.getActionSelectedCountByPart(selectedAction.target[0]);
                 currentDay = day;
             }
         }
@@ -353,8 +351,10 @@ Page({
         let weekData = this.data.weekData;
 
         let systemSetting = app.Util.loadData(app.StorageType.SystemSetting);
-        wx.setStorageSync("body", systemSetting.body);
         body.cloneDataFrom(systemSetting.body);
+        body.modifyAcitionId();
+
+        // body.cloneDataFrom(systemSetting.body);
         console.log("body info from local: ", body);
 
         // 添加两个临时属性
@@ -378,7 +378,7 @@ Page({
         for (let day of weekData) {
             day.partList = app.Util.deepClone(partList);
             day.body = new Body.Body();
-            day.body.cloneDataFrom(systemSetting.body);
+            day.body.cloneDataFrom(body);
             // 第一次进入，没有选过动作，需要重新构建，先统一赋值
             day.body.initGroupSet();
         }
@@ -412,12 +412,12 @@ Page({
             // 更新重量数据，同时获取部位列表
             let partNameArray = [];
             for (let exercise of currentPlan.circleDaySet[day.id].exerciseSet) {
-                if (!partNameArray.includes(exercise.action.partSet[0])) {
-                    partNameArray.push(exercise.action.partSet[0]);
+                if (!partNameArray.includes(exercise.action.target[0])) {
+                    partNameArray.push(exercise.action.target[0]);
                 }
                 day.body.updateGroupSet(exercise);
             }
-            console.log("partNameArray:", partNameArray);
+            console.log("on", day.name, "selected partNameArray:", partNameArray);
             day.body.selectPartsByName(partNameArray);
             day.body.activePartByName(partNameArray[0]);
             day.body.countSelectedAction();
@@ -477,10 +477,14 @@ Page({
 
                     for (let action of part.actionSet) {
                         // 生成一个动作
-                        let exercise = new PlanSet.Exercise(exerciseSet.length + 1);
+                        let exercise = new PlanReality.Exercise("plan");
                         if (action.selected) {
+                            // 初始化exercise的信息
                             exercise.action = app.Util.deepClone(action);
                             delete exercise.action.groupSet;
+                            delete exercise.action.defaultQuantity;
+                            exercise.target = action.target[0];
+                            exercise.user = {id: app.userInfoLocal.userUID};
                             exercise.groupSet = action.groupSet;
                         }
 
@@ -531,9 +535,9 @@ Page({
         console.log("Select Part Page onLoad");
         console.log("options.model:", options.mode);
         if (options.mode === "tempPlan" || options.mode === "longPlan") {
-            app.currentPlan = new PlanSet.Plan();
+            app.currentPlan = new PlanReality.Plan(app.userInfoLocal.userUID);
             for (let idx = 0; idx < 7; idx++) {
-                app.currentPlan.circleDaySet.push(new PlanSet.CircleDay(idx, this.data.weekData[idx].name));
+                app.currentPlan.circleDaySet.push(new PlanReality.CircleDay(idx, this.data.weekData[idx].name));
             }
             wx.setNavigationBarTitle({
                 title: '定制我的锻炼计划',

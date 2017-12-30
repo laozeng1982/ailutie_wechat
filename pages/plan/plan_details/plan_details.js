@@ -11,13 +11,13 @@ Page({
      */
     data: {
         planSetting: [
-            {id: "name", description: "计划名字：", value: ''},
-            {id: "purpose", description: "健身目标：", value: ''},
-            {id: "grade", description: "健身水平：", value: ''},
-            {id: "targetUser", description: "目标人群：", value: ''},
-            {id: "facility", description: "健身设备：", value: ''},
-            {id: "place", description: "健身地点：", value: ''},
-            {id: "description", description: "计划描述", value: ''},
+            { id: "name", description: "计划名字：", value: '' },
+            { id: "purpose", description: "健身目标：", value: '' },
+            { id: "grade", description: "健身水平：", value: '' },
+            { id: "targetUser", description: "目标人群：", value: '' },
+            { id: "facility", description: "健身设备：", value: '' },
+            { id: "place", description: "健身地点：", value: '' },
+            { id: "description", description: "计划描述：", value: '' },
         ]
     },
     /**
@@ -49,6 +49,8 @@ Page({
         }
 
         app.planSet.push(app.currentPlan);
+
+        app.Util.createData("plan", app.currentPlan, app.planSet);
 
         app.Util.saveData(app.StorageType.PlanSet, app.planSet);
 

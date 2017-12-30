@@ -3,40 +3,36 @@
  *
  */
 
-
-class PlanSet {
-    constructor() {
-        this.data = []; // 存放Plan的数组
-    }
-}
-
 /**
  * 一个计划，一段时间内的计划
  */
 class Plan {
-    constructor() {
-        this.id = '';
+    constructor(userUID) {
+        this.id = '';        // 由后台数据库生成，修改（PUT）的时候先获取后台id，PUT的时候用
         this.name = '';      // 计划的名字
-        this.predefined = false;
+        this.user = {id: userUID};    // 用户在后台系统的id
+        this.predefined = false;    // 是否是由爱撸铁预定义的计划，false代表用户自定义，true代表爱撸铁预定义计划
+        this.temporary = false; // 计划标志位之一，是否为临时计划
+        this.fromDate = '';     // 计划开始的日期，格式：2017-09-25
+        this.toDate = '';     // 计划结束的日期，格式：2017-09-25
+        this.purpose = '';   // 计划的类型：减脂，塑性，增肌
+        this.grade = '';    // 计划的级别：初级，中级，高级
+        this.description = '';  // 计划描述
+        this.circleDaySet = [];   // 存放计划的具体信息，即CircleDay数组，只使用固定的7天一周期，即每周一循环
+
+        // 第二期内容，可以作为本地显示用
+
         this.privacy = '';   // 计划权限设置：Public谁都可以看，Protect只给朋友看，Private只能自己看。
         this.source = '';
         this.currentUse = false;
 
-        this.purpose = '';   // 计划的类型：减脂，塑性，增肌
-        this.grade = '';    // 计划的级别：初级，中级，高级
         this.targetUser = '';   // 目标人群
+        this.place = '';     // 健身场地
         this.facility = ''; // 健身设备
-
-        this.fromDate = '';     // 计划开始的日期，格式：2017-09-25
-        this.toDate = '';     // 计划结束的日期，格式：2017-09-25
-
-        this.description = '';  // 计划描述
-
         this.reading = 0;   // 阅读数
         this.comments = [];  // 评论
         this.agree = 0;     // 点赞数
 
-        this.circleDaySet = [];   // 存放计划的具体信息，即CircleDay数组，只使用固定的7天一周期，即每周一循环
     }
 
     /**
@@ -93,7 +89,7 @@ class Plan {
         for (let partName of this.getPlanPartArrayByDay(dayIdx)) {
             let reGroupExercise = {name: partName, exerciseSet: []};
             for (let exercise of this.circleDaySet[dayIdx].exerciseSet) {
-                if (exercise.action.partSet[0] === partName) {
+                if (exercise.action.target[0] === partName) {
                     reGroupExercise.exerciseSet.push(exercise);
                 }
             }
@@ -119,11 +115,27 @@ class Plan {
     }
 }
 
+/**
+ * 每天的记录数据
+ * 挂接每天执行的部位列表
+ */
+class Reality {
+    constructor(date, userUID) {
+        // this.id = 0;    // 该Reality在后台数据库的id
+        this.date = date;   // Reality生成的日期
+        this.exerciseSet = []; // ExerciseSet数组
+        this.user = {id: userUID}; // 用户在后台系统的id
+    }
+}
+
+/**
+ * 计划中循环的每天
+ */
 class CircleDay {
     constructor(id, weekDay) {
-        this.id = id;
-        this.weekDay = weekDay;
-        this.chWeekDay = CircleDay.getChWeekDay(weekDay);
+        // this.id = id;   // 该数据在后台数据库的id
+        this.weekDay = weekDay; //
+        this.chWeekDay = CircleDay.getChWeekDay(weekDay);   //
         this.exerciseSet = [];  // 存放计划的数据，既Exercise数组
     }
 
@@ -157,24 +169,37 @@ class CircleDay {
 }
 
 /**
- * 定义计划中的部位列表
+ * 每个动作，不分部位，直接记
+ * 挂接每个动作的执行组列表
  */
 class Exercise {
-    constructor(id, name) {
-        this.id = id;
-        this.forPlan = true;
-        this.action = '';  // 这个Exercise的动作，Action的对象
-        this.groupSet = [];    // 存放该动作每组的具体数据
+    constructor(type) {
+        // this.id = '';
+        this.forPlan = type === 'plan';
+        this.target = '';   // 锻炼的部位，string字段，取值参考：enumeration
+        this.action = {id: 0};  // 该动作在后台数据库的id
+        this.groupSet = [];    // 存放元素为：group对象
     }
-
 }
 
-class GroupSet {
-    constructor(id, quantity, weight, uom) {
-        this.id = id;
-        this.quantity = quantity;
-        this.weight = weight;
-        this.uom = uom;
+/**
+ * 每组动作的信息，如果是执行的结果，则有executedQuantity 和 executedQuantityPerAction
+ */
+class Group {
+    constructor(type, order, quantityPerGroup, uomOfPerGroup, quantityPerAction, uomOfPerAction) {
+        // this.id = id;    // 由后台数据库生成，上传不需要
+        this.orderNumber = order;   // 本地产生group数据的序号，上传需要
+        this.quantityPerGroup = quantityPerGroup;      // 计划中每组的数量
+        this.groupUom = uomOfPerGroup;  // 每组的计量单位
+        this.quantityPerAction = quantityPerAction;        // 计划中每组每个动作的数量
+        this.actionUom = uomOfPerAction; // 每个动作的计量单位
+        if (type === 'plan') {
+            this.forPlan = true;   // Reality的标志位
+        } else {
+            this.forPlan = false;
+            this.executedQuantityPerGroup = 0;  // 实际执行每组的数量
+            this.executedQuantityPerAction = 0;    // 实际执行每个动作的数量
+        }
     }
 }
 
@@ -198,9 +223,9 @@ function deepClone(obj) {
 }
 
 module.exports = {
-    PlanSet: PlanSet,
     Plan: Plan,
+    Reality: Reality,
     CircleDay: CircleDay,
     Exercise: Exercise,
-    GroupSet: GroupSet,
+    Group: Group,
 };

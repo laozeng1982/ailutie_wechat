@@ -2,7 +2,7 @@
  * 锻炼计划记录页面
  */
 
-import Reality from '../../datamodel/RealitySet'
+import PlanReality from '../../datamodel/PlanReality'
 import Timer from '../../utils/Timer'
 import ChartMaker from '../ui/chart/ChartMaker'
 import ChartData from '../ui/chart/ChartData'
@@ -74,9 +74,9 @@ Page({
         let currentActionId = this.data.currentActionId;
         let currentGroupId = this.data.currentGroupId;
 
-        todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantity =
+        todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantityPerGroup =
             parseInt(this.data.realityDataArray[0][e.detail.value[0]]);
-        todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedWeight =
+        todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantityPerAction =
             parseInt(this.data.realityDataArray[1][e.detail.value[1]]);
 
         this.setData({
@@ -356,7 +356,7 @@ Page({
         // 同时更新动作选择列表
         let currentPartId = 0;
         for (let idx = 0; idx < partActionArray[0].length; idx++) {
-            if (partActionArray[idx] === todayReality.exerciseSet[currentActionId].action.partSet[0]) {
+            if (partActionArray[idx] === todayReality.exerciseSet[currentActionId].action.target[0]) {
                 console.log("match:  ", partActionArray[idx]);
                 currentPartId = idx;
             }
@@ -422,7 +422,7 @@ Page({
 
         for (let idx = 0; idx < this.data.todayReality.exerciseSet.length; idx++) {
             // 注意这里要判断两个，一个是动作名，一个是对应的主部位名，同时相等才行
-            if (this.data.todayReality.exerciseSet[idx].action.partSet[0] === this.data.partActionArray[0][partIdx] &&
+            if (this.data.todayReality.exerciseSet[idx].action.target[0] === this.data.partActionArray[0][partIdx] &&
                 this.data.todayReality.exerciseSet[idx].action.name === this.data.partActionArray[1][actionIdx]) {
                 currentActionId = idx;
                 break;
@@ -528,7 +528,7 @@ Page({
                 let hasThisExercise = false;
 
                 for (let currentExercise of todayReality.exerciseSet) {
-                    if (existExercise.action.partSet[0] === currentExercise.action.partSet[0] &&
+                    if (existExercise.action.target[0] === currentExercise.action.target[0] &&
                         existExercise.action.name === currentExercise.action.name) {
                         hasThisExercise = true;
                     }
@@ -540,7 +540,7 @@ Page({
             }
         }
 
-        let realityToSave = new Reality.Reality(today);
+        let realityToSave = new PlanReality.Reality(today, app.userInfoLocal.userUID);
 
         for (let exercise of todayReality.exerciseSet) {
             let exerciseToBeAdd = null;
@@ -585,6 +585,8 @@ Page({
             RealitySet.push(realityToSave);
         }
 
+        app.Util.createData("reality", realityToSave, RealitySet);
+
         app.Util.saveData(app.StorageType.RealitySet, RealitySet);
 
     },
@@ -598,7 +600,7 @@ Page({
         let today = app.Util.formatDateToString(new Date());
         let dayIdx = (new Date()).getDay();     // 周几，索引
 
-        let todayReality = new Reality.Reality(today);
+        let todayReality = new PlanReality.Reality(today, app.userInfoLocal.userUID);
         let todayHasPlan = false;
         let hasActivePlan = false;
         let currentPlan = app.currentPlan;
@@ -619,7 +621,7 @@ Page({
             hasActivePlan = true;
             // 先判断这天是否在周期内，然后判断这天动作的重复次数里，有没有这个周期
             if (app.Util.checkDate(currentPlan.fromDate, today, currentPlan.toDate)) {
-                todayReality.exerciseSet = app.currentPlan.circleDaySet[dayIdx].exerciseSet;
+                todayReality.exerciseSet = app.Util.deepClone(app.currentPlan.circleDaySet[dayIdx].exerciseSet);
                 // 今天有计划
                 if (todayReality.exerciseSet.length > 0) {
                     todayHasPlan = true;
@@ -658,10 +660,11 @@ Page({
 
             for (let exercise of todayReality.exerciseSet) {
                 for (let group of exercise.groupSet) {
-                    group.executedQuantity = group.quantity;
-                    group.executedWeight = group.weight;
+                    group.executedQuantityPerGroup = group.quantityPerGroup;
+                    group.executedQuantityPerAction = group.quantityPerAction;
                     group.finished = false;
                 }
+                exercise.forPlan = false;
                 exercise.currentGroupId = 0;
                 exercise.finishedCount = 0;
                 exercise.finished = false;
@@ -674,7 +677,7 @@ Page({
                 for (let plan of todayReality.exerciseSet) {
                     for (let exist of existReality.exerciseSet) {
                         // 注意，这里需要判断两个，当部位和动作同时相同，方可认为他们是一个动作
-                        if (exist.action.partSet[0] === plan.action.partSet[0] && exist.action.name === plan.action.name) {
+                        if (exist.action.target[0] === plan.action.target[0] && exist.action.name === plan.action.name) {
                             let length = exist.groupSet.length;
                             // 将plan中前半截去掉，然后加上实际的数据
                             plan.groupSet.splice(0, length);
@@ -717,8 +720,8 @@ Page({
             todayReality.totalFinishedGroups = 0;
             // 1、统计部位：先获得所有的一级部位名称
             for (let exercise of todayReality.exerciseSet) {
-                if (!partArray.includes(exercise.action.partSet[0])) {
-                    partArray.push(exercise.action.partSet[0]);
+                if (!partArray.includes(exercise.action.target[0])) {
+                    partArray.push(exercise.action.target[0]);
                 }
             }
 
@@ -726,7 +729,7 @@ Page({
             for (let part of partArray) {
                 let array = [];
                 for (let exercise of todayReality.exerciseSet) {
-                    if (part === exercise.action.partSet[0]) {
+                    if (part === exercise.action.target[0]) {
                         array.push(exercise.action.name);
                     }
                 }

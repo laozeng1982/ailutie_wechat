@@ -38,7 +38,7 @@ class UserProfile {
                 //     name: "总体",
                 //     data: [
                 //         new UserProfileItem(1, "General", "height", "身高", "", "cm"),
-                //         new UserProfileItem(2, "General", "weight", "体重", "", "Kg"),
+                //         new UserProfileItem(2, "General", "quantityPerAction", "体重", "", "Kg"),
                 //         new UserProfileItem(3, "General", "bmi", "BMI", "", ""),
                 //         new UserProfileItem(4, "General", "bodyFatRate", "体脂率", "", "%"),
                 //     ],
@@ -48,7 +48,7 @@ class UserProfile {
                 circumference: {
                     name: "围度",
                     data: [
-                        new UserProfileItem(1, "General", "weight", "体重", "", "Kg"),
+                        new UserProfileItem(1, "General", "quantityPerAction", "体重", "", "Kg"),
                         new UserProfileItem(2, "General", "bmi", "BMI", "", ""),
                         new UserProfileItem(3, "General", "bodyFatRate", "体脂率", "", "%"),
                         new UserProfileItem(4, "Circumference", "shoulder_width", "肩宽", "", "cm"),

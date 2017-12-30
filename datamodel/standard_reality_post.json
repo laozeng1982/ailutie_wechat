@@ -11,30 +11,30 @@
       "groupSet": [
         {
           "orderNumber": 1,
-          "executedQuantity": 10,
-          "executedWeight": 10,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 10,
           "forPlan": false,
-          "quantity": 20,
-          "uom": "ea",
-          "weight": 20
+          "quantityPerGroup": 20,
+          "actionUom": "ea",
+          "quantityPerAction": 20
         },
         {
           "orderNumber": 2,
-          "executedQuantity": 11,
-          "executedWeight": 10,
+          "executedQuantityPerGroup": 11,
+          "executedQuantityPerAction": 10,
           "forPlan": false,
-          "quantity": 20,
-          "uom": "ea",
-          "weight": 20
+          "quantityPerGroup": 20,
+          "actionUom": "ea",
+          "quantityPerAction": 20
         },
         {
           "orderNumber": 3,
-          "executedQuantity": 12,
-          "executedWeight": 10,
+          "executedQuantityPerGroup": 12,
+          "executedQuantityPerAction": 10,
           "forPlan": false,
-          "quantity": 20,
-          "uom": "ea",
-          "weight": 20
+          "quantityPerGroup": 20,
+          "actionUom": "ea",
+          "quantityPerAction": 20
         }
       ]
     },
@@ -47,30 +47,30 @@
       "groupSet": [
         {
           "orderNumber": 1,
-          "executedQuantity": 10,
-          "executedWeight": 10,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 10,
           "forPlan": false,
-          "quantity": 20,
-          "uom": "ea",
-          "weight": 20
+          "quantityPerGroup": 20,
+          "actionUom": "ea",
+          "quantityPerAction": 20
         },
         {
           "orderNumber": 2,
-          "executedQuantity": 11,
-          "executedWeight": 10,
+          "executedQuantityPerGroup": 11,
+          "executedQuantityPerAction": 10,
           "forPlan": false,
-          "quantity": 20,
-          "uom": "ea",
-          "weight": 20
+          "quantityPerGroup": 20,
+          "actionUom": "ea",
+          "quantityPerAction": 20
         },
         {
           "orderNumber": 3,
-          "executedQuantity": 12,
-          "executedWeight": 10,
+          "executedQuantityPerGroup": 12,
+          "executedQuantityPerAction": 10,
           "forPlan": false,
-          "quantity": 20,
-          "uom": "ea",
-          "weight": 20
+          "quantityPerGroup": 20,
+          "actionUom": "ea",
+          "quantityPerAction": 20
         }
       ]
     }

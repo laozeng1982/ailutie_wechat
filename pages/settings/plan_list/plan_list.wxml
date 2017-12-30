@@ -21,18 +21,24 @@
                         <view class='plan-item-header'>
                             <image class='header-image-author' src='../../image/app_icon.png'></image>
                             <view class='header-text-author'>
-                                <view>{{item.source}}</view>
-                                <view>{{item.fromDate}}</view>
+                                <view>拥有者：{{item.source}}</view>
+                                <view>时间段：{{item.fromDate}} 到 {{item.toDate}} </view>
                             </view>
                         </view>
 
                         <!-- plan的级别、目标和名字 -->
                         <view class='plan-item-purpose'>
-                            <view class='purpose-item-header'>{{item.purpose}}</view>
+                            <view class='purpose-item-header'> {{item.description}}</view>
+                        </view>
+
+                        <view class='plan-item-purpose'>
+                                                     
+                            <view class='purpose-item-header'> {{item.chPlace}}</view> 
                             <view class='purpose-item'> - </view>
-                            <view class='purpose-item'> {{item.grade}}</view>
+                            <view class='purpose-item'>{{item.chPurpose}}</view>
                             <view class='purpose-item'> - </view>
-                            <view class='purpose-item'> {{item.name}}</view>
+                            <view class='purpose-item'> {{item.chGrade}}</view>
+
                         </view>
 
                         <!-- plan的图片 -->

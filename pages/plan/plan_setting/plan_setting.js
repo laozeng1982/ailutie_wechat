@@ -23,7 +23,7 @@ Page({
                 name: "健身水平",
                 type: "picker",
                 isPicker: true,
-                value: ["Primary", "Medium", "Professional"],
+                value: ["Primary", "Medium", "Senior"],
                 description: ["初级", "中级", "高级"],
                 index: 0
             },

@@ -81,10 +81,10 @@
                                         <view class="action-number-picker-box">
                                             <view class="action-number-picker-item">{{item.groupSet.length}} </view>
                                             <view class="action-number-picker-item">组</view>
-                                            <view class="action-number-picker-item">{{item.groupSet[0].quantity}}</view>
-                                            <view class="action-number-picker-item" style='width:80rpx'>{{item.gpMeasurement}}</view>
-                                            <view class="action-number-picker-item">{{item.groupSet[0].weight}}</view>
-                                            <view class="action-number-picker-item">{{item.groupSet[0].uom}}</view>
+                                            <view class="action-number-picker-item">{{item.groupSet[0].quantityPerGroup}}</view>
+                                            <view class="action-number-picker-item" style='width:80rpx'>{{item.groupUom}}</view>
+                                            <view class="action-number-picker-item">{{item.groupSet[0].quantityPerAction}}</view>
+                                            <view class="action-number-picker-item">{{item.groupSet[0].actionUom}}</view>
                                         </view>
                                     </picker>
                                 </view>

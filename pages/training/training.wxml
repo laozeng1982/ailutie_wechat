@@ -69,8 +69,8 @@
                         <view class="picker-item first-item">第 {{currentGroupId + 1}} /{{todayReality.exerciseSet[currentActionId].groupSet.length}} 组</view>
                         <picker class="picker-item-box" mode="multiSelector" bindchange="onChangeRealityData" value="{{realityIndex}}" range="{{realityDataArray}}">
                             <view class="picker-item-box">
-                                <view class="picker-item">{{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantity}} /{{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].quantity}} 次</view>
-                                <view class="picker-item">{{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedWeight}} /{{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].weight}} {{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].uom}}</view>
+                                <view class="picker-item">{{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantityPerGroup}} /{{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].quantityPerGroup}} {{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].groupUom}}</view>
+                                <view class="picker-item">{{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].executedQuantityPerAction}} /{{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].quantityPerAction}} {{todayReality.exerciseSet[currentActionId].groupSet[currentGroupId].actionUom}}</view>
                                 <image class='image-small' src='../image/pencil_64px.png'></image>
                             </view>
                         </picker>

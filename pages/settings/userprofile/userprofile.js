@@ -75,8 +75,8 @@ Page({
                 if (item.enName === "height") {
                     item.value = this.data.userInfo.height;
                 }
-                if (item.enName === "weight") {
-                    item.value = this.data.userInfo.weight;
+                if (item.enName === "quantityPerAction") {
+                    item.value = this.data.userInfo.quantityPerAction;
                 }
             }
         }

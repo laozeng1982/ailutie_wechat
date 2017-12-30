@@ -28,9 +28,9 @@
           "groupSet": [
             {
               "id": 1,
-              "quantity": 10,
-              "weight": 30,
-              "uom": "Kg"
+              "quantityPerGroup": 10,
+              "quantityPerAction": 30,
+              "actionUom": "Kg"
             }
           ]
         }
