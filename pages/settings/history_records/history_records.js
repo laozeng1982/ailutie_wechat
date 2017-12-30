@@ -267,8 +267,8 @@ Page({
             showPlanDetail: selectedDatePlan.length > 0
         });
 
-        app.globalData.selectedDate = app.Util.getDateFromString(selectedDate.value, '-');
-        console.log(app.globalData.selectedDate);
+        app.selectedDate = app.Util.getDateFromString(selectedDate.value, '-');
+        console.log(app.selectedDate);
 
     },
 
@@ -496,9 +496,9 @@ Page({
      * 每次进入页面，调用loadDate()，刷新数据
      */
     onShow: function () {
-        let year = app.globalData.selectedDate.getFullYear();
-        let month = app.globalData.selectedDate.getMonth() + 1;
-        let day = app.globalData.selectedDate.getDate();
+        let year = app.selectedDate.getFullYear();
+        let month = app.selectedDate.getMonth() + 1;
+        let day = app.selectedDate.getDate();
 
         this.setData({
             currentYear: year,

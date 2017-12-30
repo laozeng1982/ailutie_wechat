@@ -15,7 +15,6 @@ class UserInfo {
         this.birthday = ''; //格式：1990-08-10
 
         //以下数据可以修改：
-        this.defaultWechatLogin = false;
         this.type = [];  //用户类型，可以多选：user，coach，gym
         this.nickName = ''; //昵称
         this.height = '';

@@ -8,7 +8,7 @@
  */
 class Plan {
     constructor(userUID) {
-        this.id = '';        // 由后台数据库生成，修改（PUT）的时候先获取后台id，PUT的时候用
+        this.id = 0;        // 由后台数据库生成，修改（PUT）的时候先获取后台id，PUT的时候用
         this.name = '';      // 计划的名字
         this.user = {id: userUID};    // 用户在后台系统的id
         this.predefined = false;    // 是否是由爱撸铁预定义的计划，false代表用户自定义，true代表爱撸铁预定义计划

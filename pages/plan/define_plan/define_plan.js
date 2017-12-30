@@ -457,8 +457,6 @@ Page({
      * 保存场景，以防没有保存计划时，用户返回该页面
      */
     saveSession: function () {
-        app.planStartDate = this.data.fromDate;
-        app.planEndDate = this.data.toDate;
         app.currentPlan.fromDate = this.data.fromDate;
         app.currentPlan.toDate = this.data.toDate;
         app.currentPlan.source = app.userInfoLocal.nickName;

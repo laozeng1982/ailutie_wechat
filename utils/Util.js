@@ -388,40 +388,33 @@ function calcEnergyCost(exercise, isKCal) {
 }
 
 /**
- * 获取并设置app的OpenId
+ * 同步爱撸铁设计的动作信息
+ * @param host
  */
-function setWechatOpenId(host) {
-    wx.login({
+function syncActions(host) {
+    // 获取后台服务器上的动作数据
+    wx.request({
+        url: 'https://www.newpictown.com/part/allPredefinedOnes',
         success: function (res) {
-            // console.log("in setWechatOpenId login.res: ", res);
-            if (res.code) {
-                wx.request({
-                    url: urls.user.getOpenId(res.code),
-                    success: function (res) {
-                        host.openId = res.data;
-                        // 根据OpenId获取服务器上用户信息
-                        setUserInfoFromServer(host, res.data);
-                    }
-                })
-            }
+            console.log("in syncActions, body info:", res.data);
+            host.actionArray = res.data;
         }
     });
 }
 
 /**
- * 获取并设置用户的微信信息
+ * 同步用户的微信信息
  * @param host
  */
-function setWechatUserInfo(host) {
+function syncWechatUserInfo(host) {
     // 获取用户的微信信息
     wx.getUserInfo({
         success: res => {
             // 可以将 res 发送给后台解码出 unionId
-            console.log("in setWechatUserInfo, wechatUserInfo: ", res.userInfo);
+            console.log("in syncWechatUserInfo, wechatUserInfo: ", res.userInfo);
             host.wechatUserInfo = res.userInfo;
-            if (typeof host.userInfoLocal.nickName === 'undefined' || host.userInfoLocal.nickName === '') {
-                host.userInfoLocal.nickName = res.userInfo.nickName;
-            }
+            host.userInfoLocal.nickName = res.userInfo.nickName;
+            host.userInfoLocal.gender = res.userInfo.gender === 1 ? "Male" : "Female";
             // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
             // 所以此处加入 callback 以防止这种情况
             if (host.userInfoReadyCallback) {
@@ -434,63 +427,137 @@ function setWechatUserInfo(host) {
     });
 }
 
+function copyInfo(host, res) {
+    host.userInfoLocal.userUID = res.data.id;
+    host.userInfoLocal.birthday = res.data.dateOfBirth;
+    host.userInfoLocal.nickName = res.data.nickName;
+    host.userInfoLocal.gender = res.data.gender;
+    host.userInfoLocal.height = res.data.extendedInfoMap.height.value;
+    host.userInfoLocal.weight = res.data.extendedInfoMap.weight.value;
+    host.userInfoLocal.wechatOpenId = res.data.wechatMPOpenId;
+    host.userInfoLocal.wechatUnionId = res.data.wechatMPOpenId;
+
+}
+
 /**
- * 从服务端读取用户信息
+ * 同步由爱撸铁设计的用户数据信息
  * @param host
- * @param openId
  */
-function setUserInfoFromServer(host, openId) {
-    // 异步获取信息
-    console.log("openId", openId);
-    if (typeof host.openId !== 'undefined' || openId !== '') {
-        wx.request({
-                url: urls.user.byOpenId(openId),
-                method: 'GET',
-                success: function (res) {
-                    if (typeof res.data.id !== 'undefined') {
-                        console.log("setUserInfoFromServer: ", res.data);
-                        host.userInfoFromServer = res.data;
-                    }
-                },
-                fail: function (res) {
-                    console.log("get fail: ", res.data);
-                }
-            }
-        );
-    }
-}
-
-/**
- * 检查是否系统注册，如果没有注册，将不能远程同步
- */
-function checkRegister(host) {
-    console.log("checking register");
-
-    // 验证是否是首次使用爱撸铁，首次登陆，录入用户基本信息
-    let userInfo = loadData((new SystemSetting.StorageType()).UserInfo);
-    console.log("in checkRegister, local userInfo: ", userInfo);
-    let userUID = userInfo.userUID;
-
-    if (typeof userUID === 'undefined' || userUID === -1) {
-        // 去注册
-        console.log("in checkRegister, go to User information record page!");
-        wx.redirectTo({
-            url: 'pages/settings/userinfo/userinfo?model=newUser',
-        });
-    } else {
-        host.userInfoLocal = userInfo;
-    }
-}
-
-function syncSysParameter(host) {
-    // 取数据
-    wx.request({
-        url: 'https://www.newpictown.com/part/allPredefinedOnes',
+function syncUserInfo(host) {
+    wx.login({
         success: function (res) {
-            console.log("body info from server: ", res.data);
-            host.actionArray = res.data;
+            console.log("in syncUserInfo, login.res.code:", res);
+            if (res.code) {
+                // 1、获取js_code，去后台换取OpenId
+                wx.request({
+                    url: urls.user.getOpenId(res.code),
+                    method: 'GET',
+                    success: function (res) {
+                        let openId = res.data;
+                        console.log("in syncUserInfo, openId:", openId);
+                        // 2、根据OpenId获取服务器上用户信息
+                        if (typeof openId !== 'undefined' || openId !== '') {
+                            wx.request({
+                                    url: urls.user.byOpenId(openId),
+                                    method: 'GET',
+                                    success: function (res) {
+                                        if (typeof res.data.id !== 'undefined') {
+                                            console.log("in syncData, userInfo:", res.data);
+                                            copyInfo(host, res);
+                                            console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
+                                            saveData(Storage.UserInfo, host.userInfoLocal);
+                                        } else {
+                                            console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
+                                            host.userInfoLocal.wechatOpenId = openId;
+                                            console.log("in syncData, no user exist!");
+                                            wx.showModal({
+                                                title: 'Error',
+                                                content: '还未注册，去注册？',
+                                                success: function (res) {
+                                                    if (res.confirm) {
+                                                        // 去注册
+                                                        wx.redirectTo({
+                                                            url: '/pages/settings/userinfo/userinfo?model=newUser',
+                                                        });
+                                                    } else if (res.cancel) {
+                                                        console.log('用户取消UserUID');
+                                                    }
+                                                }
+                                            });
+
+                                        }
+                                    },
+                                    fail: function (res) {
+                                        console.log("get fail: ", res.data);
+                                    }
+                                }
+                            );
+                        } else {
+                            console.log("get OpenId fail: ", res.data);
+                            wx.showModal({
+                                title: 'Error',
+                                content: '未能获取用户的OpenId，请检查网络',
+                            });
+                        }
+                    },
+                    fail: function (res) {
+                        console.log("get OpenId fail: ", res.data);
+                        wx.showModal({
+                            title: 'Error',
+                            content: '未能获取用户的OpenId，请检查网络',
+                        });
+                    }
+                })
+            }
         }
     });
+}
+
+/**
+ * 同步数据
+ * @param host
+ * @param type
+ * @param data2Sever
+ * @param data2Local
+ */
+function syncData(host, type, data2Sever, data2Local) {
+    switch (type) {
+        case "actions":
+            // 爱撸铁自定义动作列表
+            syncActions(host);
+            break;
+        case "wechat":
+            // 微信用户信息
+            syncWechatUserInfo(host);
+            break;
+        case "user":
+            // 爱撸铁用户信息
+            syncUserInfo(host);
+            break;
+        case "plan":
+            console.log("return id:", res.data.id);
+            for (let plan of data2Local) {
+                if (isEqual(plan, data2Sever)) {
+                    plan.id = res.data.id;
+                }
+            }
+            saveData(Storage.PlanSet, data2Local);
+            console.log("create plan successful, res.data:", res.data);
+            break;
+        case "reality":
+            for (let reality of data2Local) {
+                if (reality.date = res.date) {
+                    reality.id = res.data.id;
+                }
+            }
+
+            saveData(Storage.RealitySet, data2Local);
+            console.log("create reality successful, res.data:", res.data);
+            break;
+        default:
+            console.log("in createData, wrong type!");
+            break;
+    }
 }
 
 /**
@@ -500,6 +567,7 @@ function syncSysParameter(host) {
  * @param data2Local
  */
 function createData(type, data2Sever, data2Local) {
+    delete data2Sever.id;
     wx.request({
             url: BASE_URL + type + "/",
             method: 'POST',
@@ -513,17 +581,17 @@ function createData(type, data2Sever, data2Local) {
                             data2Local.nickName = data2Sever.nickName;
                             console.log("data2Local: ", data2Local);
                             saveData(Storage.UserInfo, data2Local);
-                            // update app information
-                            setUserInfoFromServer(getApp(), data2Sever.wechatMPOpenId);
+                            console.log("create user successful, res.data:", res.data);
                             break;
                         case "plan":
+                            console.log("return id:", res.data.id);
                             for (let plan of data2Local) {
                                 if (isEqual(plan, data2Sever)) {
                                     plan.id = res.data.id;
                                 }
                             }
                             saveData(Storage.PlanSet, data2Local);
-                            console.log("update plan successful, res.data:", res.data);
+                            console.log("create plan successful, res.data:", res.data);
                             break;
                         case "reality":
                             for (let reality of data2Local) {
@@ -531,19 +599,17 @@ function createData(type, data2Sever, data2Local) {
                                     reality.id = res.data.id;
                                 }
                             }
-
                             saveData(Storage.RealitySet, data2Local);
-                            console.log("update reality successful, res.data:", res.data);
+                            console.log("create reality successful, res.data:", res.data);
                             break;
                         default:
                             console.log("in createData, wrong type!");
                             break;
                     }
                 }
-                console.log("create success: ", res.data);
             },
             fail: function (res) {
-                console.log("create fail: ", res.data)
+                console.log("create fail: ", res.data);
             }
         }
     );
@@ -565,10 +631,8 @@ function updateData(type, data2Sever, data2Local) {
                 if (typeof res.data.id !== 'undefined') {
                     switch (type) {
                         case "user":
-                            console.log("update success: ", res.data);
+                            console.log("update user success: ", res.data);
                             saveData(Storage.UserInfo, data2Local);
-                            // update app information
-                            setUserInfoFromServer(getApp(), data2Sever.wechatMPOpenId);
                             break;
                         case "plan":
                             break;
@@ -582,33 +646,12 @@ function updateData(type, data2Sever, data2Local) {
 
             },
             fail: function (res) {
-                console.log("update fail: ", res.data)
+                console.log("update", type, "fail: ", res.data);
             }
         }
     );
 
 }
-
-/**
- * 微信版的Promise
- * @param fn
- * @returns {Function}
- */
-// function wxPromisify(fn) {
-//     return function (obj = {}) {
-//         return new Promise((resolve, reject) => {
-//             obj.success = function (res) {
-//                 resolve(res)
-//             };
-//
-//             obj.fail = function (res) {
-//                 reject(res)
-//             };
-//
-//             fn(obj);
-//         })
-//     }
-// }
 
 
 module.exports = {
@@ -632,13 +675,9 @@ module.exports = {
     loadPlan: loadPlan,
     saveData: saveData,
     calcEnergyCost: calcEnergyCost,
-    setWechatOpenId: setWechatOpenId,
-    setWechatUserInfo: setWechatUserInfo,
-    setUserInfoFromServer: setUserInfoFromServer,
-    checkRegister: checkRegister,
     createData: createData,
     updateData: updateData,
-    syncSysParameter: syncSysParameter
+    syncData: syncData,
     // wxPromisify: wxPromisify
 
 }

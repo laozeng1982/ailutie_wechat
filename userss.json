@@ -1,0 +1,19 @@
+{
+  "accountNonExpired": true,
+  "accountNonLocked": true,
+  "dateOfBirth": "1982-08-30",
+  "extendedInfoMap": {
+    "height": {
+      "value": 170
+    },
+    "weight": {
+      "value": 65
+    }
+  },
+  "gender": "Male",
+  "mobileNumber": "",
+  "nickName": "你剑哥",
+  "username": "你剑哥",
+  "wechatMPOpenId": "oehHx0KiURA09lkBc-Q8ev1SgHmI",
+  "wechatUnionId": ""
+}

@@ -11,14 +11,11 @@ const STORAGETYPE = new StorageType.StorageType();
 App({
     onLaunch: function () {
         // 同步服务器模板数据
-        util.syncSysParameter(this);
-        // 获取用户微信信息
-        util.setWechatUserInfo(this);
-        // 获取用户OpenId
-        util.setWechatOpenId(this);
-        // 查询用户是否注册过
-        util.checkRegister(this);
-        
+        util.syncData(this, "actions");
+        // 同步用户微信信息
+        util.syncData(this, "wechat");
+        // 同步用户数据
+        util.syncData(this, "user");
 
         // 全局变量
         this.planSet = util.loadData(STORAGETYPE.PlanSet);
@@ -36,21 +33,16 @@ App({
 
     // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
     wechatUserInfo: {},
-    openId: '',
-    userInfoLocal: {},
-    userInfoFromServer: {},
+    userInfoLocal: util.loadData(STORAGETYPE.UserInfo),
+    userInfo: util.loadData(STORAGETYPE.UserInfo),
+    actionArray: {},
 
     makingNewPlan: true,    // 操作计划的模式：如制定新计划为真，否则为假，在首页里两个操作互斥
-    planMakeModel: 3,  // 用户对计划来源的选择，1代表使用推荐计划，2代表使用历史计划，3代表使用自定义计划，默认是三
-    planStartDate: '',
-    planEndDate: '',
     lastPlanSaved: false,
 
-    globalData: {
+    selectedDateString: util.formatDateToString(new Date()),
+    selectedDate: new Date(),
 
-        userInfo: null,
-        selectedDateString: util.formatDateToString(new Date()),
-        selectedDate: new Date(),
-    },
+    globalData: {},
 
 })

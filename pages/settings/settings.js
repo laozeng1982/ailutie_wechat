@@ -120,7 +120,6 @@ Page({
             userInfo: app.wechatUserInfo,
         });
         console.log("Setting page onLoad call, userInfo: ", this.data.userInfo);
-        console.log("Setting page onLoad call, app.openId: ", app.openId);
     },
 
     /**

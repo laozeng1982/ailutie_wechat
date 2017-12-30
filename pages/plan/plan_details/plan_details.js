@@ -52,7 +52,7 @@ Page({
 
         app.Util.createData("plan", app.currentPlan, app.planSet);
 
-        app.Util.saveData(app.StorageType.PlanSet, app.planSet);
+        // app.Util.saveData(app.StorageType.PlanSet, app.planSet);
 
         app.Util.showNormalToast("计划已保存", this, 2000);
 

@@ -49,12 +49,12 @@ Page({
     },
 
     onFormSubmit: function (e) {
-        // TODO 这一节因为页面数据结构的逻辑不太好，所以判断就写的不好，将来参考userprofile页重写
+        // TODO 表单校验
         // 根据入口不同，选择切换不同的Tab
         console.log('form发生了submit事件，携带数据为：', e.detail.value);
         let userInfo = this.data.userInfo;
 
-        userInfo.wechatOpenId = app.openId;
+        userInfo.wechatOpenId = app.userInfoLocal.wechatOpenId;
         userInfo.nickName = app.wechatUserInfo.nickName;
 
         if (e.detail.value.mobileNumber !== '') {
@@ -68,8 +68,7 @@ Page({
             tabUrl = '../../index/index';
 
             // 创建用户信息
-            if (typeof app.userInfoFromServer.id === 'undefined') {
-
+            if (app.userInfoLocal.userUID === -1) {
                 let new_user_data = this.makeUserInfo(userInfo, true);
                 console.log("new user: ", new_user_data);
                 // 后台创建，创建成功，获得id，并保存到本地
@@ -77,7 +76,7 @@ Page({
 
             } else {
                 // 应对用户删除本地存储，在获取了用户id之后，更新用户信息，这步必须的。
-                userInfo.userUID = app.userInfoFromServer.id;
+                userInfo.userUID = app.userInfoLocal.userUID;
 
                 let update_user_data = this.makeUserInfo(userInfo, false);
 
@@ -108,6 +107,12 @@ Page({
         });
     },
 
+    /**
+     *
+     * @param userInfo
+     * @param createNew
+     * @returns {{accountNonExpired: boolean, accountNonLocked: boolean, gender: string|*, dateOfBirth: string|*, username: *|string, nickName: *|string, wechatMPOpenId: *|string, wechatUnionId: *|string, mobileNumber: *|string, extendedInfoMap: {height: {value: number|*}, weight: {value: number|*}}}}
+     */
     makeUserInfo: function (userInfo, createNew) {
         let value = {
             "accountNonExpired": true,
@@ -116,8 +121,8 @@ Page({
             "dateOfBirth": userInfo.birthday,
             "username": app.wechatUserInfo.nickName,
             "nickName": app.wechatUserInfo.nickName,
-            "wechatMPOpenId": app.openId,
-            "wechatUnionId": app.openId,
+            "wechatMPOpenId": app.userInfoLocal.wechatOpenId,
+            "wechatUnionId": app.userInfoLocal.wechatUnionId,
             "mobileNumber": userInfo.mobileNumber,
             "extendedInfoMap": {
                 "height": {
@@ -134,14 +139,19 @@ Page({
         return value;
     },
 
+    /**
+     * 设置页面的值
+     */
     setValues: function () {
-        let userInfo = app.Util.loadData(app.StorageType.UserInfo);
+        let userInfo = app.Util.deepClone(app.userInfoLocal);
         let genderIdx = 0;
 
+        console.log("in setValues", userInfo);
+
         // 根据服务器获取值来初始化界面
-        if (typeof app.userInfoFromServer.id === 'undefined') {
+        if (app.userInfoLocal.userUID === -1) {
             // 默认值
-            if (userInfo.birthday === "") {
+            if (typeof userInfo.birthday === 'undefined' || userInfo.birthday === "") {
                 userInfo.birthday = '1990-08-30';
             }
 
@@ -168,8 +178,8 @@ Page({
                 userInfo.weight = parseInt(userInfo.weight);
             }
         } else {
-            userInfo.birthday = app.userInfoFromServer.dateOfBirth;
-            userInfo.gender = app.userInfoFromServer.gender;
+            userInfo.birthday = app.userInfoLocal.birthday;
+            userInfo.gender = app.userInfoLocal.gender;
             if (userInfo.gender === 'Male') {
                 genderIdx = 0;
             } else if (userInfo.gender === 'Female') {
@@ -181,16 +191,11 @@ Page({
                 userInfo.gender = 'Male';
             }
 
-            if (typeof app.userInfoFromServer.extendedInfoMap !== 'undefined') {
-                userInfo.height = app.userInfoFromServer.extendedInfoMap.height.value;
-                userInfo.weight = app.userInfoFromServer.extendedInfoMap.weight.value;
-            } else {
-                userInfo.height = 170;
-                userInfo.weight = 65;
-            }
+            userInfo.height = app.userInfoLocal.height;
+            userInfo.weight = app.userInfoLocal.weight;
 
-            if (typeof app.userInfoFromServer.mobileNumber !== 'undefined' && app.userInfoFromServer.mobileNumber !== '') {
-                userInfo.mobileNumber = app.userInfoFromServer.mobileNumber;
+            if (typeof app.userInfoLocal.mobileNumber !== 'undefined' && app.userInfoLocal.mobileNumber !== '') {
+                userInfo.mobileNumber = app.userInfoLocal.mobileNumber;
             }
 
         }
@@ -240,7 +245,7 @@ Page({
             setTimeout(function () {
                 console.log("loading closed");
                 // console.log("app.openId: ", app.openId);
-                // console.log("resUserData is: ", app.userInfoFromServer);
+                // console.log("resUserData is: ", app.userInfo);
                 host.setValues();
                 wx.hideLoading();
             }, 5000);
