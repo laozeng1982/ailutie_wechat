@@ -371,23 +371,25 @@ Page({
 
         app.currentPlan.currentUse = true;
 
-        if (app.planSet.length === 0) {
-            app.planSet.push(app.currentPlan);
+        let planSet = app.loadData(app.StorageType.PlanSet);
+
+        if (planSet.length === 0) {
+            planSet.push(app.currentPlan);
         } else {
             // 暂时不考虑删除计划，隐藏即可，这里就需要判断是否有激活的计划，有的话直接替换，没有的话，直接添加
             var hasUsingPlan = false;
-            for (let idx = 0; idx < app.planSet.length; idx++) {
-                if (app.planSet[idx].currentUse) {
+            for (let idx = 0; idx < planSet.length; idx++) {
+                if (planSet[idx].currentUse) {
                     hasUsingPlan = true;
-                    app.planSet.splice(idx, 1, app.currentPlan);
+                    planSet.splice(idx, 1, app.currentPlan);
                 }
             }
             if (!hasUsingPlan) {
-                app.planSet.push(app.currentPlan);
+                planSet.push(app.currentPlan);
             }
         }
-        app.Util.saveData(app.StorageType.PlanSet, app.planSet);
-        console.log(app.planSet);
+        app.Util.saveData(app.StorageType.PlanSet, planSet);
+        console.log(planSet);
     },
 
     /**

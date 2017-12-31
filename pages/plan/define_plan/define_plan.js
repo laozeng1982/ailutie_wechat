@@ -460,7 +460,6 @@ Page({
         app.currentPlan.fromDate = this.data.fromDate;
         app.currentPlan.toDate = this.data.toDate;
         app.currentPlan.source = app.userInfoLocal.nickName;
-        // app.currentPlan.name = "我的计划";
 
         let circleDaySet = app.currentPlan.circleDaySet;
 
@@ -530,7 +529,7 @@ Page({
      * 4、根据入口选择初始化内容
      */
     onLoad: function (options) {
-        console.log("Select Part Page onLoad");
+        console.log("Define plan page onLoad");
         console.log("options.model:", options.mode);
         if (options.mode === "tempPlan" || options.mode === "longPlan") {
             app.currentPlan = new PlanReality.Plan(app.userInfoLocal.userUID);
@@ -549,7 +548,6 @@ Page({
         }
         // 只需要这一次
         this.makeActionPicker();
-
 
         this.setData({
             options: options
@@ -588,7 +586,6 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        this.saveSession();
     },
 
     /**

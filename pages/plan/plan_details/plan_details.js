@@ -11,13 +11,13 @@ Page({
      */
     data: {
         planSetting: [
-            { id: "name", description: "计划名字：", value: '' },
-            { id: "purpose", description: "健身目标：", value: '' },
-            { id: "grade", description: "健身水平：", value: '' },
-            { id: "targetUser", description: "目标人群：", value: '' },
-            { id: "facility", description: "健身设备：", value: '' },
-            { id: "place", description: "健身地点：", value: '' },
-            { id: "description", description: "计划描述：", value: '' },
+            {id: "name", description: "计划名字：", value: ''},
+            {id: "purpose", description: "健身目标：", value: ''},
+            {id: "grade", description: "健身水平：", value: ''},
+            {id: "targetUser", description: "目标人群：", value: ''},
+            {id: "facility", description: "健身设备：", value: ''},
+            {id: "place", description: "健身地点：", value: ''},
+            {id: "description", description: "计划描述：", value: ''},
         ]
     },
     /**
@@ -27,36 +27,24 @@ Page({
 
         app.currentPlan.currentUse = true;
 
-        // if (app.planSet.length === 0) {
-        //     app.planSet.push(app.currentPlan);
-        // } else {
-        //     // 暂时不考虑删除计划，隐藏即可，这里就需要判断是否有激活的计划，有的话直接替换，没有的话，直接添加
-        //     var hasUsingPlan = false;
-        //     for (let idx = 0; idx < app.planSet.length; idx++) {
-        //         if (app.planSet[idx].currentUse) {
-        //             hasUsingPlan = true;
-        //             app.planSet.splice(idx, 1, app.currentPlan);
-        //         }
-        //     }
-        //     if (!hasUsingPlan) {
-        //         app.planSet.push(app.currentPlan);
-        //     }
-        // }
-
-        // 暂时不考虑删除计划，隐藏即可，然后直接添加
-        for (let idx = 0; idx < app.planSet.length; idx++) {
-            app.planSet[idx].currentUse = false;
+        let planSet = app.Util.loadData(app.StorageType.PlanSet);
+        if (planSet.length > 0) {
+            // 先寻找是否有当天plan，如果有，删除
+            for (let idx = 0; idx < planSet.length; idx++) {
+                if (planSet[idx].id === app.currentPlan.id) {
+                    planSet.splice(idx, 1);
+                    break;
+                }
+            }
         }
 
-        app.planSet.push(app.currentPlan);
+        // 暂时不考虑删除计划，隐藏即可，然后直接添加
+        let plan2Save = app.Util.deepClone(app.currentPlan);
 
-        app.Util.createData("plan", app.currentPlan, app.planSet);
-
-        // app.Util.saveData(app.StorageType.PlanSet, app.planSet);
+        app.Util.syncData(null, "plan", plan2Save, planSet);
 
         app.Util.showNormalToast("计划已保存", this, 2000);
 
-        console.log(app.planSet);
     },
 
     onComments: function () {
@@ -123,9 +111,7 @@ Page({
     onSavePlan: function () {
         this.savePlanData();
 
-        wx.switchTab({
-            url: '../../index/index',
-        });
+
     },
 
     /**
@@ -164,9 +150,9 @@ Page({
             circleDay.partShowing = circleDay.displayPartArray.join("，");
         }
 
+        // 设置中文显示
         for (let setting of planSetting) {
             setting.value = dict.getChFromEn(app.currentPlan[setting.id]);
-            // console.log(setting.id, setting, app.currentPlan[setting.id]);
         }
 
         this.setData({
@@ -174,7 +160,7 @@ Page({
             planSetting: planSetting
         });
 
-        // console.log(this.data.plan);
+        console.log("in plan_details, app.currentPlan: ", app.currentPlan);
     },
 
     /**

@@ -516,6 +516,7 @@ Page({
             }
         }
 
+        console.log("RealitySet:", RealitySet);
         console.log("existReality:", existReality);
         console.log("todayReality:", todayReality);
 
@@ -566,28 +567,18 @@ Page({
 
         // console.log("realityToSave:", realityToSave);
 
-        // 3、存储整理好的Reality，即最终实际的Reality
-        let hasThisRealityIndex = -1;
+        // 3、存储整理好的RealitySet，即最终实际的Reality
         if (RealitySet.length > 0) {
             // 先寻找是否有当天Reality，如果有，则记下位置
             for (let idx = 0; idx < RealitySet.length; idx++) {
                 if (RealitySet[idx].date === realityToSave.date) {
-                    hasThisRealityIndex = idx;
+                    RealitySet.splice(idx, 1);
                     break;
                 }
             }
         }
 
-        // 如果有这天的记录则替换，否则直接插入
-        if (hasThisRealityIndex !== -1) {
-            RealitySet.splice(hasThisRealityIndex, 1, realityToSave);
-        } else {
-            RealitySet.push(realityToSave);
-        }
-
-        app.Util.createData("reality", realityToSave, RealitySet);
-
-        app.Util.saveData(app.StorageType.RealitySet, RealitySet);
+        app.Util.syncData(app, "reality", realityToSave, RealitySet);
 
     },
 
@@ -660,6 +651,7 @@ Page({
 
             for (let exercise of todayReality.exerciseSet) {
                 for (let group of exercise.groupSet) {
+                    group.forPlan = false;
                     group.executedQuantityPerGroup = group.quantityPerGroup;
                     group.executedQuantityPerAction = group.quantityPerAction;
                     group.finished = false;

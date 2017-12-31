@@ -1,7 +1,5 @@
 <!-- 今日计划表 -->
 <view class="container">
-    <!-- 这是Toast -->
-    <include src="/pages/ui/toast/nomal_toast.wxml" />
 
     <!-- 屏幕分两部分 -->
     <!-- 上半部分计划总览 -->

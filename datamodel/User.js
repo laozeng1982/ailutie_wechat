@@ -8,7 +8,7 @@ class UserInfo {
 
     constructor() {
         //以下数据，一旦建立，不可修改
-        this.userUID = -1; //系统分配，所有数据的唯一识别号，系统验证使用
+        this.userUID = -1; //-1表示初始状态，系统分配，所有数据的唯一识别号，系统验证使用
         this.wechatOpenId = '';
         this.wechatUnionId = '';
         this.gender = ''; //男、女或者不知道

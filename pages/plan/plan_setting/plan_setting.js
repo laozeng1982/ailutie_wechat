@@ -100,7 +100,7 @@ Page({
 
         app.currentPlan.source = app.userInfoLocal.nickName;
 
-        console.log('form发生了submit事件，携带数据为：', e.detail.value);
+        // console.log('form发生了submit事件，携带数据为：', e.detail.value);
 
         // 准备Plan的数据
         wx.navigateTo({

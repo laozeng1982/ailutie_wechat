@@ -308,6 +308,7 @@ function loadData(dataType) {
                 requestData = new SystemSetting.SystemSetting();
                 break;
             case 4:
+                // 4. PlanSet
                 requestData = [];
                 break;
             case 5:
@@ -436,82 +437,144 @@ function copyInfo(host, res) {
     host.userInfoLocal.weight = res.data.extendedInfoMap.weight.value;
     host.userInfoLocal.wechatOpenId = res.data.wechatMPOpenId;
     host.userInfoLocal.wechatUnionId = res.data.wechatMPOpenId;
+    host.userInfoLocal.mobileNumber = res.data.mobileNumber;
 
 }
 
 /**
  * 同步由爱撸铁设计的用户数据信息
  * @param host
+ * @param type
+ * @param data2Sever
+ * @param data2Local
  */
-function syncUserInfo(host) {
-    wx.login({
-        success: function (res) {
-            console.log("in syncUserInfo, login.res.code:", res);
-            if (res.code) {
-                // 1、获取js_code，去后台换取OpenId
-                wx.request({
-                    url: urls.user.getOpenId(res.code),
-                    method: 'GET',
-                    success: function (res) {
-                        let openId = res.data;
-                        console.log("in syncUserInfo, openId:", openId);
-                        // 2、根据OpenId获取服务器上用户信息
-                        if (typeof openId !== 'undefined' || openId !== '') {
-                            wx.request({
-                                    url: urls.user.byOpenId(openId),
-                                    method: 'GET',
-                                    success: function (res) {
-                                        if (typeof res.data.id !== 'undefined') {
-                                            console.log("in syncData, userInfo:", res.data);
-                                            copyInfo(host, res);
-                                            console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
-                                            saveData(Storage.UserInfo, host.userInfoLocal);
-                                        } else {
-                                            console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
-                                            host.userInfoLocal.wechatOpenId = openId;
-                                            console.log("in syncData, no user exist!");
-                                            wx.showModal({
-                                                title: 'Error',
-                                                content: '还未注册，去注册？',
-                                                success: function (res) {
-                                                    if (res.confirm) {
-                                                        // 去注册
-                                                        wx.redirectTo({
-                                                            url: '/pages/settings/userinfo/userinfo?model=newUser',
-                                                        });
-                                                    } else if (res.cancel) {
-                                                        console.log('用户取消UserUID');
+function syncUserInfo(host, type, data2Sever, data2Local) {
+    if (host) {
+        wx.login({
+            success: function (res) {
+                console.log("in syncUserInfo, login.res.code:", res);
+                if (res.code) {
+                    // 1、获取js_code，去后台换取OpenId
+                    wx.request({
+                        url: urls.user.getOpenId(res.code),
+                        method: 'GET',
+                        success: function (res) {
+                            let openId = res.data;
+                            console.log("in syncUserInfo, openId:", openId);
+                            // 2、根据OpenId获取服务器上用户信息
+                            if (typeof openId !== 'undefined' || openId !== '') {
+                                wx.request({
+                                        url: urls.user.byOpenId(openId),
+                                        method: 'GET',
+                                        success: function (res) {
+                                            if (typeof res.data.id !== 'undefined') {
+                                                console.log("in syncData, res.data:", res.data);
+                                                copyInfo(host, res);
+                                                console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
+                                                saveData(Storage.UserInfo, host.userInfoLocal);
+                                            } else {
+                                                console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
+                                                host.userInfoLocal.wechatOpenId = openId;
+                                                console.log("in syncData, user didn't register on server!");
+                                                wx.showModal({
+                                                    title: 'Error',
+                                                    content: '还未注册，去注册？',
+                                                    success: function (res) {
+                                                        if (res.confirm) {
+                                                            // 去注册
+                                                            wx.redirectTo({
+                                                                url: '/pages/settings/userinfo/userinfo?model=newUser',
+                                                            });
+                                                        } else if (res.cancel) {
+                                                            console.log('用户取消UserUID');
+                                                        }
                                                     }
-                                                }
-                                            });
+                                                });
 
+                                            }
+                                        },
+                                        fail: function (res) {
+                                            console.log("Get user id fail: ", res.data);
                                         }
-                                    },
-                                    fail: function (res) {
-                                        console.log("get fail: ", res.data);
                                     }
-                                }
-                            );
-                        } else {
+                                );
+                            } else {
+                                console.log("Get OpenId fail: ", res.data);
+                                wx.showModal({
+                                    title: 'Error',
+                                    content: '未能获取用户的OpenId，请检查网络',
+                                });
+                            }
+                        },
+                        fail: function (res) {
                             console.log("get OpenId fail: ", res.data);
                             wx.showModal({
                                 title: 'Error',
                                 content: '未能获取用户的OpenId，请检查网络',
                             });
                         }
-                    },
-                    fail: function (res) {
-                        console.log("get OpenId fail: ", res.data);
-                        wx.showModal({
-                            title: 'Error',
-                            content: '未能获取用户的OpenId，请检查网络',
-                        });
-                    }
-                })
+                    })
+                }
             }
+        });
+    } else {
+        if (data2Sever.id === -1) {
+            delete data2Sever.id;
+            createData(type, data2Sever, data2Local);
+        } else {
+            updateData(type, data2Sever, data2Local);
+        }
+    }
+
+}
+
+function syncPlan(host, type, data2Sever, data2Local) {
+    if (data2Sever.id === -1) {
+        delete data2Sever.id;
+        createData(type, data2Sever, data2Local);
+    } else {
+        updateData(type, data2Sever, data2Local);
+    }
+
+}
+
+function syncReality(host, type, data2Sever, data2Local) {
+    // wx.showLoading({
+    //     title: '同步数据',
+    // });
+    let data = {
+        "fromDate": host.selectedDateString,
+        "toDate": host.selectedDateString,
+        "userId": host.userInfoLocal.userUID
+    };
+    wx.request({
+        url: 'https://www.newpictown.com/reality/page/',
+        data: data,
+        method: 'POST',
+        success: function (res) {
+            console.log("in syncReality, reality info:", res.data);
+            // 查询当天是否存有reality
+            let realityId = -1;
+            for (let item of res.data.content) {
+                if (item.date === host.selectedDateString) {
+                    realityId = item.id;
+                }
+            }
+
+            if (realityId === -1) {
+                delete data2Sever.id;
+                createData(type, data2Sever, data2Local);
+            } else {
+                data2Sever.id = realityId;
+                updateData(type, data2Sever, data2Local);
+            }
+            // wx.hideLoading();
         }
     });
+
+
 }
+
 
 /**
  * 同步数据
@@ -522,7 +585,7 @@ function syncUserInfo(host) {
  */
 function syncData(host, type, data2Sever, data2Local) {
     switch (type) {
-        case "actions":
+        case "system":
             // 爱撸铁自定义动作列表
             syncActions(host);
             break;
@@ -532,27 +595,13 @@ function syncData(host, type, data2Sever, data2Local) {
             break;
         case "user":
             // 爱撸铁用户信息
-            syncUserInfo(host);
+            syncUserInfo(host, type, data2Sever, data2Local);
             break;
         case "plan":
-            console.log("return id:", res.data.id);
-            for (let plan of data2Local) {
-                if (isEqual(plan, data2Sever)) {
-                    plan.id = res.data.id;
-                }
-            }
-            saveData(Storage.PlanSet, data2Local);
-            console.log("create plan successful, res.data:", res.data);
+            syncPlan(host, type, data2Sever, data2Local);
             break;
         case "reality":
-            for (let reality of data2Local) {
-                if (reality.date = res.date) {
-                    reality.id = res.data.id;
-                }
-            }
-
-            saveData(Storage.RealitySet, data2Local);
-            console.log("create reality successful, res.data:", res.data);
+            syncReality(host, type, data2Sever, data2Local);
             break;
         default:
             console.log("in createData, wrong type!");
@@ -567,39 +616,39 @@ function syncData(host, type, data2Sever, data2Local) {
  * @param data2Local
  */
 function createData(type, data2Sever, data2Local) {
-    delete data2Sever.id;
+    wx.showLoading({
+        title: '同步数据',
+    });
     wx.request({
             url: BASE_URL + type + "/",
             method: 'POST',
             data: data2Sever,
             success: function (res) {
                 if (typeof res.data.id !== 'undefined') {
+                    console.log("return id:", res.data.id);
                     switch (type) {
                         case "user":
                             data2Local.userUID = parseInt(res.data.id);
-                            data2Local.wechatOpenId = data2Sever.wechatMPOpenId;
-                            data2Local.nickName = data2Sever.nickName;
-                            console.log("data2Local: ", data2Local);
                             saveData(Storage.UserInfo, data2Local);
+                            console.log("data2Local: ", data2Local);
                             console.log("create user successful, res.data:", res.data);
+                            wx.hideLoading();
                             break;
                         case "plan":
-                            console.log("return id:", res.data.id);
-                            for (let plan of data2Local) {
-                                if (isEqual(plan, data2Sever)) {
-                                    plan.id = res.data.id;
-                                }
-                            }
+                            data2Sever.id = res.data.id;
+                            data2Local.push(data2Sever);
                             saveData(Storage.PlanSet, data2Local);
                             console.log("create plan successful, res.data:", res.data);
+                            wx.hideLoading();
+                            wx.switchTab({
+                                url: '../../index/index',
+                            });
                             break;
                         case "reality":
-                            for (let reality of data2Local) {
-                                if (reality.date = res.date) {
-                                    reality.id = res.data.id;
-                                }
-                            }
+                            data2Sever.id = res.data.id;
+                            data2Local.push(data2Sever);
                             saveData(Storage.RealitySet, data2Local);
+                            wx.hideLoading();
                             console.log("create reality successful, res.data:", res.data);
                             break;
                         default:
@@ -609,6 +658,10 @@ function createData(type, data2Sever, data2Local) {
                 }
             },
             fail: function (res) {
+                wx.hideLoading();
+                wx.switchTab({
+                    url: '../../index/index',
+                });
                 console.log("create fail: ", res.data);
             }
         }
@@ -623,6 +676,9 @@ function createData(type, data2Sever, data2Local) {
  */
 function updateData(type, data2Sever, data2Local) {
     // 后台更新
+    wx.showLoading({
+        title: '同步数据',
+    });
     wx.request({
             url: BASE_URL + type + "/",
             method: 'PUT',
@@ -635,8 +691,25 @@ function updateData(type, data2Sever, data2Local) {
                             saveData(Storage.UserInfo, data2Local);
                             break;
                         case "plan":
+                            let newPlanId = res.data.id;
+                            data2Sever.id = newPlanId;
+                            data2Local.push(data2Sever);
+
+                            saveData(Storage.PlanSet, data2Local);
+                            console.log("update plan successful, res.data:", res.data);
+                            wx.hideLoading();
+                            wx.switchTab({
+                                url: '../../index/index',
+                            });
                             break;
                         case "reality":
+                            let newRealityId = res.data.id;
+                            data2Sever.id = newRealityId;
+                            data2Local.push(data2Sever);
+
+                            saveData(Storage.RealitySet, data2Local);
+                            console.log("update reality successful, res.data:", res.data);
+                            wx.hideLoading();
                             break;
                         default:
                             console.log("in createData, wrong type");
@@ -675,8 +748,6 @@ module.exports = {
     loadPlan: loadPlan,
     saveData: saveData,
     calcEnergyCost: calcEnergyCost,
-    createData: createData,
-    updateData: updateData,
     syncData: syncData,
     // wxPromisify: wxPromisify
 

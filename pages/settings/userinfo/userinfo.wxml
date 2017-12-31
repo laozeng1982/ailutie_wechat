@@ -57,7 +57,7 @@
                     <text>电话</text>
                 </view>
                 <view class='item-picker'>
-                    <input id="mobileNumber" class="section-item-input" type='number' name="mobileNumber" placeholder="" value="{{userInfo.mobileNumber}}" bindinput='onInput' /> 
+                    <input id="mobileNumber" class="section-item-input" type='number' name="mobileNumber" placeholder="" value="{{userInfo.mobileNumber}}" /> 
                 </view>
             </view>
         </view>

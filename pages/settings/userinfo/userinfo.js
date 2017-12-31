@@ -16,6 +16,10 @@ Page({
         userInfo: '',
     },
 
+    /**
+     * 响应选择，主要是因为要中英文显示性别，要用到genderIdx
+     * @param e
+     */
     onPickerChange: function (e) {
         // console.log(e);
         let genderIdx = this.data.genderIdx;
@@ -44,16 +48,13 @@ Page({
         });
     },
 
-    onInput: function (e) {
-        // console.log(e);
-    },
-
     onFormSubmit: function (e) {
         // TODO 表单校验
         // 根据入口不同，选择切换不同的Tab
         console.log('form发生了submit事件，携带数据为：', e.detail.value);
         let userInfo = this.data.userInfo;
 
+        // 收集信息
         userInfo.wechatOpenId = app.userInfoLocal.wechatOpenId;
         userInfo.nickName = app.wechatUserInfo.nickName;
 
@@ -61,40 +62,25 @@ Page({
             userInfo.mobileNumber = e.detail.value.mobileNumber;
         }
 
+        // 准备跳转页面及保存数据
         let tabUrl = '';
 
-        if (this.data.option === "newUser") {
-            // 由新建页面进入，页面设置完成，跳转到首页
+        if (app.userInfoLocal.userUID === -1) {
+            // 由新建页面进入，创建用户信息，页面设置完成，跳转到首页
             tabUrl = '../../index/index';
-
-            // 创建用户信息
-            if (app.userInfoLocal.userUID === -1) {
-                let new_user_data = this.makeUserInfo(userInfo, true);
-                console.log("new user: ", new_user_data);
-                // 后台创建，创建成功，获得id，并保存到本地
-                app.Util.createData("user", new_user_data, userInfo);
-
-            } else {
-                // 应对用户删除本地存储，在获取了用户id之后，更新用户信息，这步必须的。
-                userInfo.userUID = app.userInfoLocal.userUID;
-
-                let update_user_data = this.makeUserInfo(userInfo, false);
-
-                console.log("update user: ", update_user_data);
-                // 后台更新，并保存
-                app.Util.updateData("user", update_user_data, userInfo);
-            }
+            userInfo.userUID = -1;
 
         } else {
             // 由更新页面进入，页面设置完成，跳转到设置
+            // 应对用户删除本地存储，在获取了用户id之后，更新用户信息，这步必须的。
             tabUrl = '../../settings/settings';
-
-            // 更新用户信息
-            let update_user_data = this.makeUserInfo(userInfo, false);
-            console.log("update user: ", update_user_data);
-            // 后台更新，并保存
-            app.Util.updateData("user", update_user_data, userInfo);
+            userInfo.userUID = app.userInfoLocal.userUID;
         }
+
+        let data = this.makeUserInfo(userInfo);
+
+        // 后台创建或更新，并同步保存到本地
+        app.Util.syncData(null, "user", data, userInfo);
 
         wx.switchTab({
             url: tabUrl,
@@ -113,8 +99,9 @@ Page({
      * @param createNew
      * @returns {{accountNonExpired: boolean, accountNonLocked: boolean, gender: string|*, dateOfBirth: string|*, username: *|string, nickName: *|string, wechatMPOpenId: *|string, wechatUnionId: *|string, mobileNumber: *|string, extendedInfoMap: {height: {value: number|*}, weight: {value: number|*}}}}
      */
-    makeUserInfo: function (userInfo, createNew) {
+    makeUserInfo: function (userInfo) {
         let value = {
+            "id": userInfo.userUID,
             "accountNonExpired": true,
             "accountNonLocked": true,
             "gender": userInfo.gender,
@@ -133,20 +120,21 @@ Page({
                 }
             }
         };
-        if (!createNew) {
-            value.id = userInfo.userUID;
-        }
+        // if (!createNew) {
+        //     value.id = userInfo.userUID;
+        // }
+
         return value;
     },
 
     /**
      * 设置页面的值
      */
-    setValues: function () {
+    setPageUserInfo: function () {
         let userInfo = app.Util.deepClone(app.userInfoLocal);
         let genderIdx = 0;
 
-        console.log("in setValues", userInfo);
+        console.log("in setPageUserInfo", userInfo);
 
         // 根据服务器获取值来初始化界面
         if (app.userInfoLocal.userUID === -1) {
@@ -178,6 +166,7 @@ Page({
                 userInfo.weight = parseInt(userInfo.weight);
             }
         } else {
+            // 根据localStorage来初始化
             userInfo.birthday = app.userInfoLocal.birthday;
             userInfo.gender = app.userInfoLocal.gender;
             if (userInfo.gender === 'Male') {
@@ -197,7 +186,6 @@ Page({
             if (typeof app.userInfoLocal.mobileNumber !== 'undefined' && app.userInfoLocal.mobileNumber !== '') {
                 userInfo.mobileNumber = app.userInfoLocal.mobileNumber;
             }
-
         }
 
         this.setData({
@@ -217,7 +205,7 @@ Page({
 
         this.data.option = options.model;
 
-        this.setValues();
+        this.setPageUserInfo();
 
         let heightArray = [];
         let weightArray = [];
@@ -246,7 +234,7 @@ Page({
                 console.log("loading closed");
                 // console.log("app.openId: ", app.openId);
                 // console.log("resUserData is: ", app.userInfo);
-                host.setValues();
+                host.setPageUserInfo();
                 wx.hideLoading();
             }, 5000);
 
