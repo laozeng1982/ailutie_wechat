@@ -350,7 +350,7 @@ Page({
         let body = new Body.Body();
         let weekData = this.data.weekData;
 
-        let systemSetting = app.Util.loadData(app.StorageType.SystemSetting);
+        let systemSetting = app.Util.loadData(app.StorageType.System);
         body.cloneDataFrom(systemSetting.body);
         body.modifyAcitionId();
 

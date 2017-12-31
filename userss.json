@@ -1,19 +1,26 @@
 {
-  "accountNonExpired": true,
-  "accountNonLocked": true,
-  "dateOfBirth": "1982-08-30",
-  "extendedInfoMap": {
-    "height": {
-      "value": 170
+    "userInfo": {
+        "accountNonExpired": true,
+        "accountNonLocked": true,
+        "dateOfBirth": "1982-08-30",
+        "extendedInfoMap": {
+            "height": {
+                "value": 170
+            },
+            "weight": {
+                "value": 65
+            }
+        },
+        "gender": "Male",
+        "mobileNumber": "",
+        "nickName": "你剑哥",
+        "username": "你剑哥",
+        "wechatMPOpenId": "oehHx0KiURA09lkBc-Q8ev1SgHmI",
+        "wechatUnionId": ""
     },
-    "weight": {
-      "value": 65
+    "postReality": {
+        "fromDate": "2017-12-28",
+        "toDate": "2017-12-31",
+        "userId": 14
     }
-  },
-  "gender": "Male",
-  "mobileNumber": "",
-  "nickName": "你剑哥",
-  "username": "你剑哥",
-  "wechatMPOpenId": "oehHx0KiURA09lkBc-Q8ev1SgHmI",
-  "wechatUnionId": ""
 }

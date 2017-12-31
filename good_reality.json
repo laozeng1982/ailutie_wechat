@@ -1,0 +1,179 @@
+{
+  "id": 45,
+  "date": "2017-12-31",
+  "exerciseSet": [
+    {
+      "forPlan": false,
+      "target": "Chest",
+      "action": {
+        "id": 71,
+        "name": "上斜杠铃推举",
+        "equipment": "",
+        "description": "",
+        "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+        "predefined": true,
+        "target": [
+          "Chest"
+        ],
+        "displayPartSet": [
+          "胸部"
+        ],
+        "selected": true,
+        "groupUom": "次",
+        "actionUom": "Kg"
+      },
+      "groupSet": [
+        {
+          "orderNumber": 1,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 30,
+          "actionUom": "Kg",
+          "forPlan": true,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 30,
+          "finished": true
+        },
+        {
+          "orderNumber": 2,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 30,
+          "actionUom": "Kg",
+          "forPlan": true,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 30,
+          "finished": true
+        },
+        {
+          "orderNumber": 3,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 30,
+          "actionUom": "Kg",
+          "forPlan": true,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 30,
+          "finished": true
+        },
+        {
+          "orderNumber": 4,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 30,
+          "actionUom": "Kg",
+          "forPlan": true,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 30,
+          "finished": true
+        },
+        {
+          "orderNumber": 5,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 30,
+          "actionUom": "Kg",
+          "forPlan": true,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 30,
+          "finished": true
+        },
+        {
+          "orderNumber": 6,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 30,
+          "actionUom": "Kg",
+          "forPlan": true,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 30,
+          "finished": true
+        }
+      ],
+      "user": {
+        "id": 14
+      },
+      "currentGroupId": 5,
+      "finishedCount": 6,
+      "finished": true,
+      "actionScore": 3
+    },
+    {
+      "forPlan": false,
+      "target": "Chest",
+      "action": {
+        "id": 72,
+        "name": "上斜哑铃推举",
+        "equipment": "",
+        "description": "",
+        "imageUrl": "image/actions/chest/incline_dumbbell_bench_press.png",
+        "predefined": true,
+        "target": [
+          "Chest"
+        ],
+        "displayPartSet": [
+          "胸部"
+        ],
+        "selected": true,
+        "groupUom": "次",
+        "actionUom": "Kg"
+      },
+      "groupSet": [
+        {
+          "orderNumber": 1,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 20,
+          "actionUom": "Kg",
+          "forPlan": true,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 20,
+          "finished": true
+        },
+        {
+          "orderNumber": 2,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 20,
+          "actionUom": "Kg",
+          "forPlan": false,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 20,
+          "finished": true
+        },
+        {
+          "orderNumber": 3,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 20,
+          "actionUom": "Kg",
+          "forPlan": false,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 20,
+          "finished": true
+        },
+        {
+          "orderNumber": 4,
+          "quantityPerGroup": 10,
+          "groupUom": "次",
+          "quantityPerAction": 20,
+          "actionUom": "Kg",
+          "forPlan": false,
+          "executedQuantityPerGroup": 10,
+          "executedQuantityPerAction": 20,
+          "finished": true
+        }
+      ],
+      "user": {
+        "id": 14
+      },
+      "currentGroupId": 4,
+      "finishedCount": 4,
+      "finished": false,
+      "actionScore": 3
+    }
+  ],
+  "user": {
+    "id": 14
+  }
+}

@@ -1,0 +1,2018 @@
+{
+  "id": 3,
+  "name": "你剑哥的计划",
+  "user": {
+    "id": 1
+  },
+  "predefined": false,
+  "temporary": false,
+  "fromDate": "2017-12-31",
+  "toDate": "2018-01-30",
+  "purpose": "Muscle",
+  "grade": "Primary",
+  "description": "你剑哥的健身房增肌计划",
+  "circleDaySet": [
+    {
+      "weekDay": "Sunday",
+      "chWeekDay": "周日",
+      "exerciseSet": [
+        {
+          "forPlan": true,
+          "target": "Whole",
+          "action": {
+            "id": 101,
+            "name": "慢跑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/aerobic/canter.png",
+            "predefined": true,
+            "target": [
+              "Whole"
+            ],
+            "displayPartSet": [
+              "全身"
+            ],
+            "selected": true,
+            "groupUom": "分钟",
+            "actionUom": "Km"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 30,
+              "groupUom": "分钟",
+              "quantityPerAction": 5,
+              "actionUom": "Km",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Whole",
+          "action": {
+            "id": 102,
+            "name": "原地跑步",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/aerobic/running_on_the_spot.png",
+            "predefined": true,
+            "target": [
+              "Whole"
+            ],
+            "displayPartSet": [
+              "全身"
+            ],
+            "selected": true,
+            "groupUom": "分钟",
+            "actionUom": "次"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 30,
+              "groupUom": "分钟",
+              "quantityPerAction": 100,
+              "actionUom": "次",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Whole",
+          "action": {
+            "id": 99,
+            "name": "原地高抬腿",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/aerobic/place_high_leg_on_the_spot.png",
+            "predefined": true,
+            "target": [
+              "Whole"
+            ],
+            "displayPartSet": [
+              "全身"
+            ],
+            "selected": true,
+            "groupUom": "分钟",
+            "actionUom": "次"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "分钟",
+              "quantityPerAction": 100,
+              "actionUom": "次",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "分钟",
+              "quantityPerAction": 100,
+              "actionUom": "次",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "分钟",
+              "quantityPerAction": 100,
+              "actionUom": "次",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "分钟",
+              "quantityPerAction": 100,
+              "actionUom": "次",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "分钟",
+              "quantityPerAction": 100,
+              "actionUom": "次",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "分钟",
+              "quantityPerAction": 100,
+              "actionUom": "次",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Back",
+          "action": {
+            "id": 24,
+            "name": "反握窄距引体向上",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/back/reverse_narrow_pull_up.png",
+            "predefined": true,
+            "target": [
+              "Back"
+            ],
+            "displayPartSet": [
+              "背部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Back",
+          "action": {
+            "id": 31,
+            "name": "正握宽距引体向上",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/back/neutral_grip_pull_up.png",
+            "predefined": true,
+            "target": [
+              "Back"
+            ],
+            "displayPartSet": [
+              "背部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Back",
+          "action": {
+            "id": 32,
+            "name": "正握窄距引体向上",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/back/narrow_pull_up.png",
+            "predefined": true,
+            "target": [
+              "Back"
+            ],
+            "displayPartSet": [
+              "背部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Abdomen",
+          "action": {
+            "id": 57,
+            "name": "屈膝卷腹",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/abs/bent_leg_crunch.png",
+            "predefined": true,
+            "target": [
+              "Abdomen"
+            ],
+            "displayPartSet": [
+              "腹部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Abdomen",
+          "action": {
+            "id": 61,
+            "name": "反向卷腹",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/abs/reverse_crunch.png",
+            "predefined": true,
+            "target": [
+              "Abdomen"
+            ],
+            "displayPartSet": [
+              "腹部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Abdomen",
+          "action": {
+            "id": 63,
+            "name": "器械卷腹",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/abs/machine_crunch.png",
+            "predefined": true,
+            "target": [
+              "Abdomen"
+            ],
+            "displayPartSet": [
+              "腹部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 10,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 10,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 10,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 10,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 10,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 10,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        }
+      ],
+      "displayPartArray": [
+        "全身",
+        "背部",
+        "腹部"
+      ],
+      "showDetails": false,
+      "partShowing": "全身，背部，腹部"
+    },
+    {
+      "weekDay": "Monday",
+      "chWeekDay": "周一",
+      "exerciseSet": [
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 71,
+            "name": "上斜杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 72,
+            "name": "上斜哑铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_dumbbell_bench_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 69,
+            "name": "上斜器械推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_machine_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Waist",
+          "action": {
+            "id": 22,
+            "name": "杠铃罗马尼亚硬拉",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/romanian_barbell_deadlift.png",
+            "predefined": true,
+            "target": [
+              "Waist"
+            ],
+            "displayPartSet": [
+              "腰部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Waist",
+          "action": {
+            "id": 28,
+            "name": "杠铃直腿硬拉",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/straight_leg_barbell_deadlift.png",
+            "predefined": true,
+            "target": [
+              "Waist"
+            ],
+            "displayPartSet": [
+              "腰部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Waist",
+          "action": {
+            "id": 59,
+            "name": "平板支撑",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/waist/plank.png",
+            "predefined": true,
+            "target": [
+              "Waist"
+            ],
+            "displayPartSet": [
+              "腰部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Abdomen",
+          "action": {
+            "id": 64,
+            "name": "下斜仰卧起坐",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/abs/decline_sit_up.png",
+            "predefined": true,
+            "target": [
+              "Abdomen"
+            ],
+            "displayPartSet": [
+              "腹部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Abdomen",
+          "action": {
+            "id": 57,
+            "name": "屈膝卷腹",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/abs/bent_leg_crunch.png",
+            "predefined": true,
+            "target": [
+              "Abdomen"
+            ],
+            "displayPartSet": [
+              "腹部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Abdomen",
+          "action": {
+            "id": 61,
+            "name": "反向卷腹",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/abs/reverse_crunch.png",
+            "predefined": true,
+            "target": [
+              "Abdomen"
+            ],
+            "displayPartSet": [
+              "腹部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 0,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        }
+      ],
+      "displayPartArray": [
+        "胸部",
+        "腰部",
+        "腹部"
+      ],
+      "showDetails": false,
+      "partShowing": "胸部，腰部，腹部"
+    },
+    {
+      "weekDay": "Tuesday",
+      "chWeekDay": "周二",
+      "exerciseSet": [
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 71,
+            "name": "上斜杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 72,
+            "name": "上斜哑铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_dumbbell_bench_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 69,
+            "name": "上斜器械推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_machine_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        }
+      ],
+      "displayPartArray": [
+        "胸部"
+      ],
+      "showDetails": false,
+      "partShowing": "胸部"
+    },
+    {
+      "weekDay": "Wednesday",
+      "chWeekDay": "周三",
+      "exerciseSet": [
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 71,
+            "name": "上斜杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 72,
+            "name": "上斜哑铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_dumbbell_bench_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 69,
+            "name": "上斜器械推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_machine_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        }
+      ],
+      "displayPartArray": [
+        "胸部"
+      ],
+      "showDetails": false,
+      "partShowing": "胸部"
+    },
+    {
+      "weekDay": "Thursday",
+      "chWeekDay": "周四",
+      "exerciseSet": [
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 71,
+            "name": "上斜杠铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/horizontal_barbell_bench_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 72,
+            "name": "上斜哑铃推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_dumbbell_bench_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 20,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        },
+        {
+          "forPlan": true,
+          "target": "Chest",
+          "action": {
+            "id": 69,
+            "name": "上斜器械推举",
+            "equipment": "",
+            "description": "",
+            "imageUrl": "image/actions/chest/incline_machine_press.png",
+            "predefined": true,
+            "target": [
+              "Chest"
+            ],
+            "displayPartSet": [
+              "胸部"
+            ],
+            "selected": true,
+            "groupUom": "次",
+            "actionUom": "Kg"
+          },
+          "groupSet": [
+            {
+              "orderNumber": 1,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 2,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 3,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 4,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 5,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            },
+            {
+              "orderNumber": 6,
+              "quantityPerGroup": 10,
+              "groupUom": "次",
+              "quantityPerAction": 30,
+              "actionUom": "Kg",
+              "forPlan": true
+            }
+          ],
+          "user": {
+            "id": 1
+          }
+        }
+      ],
+      "displayPartArray": [
+        "胸部"
+      ],
+      "showDetails": false,
+      "partShowing": "胸部"
+    },
+    {
+      "weekDay": "Friday",
+      "chWeekDay": "周五",
+      "exerciseSet": [],
+      "displayPartArray": [],
+      "showDetails": false,
+      "partShowing": ""
+    },
+    {
+      "weekDay": "Saturday",
+      "chWeekDay": "周六",
+      "exerciseSet": [],
+      "displayPartArray": [],
+      "showDetails": false,
+      "partShowing": ""
+    }
+  ],
+  "privacy": "Public",
+  "source": "你剑哥",
+  "currentUse": true,
+  "targetUser": "Male",
+  "place": "Gym",
+  "facility": "Equipment",
+  "reading": 0,
+  "comments": [],
+  "agree": 0
+}

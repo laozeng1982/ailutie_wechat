@@ -5,14 +5,13 @@
  */
 import User from '../datamodel/User'
 import PlanSet from '../datamodel/PlanReality'
-import SystemSetting from '../datamodel/SystemSetting'
+import Settings from '../datamodel/Settings'
 import Urls from '../datamodel/Urls'
 
 const _ = require('./underscore.modified');
-// const Promise = require('./bluebird.min'); //用了bluebird.js
 const BASE_URL = 'https://www.newpictown.com/';
 const urls = new Urls.Urls();
-const Storage = new SystemSetting.StorageType();
+const StorageType = new Settings.StorageType();
 
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
@@ -305,14 +304,15 @@ function loadData(dataType) {
                 }
                 break;
             case 3:
-                requestData = new SystemSetting.SystemSetting();
+                requestData = new Settings.System();
                 break;
             case 4:
                 // 4. PlanSet
                 requestData = [];
                 break;
             case 5:
-                requestData = [];
+                // 5. SyncTag
+                requestData = new Settings.SyncTag();
                 break;
             default:
                 break;
@@ -327,8 +327,7 @@ function loadData(dataType) {
  * @returns {*}
  */
 function loadPlan() {
-    let storageType = new SystemSetting.StorageType();
-    let planSet = this.loadData(storageType.PlanSet);
+    let planSet = this.loadData(StorageType.PlanSet);
     let currentPlan = '';
 
     console.log("planSet:", planSet);
@@ -471,7 +470,7 @@ function syncUserInfo(host, type, data2Sever, data2Local) {
                                                 console.log("in syncData, res.data:", res.data);
                                                 copyInfo(host, res);
                                                 console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
-                                                saveData(Storage.UserInfo, host.userInfoLocal);
+                                                saveData(StorageType.UserInfo, host.userInfoLocal);
                                             } else {
                                                 console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
                                                 host.userInfoLocal.wechatOpenId = openId;
@@ -629,7 +628,7 @@ function createData(type, data2Sever, data2Local) {
                     switch (type) {
                         case "user":
                             data2Local.userUID = parseInt(res.data.id);
-                            saveData(Storage.UserInfo, data2Local);
+                            saveData(StorageType.UserInfo, data2Local);
                             console.log("data2Local: ", data2Local);
                             console.log("create user successful, res.data:", res.data);
                             wx.hideLoading();
@@ -637,7 +636,7 @@ function createData(type, data2Sever, data2Local) {
                         case "plan":
                             data2Sever.id = res.data.id;
                             data2Local.push(data2Sever);
-                            saveData(Storage.PlanSet, data2Local);
+                            saveData(StorageType.PlanSet, data2Local);
                             console.log("create plan successful, res.data:", res.data);
                             wx.hideLoading();
                             wx.switchTab({
@@ -647,7 +646,7 @@ function createData(type, data2Sever, data2Local) {
                         case "reality":
                             data2Sever.id = res.data.id;
                             data2Local.push(data2Sever);
-                            saveData(Storage.RealitySet, data2Local);
+                            saveData(StorageType.RealitySet, data2Local);
                             wx.hideLoading();
                             console.log("create reality successful, res.data:", res.data);
                             break;
@@ -688,14 +687,14 @@ function updateData(type, data2Sever, data2Local) {
                     switch (type) {
                         case "user":
                             console.log("update user success: ", res.data);
-                            saveData(Storage.UserInfo, data2Local);
+                            saveData(StorageType.UserInfo, data2Local);
                             break;
                         case "plan":
                             let newPlanId = res.data.id;
                             data2Sever.id = newPlanId;
                             data2Local.push(data2Sever);
 
-                            saveData(Storage.PlanSet, data2Local);
+                            saveData(StorageType.PlanSet, data2Local);
                             console.log("update plan successful, res.data:", res.data);
                             wx.hideLoading();
                             wx.switchTab({
@@ -707,7 +706,7 @@ function updateData(type, data2Sever, data2Local) {
                             data2Sever.id = newRealityId;
                             data2Local.push(data2Sever);
 
-                            saveData(Storage.RealitySet, data2Local);
+                            saveData(StorageType.RealitySet, data2Local);
                             console.log("update reality successful, res.data:", res.data);
                             wx.hideLoading();
                             break;

@@ -3,10 +3,10 @@
  * 小程序总入口
  */
 import util from './utils/Util'
-import StorageType from './datamodel/SystemSetting'
+import Settings from './datamodel/Settings'
 import PlanSet from './datamodel/PlanReality'
 
-const STORAGETYPE = new StorageType.StorageType();
+const STORAGETYPE = new Settings.StorageType();
 
 App({
     onLaunch: function () {
@@ -28,11 +28,12 @@ App({
     },
 
     // 提供工具类的统一接口，方便其他的JS通过app调用
-    StorageType: STORAGETYPE,
+    StorageType: new Settings.StorageType(),
     Util: util,
 
     // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
     wechatUserInfo: {},
+    syncTag: util.loadData(STORAGETYPE.SyncTag),
     userInfoLocal: util.loadData(STORAGETYPE.UserInfo), // 全局用户信息保存变量
     currentPlan: new PlanSet.Plan(),    // 全局当前计划
     actionArray: {},
