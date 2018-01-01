@@ -69,7 +69,7 @@ class UserProfile {
                 // }
             };
 
-        // let body = new Body.Body();
+        // let body = new PartsWithActions.PartsWithActions();
         // body.makeDefaultDefaultPartList();
         // let idx = 1;
         // let actionNameArray = [];

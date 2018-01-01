@@ -343,19 +343,15 @@ Page({
     /**
      * 初始化每天的部位与动作
      */
-    initPartAction: function () {
-        console.log("initPartAction call");
+    initPartsActions: function () {
+        console.log("initPartsActions call");
         // 这里要分入口，第一次进入，直接调用系统的，否则使用已经保存的
 
-        let body = new Body.Body();
+        let body = new Body.PartsWithActions(); // 使用类创建，获得类的函数，方便调用
         let weekData = this.data.weekData;
 
-        let systemSetting = app.Util.loadData(app.StorageType.System);
-        body.cloneDataFrom(systemSetting.body);
-        body.modifyAcitionId();
-
-        // body.cloneDataFrom(systemSetting.body);
-        console.log("body info from local: ", body);
+        let defaultBody = app.Util.loadData(app.StorageType.PartsWithActions);
+        body.cloneDataFrom(defaultBody);
 
         // 添加两个临时属性
         for (let part of body.parts) {
@@ -377,7 +373,7 @@ Page({
 
         for (let day of weekData) {
             day.partList = app.Util.deepClone(partList);
-            day.body = new Body.Body();
+            day.body = new Body.PartsWithActions();
             day.body.cloneDataFrom(body);
             // 第一次进入，没有选过动作，需要重新构建，先统一赋值
             day.body.initGroupSet();
@@ -568,7 +564,7 @@ Page({
     onShow: function () {
         console.log("Select Part Page onShow");
 
-        this.initPartAction();
+        this.initPartsActions();
 
     },
 

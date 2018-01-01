@@ -288,8 +288,8 @@ Page({
     onMakePlan: function () {
         app.makingNewPlan = true;
         wx.navigateTo({
-            url: '../plan/define_plan/define_plan',
-        })
+            url: '../plan/define_plan/define_plan?mode=longPlan',
+        });
     },
 
     /**
@@ -578,7 +578,12 @@ Page({
             }
         }
 
-        app.Util.syncData(app, "reality", realityToSave, RealitySet);
+        console.log("realityToSave:", realityToSave);
+        RealitySet.push(realityToSave);
+        app.Util.saveData(app.StorageType.RealitySet, RealitySet);
+        app.syncTag.RealitySet = false;
+        app.Util.saveData(app.StorageType.SyncTag, app.syncTag);
+        // app.Util.syncData(app, "reality", realityToSave, RealitySet);
 
     },
 

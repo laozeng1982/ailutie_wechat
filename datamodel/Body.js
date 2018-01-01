@@ -3,28 +3,28 @@
  */
 
 import PlanSet from './PlanReality'
-import Part from './Part'
-import Action from './Action'
 
-class Body {
-    constructor() {
+class PartsWithActions {
+    constructor(actionArray) {
         this.type = "";
         this.lastModifiedDate = '';
         this.parts = [];
+        this.createDefaultPartList();
+        this.modifyAcitionId(actionArray);
     }
 
     /**
      * 从内置的动作数据文件中，新建一个默认的身体部位列表及对应的动作信息
      */
-    static createDefaultPartList() {
-        let partDictionary = new PartDictionary();
+    createDefaultPartList() {
+        let partDictionary = new PartsActionDictionary();
 
         let parts = [];
         let actions = [];
         let partIndex = 1;
 
         for (let part of partDictionary.data) {
-            let bodyPart = new Part.BodyPart();
+            let bodyPart = new BodyPart();
             bodyPart.id = partIndex;
             bodyPart.bodyPart = part.bodyPart;
             bodyPart.displayName = part.displayName;
@@ -33,7 +33,7 @@ class Body {
 
             for (let actionIdx = 0; actionIdx < part.actionArray.length; actionIdx++) {
 
-                let action = new Action.Action();
+                let action = new Action();
                 action.id = actionIdx + 1;
                 action.name = part.actionArray[actionIdx].name;
                 action.imageUrl = part.actionArray[actionIdx].imageUrl;
@@ -57,14 +57,14 @@ class Body {
         let lastIdx = parts.length - 1;
         for (let idx = 0; idx < parts.length; idx++) {
             if (idx !== lastIdx && parts[idx].bodyPart !== parts[idx + 1].bodyPart) {
-                let action = new Action.Action();
+                let action = new Action();
                 action.id = parts[idx].actionSet.length + 1;
                 action.name = "自定义动作";
                 action.imageUrl = 'image/plus_64px1.png';
                 action.target.push(parts[idx].bodyPart);
                 parts[idx].actionSet.push(action);
             } else {
-                let action = new Action.Action();
+                let action = new Action();
                 action.id = parts[lastIdx].actionSet.length + 1;
                 action.name = "自定义动作";
                 action.imageUrl = 'image/plus_64px1.png';
@@ -73,13 +73,13 @@ class Body {
             }
         }
 
-        return {parts, actions};
+        this.parts = parts;
+        // this.actions = actions;
     }
 
-    modifyAcitionId() {
-        let app = getApp();
-        if (typeof app.actionArray !== 'undefined' && app.actionArray.length > 0) {
-            for (let actionGroup of app.actionArray) {
+    modifyAcitionId(actionArray) {
+        if (typeof actionArray !== 'undefined' && actionArray.length > 0) {
+            for (let actionGroup of actionArray) {
                 for (let actionServer of actionGroup.actionSet) {
                     for (let part of this.parts) {
                         for (let actionLocal of part.actionSet) {
@@ -91,8 +91,7 @@ class Body {
                 }
             }
         }
-        // 保存在本地
-        wx.setStorageSync("body", this);
+
     }
 
     /**
@@ -106,12 +105,6 @@ class Body {
                 this[item] = typeof obj[item] === "object" ? deepClone(obj[item]) : obj[item];
             }
         }
-    }
-
-    makeDefaultDefaultPartList() {
-        let defaultPart = Body.createDefaultPartList();
-        this.parts = defaultPart.parts;
-
     }
 
     getPartNameArray() {
@@ -473,7 +466,7 @@ class Body {
 
 }
 
-class PartDictionary {
+class PartsActionDictionary {
     constructor() {
         this.data = [];
         // 0、有氧
@@ -1513,6 +1506,42 @@ class PartDictionary {
 }
 
 /**
+ * 身体部位
+ */
+class BodyPart {
+    constructor() {
+        this.id = '';
+        this.bodyPart = '';
+        this.name = '';
+        this.imageUrl = '';
+        this.description = '';
+        this.predefined = true;
+        this.actionSet = [];  // 这个部位关联的动作
+        // for UI control
+        this.selected = false;
+    }
+}
+
+/**
+ * 具体的动作
+ */
+class Action {
+    constructor() {
+        this.id = '';
+        this.name = '';
+        this.equipment = '';
+        this.description = '';
+        this.imageUrl = '';
+        this.predefined = true;    // 是否为系统内置
+        this.target = [];  // 该动作关联的部位，一个动作可能会练到多个部位
+        this.displayPartSet = [];
+        this.defaultQuantity = {};
+        // just for UI
+        this.selected = false;
+    }
+}
+
+/**
  * 深度克隆数据的方法
  * @param obj
  * @returns {*}
@@ -1532,5 +1561,6 @@ function deepClone(obj) {
 }
 
 module.exports = {
-    Body: Body,
+    PartsWithActions: PartsWithActions,
+
 };

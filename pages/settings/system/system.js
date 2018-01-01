@@ -74,7 +74,7 @@ Page({
                 storageInfo: results
             });
 
-            console.log("System page onShow: ", this.data.storageInfo);
+            console.log("PartsWithActions page onShow: ", this.data.storageInfo);
         } catch (e) {
 
         }

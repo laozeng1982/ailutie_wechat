@@ -1,12 +1,3 @@
-import Body from './Body.js'
-
-class System {
-    constructor() {
-        this.body = new Body.Body();
-        this.body.makeDefaultDefaultPartList();
-    }
-}
-
 class StorageType {
     // 用户信息
     constructor() {
@@ -15,10 +6,10 @@ class StorageType {
         this.UserProfile = new Record(1, "UserProfile");
         // 每天记录
         this.RealitySet = new Record(2, "RealitySet");
-        // 系统内部信息
-        this.System = new Record(3, "System");
         // 计划
-        this.PlanSet = new Record(4, "PlanSet");
+        this.PlanSet = new Record(3, "PlanSet");
+        // 系统内部信息
+        this.PartsWithActions = new Record(4, "PartsWithActions");
         // 同步标志
         this.SyncTag = new Record(5, "SyncTag");
     }
@@ -39,7 +30,7 @@ class SyncTag {
         // 每天记录
         this.RealitySet = false;
         // 系统内部信息
-        this.SystemSetting = false;
+        this.PartsWithActions = false;
         // 计划
         this.PlanSet = false;
         // 同步标志
@@ -50,5 +41,4 @@ class SyncTag {
 module.exports = {
     StorageType: StorageType,
     SyncTag: SyncTag,
-    System: System
-}
+};

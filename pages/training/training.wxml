@@ -17,7 +17,7 @@
 
         <view class="top-panel-right-box">
             <view wx:if="{{todayHasPlan}}" class="top-panel-right-item" bindtap="onShowDetails">
-                <text style="font-size: 30rpx">{{todayReality.exerciseSet[currentActionId].action.partSet[0]}}</text>
+                <text style="font-size: 30rpx">{{todayReality.exerciseSet[currentActionId].action.displayPartSet[0]}}</text>
                 <text style="font-size: 50rpx">{{todayReality.exerciseSet[currentActionId].action.name}}</text>
             </view>
 

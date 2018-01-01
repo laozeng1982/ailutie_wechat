@@ -7,6 +7,7 @@ import User from '../datamodel/User'
 import PlanSet from '../datamodel/PlanReality'
 import Settings from '../datamodel/Settings'
 import Urls from '../datamodel/Urls'
+import Body from '../datamodel/Body'
 
 const _ = require('./underscore.modified');
 const BASE_URL = 'https://www.newpictown.com/';
@@ -283,7 +284,7 @@ function loadData(dataType) {
 
     // 根据类型来抽取需要的数据
     // 如果没有这个记录，取的会是空值，则新建一个对应的项
-    if (readInData !== "") {
+    if (readInData !== '') {
         requestData = readInData;
     } else {
         switch (dataType.id) {
@@ -296,19 +297,16 @@ function loadData(dataType) {
                 requestData = [];
                 break;
             case 2:
-                // 2. DailyRecords
-                if (typeof (requestData.date) !== "undefined" && requestData.date !== "") {
-                    console.log("here222222222222222222222222222222");
-                } else {
-                    requestData = [];
-                }
+                // 2. RealitySet
+                requestData = [];
                 break;
             case 3:
-                requestData = new Settings.System();
+                // 3. PlanSet
+                requestData = [];
                 break;
             case 4:
-                // 4. PlanSet
-                requestData = [];
+                // 4. PartsWithActions
+                requestData = new Body.PartsWithActions();
                 break;
             case 5:
                 // 5. SyncTag
@@ -330,7 +328,7 @@ function loadPlan() {
     let planSet = this.loadData(StorageType.PlanSet);
     let currentPlan = '';
 
-    console.log("planSet:", planSet);
+    // console.log("planSet:", planSet);
 
     for (let plan of planSet) {
         // 满足三个条件：有效的plan，且未过期和正在使用
@@ -396,8 +394,15 @@ function syncActions(host) {
     wx.request({
         url: 'https://www.newpictown.com/part/allPredefinedOnes',
         success: function (res) {
-            console.log("in syncActions, body info:", res.data);
-            host.actionArray = res.data;
+            // console.log("in syncActions, body info:", res.data);
+            let actionArray = res.data;
+            let body = new Body.PartsWithActions(actionArray);
+
+            // console.log("in syncActions, body info:", body);
+            // console.log(StorageType);
+
+            // 保存在本地
+            saveData(StorageType.PartsWithActions, body);
         }
     });
 }

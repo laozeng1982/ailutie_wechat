@@ -33,7 +33,7 @@ App({
 
     // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
     wechatUserInfo: {},
-    syncTag: util.loadData(STORAGETYPE.SyncTag),
+    syncTag: util.loadData(STORAGETYPE.SyncTag),    // 全局同步标志
     userInfoLocal: util.loadData(STORAGETYPE.UserInfo), // 全局用户信息保存变量
     currentPlan: new PlanSet.Plan(),    // 全局当前计划
     actionArray: {},

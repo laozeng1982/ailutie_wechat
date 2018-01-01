@@ -49,6 +49,13 @@ class Plan {
     }
 
     /**
+     * 上传数据时，清楚多余信息，节省时间和流量
+     */
+    cleanPlanRedundance() {
+
+    }
+
+    /**
      *
      * @param dayIdx
      */
@@ -125,6 +132,26 @@ class Reality {
         this.date = date;   // Reality生成的日期
         this.exerciseSet = []; // ExerciseSet数组
         this.user = {id: userUID}; // 用户在后台系统的id
+    }
+
+    /**
+     * 从一个对象复制数据过来，保留本对象的方法
+     * @param obj
+     */
+    cloneDataFrom(obj) {
+        // 递归
+        for (let item in obj) {
+            if (obj.hasOwnProperty(item)) {
+                this[item] = typeof obj[item] === "object" ? deepClone(obj[item]) : obj[item];
+            }
+        }
+    }
+
+    /**
+     * 上传数据时，清楚多余信息，节省时间和流量
+     */
+    cleanRealityRedundance() {
+
     }
 }
 
