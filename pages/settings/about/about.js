@@ -1,5 +1,5 @@
 // about.js
-import Body from '../../../datamodel/Body.js'
+
 Page({
 
     /**
@@ -17,8 +17,6 @@ Page({
             title: '关于我们',
         });
 
-        let body = new Body.Body();
-        body.makeDefaultDefaultPartList();
     },
 
     /**

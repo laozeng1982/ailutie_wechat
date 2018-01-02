@@ -22,9 +22,9 @@ class ChartData {
 
     }
 
-    static makeMonthArray(day) {
+    static makeMonthArray(date) {
         // 如果是闰年，则2月有29天
-        let year = day.getYear();
+        let year = date.getYear();
         let monthDaysCountArr = [];
         if (parseInt(year) % 4 === 0 && parseInt(year) % 100 !== 0) {
             monthDaysCountArr = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -63,7 +63,7 @@ class ChartData {
                             case "GROUP_COUNT":
                                 let group_count = 0;
                                 for (let exercise of reality.exerciseSet) {
-                                    group_count = group_count + exercise.groupSet.length;
+                                    group_count += exercise.groupSet.length;
                                 }
                                 data.push(group_count);
                                 break;
@@ -71,7 +71,7 @@ class ChartData {
                                 let weight = 0;
                                 for (let exercise of reality.exerciseSet) {
                                     for (let group of exercise.groupSet) {
-                                        weight = weight + group.quantityPerGroup * group.quantityPerAction;
+                                        weight += group.quantityPerGroup * group.quantityPerAction;
                                     }
                                 }
                                 data.push(weight);
@@ -79,7 +79,7 @@ class ChartData {
                             case "ENERGY":
                                 let energy = 0;
                                 for (let exercise of reality.exerciseSet) {
-                                    energy = Util.calcEnergyCost(exercise, true);
+                                    energy += Util.calcEnergyCost(exercise, true);
                                 }
                                 data.push(energy);
                                 break;
@@ -88,7 +88,7 @@ class ChartData {
                                 break;
                         }
 
-                        break;
+                        // break;
                     }
                 }
             } else {
@@ -132,7 +132,7 @@ class ChartData {
             // 1.2 产生日期数据
             for (let dayIdx = 0; dayIdx < length; dayIdx++) {
                 let date = Util.getMovedDate(startDay, true, dayIdx);
-                categories.push(Util.formatNumber(date.getMonth() + 1) + "-" + (date.getDate()));
+                categories.push(Util.formatNumber(date.getMonth() + 1) + "-" + Util.formatNumber(date.getDate()));
                 fullDate.push(Util.formatDateToString(date));
             }
             // 1.3 产生锻炼的实际数据
@@ -193,12 +193,12 @@ class ChartData {
 
         let realitySet = this.loadRealitySet();
 
-        // 这里还需要想想以完成的组数，重量，次数中哪一种为计算标准
+        // TODO 这里还需要想想以完成的组数，重量，次数中哪一种为计算标准
         for (let dataItem of pieData) {
             for (let reality of realitySet) {
                 if (reality.exerciseSet.length > 0) {
                     for (let exercise of reality.exerciseSet) {
-                        if (exercise.action.target[0].includes(dataItem.name)) {
+                        if (exercise.action.displayPartSet[0].includes(dataItem.name)) {
                             dataItem.data++;
                         }
                     }

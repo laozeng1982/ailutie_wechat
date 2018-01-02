@@ -10,10 +10,11 @@ Page({
     },
 
     onDelete: function (e) {
-        var key = e.currentTarget.dataset.key;
+        console.log(e);
+        let key = e.currentTarget.dataset.key;
         console.log(key);
 
-        var host = this;
+        let host = this;
 
         wx.showModal({
             title: '删除记录',
@@ -31,14 +32,14 @@ Page({
 
     removeStorage: function (key) {
         wx.removeStorageSync(key);
-        var storageInfo = this.data.storageInfo;
+        let storageInfo = wx.getStorageInfoSync();
 
-        for (var idx = 0; idx < storageInfo.keys.length; idx++) {
-            if (storageInfo.keys[idx] === key) {
-                storageInfo.keys.splice(idx, 1);
-                break;
-            }
-        }
+        // for (let idx = 0; idx < storageInfo.keys.length; idx++) {
+        //     if (storageInfo.keys[idx] === key) {
+        //         storageInfo.keys.splice(idx, 1);
+        //         break;
+        //     }
+        // }
 
         this.setData({
             storageInfo: storageInfo
@@ -68,13 +69,13 @@ Page({
     onShow: function () {
 
         try {
-            var results = wx.getStorageInfoSync();
+            let results = wx.getStorageInfoSync();
 
             this.setData({
                 storageInfo: results
             });
 
-            console.log("PartsWithActions page onShow: ", this.data.storageInfo);
+            console.log("Settings page onShow: ", this.data.storageInfo);
         } catch (e) {
 
         }

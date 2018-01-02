@@ -90,7 +90,7 @@ Page({
     },
 
     initTrainData: function () {
-        let realitySet = app.Util.loadData(app.StorageType.RealitySet);
+        let realitySet = app.Util.loadData(app.Settings.Storage.RealitySet);
         let trainData = this.data.trainData;
         for (let reality of realitySet) {
             if (reality.exerciseSet.length > 0) {
@@ -105,9 +105,9 @@ Page({
             }
         }
 
-        console.log(trainData);
-
-        this.setData({trainData});
+        this.setData({
+            trainData: trainData
+        });
 
     },
 

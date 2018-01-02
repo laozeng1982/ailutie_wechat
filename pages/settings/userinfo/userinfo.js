@@ -89,7 +89,7 @@ Page({
 
     onFormReset: function () {
         this.setData({
-            userInfo: app.Util.loadData(app.StorageType.UserInfo)
+            userInfo: app.Util.loadData(app.Settings.Storage.UserInfo)
         });
     },
 

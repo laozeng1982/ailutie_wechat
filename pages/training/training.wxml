@@ -16,7 +16,9 @@
         </view>
 
         <view class="top-panel-right-box">
-            <view wx:if="{{todayHasPlan}}" class="top-panel-right-item" bindtap="onShowDetails">
+        <!-- 暂时关闭动作详情 -->
+        <!-- <view wx:if="{{todayHasPlan}}" class="top-panel-right-item" bindtap="onShowDetails"> -->
+            <view wx:if="{{todayHasPlan}}" class="top-panel-right-item">
                 <text style="font-size: 30rpx">{{todayReality.exerciseSet[currentActionId].action.displayPartSet[0]}}</text>
                 <text style="font-size: 50rpx">{{todayReality.exerciseSet[currentActionId].action.name}}</text>
             </view>

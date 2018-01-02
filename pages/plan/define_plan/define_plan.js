@@ -350,7 +350,7 @@ Page({
         let body = new Body.PartsWithActions(); // 使用类创建，获得类的函数，方便调用
         let weekData = this.data.weekData;
 
-        let defaultBody = app.Util.loadData(app.StorageType.PartsWithActions);
+        let defaultBody = app.Util.loadData(app.Settings.Storage.PartsWithActions);
         body.cloneDataFrom(defaultBody);
 
         // 添加两个临时属性

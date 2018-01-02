@@ -60,11 +60,12 @@ Page({
     initUserProfile: function () {
         let userProfile;
 
-        let profileSet = app.Util.loadData(app.StorageType.UserProfile);
+        let profileSet = app.Util.loadData(app.Settings.Storage.UserProfile);
 
         for (let profile of profileSet) {
             if (profile.date === this.data.today) {
                 userProfile = profile;
+                break;
             }
         }
 
@@ -75,11 +76,13 @@ Page({
                 if (item.enName === "height") {
                     item.value = this.data.userInfo.height;
                 }
-                if (item.enName === "quantityPerAction") {
-                    item.value = this.data.userInfo.quantityPerAction;
+                if (item.enName === "weight") {
+                    item.value = this.data.userInfo.weight;
                 }
             }
         }
+
+        console.log("userProfile:", userProfile);
 
         this.setData({
             userProfile: userProfile
@@ -100,7 +103,7 @@ Page({
                 selected: false
             });
         }
-        console.log(tabData);
+        console.log("tabData:", tabData);
 
         tabData[0].selected = true;
         this.setData({
@@ -113,7 +116,6 @@ Page({
 
         // 先保存数据
         for (let value in e.detail.value) {
-            // console.log(value,e.detail.value[value]);
             for (let item in this.data.userProfile.profiles) {
                 for (let dataItem of this.data.userProfile.profiles[item].data) {
                     if (dataItem.chName === value && e.detail.value[value] !== "") {
@@ -125,7 +127,7 @@ Page({
 
         // console.log(this.data.userProfile);
 
-        let profileSet = app.Util.loadData(app.StorageType.UserProfile);
+        let profileSet = app.Util.loadData(app.Settings.Storage.UserProfile);
 
         if (profileSet.length === 0) {
             profileSet.push(this.data.userProfile);
@@ -137,13 +139,18 @@ Page({
             }
         }
 
-        app.Util.saveData(app.StorageType.UserProfile, profileSet);
+        app.Util.saveData(app.Settings.Storage.UserProfile, profileSet);
 
-        app.Util.showNormalToast("数据已保存好！", this, 2000);
+        wx.switchTab({
+            url: '../settings',
+        })
+
     },
 
     onFormReset: function () {
-        console.log('form发生了reset事件');
+        // console.log('form发生了reset事件');
+        this.initUserProfile();
+        this.makeTabData();
     },
 
     /**
@@ -153,22 +160,11 @@ Page({
         let today = app.Util.formatDateToString(new Date());
         let userInfo = wx.getStorageSync("UserInfo");
 
+        // TODO 本页由原来的Tab页面，改成单页，将来看最终设计来重新修改
 
-        // let curRecords = app.Controller.loadData(app.StorageType.DailyRecords);
-        // let userProfile = curRecords.profiles;
-
-        // console.log("in onLoad, ", curRecords);
-        // console.log(userProfile);
-
-        // if (typeof (userProfile) === "undefined") {
-        //     userProfile = new User.UserProfile().profiles;
-        // }
-
-        // console.log(userProfile);
         this.setData({
             today: today,
             userInfo: userInfo
-            // userProfile: userProfile
         });
 
     },

@@ -812,7 +812,7 @@
     width: 90rpx;
     height: 90rpx;
     border-radius: 50%;
-    padding-left: 40rpx;
+    margin-left: 40rpx;
 }
 
 .header-text-author {

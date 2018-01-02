@@ -53,25 +53,25 @@ class PartsWithActions {
             partIndex++;
         }
 
-        // 每个大类的最后一个小part增加一个自定义动作
-        let lastIdx = parts.length - 1;
-        for (let idx = 0; idx < parts.length; idx++) {
-            if (idx !== lastIdx && parts[idx].bodyPart !== parts[idx + 1].bodyPart) {
-                let action = new Action();
-                action.id = parts[idx].actionSet.length + 1;
-                action.name = "自定义动作";
-                action.imageUrl = 'image/plus_64px1.png';
-                action.target.push(parts[idx].bodyPart);
-                parts[idx].actionSet.push(action);
-            } else {
-                let action = new Action();
-                action.id = parts[lastIdx].actionSet.length + 1;
-                action.name = "自定义动作";
-                action.imageUrl = 'image/plus_64px1.png';
-                action.target.push(parts[lastIdx].bodyPart);
-                parts[lastIdx].actionSet.push();
-            }
-        }
+        // 每个大类的最后一个小part增加一个自定义动作，第一版暂时关闭
+        // let lastIdx = parts.length - 1;
+        // for (let idx = 0; idx < parts.length; idx++) {
+        //     if (idx !== lastIdx && parts[idx].bodyPart !== parts[idx + 1].bodyPart) {
+        //         let action = new Action();
+        //         action.id = parts[idx].actionSet.length + 1;
+        //         action.name = "自定义动作";
+        //         action.imageUrl = 'image/plus_64px1.png';
+        //         action.target.push(parts[idx].bodyPart);
+        //         parts[idx].actionSet.push(action);
+        //     } else {
+        //         let action = new Action();
+        //         action.id = parts[lastIdx].actionSet.length + 1;
+        //         action.name = "自定义动作";
+        //         action.imageUrl = 'image/plus_64px1.png';
+        //         action.target.push(parts[lastIdx].bodyPart);
+        //         parts[lastIdx].actionSet.push();
+        //     }
+        // }
 
         this.parts = parts;
         // this.actions = actions;

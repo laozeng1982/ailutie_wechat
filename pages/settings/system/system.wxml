@@ -14,8 +14,6 @@
         <text>{{storageInfo.limitSize}}KB</text>
     </view>
 
-    <view class="gray-space"></view>
-
     <view class="rowContainerStart" style="font-size:50rpx">
         <text>系统存储内容</text>
     </view>
@@ -27,5 +25,7 @@
             <image id="{{index}}" data-key="{{item}}" style="height:60rpx;width:60rpx" bindtap="onDelete" src="../../../pages/image/bin_64px.png"></image>
         </view>
     </scroll-view>
+
+    <view class="gray-space"></view>
 
 </view>

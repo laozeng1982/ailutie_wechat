@@ -13,21 +13,19 @@
     <view class='gray-space-small'></view>
 
     <form class='form-container' bindsubmit="onFormSubmit" bindreset="onFormReset">
-        <swiper current="{{currentTabIdx}}" class="swiper-box row" indicator-dots="{{false}}" duration="300" bindchange="onSwiperChange">
-            <block wx:for="{{tabData}}" wx:key="{{index}}">
-                <swiper-item id="{{item.type}}">
-                    <scroll-view style='height:880rpx' scroll-y="true">
-                        <view class="section" wx:for="{{userProfile.profiles[item.type].data}}" wx:key="{{index}}">
-                            <view class="section-item-name">
-                                <text>{{item.chName}}</text>
-                            </view>
-                            <input id="{{item.type}}{{item.key}}" class="section-item-input" type='number' name="{{item.chName}}" placeholder="" value="{{item.value}}" />
-                            <view style='padding-left:20rpx'>{{item.measurement}}</view>
-                        </view>
-                    </scroll-view>
-                </swiper-item>
-            </block>
-        </swiper>
+        <!-- <swiper current="{{currentTabIdx}}" class="swiper-box row" indicator-dots="{{false}}" duration="300" bindchange="onSwiperChange">
+          
+        </swiper> -->
+
+        <scroll-view style='height:860rpx' scroll-y="true">
+            <view class="section" wx:for="{{tabData[0].data}}" wx:key="{{index}}">
+                <view class="section-item-name">
+                    <text>{{item.chName}}</text>
+                </view>
+                <input id="{{item.type}}{{item.key}}" class="section-item-input" type='number' name="{{item.chName}}" placeholder="" value="{{item.value}}" />
+                <view style='padding-left:20rpx'>{{item.measurement}}</view>
+            </view>
+        </scroll-view>
 
         <view class="foot-box">
             <button class='cancel-btn' type='default' size='default' formType="reset">重置</button>
@@ -35,7 +33,5 @@
         </view>
 
     </form>
-    
-    <!-- 这是Toast -->
-    <include src="//ui/toast/normal_toast.wxml" />
+
 </view>

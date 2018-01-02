@@ -371,7 +371,7 @@ Page({
 
         app.currentPlan.currentUse = true;
 
-        let planSet = app.loadData(app.StorageType.PlanSet);
+        let planSet = app.loadData(app.Settings.Storage.UserPlanSet);
 
         if (planSet.length === 0) {
             planSet.push(app.currentPlan);
@@ -388,7 +388,7 @@ Page({
                 planSet.push(app.currentPlan);
             }
         }
-        app.Util.saveData(app.StorageType.PlanSet, planSet);
+        app.Util.saveData(app.Settings.Storage.UserPlanSet, planSet);
         console.log(planSet);
     },
 
@@ -436,12 +436,12 @@ Page({
             content: '确定删除？',
             success: function (res) {
                 if (res.confirm) {
-                    let planSet = app.Util.loadData(app.StorageType.PlanSet);
+                    let planSet = app.Util.loadData(app.Settings.Storage.UserPlanSet);
                     for (let idx = 0; idx < planSet.length; idx++) {
                         planSet[idx].currentUse = false;
                     }
 
-                    app.Util.saveData(app.StorageType.PlanSet, planSet);
+                    app.Util.saveData(app.Settings.Storage.UserPlanSet, planSet);
 
                     wx.switchTab({
                         url: '../../index/index',

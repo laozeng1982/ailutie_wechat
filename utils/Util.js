@@ -5,14 +5,14 @@
  */
 import User from '../datamodel/User'
 import PlanSet from '../datamodel/PlanReality'
-import Settings from '../datamodel/Settings'
+import settings from '../datamodel/Settings'
 import Urls from '../datamodel/Urls'
 import Body from '../datamodel/Body'
 
 const _ = require('./underscore.modified');
 const BASE_URL = 'https://www.newpictown.com/';
 const urls = new Urls.Urls();
-const StorageType = new Settings.StorageType();
+const Settings = new settings.Settings();
 
 /**
  * 将日期和时间转为指定格式，例如：2017-08-30 15:30:25
@@ -31,7 +31,7 @@ function formatTimeToString(date) {
 }
 
 /**
- * 将日期转为指定格式，例如：2017-08-30
+ * 将日期转为指定格式，例如：2017-01-01, 2017-08-30
  * 参数：date，日期类（Date）
  */
 function formatDateToString(date) {
@@ -272,7 +272,7 @@ function isEqual(a, b) {
 /**
  * 功能：从选中的日期读取指定内容
  * 参数1：key，要读取的数据
- * 参数2：dataType，数据类型（StorageType）
+ * 参数2：dataType，数据类型（Storage）
  * 返回：请求类型的数据
  * 调用关系：外部函数，开放接口
  */
@@ -297,20 +297,25 @@ function loadData(dataType) {
                 requestData = [];
                 break;
             case 2:
-                // 2. RealitySet
+                // 2. UserPlanSet
                 requestData = [];
+
                 break;
             case 3:
-                // 3. PlanSet
+                // 3. RealitySet
                 requestData = [];
                 break;
             case 4:
-                // 4. PartsWithActions
-                requestData = new Body.PartsWithActions();
+                // 4. SystemPlanSet
+                requestData = [];
                 break;
             case 5:
-                // 5. SyncTag
-                requestData = new Settings.SyncTag();
+                // 5. PartsWithActions
+                requestData = new Body.PartsWithActions();
+                break;
+            case 6:
+                // 6. SyncedTag
+                requestData = new settings.Settings();
                 break;
             default:
                 break;
@@ -325,7 +330,7 @@ function loadData(dataType) {
  * @returns {*}
  */
 function loadPlan() {
-    let planSet = this.loadData(StorageType.PlanSet);
+    let planSet = this.loadData(Settings.Storage.UserPlanSet);
     let currentPlan = '';
 
     // console.log("planSet:", planSet);
@@ -375,13 +380,11 @@ function calcEnergyCost(exercise, isKCal) {
     // 1千卡=1大卡(kcal)=1000卡=1000卡路里 =4186焦耳=4.186千焦(kJ)。
     // 卡路里 (简称“卡”，缩写为"calorie")的定义为将1克水在1大气压下提升1摄氏度所需要的热量。
     let exerciseEnergy = 0;
-    let idx = 0;
     for (let group of exercise.groupSet) {
         exerciseEnergy += group.executedQuantityPerGroup * group.executedQuantityPerAction * 9.8 / 4186;  // 将焦耳换成卡
-        // console.log(idx, exerciseEnergy);
-        idx++;
-    }
 
+    }
+    // console.log(exerciseEnergy);
     return isKCal ? exerciseEnergy : exerciseEnergy * 1000;
 }
 
@@ -399,10 +402,10 @@ function syncActions(host) {
             let body = new Body.PartsWithActions(actionArray);
 
             // console.log("in syncActions, body info:", body);
-            // console.log(StorageType);
+            // console.log(Storage);
 
             // 保存在本地
-            saveData(StorageType.PartsWithActions, body);
+            saveData(Settings.Storage.PartsWithActions, body);
         }
     });
 }
@@ -475,7 +478,7 @@ function syncUserInfo(host, type, data2Sever, data2Local) {
                                                 console.log("in syncData, res.data:", res.data);
                                                 copyInfo(host, res);
                                                 console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
-                                                saveData(StorageType.UserInfo, host.userInfoLocal);
+                                                saveData(Settings.Storage.UserInfo, host.userInfoLocal);
                                             } else {
                                                 console.log("in syncData, host.userInfoLocal:", host.userInfoLocal);
                                                 host.userInfoLocal.wechatOpenId = openId;
@@ -589,7 +592,7 @@ function syncReality(host, type, data2Sever, data2Local) {
  */
 function syncData(host, type, data2Sever, data2Local) {
     switch (type) {
-        case "system":
+        case "predefined":
             // 爱撸铁自定义动作列表
             syncActions(host);
             break;
@@ -633,7 +636,7 @@ function createData(type, data2Sever, data2Local) {
                     switch (type) {
                         case "user":
                             data2Local.userUID = parseInt(res.data.id);
-                            saveData(StorageType.UserInfo, data2Local);
+                            saveData(Settings.Storage.UserInfo, data2Local);
                             console.log("data2Local: ", data2Local);
                             console.log("create user successful, res.data:", res.data);
                             wx.hideLoading();
@@ -641,7 +644,7 @@ function createData(type, data2Sever, data2Local) {
                         case "plan":
                             data2Sever.id = res.data.id;
                             data2Local.push(data2Sever);
-                            saveData(StorageType.PlanSet, data2Local);
+                            saveData(Settings.Storage.UserPlanSet, data2Local);
                             console.log("create plan successful, res.data:", res.data);
                             wx.hideLoading();
                             wx.switchTab({
@@ -651,7 +654,7 @@ function createData(type, data2Sever, data2Local) {
                         case "reality":
                             data2Sever.id = res.data.id;
                             data2Local.push(data2Sever);
-                            saveData(StorageType.RealitySet, data2Local);
+                            saveData(Settings.Storage.RealitySet, data2Local);
                             wx.hideLoading();
                             console.log("create reality successful, res.data:", res.data);
                             break;
@@ -692,14 +695,14 @@ function updateData(type, data2Sever, data2Local) {
                     switch (type) {
                         case "user":
                             console.log("update user success: ", res.data);
-                            saveData(StorageType.UserInfo, data2Local);
+                            saveData(Settings.Storage.UserInfo, data2Local);
                             break;
                         case "plan":
                             let newPlanId = res.data.id;
                             data2Sever.id = newPlanId;
                             data2Local.push(data2Sever);
 
-                            saveData(StorageType.PlanSet, data2Local);
+                            saveData(Settings.Storage.UserPlanSet, data2Local);
                             console.log("update plan successful, res.data:", res.data);
                             wx.hideLoading();
                             wx.switchTab({
@@ -711,7 +714,7 @@ function updateData(type, data2Sever, data2Local) {
                             data2Sever.id = newRealityId;
                             data2Local.push(data2Sever);
 
-                            saveData(StorageType.RealitySet, data2Local);
+                            saveData(Settings.Storage.RealitySet, data2Local);
                             console.log("update reality successful, res.data:", res.data);
                             wx.hideLoading();
                             break;

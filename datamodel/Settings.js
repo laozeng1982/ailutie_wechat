@@ -1,44 +1,63 @@
-class StorageType {
+class Settings {
+    constructor() {
+        this.Storage = new Storage();
+
+    }
+}
+
+class Storage {
     // 用户信息
     constructor() {
-        this.UserInfo = new Record(0, "UserInfo");
+        this.UserInfo = new Record(0, "UserInfo", "用户信息");
         // 用户个人身体测试数据
-        this.UserProfile = new Record(1, "UserProfile");
-        // 每天记录
-        this.RealitySet = new Record(2, "RealitySet");
+        this.UserProfile = new Record(1, "UserProfile", "身体指标");
         // 计划
-        this.PlanSet = new Record(3, "PlanSet");
+        this.UserPlanSet = new Record(2, "UserPlanSet", "训练计划");
+        // 每天记录
+        this.RealitySet = new Record(3, "RealitySet", "训练记录");
+        // 系统计划
+        this.SystemPlanSet = new Record(4, "SystemPlanSet", "推荐计划");
         // 系统内部信息
-        this.PartsWithActions = new Record(4, "PartsWithActions");
+        this.PartsWithActions = new Record(5, "PartsWithActions", "动作信息");
         // 同步标志
-        this.SyncTag = new Record(5, "SyncTag");
+        this.Settings = new Record(6, "Settings", "同步标志");
     }
 }
 
 class Record {
-    constructor(id, value) {
+    constructor(id, value, name) {
         this.id = id;
         this.key = value;
+        this.name = name;
+        this.syncedTag = true;
     }
 }
 
-class SyncTag {
+/**
+ * 同步标志
+ * 标志为True，表示已经同步过了，False表示还未同步
+ */
+class SyncedTag {
     constructor() {
-        this.UserInfo = false;
+        // 用户基本信息
+        this.UserInfo = true;
         // 用户个人身体测试数据
-        this.UserProfile = false;
+        this.UserProfile = true;
+        // 用户计划
+        this.UserPlanSet = true;
         // 每天记录
-        this.RealitySet = false;
+        this.RealitySet = true;
+        // 推荐计划
+        this.SystemPlanSet = true;
         // 系统内部信息
-        this.PartsWithActions = false;
-        // 计划
-        this.PlanSet = false;
+        this.PartsWithActions = true;
         // 同步标志
-        this.SyncTag = false;
+        this.SyncedTag = true;
     }
 }
 
 module.exports = {
-    StorageType: StorageType,
-    SyncTag: SyncTag,
+    Settings: Settings,
+    // Storage: Storage,
+    // SyncedTag: SyncedTag,
 };

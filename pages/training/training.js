@@ -20,7 +20,7 @@ Page({
     data: {
         showDate: '',
         todayReality: {},    // 今天完成的内容
-        // todayHasPlan: false,
+        todayHasPlan: true,
 
         currentChart: {},
         // 当前选中的部位和动作索引，初始选中第一个
@@ -506,7 +506,7 @@ Page({
         let todayReality = this.data.todayReality;
         let existReality = null;
         // 1、读取Reality
-        let RealitySet = app.Util.loadData(app.StorageType.RealitySet);
+        let RealitySet = app.Util.loadData(app.Settings.Storage.RealitySet);
 
         let today = app.Util.formatDateToString(new Date());
 
@@ -580,9 +580,9 @@ Page({
 
         console.log("realityToSave:", realityToSave);
         RealitySet.push(realityToSave);
-        app.Util.saveData(app.StorageType.RealitySet, RealitySet);
-        app.syncTag.RealitySet = false;
-        app.Util.saveData(app.StorageType.SyncTag, app.syncTag);
+        app.Util.saveData(app.Settings.Storage.RealitySet, RealitySet);
+        app.Settings.Storage.RealitySet.syncedTag = false;
+        app.Util.saveData(app.Settings.Storage.Settings, app.Settings);
         // app.Util.syncData(app, "reality", realityToSave, RealitySet);
 
     },
@@ -639,7 +639,7 @@ Page({
         // 2.1、如果existReality.executedSet为空，则是第一次进入该计划，直接使用默认初始化
         // 2.2、如果existReality.executedSet不为空，则需要根据保存的数据，初始化todayReality
 
-        let realitySet = app.Util.loadData(app.StorageType.RealitySet);
+        let realitySet = app.Util.loadData(app.Settings.Storage.RealitySet);
         let existReality = null;
 
         for (let reality of realitySet) {
@@ -776,12 +776,16 @@ Page({
 
     /**
      * 生命周期函数--监听页面隐藏
-     * 保存数据
-     * 一份用于传输的todayReality，最终数据
+     * 1、保存数据
+     * 2、停止计时器
      */
     onHide: function () {
-        //
+        // 保存计划
         this.saveReality();
+        // 停止计时器
+        if (this.timer) {
+            this.timer.stop();
+        }
 
     },
 

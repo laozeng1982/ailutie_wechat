@@ -79,7 +79,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log(options.mode);
         wx.setNavigationBarTitle({
             title: '计划墙',
         });
@@ -102,23 +101,30 @@ Page({
     onShow: function () {
         this.makeTabData();
 
-        let planSet = app.Util.loadData(app.StorageType.PlanSet);
+        let userPlanSet = app.Util.loadData(app.Settings.Storage.UserPlanSet);
 
-        // console.log("planSet:", planSet);
+        // console.log("userPlanSet:", userPlanSet);
 
         let tabData = this.data.tabData;
 
-        for (let plan of planSet) {
-            plan.chPlace= dict.getChFromEn(plan.place);
+        for (let plan of userPlanSet) {
+            plan.chPlace = dict.getChFromEn(plan.place);
             plan.chPurpose = dict.getChFromEn(plan.purpose);
             plan.chGrade = dict.getChFromEn(plan.grade);
 
+            // TODO 添加拥有者头像，头像处理这个逻辑还需要思考，个人和系统将不变，将来加入其它用户计划显示时，如果其它用户头像换了，avatarUrl还一样么？
+            if (plan.source === app.wechatUserInfo.nickName) {
+                plan.avatarUrl = app.wechatUserInfo.avatarUrl;
+            } else {
+                plan.avatarUrl = '../../image/app_icon.png';
+            }
+
         }
 
-        tabData[0].data = planSet;
-        // tabData[1].data = planSet;
-        // tabData[2].data = planSet;
-        tabData[1].data = planSet;
+        tabData[0].data = userPlanSet;
+        // tabData[1].data = userPlanSet;
+        // tabData[2].data = userPlanSet;
+        tabData[1].data = userPlanSet;
         this.setData({
             tabData: tabData
         });

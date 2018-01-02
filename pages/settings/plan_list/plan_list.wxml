@@ -19,7 +19,7 @@
                     <view class='plan-container' wx:for="{{tabData[currentTabIdx].data}}" wx:key="{{index}}" data-plan="{{item}}" bindtap='onPlanSelected'>
                         <!-- plan的头，包含作者头像，作者名字和创建时间 -->
                         <view class='plan-item-header'>
-                            <image class='header-image-author' src='../../image/app_icon.png'></image>
+                            <image class='header-image-author' src="{{item.avatarUrl}}"></image>
                             <view class='header-text-author'>
                                 <view>拥有者：{{item.source}}</view>
                                 <view>时间段：{{item.fromDate}} 到 {{item.toDate}} </view>
