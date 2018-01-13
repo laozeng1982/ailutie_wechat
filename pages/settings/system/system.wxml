@@ -1,31 +1,41 @@
 <!--system.wxml-->
 <view class="container">
-    <view class="rowContainerStart" style="font-size:50rpx">
+    <view class="rowContainerStart">
         <text>系统存储信息</text>
     </view>
 
     <view class="rowContainerBetween">
-        <text>当前已使用</text>
-        <text>{{storageInfo.currentSize}}KB</text>
+        <view style="width:300rpx">
+            <text>当前已使用</text>
+        </view>
+        <view style="width:300rpx">
+            <text>{{storageStatus.currentSize}}/{{storageStatus.limitSize}}KB</text>
+        </view>
     </view>
 
-    <view class="rowContainerBetween">
-        <text>系统总容量</text>
-        <text>{{storageInfo.limitSize}}KB</text>
-    </view>
-
-    <view class="rowContainerStart" style="font-size:50rpx">
-        <text>系统存储内容</text>
+    <view class="rowContainerStart">
+        <text>数据同步情况</text>
     </view>
 
     <scroll-view class="topScrollview" scroll-y="true">
-        <view class="rowContainerBetween" wx:for="{{storageInfo.keys}}" wx:key="{{index}}">
-            <view style="width:100rpx">{{index}}</view>
-            <view style="width:300rpx">{{item}}</view>
+        <view wx:if="{{item.show}}" class="rowContainerBetween" wx:for="{{settings.Storage}}" wx:key="{{index}}">
+            <!-- <view style="width:100rpx">{{index}}</view> -->
+            <view style="width:300rpx">{{item.name}}</view>
             <image id="{{index}}" data-key="{{item}}" style="height:60rpx;width:60rpx" bindtap="onDelete" src="../../../pages/image/bin_64px.png"></image>
+            <button id="{{item.key}}" type="primary" size="small" disabled="{{item.syncedTag}}" bindtap="onSync"> 同步 </button>
         </view>
     </scroll-view>
 
-    <view class="gray-space"></view>
+    <view class="rowContainerStart">
+        <text>同步设置</text>
+    </view>
 
+    <view class="rowContainerBetween">
+        <view style="width:300rpx">
+            <text>请选择同步类型</text>
+        </view>
+        <picker id='syncSetting' mode="selector" value="{{syncSettingChinese[syncSettingIndex]}}" range='{{syncSettingChinese}}' bindchange="onSyncSettingChange">
+            {{syncSettingChinese[syncSettingIndex]}}
+        </picker>
+    </view>
 </view>

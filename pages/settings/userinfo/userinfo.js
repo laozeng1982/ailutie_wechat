@@ -57,6 +57,7 @@ Page({
         // 收集信息
         userInfo.wechatOpenId = app.userInfoLocal.wechatOpenId;
         userInfo.nickName = app.wechatUserInfo.nickName;
+        app.userInfoLocal.birthday = e.detail.value.birthday;
 
         if (e.detail.value.mobileNumber !== '') {
             userInfo.mobileNumber = e.detail.value.mobileNumber;

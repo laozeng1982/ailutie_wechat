@@ -580,8 +580,9 @@ Page({
 
         console.log("realityToSave:", realityToSave);
         RealitySet.push(realityToSave);
-        app.Util.saveData(app.Settings.Storage.RealitySet, RealitySet);
+        // 默认先保存在本地，之后找时机同步
         app.Settings.Storage.RealitySet.syncedTag = false;
+        app.Util.saveData(app.Settings.Storage.RealitySet, RealitySet);
         app.Util.saveData(app.Settings.Storage.Settings, app.Settings);
         // app.Util.syncData(app, "reality", realityToSave, RealitySet);
 

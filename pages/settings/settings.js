@@ -13,7 +13,7 @@ Page({
         userInfo: {},
 
         // 锻炼数据
-        trainData: {dayCount: 0, actionCount: 0, energyCost: 0},
+        trainData: { dayCount: 0, actionCount: 0, energyCost: 0 },
 
         list: [
             {
@@ -91,7 +91,7 @@ Page({
 
     initTrainData: function () {
         let realitySet = app.Util.loadData(app.Settings.Storage.RealitySet);
-        let trainData = this.data.trainData;
+        let trainData = { dayCount: 0, actionCount: 0, energyCost: 0 };
         for (let reality of realitySet) {
             if (reality.exerciseSet.length > 0) {
                 // 计算锻炼的天数
@@ -115,7 +115,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.initTrainData();
+
         this.setData({
             userInfo: app.wechatUserInfo,
         });
@@ -133,7 +133,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        this.initTrainData();
     },
 
     /**

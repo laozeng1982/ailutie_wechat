@@ -6,9 +6,17 @@
     flex-direction: column;
 }
 
-.rowContainerBetween{
+.rowContainerStart {
+    display: flex;
+    flex-direction: row;
+    padding: 20rpx;
+    font-size: 40rpx;
+}
+
+.rowContainerBetween {
     display: flex;
     flex-direction: row;
     padding: 10rpx;
+    margin-left: 40rpx;
     justify-content: space-between;
 }

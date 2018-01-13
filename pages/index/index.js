@@ -14,9 +14,9 @@ Page({
         notSignUp: true,
 
         chartType: [
-            {id: 1 + "", text: "本周", checked: true},
-            {id: 2 + "", text: "本月", checked: false},
-            {id: 3 + "", text: "部位", checked: false},
+            { id: 1 + "", text: "本周", checked: true },
+            { id: 2 + "", text: "本月", checked: false },
+            { id: 3 + "", text: "部位", checked: false },
         ],
 
     },
@@ -35,7 +35,7 @@ Page({
         this.data.currentChart.scrollEnd(e);
         this.data.currentChart.showToolTip(e, {
             format: function (item, category) {
-                console.log("item", item);
+                // console.log("item", item);
                 return category + ', ' + item.name + ': ' + item.data
             }
         });

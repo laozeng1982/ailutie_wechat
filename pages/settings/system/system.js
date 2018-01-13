@@ -1,12 +1,35 @@
 // system.js
+
+const app = getApp();
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        storageInfo: '',
+        storageStatus: '',
+        settings: '',
+        // onAppLoad（启动时），onManual（手动），onValueChanged（数据改变时）
+        syncSettingValues: ["onAppLoad", "onManual", "onValueChanged"],
+        syncSettingChinese: ["程序启动时", "手动同步", "有数据变化时"],
+        syncSettingIndex: 0
+    },
 
+    onSync: function (e) {
+        console.log(e);
+    },
+
+    onSyncSettingChange: function (e) {
+        console.log(e);
+        let valueIndex = parseInt(e.detail.value);
+        let settings = this.data.settings;
+        settings.SyncSetting = this.data.syncSettingValues[valueIndex];
+
+        this.setData({
+            syncSettingIndex: valueIndex,
+            settings: settings
+        });
     },
 
     onDelete: function (e) {
@@ -32,19 +55,11 @@ Page({
 
     removeStorage: function (key) {
         wx.removeStorageSync(key);
-        let storageInfo = wx.getStorageInfoSync();
-
-        // for (let idx = 0; idx < storageInfo.keys.length; idx++) {
-        //     if (storageInfo.keys[idx] === key) {
-        //         storageInfo.keys.splice(idx, 1);
-        //         break;
-        //     }
-        // }
+        let storageStatus = wx.getstorageStatusSync();
 
         this.setData({
-            storageInfo: storageInfo
+            storageStatus: storageStatus
         });
-
     },
 
     /**
@@ -68,17 +83,26 @@ Page({
      */
     onShow: function () {
 
-        try {
-            let results = wx.getStorageInfoSync();
+        let results = wx.getStorageInfoSync();
+        let settings = wx.getStorageSync("Settings");
+        let syncSettingIndex = 0;
+        let syncSettingValues = this.data.syncSettingValues;
 
-            this.setData({
-                storageInfo: results
-            });
-
-            console.log("Settings page onShow: ", this.data.storageInfo);
-        } catch (e) {
-
+        // 同步本地设置
+        for (let idx = 0; idx < syncSettingValues.length; idx++) {
+            if (settings.SyncSetting === syncSettingValues[idx]) {
+                syncSettingIndex = idx;
+            }
         }
+
+        this.setData({
+            storageStatus: results,
+            syncSettingIndex: syncSettingIndex,
+            settings: settings
+        });
+
+        console.log("System page onShow: ", this.data.storageStatus);
+        console.log("System page onShow: ", this.data.settings);
 
     },
 
@@ -93,7 +117,10 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
+        console.log("System Page unload!");
+        console.log("System page onShow: ", this.data.settings);
 
+        app.Util.saveData(app.Settings.Storage.Settings, this.data.settings);
     },
 
     /**

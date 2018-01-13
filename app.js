@@ -29,7 +29,7 @@ App({
 
     // 定义一些全局变量，在页面跳转的时候判断，方便其他的JS通过app调用
     wechatUserInfo: {},
-    Settings: util.loadData(Settings.Storage.Settings),    // 全局同步标志
+    Settings: Settings,    // 全局同步标志
     userInfoLocal: util.loadData(Settings.Storage.UserInfo), // 全局用户信息保存变量
     currentPlan: new userPlanSet.Plan(),    // 全局当前计划
     actionArray: {},
